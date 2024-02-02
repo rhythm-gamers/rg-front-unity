@@ -1,9 +1,9 @@
 # RhythmGamers-Unity
 Unity기반 패턴 연습 프로그램</br>
 </br>
-이 프로젝트는 LHEALP님의 [유니티엔진 리듬게임2](https://github.com/LHEALP/UnityRhythmGame)프로젝트를 기반으로 제작되었습니다.</br>
-Unity Version: 2021.3.1f1</br>
+이 프로젝트는 LHEALP님의 [유니티엔진 리듬게임2](https://github.com/LHEALP/UnityRhythmGame) 프로젝트를 기반으로 제작되었습니다.</br>
 </br>
+Unity Version: 2021.3.1f1</br>
 ## 프리뷰
 Game</br>
 ![GIF 2022-08-05 오전 12-28-40](https://user-images.githubusercontent.com/57874136/182889438-4359bff0-f735-4736-8f56-fc495e2ecae2.gif)
