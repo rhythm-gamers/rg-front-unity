@@ -41,7 +41,7 @@ public class Sheet
 
     public AudioClip clip;
     public Sprite img;
-    
+
     public float BarPerSec { get; private set; }
     public float BeatPerSec { get; private set; }
 

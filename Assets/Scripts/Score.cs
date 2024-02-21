@@ -9,15 +9,15 @@ public struct ScoreData
     public int great;
     public int good;
     public int miss;
-    public int fastMiss; // »¡¸® ÀÔ·ÂÇØ¼­ ¹Ì½º
-    public int longMiss; // ·Õ³ëÆ® ¿Ï¼º ½ÇÆĞ, miss Ä«¿îÆ®´Â ÇÏÁö ¾ÊÀ½
+    public int fastMiss; // ë¹¨ë¦¬ ì…ë ¥í•´ì„œ ë¯¸ìŠ¤
+    public int longMiss; // ë¡±ë…¸íŠ¸ ì™„ì„± ì‹¤íŒ¨, miss ì¹´ìš´íŠ¸ëŠ” í•˜ì§€ ì•ŠìŒ
 
     public string[] judgeText;
     public Color[] judgeColor;
     public JudgeType judge;
     public int combo;
-    public int score 
-    { 
+    public int score
+    {
         get
         {
             return (great * 500) + (good * 200);

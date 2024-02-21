@@ -27,7 +27,7 @@ public class Parser
     Step currentStep = Step.Description;
 
     public Sheet sheet;
-    string basePath = "http://localhost:4000/Sheet";
+    string basePath = "http://127.0.0.1:3000/Sheet";
 
     public AudioClip clip;
     public Sprite img;

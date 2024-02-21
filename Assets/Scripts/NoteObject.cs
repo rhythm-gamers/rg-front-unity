@@ -9,21 +9,22 @@ public abstract class NoteObject : MonoBehaviour
     public Note note = new Note();
 
     /// <summary>
-    /// ³ëÆ® ÇÏ°­ ¼Óµµ
-    /// interval¿¡ µû¶ó º¯ÇØ¾ßÇÔ. ³ëÆ®´Â ¹Ğ¸®¼¼ÄÁµå ´ÜÀ§·Î ±â·ÏÀ» ÇÏ°í ÀÖ°í ÀûÀıÈ÷ ½Ã°¢È­ÇÏ±â À§ÇØ, ±âº»°£°İ(defaultInterval)À» 0.005 ·Î ÁöÁ¤ÇÏ°í ÀÖÀ½ (ÀÌÇÏ·Î ÁöÁ¤½Ã ÇöÀç ³ëÆ® ±×·¡ÇÈÀÌ °ãÄ¥ °¡´É¼º ÀÖÀ½)
-    /// ±×·¯¹Ç·Î ³ëÆ®°¡ ÇÏ°­ÇÏ´Â ¼Óµµ´Â 5°¡ µÇ¾î¾ßÇÔ. ex) 0.01 = 10speed, 0.001 = 1speed
+    /// ë…¸íŠ¸ í•˜ê°• ì†ë„
+    /// intervalì— ë”°ë¼ ë³€í•´ì•¼í•¨. ë…¸íŠ¸ëŠ” ë°€ë¦¬ì„¸ì»¨ë“œ ë‹¨ìœ„ë¡œ ê¸°ë¡ì„ í•˜ê³  ìˆê³  ì ì ˆíˆ ì‹œê°í™”í•˜ê¸° ìœ„í•´, ê¸°ë³¸ê°„ê²©(defaultInterval)ì„ 0.005 ë¡œ ì§€ì •í•˜ê³  ìˆìŒ (ì´í•˜ë¡œ ì§€ì •ì‹œ í˜„ì¬ ë…¸íŠ¸ ê·¸ë˜í”½ì´ ê²¹ì¹  ê°€ëŠ¥ì„± ìˆìŒ)
+    /// ê·¸ëŸ¬ë¯€ë¡œ ë…¸íŠ¸ê°€ í•˜ê°•í•˜ëŠ” ì†ë„ëŠ” 5ê°€ ë˜ì–´ì•¼í•¨. ex) 0.01 = 10speed, 0.001 = 1speed
     /// </summary>
     public float speed = 5f;
 
     /// <summary>
-    /// ³ëÆ® ÇÏ°­
+    /// ë…¸íŠ¸ í•˜ê°•
     /// </summary>
     public abstract void Move();
     public abstract IEnumerator IEMove();
 
     /// <summary>
-    /// ³ëÆ® À§Ä¡ÁöÁ¤ (¹è¼ÓÁ¶Àı)
+    /// ë…¸íŠ¸ ìœ„ì¹˜ì§€ì • (ë°°ì†ì¡°ì ˆ)
     /// </summary>
+
     public abstract void SetPosition(Vector3[] pos);
 
     public abstract void Interpolate(float curruntTime, float interval);

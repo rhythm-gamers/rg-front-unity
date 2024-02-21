@@ -62,15 +62,15 @@ public class EditorController : MonoBehaviour
 
     void Update()
     {
-        // ±×¸®µå¿¡ ·¹ÀÌ½÷¼­ À§Ä¡ ¾Ë¾Æ³»¾ßÇÔ
-        // ÇöÀç ½º³À¿¡ µû¶ó, ½º³ÀµÉ À§Ä¡ ¾Ë¾Æ³»¾ßÇÔ
+        // ê·¸ë¦¬ë“œì— ë ˆì´ì´ì„œ ìœ„ì¹˜ ì•Œì•„ë‚´ì•¼í•¨
+        // í˜„ì¬ ìŠ¤ëƒ…ì— ë”°ë¼, ìŠ¤ëƒ…ë  ìœ„ì¹˜ ì•Œì•„ë‚´ì•¼í•¨
         //Debug.Log(inputManager.mousePos);
         Vector3 mousePos = inputManager.mousePos;
         mousePos.z = -cam.transform.position.z;
         worldPos = cam.ScreenToWorldPoint(mousePos);
         //int layerMask = (1 << LayerMask.NameToLayer("Grid")) + (1 << LayerMask.NameToLayer("Note"));
 
-        // Ä¿¼­ ÁÂÇ¥
+        // Ä¿ï¿½ï¿½ ï¿½ï¿½Ç¥
         cursorObj.transform.position = worldPos;
 
         Debug.DrawRay(worldPos, cam.transform.forward * 2, Color.red, 0.2f);
@@ -96,33 +96,33 @@ public class EditorController : MonoBehaviour
 
             if (worldPos.x < -1f && worldPos.x > -2f)
             {
-                //Debug.Log($"0¹ø ·¹ÀÎ : {index}¹ø ±×¸®µå : {beat} ºñÆ®");
+                //Debug.Log($"0ë²ˆ ë ˆì¸ : {index}ë²ˆ ê·¸ë¦¬ë“œ : {beat} ë¹„íŠ¸");
                 selectedLine = 0;
             }
             else if (worldPos.x < 0f && worldPos.x > -1f)
             {
-                //Debug.Log($"1¹ø ·¹ÀÎ : {index}¹ø ±×¸®µå : {beat} ºñÆ®");
+                //Debug.Log($"1ë²ˆ ë ˆì¸ : {index}ë²ˆ ê·¸ë¦¬ë“œ : {beat} ë¹„íŠ¸");
                 selectedLine = 1;
             }
             else if (worldPos.x < 1f && worldPos.x > 0f)
             {
-                //Debug.Log($"2¹ø ·¹ÀÎ : {index}¹ø ±×¸®µå : {beat} ºñÆ®");
+                //Debug.Log($"2ë²ˆ ë ˆì¸ : {index}ë²ˆ ê·¸ë¦¬ë“œ : {beat} ë¹„íŠ¸");
                 selectedLine = 2;
             }
             else if (worldPos.x < 2f && worldPos.x > 1f)
             {
-                //Debug.Log($"3¹ø ·¹ÀÎ : {index}¹ø ±×¸®µå : {beat} ºñÆ®");
+                //Debug.Log($"3ë²ˆ ë ˆì¸ : {index}ë²ˆ ê·¸ë¦¬ë“œ : {beat} ë¹„íŠ¸");
                 selectedLine = 3;
             }
 
 
-            /*
-             * ·Õ³ëÆ® ¹èÄ¡ ¹ö±× ¼öÁ¤ ¼Ö·ç¼Ç
-                Çìµå¸¦ Âï°í ½ºÅ©·ÑÀ» ¿Ã¸®°Å³ª ³»¸®°í
-                Å×ÀÏÀ» ÂïÀ¸¸é Çìµå°¡ µû¶ó¿Ã¶ó¿À°Å³ª ³»·Á°¨..
-             */
+            /**
+                ë¡±ë…¸íŠ¸ ë°°ì¹˜ ë²„ê·¸ ìˆ˜ì • ì†”ë£¨ì…˜
+                í—¤ë“œë¥¼ ì°ê³  ìŠ¤í¬ë¡¤ì„ ì˜¬ë¦¬ê±°ë‚˜ ë‚´ë¦¬ê³ 
+                í…Œì¼ì„ ì°ìœ¼ë©´ í—¤ë“œê°€ ë”°ë¼ì˜¬ë¼ì˜¤ê±°ë‚˜ ë‚´ë ¤ê°..
+            */
             if (longNoteMakingCount == 0)
-                headTemp = hit.transform; // head ±â¾ïÇØ³ù´Ù°¡ È°¿ë
+                headTemp = hit.transform; // // head ê¸°ì–µí•´ë†¨ë‹¤ê°€ í™œìš©
 
 
             selectedGridPosition = new Vector3(NoteGenerator.Instance.linePos[selectedLine], y, 0f);
@@ -133,7 +133,7 @@ public class EditorController : MonoBehaviour
     }
 
     /// <summary>
-    /// ½ºÆäÀÌ½º - Àç»ı/ÀÏ½ÃÁ¤Áö( Space - Play/Puase )
+    /// ìŠ¤í˜ì´ìŠ¤ - ì¬ìƒ/ì¼ì‹œì •ì§€( Space - Play/Puase )
     /// </summary>
     public void Space()
     {
@@ -141,8 +141,8 @@ public class EditorController : MonoBehaviour
     }
 
     /// <summary>
-    /// ÁÂÅ¬¸¯ - ³ëÆ® ¹èÄ¡ ( Mouse leftBtn - Dispose note )
-    /// ¿ìÅ¬¸¯ - ³ëÆ® »èÁ¦ ( Mouse rightBtn - Cancel note )
+    /// ì¢Œí´ë¦­ - ë…¸íŠ¸ ë°°ì¹˜ ( Mouse leftBtn - Dispose note )
+    /// ìš°í´ë¦­ - ë…¸íŠ¸ ì‚­ì œ ( Mouse rightBtn - Cancel note )
     /// </summary>
     /// <param name="btnName"></param>
     public void MouseBtn(string btnName)
@@ -151,7 +151,7 @@ public class EditorController : MonoBehaviour
         {
             if (selectedNoteObject != null)
             {
-                Debug.Log("³ëÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù");
+                Debug.Log("ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½");
             }
             if (isDispose)
             {
@@ -168,10 +168,10 @@ public class EditorController : MonoBehaviour
                     else if (longNoteMakingCount == 1)
                     {
                         Vector3 tailPositon = selectedGridPosition;
-                        tailPositon.x = lastSelectedGridPosition.x; // ·Õ³ëÆ®´Â »ç¼±À¸·Î ÀÛ¼ºµÉ ¼ö ¾øÀ¸¹Ç·Î, ´Ù¸¥ ¶óÀÎ(x)¿¡ Âï¾îµµ Á¾Àü°ú µ¿ÀÏÇÑ À§Ä¡¸¦ À¯Áö
+                        tailPositon.x = lastSelectedGridPosition.x; // ë¡±ë…¸íŠ¸ëŠ” ì‚¬ì„ ìœ¼ë¡œ ì‘ì„±ë  ìˆ˜ ì—†ìœ¼ë¯€ë¡œ, ë‹¤ë¥¸ ë¼ì¸(x)ì— ì°ì–´ë„ ì¢…ì „ê³¼ ë™ì¼í•œ ìœ„ì¹˜ë¥¼ ìœ ì§€
                         lastSelectedGridPosition.y = headTemp.TransformDirection(headTemp.transform.position).y;
 
-                        // tailÀ» headº¸´Ù ³·°Ô ¹èÄ¡ÇßÀ» °æ¿ì µÚÁı¾îÁÖ¾î¾ßÇÔ
+                        // tailì„ headë³´ë‹¤ ë‚®ê²Œ ë°°ì¹˜í–ˆì„ ê²½ìš° ë’¤ì§‘ì–´ì£¼ì–´ì•¼í•¨
                         if (lastSelectedGridPosition.y < tailPositon.y)
                         {
                             NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { lastSelectedGridPosition, tailPositon });
@@ -186,7 +186,7 @@ public class EditorController : MonoBehaviour
                 }
                 else if (isShortNoteActive)
                 {
-                    NoteGenerator.Instance.DisposeNoteShort(NoteType.Short, selectedGridPosition );
+                    NoteGenerator.Instance.DisposeNoteShort(NoteType.Short, selectedGridPosition);
                 }
             }
         }
@@ -194,10 +194,10 @@ public class EditorController : MonoBehaviour
         {
             if (selectedNoteObject != null)
             {
-                //Debug.Log("³ëÆ® »èÁ¦");
+                //Debug.Log("ë…¸íŠ¸ ì‚­ì œ");
                 if (isLongNoteActive)
                 {
-                    // longÀº ºÎ¸ğ Ã£¾Æ¼­ ºñÈ°¼ºÈ­
+                    // longì€ ë¶€ëª¨ ì°¾ì•„ì„œ ë¹„í™œì„±í™”
                     selectedNoteObject.transform.parent.gameObject.SetActive(false);
                 }
                 else if (isShortNoteActive)
@@ -209,20 +209,20 @@ public class EditorController : MonoBehaviour
     }
 
     /// <summary>
-    /// ¸¶¿ì½ºÈÙ - À½¾Ç ¹× ±×¸®µå À§Ä¡ ÀÌµ¿ ( Mouse wheel - Move music and grids pos )
+    /// ë§ˆìš°ìŠ¤íœ  - ìŒì•… ë° ê·¸ë¦¬ë“œ ìœ„ì¹˜ ì´ë™ ( Mouse wheel - Move music and grids pos )
     /// </summary>
     /// <param name="value"></param>
     public void Scroll(float value)
     {
         scrollValue = value;
 
-        // ½ºÅ©·Ñ ½Ã ÇØ´ç ½º³À¸¸Å­ ÀÌµ¿ (ÄÁÆ®·ÑÅ°°¡ ÀÔ·ÂµÇÁö¾Ê¾ÒÀ»¶§¸¸)
+        // ìŠ¤í¬ë¡¤ ì‹œ í•´ë‹¹ ìŠ¤ëƒ…ë§Œí¼ ì´ë™ (ì»¨íŠ¸ë¡¤í‚¤ê°€ ì…ë ¥ë˜ì§€ì•Šì•˜ì„ë•Œë§Œ)
         if (!isCtrl)
         {
             float snap = Editor.Instance.Snap;
             if (scrollValue > 0)
             {
-                Editor.Instance.objects.transform.position += Vector3.down * snap * 0.25f;         
+                Editor.Instance.objects.transform.position += Vector3.down * snap * 0.25f;
                 AudioManager.Instance.MovePosition(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
                 //Debug.Log(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
@@ -236,7 +236,7 @@ public class EditorController : MonoBehaviour
     }
 
     /// <summary>
-    /// ÄÁÆ®·Ñ + ¸¶¿ì½ºÈÙ - ±×¸®µå ½º³À º¯°æ ( Ctrl + Mouse wheel - Change snap of grids )
+    /// ì»¨íŠ¸ë¡¤ + ë§ˆìš°ìŠ¤íœ  - ê·¸ë¦¬ë“œ ìŠ¤ëƒ… ë³€ê²½ ( Ctrl + Mouse wheel - Change snap of grids )
     /// </summary>
     public void Ctrl()
     {
@@ -253,13 +253,13 @@ public class EditorController : MonoBehaviour
         {
             if (scrollValue > 0)
             {
-                // ½º³À¾÷
+                // ìŠ¤ëƒ…ì—…
                 Editor.Instance.Snap /= 2;
                 GridSnapListener.Invoke(Editor.Instance.Snap);
             }
             else if (scrollValue < 0)
             {
-                // ½º³À´Ù¿î
+                // ìŠ¤ëƒ…ë‹¤ìš´
                 Editor.Instance.Snap *= 2;
                 GridSnapListener.Invoke(Editor.Instance.Snap);
             }

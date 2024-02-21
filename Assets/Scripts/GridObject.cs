@@ -7,7 +7,7 @@ public class GridObject : MonoBehaviour
     public int index;
     bool isActive;
     GameObject[] lines = new GameObject[64];
-    
+
     void Start()
     {
         for (int i = 0; i < lines.Length; i++)
@@ -19,7 +19,7 @@ public class GridObject : MonoBehaviour
             lines[i].transform.localPosition = new Vector3(0f, i * 0.25f, 0f);
         }
 
-        for (int i = 0 ; i < lines.Length; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
             if (i % 16 == 0)
             {
@@ -33,7 +33,7 @@ public class GridObject : MonoBehaviour
 
     void Update()
     {
-        // ÀÚ±â Â÷·Ê¿Í ¸Ö¸é ºñÈ°¼ºÈ­ »óÅÂ
+        // ìžê¸° ì°¨ë¡€ì™€ ë©€ë©´ ë¹„í™œì„±í™” ìƒíƒœ
         int currentBar = Editor.Instance.currentBar;
         if (index >= currentBar - 3 && index <= currentBar + 3)
         {

@@ -19,7 +19,7 @@ public class NoteGenerator : MonoBehaviour
     public Material lineRendererMaterial;
 
     public readonly float[] linePos = { -1.5f, -0.5f, 0.5f, 1.5f };
-    readonly float defaultInterval = 0.005f; // 1¹è¼Ó ±âÁØÁ¡ (1¸¶µğ ÀüÃ¼°¡ È­¸é¿¡ ±×·ÁÁö´Â Á¤µµ¸¦ Á¤ÀÇ)
+    readonly float defaultInterval = 0.005f; // 1ë°°ì† ê¸°ì¤€ì  (1ë§ˆë”” ì „ì²´ê°€ í™”ë©´ì— ê·¸ë ¤ì§€ëŠ” ì •ë„ë¥¼ ì •ì˜)
     public float Interval { get; private set; }
 
     IObjectPool<NoteShort> poolShort;
@@ -81,7 +81,7 @@ public class NoteGenerator : MonoBehaviour
         return note.GetComponent<NoteLong>();
     }
 
-    int currentBar = 3; // ÃÖÃÊ ÇÃ·¹ÀÌ ½Ã 3¸¶µğ ¸ÕÀú »ı¼º
+    int currentBar = 3; // ìµœì´ˆ í”Œë ˆì´ ì‹œ 3ë§ˆë”” ë¨¼ì € ìƒì„±
     int next = 0;
     int prev = 0;
     public List<NoteObject> toReleaseList = new List<NoteObject>();
@@ -96,16 +96,16 @@ public class NoteGenerator : MonoBehaviour
             instance = this;
     }
 
-    // Ç®¸µ ±â¹İ »ı¼º (°ÔÀÓ ÇÃ·¹ÀÌ ½Ã »ç¿ë)
+    // í’€ë§ ê¸°ë°˜ ìƒì„± (ê²Œì„ í”Œë ˆì´ ì‹œ ì‚¬ìš©)
     public void StartGen()
     {
         Interval = defaultInterval * GameManager.Instance.Speed;
-        coGenTimer = StartCoroutine(IEGenTimer(GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec * 0.001f)); // À½¾ÇÀÇ 1¸¶µğ ½Ã°£¸¶´Ù »ı¼ºÇÒ ³ëÆ® ¿ÀºêÁ§Æ® Å½»ö
-        coReleaseTimer = StartCoroutine(IEReleaseTimer(GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec * 0.001f * 0.5f)); // 1¸¶µğ ½Ã°£ÀÇ Àı¹İ ÁÖ±â·Î ÇØÁ¦ÇÒ ³ëÆ® ¿ÀºêÁ§Æ® Å½»ö
+        coGenTimer = StartCoroutine(IEGenTimer(GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec * 0.001f)); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å½ï¿½ï¿½
+        coReleaseTimer = StartCoroutine(IEReleaseTimer(GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec * 0.001f * 0.5f)); // 1ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å½ï¿½ï¿½
         coInterpolate = StartCoroutine(IEInterpolate(0.1f, 4f));
     }
 
-    // ÇÑ ¹ø¿¡ ´Ù »ı¼º (¿¡µğÆÃÇÒ¶§ »ç¿ë)
+    // í•œ ë²ˆì— ë‹¤ ìƒì„± (ì—ë””íŒ…í• ë•Œ ì‚¬ìš©)
     public void GenAll()
     {
         Gen2();
@@ -164,7 +164,7 @@ public class NoteGenerator : MonoBehaviour
                     break;
                 case (int)NoteType.Long:
                     noteObject = PoolLong.Get();
-                    noteObject.SetPosition(new Vector3[] // Æ÷Áö¼ÇÀº ³ëÆ® ½Ã°£ - ÇöÀç À½¾Ç ½Ã°£
+                    noteObject.SetPosition(new Vector3[] // í¬ì§€ì…˜ì€ ë…¸íŠ¸ ì‹œê°„ - í˜„ì¬ ìŒì•… ì‹œê°„
                     {
                         new Vector3(linePos[note.line - 1], (note.time - currentTime) * Interval, 0f),
                         new Vector3(linePos[note.line - 1], (note.tail - currentTime) * Interval, 0f)
@@ -184,7 +184,7 @@ public class NoteGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// Editor Gen¸Ş¼Òµå, ³ëÆ®ÀÇ ÀÌµ¿Àº ³ëÆ® ÀÚ½ÅÀÌ Ã³¸®ÇÏÁö ¾ÊÀ½.
+    /// Editor Genë©”ì†Œë“œ, ë…¸íŠ¸ì˜ ì´ë™ì€ ë…¸íŠ¸ ìì‹ ì´ ì²˜ë¦¬í•˜ì§€ ì•ŠìŒ.
     /// </summary>
     void Gen2()
     {
@@ -192,8 +192,8 @@ public class NoteGenerator : MonoBehaviour
 
         List<Note> notes = sheet.notes;
 
-        // (³ëÆ®½Ã°£ - ¿ÀÇÁ¼Â) / 1ºñÆ®(1¹Ú´ç 32ºñÆ®½Ã°£°ª) = ³ëÆ®ÀÇ À§Ä¡
-        // ³ëÆ®ÀÇ À§Ä¡ * 0.25(±×¸®µåÀÇ 1¹Ú´ç 32ºñÆ®±âÁØ °£°İ) = ÃÖÁ¾ÀûÀÎ ³ëÆ®ÀÇ À§Ä¡
+        // (ë…¸íŠ¸ì‹œê°„ - ì˜¤í”„ì…‹) / 1ë¹„íŠ¸(1ë°•ë‹¹ 32ë¹„íŠ¸ì‹œê°„ê°’) = ë…¸íŠ¸ì˜ ìœ„ì¹˜
+        // ë…¸íŠ¸ì˜ ìœ„ì¹˜ * 0.25(ê·¸ë¦¬ë“œì˜ 1ë°•ë‹¹ 32ë¹„íŠ¸ê¸°ì¤€ ê°„ê²©) = ìµœì¢…ì ì¸ ë…¸íŠ¸ì˜ ìœ„ì¹˜
 
         float gridLineInterval = 0.25f;
 
@@ -275,7 +275,7 @@ public class NoteGenerator : MonoBehaviour
             noteObject.gameObject.SetActive(true);
             noteObject.SetCollider();
             //noteObject.Move();
-            toReleaseList.Add(noteObject); // ¿¡µğÆÃ³¡³ª¸é ReleaseÈ£ÃâÇØ¼­ ÇØÁ¦ÇØÁÖ±â
+            toReleaseList.Add(noteObject); // ì—ë””íŒ…ëë‚˜ë©´ Releaseí˜¸ì¶œí•´ì„œ í•´ì œí•´ì£¼ê¸°
         }
     }
 

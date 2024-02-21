@@ -12,7 +12,7 @@ public class UIButton : UIObject
     void Start()
     {
         btn = GetComponent<Button>();
-        text  = transform.GetComponentInChildren<TextMeshProUGUI>();
+        text = transform.GetComponentInChildren<TextMeshProUGUI>();
         btn.onClick.AddListener(OnClick);
     }
 
