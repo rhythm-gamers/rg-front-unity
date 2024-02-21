@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
         get { return instance; }
     }
 
+    public bool isInit = false;
     public Func<string, UIActor> find;
     Dictionary<string, UIActor> uiObjectDic = new Dictionary<string, UIActor>();
 
@@ -38,6 +39,8 @@ public class UIController : MonoBehaviour
         //uiObjectDic["UI_E_ProgressBar"].action = Editor.Instance.Progress;
         uiObjectDic["UI_E_Play"].action = Editor.Instance.Play;
         uiObjectDic["UI_E_Stop"].action = Editor.Instance.Stop;
+
+        isInit = true;
     }
 
     public UIActor FindUI(string uiName)

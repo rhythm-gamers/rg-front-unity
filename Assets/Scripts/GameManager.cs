@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, Sheet> sheets = new Dictionary<string, Sheet>();
 
     float speed = 1.0f;
+
     public float Speed
     {
         get
@@ -43,6 +44,16 @@ public class GameManager : MonoBehaviour
         {
             speed = Mathf.Clamp(value, 1.0f, 5.0f);
         }
+    }
+    IEnumerator WebGLInitUserSpeed(float userSpeed)
+    {
+        speed = userSpeed;
+
+        yield return new WaitUntil(() => UIController.Instance.isInit == true);
+        UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
+        UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
+        inGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
+        outGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
     }
 
     public List<GameObject> canvases = new List<GameObject>();
