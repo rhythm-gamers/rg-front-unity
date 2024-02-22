@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Runtime.InteropServices;
 
 public class InputManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class InputManager : MonoBehaviour
     Sync sync = null;
 
     public Vector2 mousePos;
+
+    [DllImport("__Internal")]
+    private static extern void SetSpeed(string speed);
 
     void Start()
     {
@@ -86,10 +90,14 @@ public class InputManager : MonoBehaviour
             GameManager.Instance.Speed -= 0.1f;
             NoteGenerator.Instance.Interpolate();
 
+            string speedToString = GameManager.Instance.Speed.ToString("0.0");
             UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
             UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
-            inGameSpeedUI.SetText("Speed " + GameManager.Instance.Speed.ToString("0.0"));
-            outGameSpeedUI.SetText("Speed " + GameManager.Instance.Speed.ToString("0.0"));
+            inGameSpeedUI.SetText("Speed " + speedToString);
+            outGameSpeedUI.SetText("Speed " + speedToString);
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+            SetSpeed(speedToString);
+#endif
         }
     }
     public void OnSpeedUp(InputAction.CallbackContext context)
@@ -99,10 +107,14 @@ public class InputManager : MonoBehaviour
             GameManager.Instance.Speed += 0.1f;
             NoteGenerator.Instance.Interpolate();
 
+            string speedToString = GameManager.Instance.Speed.ToString("0.0");
             UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
             UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
-            inGameSpeedUI.SetText("Speed " + GameManager.Instance.Speed.ToString("0.0"));
-            outGameSpeedUI.SetText("Speed " + GameManager.Instance.Speed.ToString("0.0"));
+            inGameSpeedUI.SetText("Speed " + speedToString);
+            outGameSpeedUI.SetText("Speed " + speedToString);
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+            SetSpeed(speedToString);
+#endif
         }
     }
     public void OnJudgeDown(InputAction.CallbackContext context)
