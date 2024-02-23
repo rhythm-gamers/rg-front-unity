@@ -25,7 +25,7 @@ public class Judgement : MonoBehaviour
 
     int currentTime = 0;
     /// <summary>
-    /// User�� ���� ������ ���� Ÿ�̹�
+    /// User에 의해 조정된 판정 타이밍
     /// </summary>
     public int judgeTimeFromUserSetting = 0;
 
@@ -149,7 +149,7 @@ public class Judgement : MonoBehaviour
 
                 if (note.type == (int)NoteType.Long)
                 {
-                    if (longNoteCheck[note.line - 1] == 0) // Head�� ����ó���� �ȵ� ���
+                    if (longNoteCheck[note.line - 1] == 0) // Head가 판정처리가 안된 경우
                     {
                         if (judgeTime < -miss)
                         {
