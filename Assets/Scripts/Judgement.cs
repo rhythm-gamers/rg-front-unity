@@ -29,6 +29,12 @@ public class Judgement : MonoBehaviour
     /// </summary>
     public int judgeTimeFromUserSetting = 0;
 
+    IEnumerator WebGLInitUserJudgeTime(int judgeTime)
+    {
+        judgeTimeFromUserSetting = judgeTime;
+        yield return new WaitUntil(() => UIController.Instance.isInit == true);
+    }
+
     Coroutine coCheckMiss;
 
     public void Init()

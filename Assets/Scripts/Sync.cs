@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Sync : MonoBehaviour
@@ -7,6 +7,10 @@ public class Sync : MonoBehaviour
     Judgement judgement;
 
     public GameObject judgeLine;
+
+    [DllImport("__Internal")]
+    private static extern void SetJudgeTime(int judgeTime);
+
     SpriteRenderer sr;
     UIText text;
 
@@ -17,6 +21,7 @@ public class Sync : MonoBehaviour
     {
         judgement = FindObjectOfType<Judgement>();
         sr = judgeLine.GetComponent<SpriteRenderer>();
+        sr.color = Color.red;
     }
 
     public void Down()
@@ -35,6 +40,10 @@ public class Sync : MonoBehaviour
 
         text.SetText(txt);
         text.GetComponent<RectTransform>().anchoredPosition3D += Vector3.down * 2.5f;
+
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+            SetJudgeTime(judgement.judgeTimeFromUserSetting);
+#endif
 
         if (coPopup != null)
             StopCoroutine(coPopup);
@@ -58,6 +67,10 @@ public class Sync : MonoBehaviour
         text.SetText(txt);
         text.GetComponent<RectTransform>().anchoredPosition3D += Vector3.up * 2.5f;
 
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+            SetJudgeTime(judgement.judgeTimeFromUserSetting);
+#endif
+
         if (coPopup != null)
             StopCoroutine(coPopup);
         coPopup = StartCoroutine(IEPopup());
@@ -65,32 +78,27 @@ public class Sync : MonoBehaviour
 
     IEnumerator IEPopup()
     {
-        sr.color = new Color(1, 1, 1, 0);
         text.SetColor(sr.color);
         float time = 0f;
         float speed = 4f;
         while (time < 1f)
         {
-            sr.color = new Color(1, 1, 1, time);
-            text.SetColor(sr.color);
+            text.SetColor(new Color(1, 1, 1, time));
 
             time += Time.deltaTime * speed;
             yield return null;
         }
-        sr.color = new Color(1, 1, 1, 1);
-        text.SetColor(sr.color);
+        text.SetColor(Color.white);
         yield return new WaitForSeconds(1f);
 
         time = 0f;
         while (time < 1f)
         {
-            sr.color = new Color(1, 1, 1, 1 - time);
-            text.SetColor(sr.color);
+            text.SetColor(new Color(1, 1, 1, 1 - time));
 
             time += Time.deltaTime * speed;
             yield return null;
         }
-        sr.color = new Color(1, 1, 1, 0);
-        text.SetColor(sr.color);
+        text.SetColor(new Color(1, 1, 1, 0));
     }
 }
