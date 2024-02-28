@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 게임 진행 상태. InputManager.OnEnter() 참고
     /// </summary>
-    public bool isPlaying = true;
+    public bool isPlaying = false;
+    public bool isSelectMode = false;
     public string title;
     Coroutine coPlaying;
 
@@ -218,12 +219,14 @@ public class GameManager : MonoBehaviour
 
         // 새 게임을 시작할 수 있게 해줌
         isPlaying = false;
+        isSelectMode = true;
     }
 
     IEnumerator IEInitPlay()
     {
         // 새 게임을 시작할 수 없게 해줌
         isPlaying = true;
+        isSelectMode = false;
 
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);
@@ -322,6 +325,7 @@ public class GameManager : MonoBehaviour
     {
         // 새 게임을 시작할 수 없게 해줌
         isPlaying = true;
+        isSelectMode = false;
 
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);

@@ -148,12 +148,12 @@ public class InputManager : MonoBehaviour
         {
             if (GameManager.Instance.state == GameManager.GameState.Game)
             {
-                if (!GameManager.Instance.isPlaying)
+                if (GameManager.Instance.isSelectMode)
                     GameManager.Instance.Play();
             }
             else
             {
-                if (!GameManager.Instance.isPlaying)
+                if (GameManager.Instance.isSelectMode)
                     GameManager.Instance.Edit();
             }
         }
