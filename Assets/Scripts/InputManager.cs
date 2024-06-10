@@ -132,14 +132,6 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void OnItemMove(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            ItemController.Instance.Move(context.ReadValue<float>());
-        }
-    }
-
     public void OnEnter(InputAction.CallbackContext context)
     {
         if (context.started)

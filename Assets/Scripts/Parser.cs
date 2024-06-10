@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using System;
 
 public class Parser
 {
@@ -24,7 +23,6 @@ public class Parser
     }
     Step currentStep = Step.Description;
 
-    public Sheet sheet;
     string basePath = "https://drt2kw8kpttus.cloudfront.net";
 
     public AudioClip clip;
@@ -32,8 +30,6 @@ public class Parser
 
     public IEnumerator IEParse(string title)
     {
-        sheet = new Sheet();
-
         using (UnityWebRequest www = UnityWebRequest.Get($"{basePath}/Sheet/{title}/{title}.sheet"))
         {
             yield return www.SendWebRequest();
@@ -63,22 +59,22 @@ public class Parser
                     if (currentStep == Step.Description)
                     {
                         if (row.StartsWith("Title"))
-                            sheet.title = row.Split(':')[1].Trim();
+                            GameManager.Instance.sheet.title = row.Split(':')[1].Trim();
                         else if (row.StartsWith("Artist"))
-                            sheet.artist = row.Split(':')[1].Trim();
+                            GameManager.Instance.sheet.artist = row.Split(':')[1].Trim();
                     }
                     else if (currentStep == Step.Audio)
                     {
                         if (row.StartsWith("BPM"))
-                            sheet.bpm = int.Parse(row.Split(':')[1].Trim());
+                            GameManager.Instance.sheet.bpm = int.Parse(row.Split(':')[1].Trim());
                         else if (row.StartsWith("Offset"))
-                            sheet.offset = int.Parse(row.Split(':')[1].Trim());
+                            GameManager.Instance.sheet.offset = int.Parse(row.Split(':')[1].Trim());
                         else if (row.StartsWith("Signature"))
                         {
                             string[] s = row.Split(':');
                             s = s[1].Split('/');
                             int[] sign = { int.Parse(s[0].Trim()), int.Parse(s[1].Trim()) };
-                            sheet.signature = sign;
+                            GameManager.Instance.sheet.signature = sign;
                         }
                     }
                     else if (currentStep == Step.Note)
@@ -93,7 +89,7 @@ public class Parser
                         int tail = -1;
                         if (s.Length > 3)
                             tail = int.Parse(row.Split(',')[3].Trim());
-                        sheet.notes.Add(new Note(time, type, line, tail));
+                        GameManager.Instance.sheet.notes.Add(new Note(time, type, line, tail));
                     }
                 }
             }
@@ -101,9 +97,8 @@ public class Parser
         yield return IEGetClip(title);
         yield return IEGetImg(title);
 
-        sheet.clip = clip;
-        sheet.img = img;
-
+        GameManager.Instance.sheet.clip = clip;
+        GameManager.Instance.sheet.img = img;
     }
 
 

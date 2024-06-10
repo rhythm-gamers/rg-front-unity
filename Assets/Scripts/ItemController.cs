@@ -28,12 +28,4 @@ public class ItemController : MonoBehaviour
         rect = GetComponent<RectTransform>();
         dest.anchoredPosition3D = new Vector3(1920f, 0f, 0f);
     }
-
-    public void Move(float dir)
-    {
-        page = Mathf.Clamp(page + (int)dir, 0, GameManager.Instance.sheets.Count - 1);
-
-        dest.anchoredPosition3D = Vector3.right * page * -1 * 1920;
-        StartCoroutine(AniPreset.Instance.IEAniMoveToTarget(rect, dest, 4f));
-    }
 }

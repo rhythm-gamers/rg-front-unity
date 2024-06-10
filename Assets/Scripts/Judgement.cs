@@ -45,7 +45,7 @@ public class Judgement : MonoBehaviour
         }
         notes.Clear();
 
-        foreach (var note in GameManager.Instance.sheets[GameManager.Instance.title].notes)
+        foreach (var note in GameManager.Instance.sheet.notes)
         {
             if (note.line == 1)
                 note1.Enqueue(note);

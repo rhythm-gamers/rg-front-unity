@@ -23,7 +23,7 @@ public class SheetStorage : MonoBehaviour
 
     public void Save()
     {
-        Sheet sheet = GameManager.Instance.sheets[GameManager.Instance.title];
+        Sheet sheet = GameManager.Instance.sheet;
         List<Note> notes = new List<Note>();
         string noteStr = string.Empty;
         float baseTime = sheet.BarPerSec / 16;

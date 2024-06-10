@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public string title;
     Coroutine coPlaying;
 
-    public Dictionary<string, Sheet> sheets = new Dictionary<string, Sheet>();
+    public Sheet sheet = new();
 
     float speed = 1.0f;
 
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     enum Canvas
     {
         Title,
-        Select,
+        Description,
         SFX,
         GameBGA,
         Game,
@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IETitle());
     }
 
-    public void Select()
+    public void Description()
     {
-        StartCoroutine(IESelect());
+        StartCoroutine(IEDescription());
     }
 
     public void Play()
@@ -140,7 +140,6 @@ public class GameManager : MonoBehaviour
 
             // 에디터에서 수정된 오브젝트가 있을 수 있으므로 갱신해줌
             StartCoroutine(Parser.Instance.IEParse(title));
-            sheets[title] = Parser.Instance.sheet;
         }
 
         // 노트 Gen 끄기
@@ -150,7 +149,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.progressTime = 0f;
         AudioManager.Instance.Stop();
 
-        Select();
+        Description();
     }
 
     IEnumerator IEInit()
@@ -172,7 +171,7 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.Game].SetActive(false);
         canvases[(int)Canvas.GameBGA].SetActive(false);
         canvases[(int)Canvas.Result].SetActive(false);
-        canvases[(int)Canvas.Select].SetActive(false);
+        canvases[(int)Canvas.Description].SetActive(false);
         canvases[(int)Canvas.Editor].SetActive(false);
 
         // 선택화면 아이템 생성
@@ -194,10 +193,10 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(5.6f);
 
         // 선택화면 시작
-        Select();
+        Description();
     }
 
-    IEnumerator IESelect()
+    IEnumerator IEDescription()
     {
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);
@@ -209,8 +208,8 @@ public class GameManager : MonoBehaviour
         // Result UI 끄기
         canvases[(int)Canvas.Result].SetActive(false);
 
-        // Select UI 끄기
-        canvases[(int)Canvas.Select].SetActive(true);
+        // Description UI 켜기
+        canvases[(int)Canvas.Description].SetActive(true);
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 2f));
@@ -231,15 +230,14 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, true, 2f));
 
-        //  Select UI 끄기
-        canvases[(int)Canvas.Select].SetActive(false);
+        //  Description UI 끄기
+        canvases[(int)Canvas.Description].SetActive(false);
 
         // Sheet 초기화
-        title = sheets.ElementAt(ItemController.Instance.page).Key;
-        sheets[title].Init();
+        sheet.Init();
 
         // Audio 삽입
-        AudioManager.Instance.Insert(sheets[title].clip);
+        AudioManager.Instance.Insert(sheet.clip);
 
         // Game UI 켜기
         canvases[(int)Canvas.Game].SetActive(true);
@@ -304,7 +302,7 @@ public class GameManager : MonoBehaviour
         rmiss.SetText(Score.Instance.data.miss.ToString());
 
         UIImage rBG = UIController.Instance.FindUI("UI_R_BG").uiObject as UIImage;
-        rBG.SetSprite(sheets[title].img);
+        rBG.SetSprite(sheet.img);
 
         NoteGenerator.Instance.StopGen();
         AudioManager.Instance.Stop();
@@ -317,7 +315,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         // 선택 화면 불러오기
-        Select();
+        Description();
     }
 
     IEnumerator IEEdit()
@@ -330,15 +328,14 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, true, 2f));
 
-        //  Select UI 끄기
-        canvases[(int)Canvas.Select].SetActive(false);
+        //  Description UI 끄기
+        canvases[(int)Canvas.Description].SetActive(false);
 
         // Sheet 초기화
-        title = sheets.ElementAt(ItemController.Instance.page).Key;
-        sheets[title].Init();
+        sheet.Init();
 
         // Audio 삽입
-        AudioManager.Instance.Insert(sheets[title].clip);
+        AudioManager.Instance.Insert(sheet.clip);
 
         // Grid 생성
         FindObjectOfType<GridGenerator>().Init();

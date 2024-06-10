@@ -222,13 +222,13 @@ public class EditorController : MonoBehaviour
             if (scrollValue > 0)
             {
                 Editor.Instance.objects.transform.position += Vector3.down * snap * 0.25f;
-                AudioManager.Instance.MovePosition(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
+                AudioManager.Instance.MovePosition(GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
                 //Debug.Log(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
             else if (scrollValue < 0)
             {
                 Editor.Instance.objects.transform.position += Vector3.up * snap * 0.25f;
-                AudioManager.Instance.MovePosition(-GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
+                AudioManager.Instance.MovePosition(-GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
                 //Debug.Log(-GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
         }

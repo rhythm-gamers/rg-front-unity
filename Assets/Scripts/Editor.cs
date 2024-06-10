@@ -48,8 +48,8 @@ public class Editor : MonoBehaviour
 
         StartCoroutine(IEBarTimer());
 
-        speed = 16 / GameManager.Instance.sheets[GameManager.Instance.title].BarPerSec;
-        offsetPosition = speed * GameManager.Instance.sheets[GameManager.Instance.title].offset * 0.001f;
+        speed = 16 / GameManager.Instance.sheet.BarPerSec;
+        offsetPosition = speed * GameManager.Instance.sheet.offset * 0.001f;
         objects.transform.position = offsetPosition * Vector3.up;
     }
 
@@ -96,7 +96,7 @@ public class Editor : MonoBehaviour
 
     public void CaculateCurrnetBar()
     {
-        currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec);
+        currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.sheet.BarPerMilliSec);
     }
 
     IEnumerator IEBarTimer()
@@ -145,7 +145,7 @@ public class Editor : MonoBehaviour
 
             // �� �׸���(�� ����)�� ���ӿ�����Ʈ y��ǥ�� ���̴� 16
             // ���� ������ġ * 16 = ����s
-            float barPerTime = GameManager.Instance.sheets[GameManager.Instance.title].BarPerSec;
+            float barPerTime = GameManager.Instance.sheet.BarPerSec;
             float pos = time / barPerTime * 16;
 
             objects.transform.position = new Vector3(0f, -pos + offsetPosition, 0f);
