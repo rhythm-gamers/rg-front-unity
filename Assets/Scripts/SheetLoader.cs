@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public class SheetLoader : MonoBehaviour
 {
@@ -14,7 +12,7 @@ public class SheetLoader : MonoBehaviour
         }
     }
 
-    public string pathSheet;
+    public string pathSheet = "https://drt2kw8kpttus.cloudfront.net";
     public int sheetCount = 2;
     public bool bLoadFinish;
     int remain;
@@ -29,7 +27,7 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-        pathSheet = "http://127.0.0.1:3000/Sheet";
+
         remain = sheetCount;
         StartCoroutine(IELoad());
     }

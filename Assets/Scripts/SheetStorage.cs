@@ -14,7 +14,7 @@ public class SheetStorage : MonoBehaviour
         Head y좌표 = NoteLong의 y좌표
         Tail y좌표 = NoteLong.y + tail.y가 최종좌표
      */
-
+    public string pathSheet = "https://drt2kw8kpttus.cloudfront.net";
 
     void Start()
     {
@@ -24,7 +24,6 @@ public class SheetStorage : MonoBehaviour
     public void Save()
     {
         Sheet sheet = GameManager.Instance.sheets[GameManager.Instance.title];
-
         List<Note> notes = new List<Note>();
         string noteStr = string.Empty;
         float baseTime = sheet.BarPerSec / 16;
@@ -99,7 +98,6 @@ public class SheetStorage : MonoBehaviour
 
         writer.TrimEnd('\r', '\n');
 
-        string pathSheet = $"http://127.0.0.1:3000/{sheet.title}/{sheet.title}.sheet";
         if (File.Exists(pathSheet))
         {
             try
