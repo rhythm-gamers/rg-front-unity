@@ -26,8 +26,8 @@ public class JudgeEffect : MonoBehaviour
 
     public void Init()
     {
-        float speed = GameManager.Instance.sheets[GameManager.Instance.title].bpm * 0.4f;
-        float life = GameManager.Instance.sheets[GameManager.Instance.title].bpm * 0.008f;
+        float speed = GameManager.Instance.sheet.bpm * 0.4f;
+        float life = GameManager.Instance.sheet.bpm * 0.008f;
 
         foreach (ParticleSystem particle in particles)
         {

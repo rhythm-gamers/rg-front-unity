@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System;
 using UnityEngine.Networking;
 
 public class Parser
@@ -26,23 +23,19 @@ public class Parser
     }
     Step currentStep = Step.Description;
 
-    public Sheet sheet;
-    string basePath = "http://127.0.0.1:3000/Sheet";
+    string basePath = "https://drt2kw8kpttus.cloudfront.net";
 
     public AudioClip clip;
     public Sprite img;
 
     public IEnumerator IEParse(string title)
     {
-        sheet = new Sheet();
-        string contents = string.Empty;
-
-        using (UnityWebRequest www = UnityWebRequest.Get($"{basePath}/{title}/{title}.sheet"))
+        using (UnityWebRequest www = UnityWebRequest.Get($"{basePath}/Sheet/{title}/{title}.sheet"))
         {
             yield return www.SendWebRequest();
             if (www.result == UnityWebRequest.Result.Success)
             {
-                contents = www.downloadHandler.text;
+                string contents = www.downloadHandler.text;
                 string[] rows = contents.Split("\n");
 
                 foreach (string row in rows)
@@ -66,22 +59,22 @@ public class Parser
                     if (currentStep == Step.Description)
                     {
                         if (row.StartsWith("Title"))
-                            sheet.title = row.Split(':')[1].Trim();
+                            GameManager.Instance.sheet.title = row.Split(':')[1].Trim();
                         else if (row.StartsWith("Artist"))
-                            sheet.artist = row.Split(':')[1].Trim();
+                            GameManager.Instance.sheet.artist = row.Split(':')[1].Trim();
                     }
                     else if (currentStep == Step.Audio)
                     {
                         if (row.StartsWith("BPM"))
-                            sheet.bpm = int.Parse(row.Split(':')[1].Trim());
+                            GameManager.Instance.sheet.bpm = int.Parse(row.Split(':')[1].Trim());
                         else if (row.StartsWith("Offset"))
-                            sheet.offset = int.Parse(row.Split(':')[1].Trim());
+                            GameManager.Instance.sheet.offset = int.Parse(row.Split(':')[1].Trim());
                         else if (row.StartsWith("Signature"))
                         {
                             string[] s = row.Split(':');
                             s = s[1].Split('/');
                             int[] sign = { int.Parse(s[0].Trim()), int.Parse(s[1].Trim()) };
-                            sheet.signature = sign;
+                            GameManager.Instance.sheet.signature = sign;
                         }
                     }
                     else if (currentStep == Step.Note)
@@ -96,7 +89,7 @@ public class Parser
                         int tail = -1;
                         if (s.Length > 3)
                             tail = int.Parse(row.Split(',')[3].Trim());
-                        sheet.notes.Add(new Note(time, type, line, tail));
+                        GameManager.Instance.sheet.notes.Add(new Note(time, type, line, tail));
                     }
                 }
             }
@@ -104,9 +97,8 @@ public class Parser
         yield return IEGetClip(title);
         yield return IEGetImg(title);
 
-        sheet.clip = clip;
-        sheet.img = img;
-
+        GameManager.Instance.sheet.clip = clip;
+        GameManager.Instance.sheet.img = img;
     }
 
 
@@ -114,7 +106,7 @@ public class Parser
 
     public IEnumerator IEGetClip(string title)
     {
-        using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip($"{basePath}/{title}/{title}.mp3", AudioType.MPEG))
+        using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip($"{basePath}/Sheet/{title}/{title}.mp3", AudioType.MPEG))
         {
             yield return request.SendWebRequest();
             clip = DownloadHandlerAudioClip.GetContent(request);
@@ -124,7 +116,7 @@ public class Parser
 
     public IEnumerator IEGetImg(string title)
     {
-        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture($"{basePath}/{title}/{title}.jpg"))
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture($"{basePath}/Sheet/{title}/{title}.jpg"))
         {
             yield return request.SendWebRequest();
             Texture2D t = DownloadHandlerTexture.GetContent(request);

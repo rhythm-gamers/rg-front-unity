@@ -100,8 +100,8 @@ public class NoteGenerator : MonoBehaviour
     public void StartGen()
     {
         Interval = defaultInterval * GameManager.Instance.Speed;
-        coGenTimer = StartCoroutine(IEGenTimer(GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec * 0.001f)); // 음악의 1마디 시간마다 생성할 노트 오브젝트 탐색
-        coReleaseTimer = StartCoroutine(IEReleaseTimer(GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec * 0.001f * 0.5f)); // 1마디 시간의 절반 주기로 해제할 노트 오브젝트 탐색
+        coGenTimer = StartCoroutine(IEGenTimer(GameManager.Instance.sheet.BarPerMilliSec * 0.001f)); // 음악의 1마디 시간마다 생성할 노트 오브젝트 탐색
+        coReleaseTimer = StartCoroutine(IEReleaseTimer(GameManager.Instance.sheet.BarPerMilliSec * 0.001f * 0.5f)); // 1마디 시간의 절반 주기로 해제할 노트 오브젝트 탐색
         coInterpolate = StartCoroutine(IEInterpolate(0.1f, 4f));
     }
 
@@ -134,12 +134,12 @@ public class NoteGenerator : MonoBehaviour
 
     void Gen()
     {
-        List<Note> notes = GameManager.Instance.sheets[GameManager.Instance.title].notes;
+        List<Note> notes = GameManager.Instance.sheet.notes;
         List<Note> reconNotes = new List<Note>();
 
         for (; next < notes.Count; next++)
         {
-            if (notes[next].time > currentBar * GameManager.Instance.sheets[GameManager.Instance.title].BarPerMilliSec)
+            if (notes[next].time > currentBar * GameManager.Instance.sheet.BarPerMilliSec)
             {
                 break;
             }
@@ -188,7 +188,7 @@ public class NoteGenerator : MonoBehaviour
     /// </summary>
     void Gen2()
     {
-        Sheet sheet = GameManager.Instance.sheets[GameManager.Instance.title];
+        Sheet sheet = GameManager.Instance.sheet;
 
         List<Note> notes = sheet.notes;
 

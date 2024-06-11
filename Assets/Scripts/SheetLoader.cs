@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public class SheetLoader : MonoBehaviour
 {
@@ -14,12 +12,15 @@ public class SheetLoader : MonoBehaviour
         }
     }
 
-    public string pathSheet;
-    public int sheetCount = 2;
-    public bool bLoadFinish;
-    int remain;
+    public string pathSheet = "https://drt2kw8kpttus.cloudfront.net";
 
-    public string[] sheetNames = { "Consolation", "Splendid Circus" };
+    public bool bLoadFinish = false;
+
+    IEnumerator WebGLLoadSheet(string sheetName)
+    {
+        yield return Parser.Instance.IEParse(sheetName);
+        bLoadFinish = true;
+    }
 
     void Awake()
     {
@@ -29,19 +30,18 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-        pathSheet = "http://127.0.0.1:3000/Sheet";
-        remain = sheetCount;
-        StartCoroutine(IELoad());
+        InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
     }
 
-    IEnumerator IELoad()
+    private void CheckElapsedTime()
     {
-        foreach (string f_name in sheetNames)
+        if (bLoadFinish == true)
+            CancelInvoke(nameof(CheckElapsedTime));
+
+        else if (Time.time > 10f)
         {
-            yield return Parser.Instance.IEParse(f_name);
-            GameManager.Instance.sheets.Add(f_name, Parser.Instance.sheet);
-            if (--remain <= 0)
-                bLoadFinish = true;
+            CancelInvoke(nameof(CheckElapsedTime));
+            Debug.Log("네트워크 오류");
         }
     }
 }
