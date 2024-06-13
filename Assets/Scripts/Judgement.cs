@@ -11,6 +11,15 @@ public enum JudgeType
 
 public class Judgement : MonoBehaviour
 {
+    static Judgement instance;
+    public static Judgement Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     readonly int miss = 600;
     readonly int good = 400;
     readonly int great = 250;
@@ -23,11 +32,12 @@ public class Judgement : MonoBehaviour
 
     int[] longNoteCheck = new int[4] { 0, 0, 0, 0 };
 
-    int currentTime = 0;
     /// <summary>
     /// User에 의해 조정된 판정 타이밍
     /// </summary>
     public int judgeTimeFromUserSetting = 0;
+    public int currentTime = 0;
+    public Coroutine coCheckMiss;
 
     IEnumerator WebGLInitUserJudgeTime(int judgeTime)
     {
@@ -35,7 +45,12 @@ public class Judgement : MonoBehaviour
         yield return new WaitUntil(() => UIController.Instance.isInit == true);
     }
 
-    Coroutine coCheckMiss;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
 
     public void Init()
     {
@@ -60,12 +75,6 @@ public class Judgement : MonoBehaviour
         notes.Add(note2);
         notes.Add(note3);
         notes.Add(note4);
-
-        if (coCheckMiss != null)
-        {
-            StopCoroutine(coCheckMiss);
-        }
-        coCheckMiss = StartCoroutine(IECheckMiss());
     }
 
     public void Judge(int line)
@@ -140,6 +149,19 @@ public class Judgement : MonoBehaviour
         }
     }
 
+    public void StartMissCheck()
+    {
+        coCheckMiss = StartCoroutine(IECheckMiss());
+    }
+
+    public void StopMissCheck()
+    {
+        if (coCheckMiss != null)
+        {
+            StopCoroutine(coCheckMiss);
+        }
+    }
+
     IEnumerator IECheckMiss()
     {
         while (true)
@@ -151,6 +173,7 @@ public class Judgement : MonoBehaviour
                 if (notes[i].Count <= 0)
                     break;
                 Note note = notes[i].Peek();
+
                 int judgeTime = note.time - currentTime + judgeTimeFromUserSetting;
 
                 if (note.type == (int)NoteType.Long)

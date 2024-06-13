@@ -60,9 +60,11 @@ public class Score : MonoBehaviour
 
     public void Clear()
     {
-        data = new ScoreData();
-        data.judgeText = Enum.GetNames(typeof(JudgeType));
-        data.judgeColor = new Color[3] { Color.blue, Color.yellow, Color.red };
+        data = new ScoreData
+        {
+            judgeText = Enum.GetNames(typeof(JudgeType)),
+            judgeColor = new Color[3] { Color.blue, Color.yellow, Color.red }
+        };
         uiJudgement.SetText("");
         uiCombo.SetText("");
         uiScore.SetText("0");

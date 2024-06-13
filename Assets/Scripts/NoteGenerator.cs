@@ -96,7 +96,7 @@ public class NoteGenerator : MonoBehaviour
             instance = this;
     }
 
-    // 풀링 기반 생성 (게임 플레이 시 사용)
+    // 풀링 기반 생성 (처음 게임 플레이 및 재시작 시에 사용)
     public void StartGen()
     {
         Interval = defaultInterval * GameManager.Instance.Speed;
@@ -105,12 +105,30 @@ public class NoteGenerator : MonoBehaviour
         coInterpolate = StartCoroutine(IEInterpolate(0.1f, 4f));
     }
 
+
+
     // 한 번에 다 생성 (에디팅할때 사용)
     public void GenAll()
     {
         Gen2();
     }
 
+    // 노트 생성 일시정지
+    public void PauseGen()
+    {
+        if (coGenTimer != null)
+        {
+            StopCoroutine(coGenTimer);
+            coGenTimer = null;
+        }
+        if (coReleaseTimer != null)
+        {
+            StopCoroutine(coReleaseTimer);
+            coReleaseTimer = null;
+        }
+    }
+
+    // 노트 생성 중지 및 노트 Release
     public void StopGen()
     {
         if (coGenTimer != null)
@@ -123,13 +141,8 @@ public class NoteGenerator : MonoBehaviour
             StopCoroutine(coReleaseTimer);
             coReleaseTimer = null;
         }
-        ReleaseCompleted();
-        Editor.Instance.objects.transform.position = Vector3.zero;
 
-        toReleaseList.Clear();
-        currentBar = 3;
-        next = 0;
-        prev = 0;
+        ReleaseCompleted();
     }
 
     void Gen()
@@ -316,6 +329,15 @@ public class NoteGenerator : MonoBehaviour
             else
                 PoolLong.Release(note as NoteLong);
         }
+
+        // 현재 위치 초기화
+        currentBar = 3;
+        prev = 0;
+        next = 0;
+        Editor.Instance.objects.transform.position = Vector3.zero;
+
+        // ReleaseList 초기화
+        toReleaseList.Clear();
     }
 
     void Release()

@@ -49,6 +49,7 @@ public class AniPreset : MonoBehaviour
     public IEnumerator IEAniFade(CanvasGroup cg, bool on, float speed)
     {
         float time = 0f;
+
         if (on)
         {
             while (time < 1f)
