@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -27,6 +26,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool isPlaying = false;
     public bool isSelectMode = false;
+    public bool isPaused = false;
     public string title;
     Coroutine coPlaying;
 
@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour
         outGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
     }
 
-    public List<GameObject> canvases = new List<GameObject>();
+    public List<GameObject> canvases = new();
+
     enum Canvas
     {
         Title,
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         SFX,
         GameBGA,
         Game,
+        Pause,
         Result,
         Editor,
     }
@@ -116,12 +118,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IEEdit());
     }
 
-    public void Stop()
+    public void Pause()
     {
         if (state == GameState.Game)
         {
-            // Game UI 끄기
-            canvases[(int)Canvas.Game].SetActive(false);
+            Time.timeScale = 0;
+            isPaused = true;
+
+            // Pause UI 켜기
+            canvases[(int)Canvas.Pause].SetActive(true);
+
+            Judgement.Instance.StopMissCheck();
 
             // playing timer 끄기
             if (coPlaying != null)
@@ -139,17 +146,57 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<GridGenerator>().InActivate();
 
             // 에디터에서 수정된 오브젝트가 있을 수 있으므로 갱신해줌
-            StartCoroutine(Parser.Instance.IEParse(title));
+            StartCoroutine(SheetLoader.Instance.WebGLLoadSheet(title));
         }
 
         // 노트 Gen 끄기
+        NoteGenerator.Instance.PauseGen();
+
+        // 음악 멈추기
+        AudioManager.Instance.Pause();
+    }
+
+    public void UnPause()
+    {
+        if (Time.timeScale == 0) Time.timeScale = 1;
+        isPaused = false;
+
+        // Pause UI 끄기
+        canvases[(int)Canvas.Pause].SetActive(false);
+
+        // Note 다시 생성
+        NoteGenerator.Instance.StartGen();
+
+        // Audio 다시 재싱
+        AudioManager.Instance.UnPause();
+
+        Judgement.Instance.StartMissCheck();
+        // End 알리미
+        coPlaying = StartCoroutine(IEEndPlay());
+    }
+
+    public void Retry(UIObject uiObject = null)
+    {
+        if (!isPaused) return;
+        if (Time.timeScale == 0) Time.timeScale = 1;
+
+        // 노트 생성 중지
         NoteGenerator.Instance.StopGen();
 
-        // 음악 끄기
-        AudioManager.Instance.progressTime = 0f;
-        AudioManager.Instance.Stop();
+        // Game UI 켜기
+        canvases[(int)Canvas.Game].SetActive(false);
 
-        Description();
+        // BGA 켜기
+        canvases[(int)Canvas.GameBGA].SetActive(false);
+
+        // playing timer 끄기
+        if (coPlaying != null)
+        {
+            StopCoroutine(coPlaying);
+            coPlaying = null;
+        }
+
+        StartCoroutine(IEInitPlay());
     }
 
     IEnumerator IEInit()
@@ -169,6 +216,7 @@ public class GameManager : MonoBehaviour
         // UIObject들이 자기자신을 캐싱할때까지 여유를 주고 비활성화(임시코드)
         yield return new WaitForSeconds(2f);
         canvases[(int)Canvas.Game].SetActive(false);
+        canvases[(int)Canvas.Pause].SetActive(false);
         canvases[(int)Canvas.GameBGA].SetActive(false);
         canvases[(int)Canvas.Result].SetActive(false);
         canvases[(int)Canvas.Description].SetActive(false);
@@ -226,12 +274,20 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
         isSelectMode = false;
 
+        // 게임 재시작 시 초기화 옵션
+        isPaused = false;
+        AudioManager.Instance.progressTime = 0f;
+        AudioManager.Instance.Stop();
+
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, true, 2f));
 
         //  Description UI 끄기
         canvases[(int)Canvas.Description].SetActive(false);
+
+        //  Pause UI 끄기
+        canvases[(int)Canvas.Pause].SetActive(false);
 
         // Sheet 초기화
         sheet.Init();
@@ -246,7 +302,7 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.GameBGA].SetActive(true);
 
         // 판정 초기화
-        FindObjectOfType<Judgement>().Init();
+        Judgement.Instance.Init();
 
         // 점수 초기화
         Score.Instance.Clear();
@@ -261,11 +317,13 @@ public class GameManager : MonoBehaviour
         // Note 생성
         NoteGenerator.Instance.StartGen();
 
-        // 3초 대기
-        yield return new WaitForSeconds(3f);
+        // Late Miss 판정 체크
+        Judgement.Instance.StartMissCheck();
+
+        // 2초 대기
+        yield return new WaitForSeconds(2f);
 
         // Audio 재생
-        AudioManager.Instance.progressTime = 0f;
         AudioManager.Instance.Play();
 
         // End 알리미
@@ -277,7 +335,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            if (!AudioManager.Instance.IsPlaying())
+            if (AudioManager.Instance.state == AudioManager.State.Stop)
             {
                 break;
             }
@@ -288,6 +346,7 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, true, 2f));
         canvases[(int)Canvas.Game].SetActive(false);
+        canvases[(int)Canvas.Pause].SetActive(false);
         canvases[(int)Canvas.GameBGA].SetActive(false);
         canvases[(int)Canvas.Result].SetActive(true);
 

@@ -139,7 +139,13 @@ public class InputManager : MonoBehaviour
             if (GameManager.Instance.state == GameManager.GameState.Game)
             {
                 if (GameManager.Instance.isSelectMode)
+                {
                     GameManager.Instance.Play();
+                }
+                else if (GameManager.Instance.isPaused)
+                {
+                    GameManager.Instance.Retry();
+                }
             }
             else
             {
@@ -152,8 +158,15 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            if (GameManager.Instance.isPlaying)
-                GameManager.Instance.Stop();
+            if (GameManager.Instance.isPaused)
+            {
+                GameManager.Instance.UnPause();
+
+            }
+            else
+            {
+                GameManager.Instance.Pause();
+            }
         }
     }
 
