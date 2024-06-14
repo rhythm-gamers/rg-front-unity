@@ -32,7 +32,7 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR == true
         StartCoroutine(WebGLLoadSheet("Splendid Circus"));
 #endif
 

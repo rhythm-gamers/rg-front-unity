@@ -138,7 +138,7 @@ public class InputManager : MonoBehaviour
         {
             if (GameManager.Instance.state == GameManager.GameState.Game)
             {
-                if (GameManager.Instance.isSelectMode)
+                if (GameManager.Instance.isPlayable)
                 {
                     GameManager.Instance.Play();
                 }
@@ -149,7 +149,7 @@ public class InputManager : MonoBehaviour
             }
             else
             {
-                if (GameManager.Instance.isSelectMode)
+                if (GameManager.Instance.isPlayable)
                     GameManager.Instance.Edit();
             }
         }
@@ -158,14 +158,17 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            if (GameManager.Instance.isPaused)
+            if (GameManager.Instance.isPlaying)
             {
-                GameManager.Instance.UnPause();
+                if (GameManager.Instance.isPaused)
+                {
+                    GameManager.Instance.UnPause();
 
-            }
-            else
-            {
-                GameManager.Instance.Pause();
+                }
+                else
+                {
+                    GameManager.Instance.Pause();
+                }
             }
         }
     }

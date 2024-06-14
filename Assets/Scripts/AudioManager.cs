@@ -56,9 +56,17 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Start()
+    void Update()
     {
+        CheckIsFinished();
+    }
 
+    private void CheckIsFinished()
+    {
+        if (!GameManager.Instance.isPlaying) return;
+        Debug.Log(progressTime + ", " + Length);
+        if (progressTime >= Length)
+            Stop();
     }
 
     public void Play()
