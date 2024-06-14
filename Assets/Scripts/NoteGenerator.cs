@@ -392,6 +392,8 @@ public class NoteGenerator : MonoBehaviour
 
     IEnumerator IEInterpolate(float rate = 1f, float duration = 1f)
     {
+        if (toReleaseList.Count == 0) yield break;
+
         float time = 0;
         Interval = defaultInterval * GameManager.Instance.Speed;
         float noteSpeed = Interval * 1000;

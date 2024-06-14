@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     /// 게임 진행 상태. InputManager.OnEnter() 참고
     /// </summary>
     public bool isPlaying = false;
-    public bool isSelectMode = false;
+    public bool isPlayable = false;
     public bool isPaused = false;
     public string title;
     Coroutine coPlaying;
@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0;
             isPaused = true;
+            isPlaying = false;
 
             // Pause UI 켜기
             canvases[(int)Canvas.Pause].SetActive(true);
@@ -264,15 +265,13 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.SFX].SetActive(false);
 
         // 새 게임을 시작할 수 있게 해줌
-        isPlaying = false;
-        isSelectMode = true;
+        isPlayable = true;
     }
 
     IEnumerator IEInitPlay()
     {
         // 새 게임을 시작할 수 없게 해줌
-        isPlaying = true;
-        isSelectMode = false;
+        isPlayable = false;
 
         // 게임 재시작 시 초기화 옵션
         isPaused = false;
@@ -323,8 +322,14 @@ public class GameManager : MonoBehaviour
         // 2초 대기
         yield return new WaitForSeconds(2f);
 
+        // 게임 시작
+        isPlaying = true;
+
         // Audio 재생
         AudioManager.Instance.Play();
+
+        // 대기 시간동안 바뀐 배속을 노트에 반영
+        NoteGenerator.Instance.Interpolate();
 
         // End 알리미
         coPlaying = StartCoroutine(IEEndPlay());
@@ -341,6 +346,8 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(1f);
         }
+
+        isPlaying = false;
 
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);
@@ -364,7 +371,6 @@ public class GameManager : MonoBehaviour
         rBG.SetSprite(sheet.img);
 
         NoteGenerator.Instance.StopGen();
-        AudioManager.Instance.Stop();
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 2f));
@@ -381,7 +387,7 @@ public class GameManager : MonoBehaviour
     {
         // 새 게임을 시작할 수 없게 해줌
         isPlaying = true;
-        isSelectMode = false;
+        isPlayable = false;
 
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);
