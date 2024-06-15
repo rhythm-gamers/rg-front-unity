@@ -160,15 +160,11 @@ public class InputManager : MonoBehaviour
         {
             if (GameManager.Instance.isPlaying)
             {
-                if (GameManager.Instance.isPaused)
-                {
-                    GameManager.Instance.UnPause();
-
-                }
-                else
-                {
-                    GameManager.Instance.Pause();
-                }
+                GameManager.Instance.Pause();
+            }
+            else if (GameManager.Instance.isPaused)
+            {
+                GameManager.Instance.UnPause();
             }
         }
     }

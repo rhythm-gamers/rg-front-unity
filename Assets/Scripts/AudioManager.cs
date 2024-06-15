@@ -64,8 +64,7 @@ public class AudioManager : MonoBehaviour
     private void CheckIsFinished()
     {
         if (!GameManager.Instance.isPlaying) return;
-        Debug.Log(progressTime + ", " + Length);
-        if (progressTime >= Length)
+        if (Length - progressTime <= 0.1f)
             Stop();
     }
 

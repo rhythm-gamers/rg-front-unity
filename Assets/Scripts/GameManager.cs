@@ -159,8 +159,9 @@ public class GameManager : MonoBehaviour
 
     public void UnPause()
     {
-        if (Time.timeScale == 0) Time.timeScale = 1;
+        if (Time.timeScale == 0f) Time.timeScale = 1f;
         isPaused = false;
+        isPlaying = true;
 
         // Pause UI 끄기
         canvases[(int)Canvas.Pause].SetActive(false);
