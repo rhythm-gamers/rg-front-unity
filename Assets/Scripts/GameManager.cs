@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
     {
         if (state == GameState.Game)
         {
-            Time.timeScale = 0;
+            Time.timeScale = 0f;
             isPaused = true;
             isPlaying = false;
 
@@ -150,9 +150,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(SheetLoader.Instance.WebGLLoadSheet(title));
         }
 
-        // 노트 Gen 끄기
-        NoteGenerator.Instance.PauseGen();
-
         // 음악 멈추기
         AudioManager.Instance.Pause();
     }
@@ -165,9 +162,6 @@ public class GameManager : MonoBehaviour
 
         // Pause UI 끄기
         canvases[(int)Canvas.Pause].SetActive(false);
-
-        // Note 다시 생성
-        NoteGenerator.Instance.StartGen();
 
         // Audio 다시 재싱
         AudioManager.Instance.UnPause();

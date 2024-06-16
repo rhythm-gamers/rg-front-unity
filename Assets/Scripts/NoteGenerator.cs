@@ -113,21 +113,6 @@ public class NoteGenerator : MonoBehaviour
         Gen2();
     }
 
-    // 노트 생성 일시정지
-    public void PauseGen()
-    {
-        if (coGenTimer != null)
-        {
-            StopCoroutine(coGenTimer);
-            coGenTimer = null;
-        }
-        if (coReleaseTimer != null)
-        {
-            StopCoroutine(coReleaseTimer);
-            coReleaseTimer = null;
-        }
-    }
-
     // 노트 생성 중지 및 노트 Release
     public void StopGen()
     {

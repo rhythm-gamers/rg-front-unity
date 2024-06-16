@@ -48,6 +48,8 @@ public class AudioManager : MonoBehaviour
     }
     public State state = State.Stop;
 
+    private float savedAudioTimeForPause { get; set; }
+
     void Awake()
     {
         if (instance == null)
@@ -77,13 +79,24 @@ public class AudioManager : MonoBehaviour
     public void Pause()
     {
         state = State.Paused;
+        savedAudioTimeForPause = progressTime;
         audioSource.Pause();
     }
 
     public void UnPause()
     {
         state = State.Unpaused;
-        audioSource.UnPause();
+
+        if (audioSource.clip != null)
+        {
+            progressTime = savedAudioTimeForPause;
+            audioSource.UnPause();
+            Debug.Log("Audio unpaused successfully at time: " + audioSource.time);
+        }
+        else
+        {
+            Debug.LogError("Audio clip is null. Cannot unpause.");
+        }
     }
 
     public void Stop()
