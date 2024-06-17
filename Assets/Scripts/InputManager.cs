@@ -144,7 +144,7 @@ public class InputManager : MonoBehaviour
                 }
                 else if (GameManager.Instance.isPaused)
                 {
-                    GameManager.Instance.Retry();
+                    PauseNavigator.Instance.ActivateButton();
                 }
             }
             else
@@ -213,6 +213,28 @@ public class InputManager : MonoBehaviour
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
                 EditorController.Instance.isCtrl = false;
+        }
+    }
+
+    public void OnArrowUp(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (GameManager.Instance.isPaused)
+            {
+                PauseNavigator.Instance.Navigate(-1);
+            }
+        }
+    }
+
+    public void OnArrowDown(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (GameManager.Instance.isPaused)
+            {
+                PauseNavigator.Instance.Navigate(1);
+            }
         }
     }
 

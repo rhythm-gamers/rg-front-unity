@@ -32,7 +32,7 @@ public abstract class NoteObject : MonoBehaviour
     /// Editor - Collider optimization
     /// </summary>
     public abstract void SetCollider();
-    public abstract IEnumerator IECheckCollier();
+    public abstract IEnumerator IECheckCollider();
 }
 
 public class NoteShort : NoteObject
@@ -72,11 +72,11 @@ public class NoteShort : NoteObject
         }
         else
         {
-            StartCoroutine(IECheckCollier());
+            StartCoroutine(IECheckCollider());
         }
     }
 
-    public override IEnumerator IECheckCollier()
+    public override IEnumerator IECheckCollider()
     {
         WaitForSeconds wait = new WaitForSeconds(0.1f);
         while (true)
@@ -166,11 +166,11 @@ public class NoteLong : NoteObject
         }
         else
         {
-            StartCoroutine(IECheckCollier());
+            StartCoroutine(IECheckCollider());
         }
     }
 
-    public override IEnumerator IECheckCollier()
+    public override IEnumerator IECheckCollider()
     {
         WaitForSeconds wait = new WaitForSeconds(0.1f);
         while (true)
