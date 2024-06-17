@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -129,6 +130,10 @@ public class GameManager : MonoBehaviour
             // Pause UI 켜기
             canvases[(int)Canvas.Pause].SetActive(true);
 
+            // Resume 버튼 Select
+            UIActor ResumeBtn = UIController.Instance.GetUI("UI_P_Resume");
+            EventSystem.current.SetSelectedGameObject(ResumeBtn.uiObject.gameObject);
+
             Judgement.Instance.StopMissCheck();
 
             // playing timer 끄기
@@ -154,7 +159,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Pause();
     }
 
-    public void UnPause()
+    public void UnPause(UIObject uiObject = null)
     {
         if (Time.timeScale == 0f) Time.timeScale = 1f;
         isPaused = false;

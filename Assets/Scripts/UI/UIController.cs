@@ -39,6 +39,7 @@ public class UIController : MonoBehaviour
         uiObjectDic["UI_E_Play"].action = Editor.Instance.Play;
         uiObjectDic["UI_E_Stop"].action = Editor.Instance.Stop;
 
+        uiObjectDic["UI_P_Resume"].action = GameManager.Instance.UnPause;
         uiObjectDic["UI_P_Retry"].action = GameManager.Instance.Retry;
 
         isInit = true;

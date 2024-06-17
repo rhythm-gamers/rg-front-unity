@@ -91,7 +91,6 @@ public class AudioManager : MonoBehaviour
         {
             progressTime = savedAudioTimeForPause;
             audioSource.UnPause();
-            Debug.Log("Audio unpaused successfully at time: " + audioSource.time);
         }
         else
         {
