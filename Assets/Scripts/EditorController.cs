@@ -57,10 +57,14 @@ public class EditorController : MonoBehaviour
         editor = Editor.Instance;
 
         cursorObj = Instantiate(cursorPrefab);
+        cursorObj.transform.position = new Vector3(-12, 0, 0);
     }
 
     void Update()
     {
+        if (GameManager.Instance.state == GameManager.GameState.Game) return;
+        if (GameManager.Instance.isPlaying == false) return;
+
         // 그리드에 레이쏴서 위치 알아내야함
         // 현재 스냅에 따라, 스냅될 위치 알아내야함
         //Debug.Log(inputManager.mousePos);
