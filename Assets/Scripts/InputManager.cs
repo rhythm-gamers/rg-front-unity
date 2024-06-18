@@ -26,7 +26,12 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.state == GameManager.GameState.Edit)
-            mousePos = Mouse.current.position.ReadValue();
+        {
+            if (GameManager.Instance.isPlaying)
+            {
+                mousePos = Mouse.current.position.ReadValue();
+            }
+        }
     }
 
     public void OnNoteLine0(InputAction.CallbackContext context)
