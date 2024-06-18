@@ -1,4 +1,6 @@
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIButton : UIObject
@@ -20,6 +22,7 @@ public class UIButton : UIObject
 
     public void OnClick()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         UIController.Instance.find.Invoke(Name);
     }
 }
