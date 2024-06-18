@@ -94,7 +94,7 @@ public class Editor : MonoBehaviour
         musicController.SetText(">");
     }
 
-    public void CaculateCurrnetBar()
+    public void CalculateCurrentBar()
     {
         currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.sheet.BarPerMilliSec);
     }
@@ -104,7 +104,7 @@ public class Editor : MonoBehaviour
         WaitForSeconds wait = new WaitForSeconds(0.1f);
         while (true)
         {
-            CaculateCurrnetBar();
+            CalculateCurrentBar();
             yield return wait;
         }
     }
@@ -137,14 +137,14 @@ public class Editor : MonoBehaviour
             float time = AudioManager.Instance.Length * slider.slider.value;
             AudioManager.Instance.progressTime = time;
 
-            // ���� Ÿ�ӿ� ���缭 ������Ʈ�� �̵�
-            // �Ѹ��� 16�� �̵�
-            // time / �Ѹ��� �ð�
+            // 음악 타임에 맞춰서 오브젝트스 이동
+            // 한마디에 16씩 이동
+            // time / 한마디 시간
 
-            CaculateCurrnetBar();
+            CalculateCurrentBar();
 
-            // �� �׸���(�� ����)�� ���ӿ�����Ʈ y��ǥ�� ���̴� 16
-            // ���� ������ġ * 16 = ����s
+            // 한 그리드(한 마디)의 게임오브젝트 y좌표의 높이는 16
+            // 현재 음악위치 * 16 = 높이s
             float barPerTime = GameManager.Instance.sheet.BarPerSec;
             float pos = time / barPerTime * 16;
 
@@ -159,6 +159,7 @@ public class Editor : MonoBehaviour
         {
             EditorController.Instance.isLongNoteActive = false;
         }
+        EditorController.Instance.cursorObj.transform.position = new Vector3(-12, 0, 0);
         EditorController.Instance.isShortNoteActive = !EditorController.Instance.isShortNoteActive;
     }
 
@@ -168,6 +169,7 @@ public class Editor : MonoBehaviour
         {
             EditorController.Instance.isShortNoteActive = false;
         }
+        EditorController.Instance.cursorObj.transform.position = new Vector3(-12, 0, 0);
         EditorController.Instance.isLongNoteActive = !EditorController.Instance.isLongNoteActive;
     }
 

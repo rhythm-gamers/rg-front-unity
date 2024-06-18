@@ -14,7 +14,7 @@ public class EditorController : MonoBehaviour
     }
 
     public GameObject cursorPrefab;
-    GameObject cursorObj;
+    public GameObject cursorObj;
 
     public bool isCtrl;
     float scrollValue;
@@ -64,6 +64,8 @@ public class EditorController : MonoBehaviour
     {
         if (GameManager.Instance.state == GameManager.GameState.Game) return;
         if (GameManager.Instance.isPlaying == false) return;
+        if (!isShortNoteActive && !isLongNoteActive) return;
+
 
         // 그리드에 레이쏴서 위치 알아내야함
         // 현재 스냅에 따라, 스냅될 위치 알아내야함
@@ -86,13 +88,13 @@ public class EditorController : MonoBehaviour
         }
         else if (hit.transform.CompareTag("Note"))
         {
-            //Debug.Log("note");
+            // Debug.Log("note");
             isDispose = false;
             selectedNoteObject = hit.transform.gameObject;
         }
         else
         {
-            //Debug.Log("grid");
+            // Debug.Log("grid");
             int beat = int.Parse(hit.transform.name.Split('_')[1]);
             int index = hit.transform.parent.GetComponent<GridObject>().index;
             float y = hit.transform.TransformDirection(hit.transform.position).y; // Local Position To World Position
@@ -152,52 +154,53 @@ public class EditorController : MonoBehaviour
     {
         if (btnName == "leftButton")
         {
+            if (!isDispose) return;
             if (selectedNoteObject != null)
             {
-                Debug.Log("��Ʈ�� �̹� �����մϴ�");
+                Debug.Log("노트가 이미 존재합니다");
+                return;
             }
-            if (isDispose)
+
+            if (isLongNoteActive)
             {
-                if (isLongNoteActive)
+                if (longNoteMakingCount == 0)
                 {
-                    if (longNoteMakingCount == 0)
-                    {
-                        lastSelectedGridPosition = selectedGridPosition;
+                    lastSelectedGridPosition = selectedGridPosition;
 
-                        NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { lastSelectedGridPosition, selectedGridPosition });
+                    NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { lastSelectedGridPosition, selectedGridPosition });
 
-                        longNoteMakingCount++;
-                    }
-                    else if (longNoteMakingCount == 1)
-                    {
-                        Vector3 tailPositon = selectedGridPosition;
-                        tailPositon.x = lastSelectedGridPosition.x; // 롱노트는 사선으로 작성될 수 없으므로, 다른 라인(x)에 찍어도 종전과 동일한 위치를 유지
-                        lastSelectedGridPosition.y = headTemp.TransformDirection(headTemp.transform.position).y;
-
-                        // tail을 head보다 낮게 배치했을 경우 뒤집어주어야함
-                        if (lastSelectedGridPosition.y < tailPositon.y)
-                        {
-                            NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { lastSelectedGridPosition, tailPositon });
-                        }
-                        else
-                        {
-                            NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { tailPositon, lastSelectedGridPosition });
-                        }
-
-                        longNoteMakingCount = 0;
-                    }
+                    longNoteMakingCount++;
                 }
-                else if (isShortNoteActive)
+                else if (longNoteMakingCount == 1)
                 {
-                    NoteGenerator.Instance.DisposeNoteShort(NoteType.Short, selectedGridPosition);
+                    Vector3 tailPositon = selectedGridPosition;
+                    tailPositon.x = lastSelectedGridPosition.x; // 롱노트는 사선으로 작성될 수 없으므로, 다른 라인(x)에 찍어도 종전과 동일한 위치를 유지
+                    lastSelectedGridPosition.y = headTemp.TransformDirection(headTemp.transform.position).y;
+
+                    // tail을 head보다 낮게 배치했을 경우 뒤집어주어야함
+                    if (lastSelectedGridPosition.y < tailPositon.y)
+                    {
+                        NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { lastSelectedGridPosition, tailPositon });
+                    }
+                    else
+                    {
+                        NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount, new Vector3[] { tailPositon, lastSelectedGridPosition });
+                    }
+
+                    longNoteMakingCount = 0;
                 }
+            }
+            else if (isShortNoteActive)
+            {
+                NoteGenerator.Instance.DisposeNoteShort(NoteType.Short, selectedGridPosition);
+                Debug.Log("노트 생성");
             }
         }
         else if (btnName == "rightButton")
         {
+            Debug.Log(selectedNoteObject);
             if (selectedNoteObject != null)
             {
-                //Debug.Log("노트 삭제");
                 if (isLongNoteActive)
                 {
                     // long은 부모 찾아서 비활성화

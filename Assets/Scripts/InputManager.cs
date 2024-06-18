@@ -152,7 +152,7 @@ public class InputManager : MonoBehaviour
                     PauseNavigator.Instance.ActivateButton();
                 }
             }
-            else
+            else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 if (GameManager.Instance.isPlayable)
                     GameManager.Instance.Edit();
@@ -174,13 +174,19 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    // ������
+    // 에디터
     public void OnMouseBtn(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
-                EditorController.Instance.MouseBtn(context.control.name);
+            {
+                if (GameManager.Instance.isPlaying)
+                {
+                    Debug.Log(context.control.name);
+                    EditorController.Instance.MouseBtn(context.control.name);
+                }
+            }
         }
     }
 
