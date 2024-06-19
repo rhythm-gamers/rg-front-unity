@@ -201,6 +201,27 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IEInitPlay());
     }
 
+    public void Stop()
+    {
+        if (state == GameState.Edit)
+        {
+            // Editor UI 끄기
+            canvases[(int)Canvas.Editor].SetActive(false);
+            Editor.Instance.Stop();
+
+            FindObjectOfType<GridGenerator>().InActivate();
+
+            // 노트 Gen 끄기
+            NoteGenerator.Instance.StopGen();
+
+            // 음악 끄기
+            AudioManager.Instance.progressTime = 0f;
+            AudioManager.Instance.Stop();
+
+            Description();
+        }
+    }
+
     IEnumerator IEInit()
     {
         SheetLoader.Instance.Init();
@@ -400,8 +421,9 @@ public class GameManager : MonoBehaviour
         // Sheet 초기화
         sheet.Init();
 
-        // Audio 삽입
+        // Audio 삽입 및 초기화
         AudioManager.Instance.Insert(sheet.clip);
+        AudioManager.Instance.InitForEdit();
 
         // Grid 생성
         FindObjectOfType<GridGenerator>().Init();

@@ -163,13 +163,20 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            if (GameManager.Instance.isPlaying)
+            if (GameManager.Instance.state == GameManager.GameState.Game)
             {
-                GameManager.Instance.Pause();
+                if (GameManager.Instance.isPlaying)
+                {
+                    GameManager.Instance.Pause();
+                }
+                else if (GameManager.Instance.isPaused)
+                {
+                    GameManager.Instance.UnPause();
+                }
             }
-            else if (GameManager.Instance.isPaused)
+            else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
-                GameManager.Instance.UnPause();
+                GameManager.Instance.Stop();
             }
         }
     }
@@ -183,7 +190,6 @@ public class InputManager : MonoBehaviour
             {
                 if (GameManager.Instance.isPlaying)
                 {
-                    Debug.Log(context.control.name);
                     EditorController.Instance.MouseBtn(context.control.name);
                 }
             }
@@ -196,7 +202,8 @@ public class InputManager : MonoBehaviour
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
-                EditorController.Instance.Scroll(context.ReadValue<float>());
+                if (GameManager.Instance.isPlaying)
+                    EditorController.Instance.Scroll(context.ReadValue<float>());
             }
         }
     }
