@@ -12,8 +12,6 @@ public class SheetLoader : MonoBehaviour
         }
     }
 
-    public string pathSheet = "https://drt2kw8kpttus.cloudfront.net";
-
     public Sheet originSheet = new();
     public bool bLoadFinish = false;
 

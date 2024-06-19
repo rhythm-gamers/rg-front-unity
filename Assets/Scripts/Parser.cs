@@ -1,4 +1,5 @@
 using System.Collections;
+using DotNetEnv;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -23,7 +24,7 @@ public class Parser
     }
     Step currentStep = Step.Description;
 
-    string basePath = "https://drt2kw8kpttus.cloudfront.net";
+    readonly string basePath = Env.GetString("CLOUDFRONT_URL");
 
     public AudioClip clip;
     public Sprite img;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -14,12 +13,6 @@ public class SheetStorage : MonoBehaviour
         Head y좌표 = NoteLong의 y좌표
         Tail y좌표 = NoteLong.y + tail.y가 최종좌표
      */
-    public string pathSheet = "https://drt2kw8kpttus.cloudfront.net";
-
-    void Start()
-    {
-
-    }
 
     public void Save()
     {
@@ -98,35 +91,6 @@ public class SheetStorage : MonoBehaviour
 
         writer.TrimEnd('\r', '\n');
 
-        if (File.Exists(pathSheet))
-        {
-            try
-            {
-                File.Delete(pathSheet);
-            }
-            catch (IOException e)
-            {
-                Debug.LogError(e.Message);
-                return;
-            }
-        }
-
-        if (!File.Exists(pathSheet))
-        {
-            using (FileStream fs = File.Create(pathSheet))
-            {
-
-            }
-        }
-        else
-        {
-            Debug.LogError($"{sheet.title}.sheet가 이미 존재합니다 !");
-            return;
-        }
-
-        using (StreamWriter sw = new StreamWriter(pathSheet))
-        {
-            sw.Write(writer);
-        }
+        S3Uploader.Instance.UploadFile(writer);
     }
 }
