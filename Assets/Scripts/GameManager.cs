@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        DotNetEnv.Env.Load();
         StartCoroutine(IEInit());
     }
 
