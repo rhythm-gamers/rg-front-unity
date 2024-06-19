@@ -24,8 +24,6 @@ public class EditorController : MonoBehaviour
     Vector3 worldPos;
 
     InputManager inputManager;
-    AudioManager audioManager;
-    Editor editor;
 
     public Action<int> GridSnapListener;
 
@@ -53,8 +51,8 @@ public class EditorController : MonoBehaviour
         cam = Camera.main;
 
         inputManager = FindObjectOfType<InputManager>();
-        audioManager = AudioManager.Instance;
-        editor = Editor.Instance;
+
+        AudioManager.Instance.InitForEdit();
 
         cursorObj = Instantiate(cursorPrefab);
         cursorObj.transform.position = new Vector3(-12, 0, 0);
@@ -228,12 +226,16 @@ public class EditorController : MonoBehaviour
             float snap = Editor.Instance.Snap;
             if (scrollValue > 0)
             {
+                if (AudioManager.Instance.Length - AudioManager.Instance.progressTime <= 0.1f) return;
+
                 Editor.Instance.objects.transform.position += Vector3.down * snap * 0.25f;
                 AudioManager.Instance.MovePosition(GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
                 //Debug.Log(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
             else if (scrollValue < 0)
             {
+                if (AudioManager.Instance.progressTime == 0f) return;
+
                 Editor.Instance.objects.transform.position += Vector3.up * snap * 0.25f;
                 AudioManager.Instance.MovePosition(-GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
                 //Debug.Log(-GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);

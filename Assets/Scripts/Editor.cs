@@ -90,7 +90,7 @@ public class Editor : MonoBehaviour
 
         objects.transform.position = new Vector3(0f, offsetPosition, 0f);
         AudioManager.Instance.progressTime = 0f;
-        AudioManager.Instance.Stop();
+        AudioManager.Instance.Pause();
         musicController.SetText(">");
     }
 

@@ -60,7 +60,8 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        CheckIsFinished();
+        if (GameManager.Instance.state == GameManager.GameState.Game)
+            CheckIsFinished();
     }
 
     private void CheckIsFinished()
@@ -68,6 +69,14 @@ public class AudioManager : MonoBehaviour
         if (!GameManager.Instance.isPlaying) return;
         if (Length - progressTime <= 0.1f)
             Stop();
+    }
+
+    public void InitForEdit()
+    {
+        // 한번 재생해야 곡 시간을 자유롭게 변경 가능
+        Play();
+        Pause();
+        progressTime = 0f;
     }
 
     public void Play()
@@ -85,17 +94,17 @@ public class AudioManager : MonoBehaviour
 
     public void UnPause()
     {
-        state = State.Unpaused;
-
-        if (audioSource.clip != null)
-        {
-            progressTime = savedAudioTimeForPause;
-            audioSource.UnPause();
-        }
-        else
+        if (audioSource.clip == null)
         {
             Debug.LogError("Audio clip is null. Cannot unpause.");
+            return;
         }
+
+        state = State.Unpaused;
+
+        progressTime = savedAudioTimeForPause;
+        audioSource.UnPause();
+
     }
 
     public void Stop()
@@ -108,10 +117,10 @@ public class AudioManager : MonoBehaviour
     {
         float currentTime = audioSource.time;
 
-        currentTime += time;
-        currentTime = Mathf.Clamp(currentTime, 0f, audioSource.clip.length - 0.0001f);
-
-        audioSource.time = currentTime;
+        if (currentTime + time < 0)
+            progressTime = 0f;
+        else
+            progressTime += time;
     }
 
     public void Insert(AudioClip clip)
