@@ -380,14 +380,22 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.Result].SetActive(true);
 
         UIText rscore = UIController.Instance.FindUI("UI_R_Score").uiObject as UIText;
+        UIText rrhythm = UIController.Instance.FindUI("UI_R_Rhythm").uiObject as UIText;
         UIText rgreat = UIController.Instance.FindUI("UI_R_Great").uiObject as UIText;
         UIText rgood = UIController.Instance.FindUI("UI_R_Good").uiObject as UIText;
-        UIText rmiss = UIController.Instance.FindUI("UI_R_Miss").uiObject as UIText;
+        UIText rfastmiss = UIController.Instance.FindUI("UI_R_FastMiss").uiObject as UIText;
+        UIText rtotalmiss = UIController.Instance.FindUI("UI_R_TotalMiss").uiObject as UIText;
+        UIText rslowmiss = UIController.Instance.FindUI("UI_R_SlowMiss").uiObject as UIText;
 
         rscore.SetText(Score.Instance.data.score.ToString());
+        rrhythm.SetText(Score.Instance.data.rhythm.ToString());
         rgreat.SetText(Score.Instance.data.great.ToString());
         rgood.SetText(Score.Instance.data.good.ToString());
-        rmiss.SetText(Score.Instance.data.miss.ToString());
+        rfastmiss.SetText(Score.Instance.data.fastMiss.ToString());
+        rtotalmiss.SetText(Score.Instance.data.miss.ToString());
+        rslowmiss.SetText(Score.Instance.data.slowMiss.ToString());
+
+        Debug.Log($"총 인식된 노트수: {Score.Instance.data.rhythm + Score.Instance.data.great + Score.Instance.data.good + Score.Instance.data.miss}");
 
         UIImage rBG = UIController.Instance.FindUI("UI_R_BG").uiObject as UIImage;
         rBG.SetSprite(sheet.img);

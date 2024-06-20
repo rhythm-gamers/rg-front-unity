@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum JudgeType
 {
+    Rhythm,
     Great,
     Good,
     Miss
@@ -20,9 +22,10 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    readonly int miss = 600;
-    readonly int good = 400;
-    readonly int great = 250;
+    readonly int miss = 300;
+    readonly int good = 200;
+    readonly int great = 150;
+    readonly int rhythm = 50; // perfect
 
     List<Queue<Note>> notes = new List<Queue<Note>>();
     Queue<Note> note1 = new Queue<Note>();
@@ -39,12 +42,16 @@ public class Judgement : MonoBehaviour
     public int currentTime = 0;
     public Coroutine coCheckMiss;
 
+    private readonly object[] dequeuingLock = new object[] { new object(), new object(), new object(), new object() };
+
+    bool IsMiss(float time) => time <= miss && time >= -miss;
+    bool IsOverGood(float time) => time <= good && time >= -good;
+
     IEnumerator WebGLInitUserJudgeTime(int judgeTime)
     {
         judgeTimeFromUserSetting = judgeTime;
         yield return new WaitUntil(() => UIController.Instance.isInit == true);
     }
-
 
     void Awake()
     {
@@ -77,78 +84,6 @@ public class Judgement : MonoBehaviour
         notes.Add(note4);
     }
 
-    public void Judge(int line)
-    {
-        if (notes[line].Count <= 0 || !AudioManager.Instance.IsPlaying())
-            return;
-
-        Note note = notes[line].Peek();
-        int judgeTime = currentTime - note.time + judgeTimeFromUserSetting;
-
-        if (judgeTime < miss && judgeTime > -miss)
-        {
-            if (judgeTime < good && judgeTime > -good)
-            {
-                if (judgeTime < great && judgeTime > -great)
-                {
-                    Score.Instance.data.great++;
-                    Score.Instance.data.judge = JudgeType.Great;
-                }
-                else
-                {
-                    Score.Instance.data.good++;
-                    Score.Instance.data.judge = JudgeType.Good;
-                }
-                Score.Instance.data.combo++;
-            }
-            else
-            {
-                Score.Instance.data.fastMiss++;
-                Score.Instance.data.judge = JudgeType.Miss;
-                Score.Instance.data.combo = 0;
-            }
-            Score.Instance.SetScore();
-            JudgeEffect.Instance.OnEffect(line);
-
-            if (note.type == (int)NoteType.Short)
-            {
-                notes[line].Dequeue();
-            }
-            else if (note.type == (int)NoteType.Long)
-            {
-                longNoteCheck[line] = 1;
-            }
-        }
-    }
-
-    public void CheckLongNote(int line)
-    {
-        if (notes[line].Count <= 0)
-            return;
-
-        Note note = notes[line].Peek();
-        if (note.type != (int)NoteType.Long)
-            return;
-
-        int judgeTime = currentTime - note.tail + judgeTimeFromUserSetting;
-        if (judgeTime < good && judgeTime > -good)
-        {
-            if (judgeTime < great && judgeTime > -great)
-            {
-                Score.Instance.data.great++;
-                Score.Instance.data.judge = JudgeType.Great;
-                Score.Instance.data.combo++;
-            }
-            else
-            {
-                Score.Instance.data.longMiss++;
-            }
-            Score.Instance.SetScore();
-            longNoteCheck[line] = 0;
-            notes[line].Dequeue();
-        }
-    }
-
     public void StartMissCheck()
     {
         coCheckMiss = StartCoroutine(IECheckMiss());
@@ -162,45 +97,171 @@ public class Judgement : MonoBehaviour
         }
     }
 
+    public IEnumerator JudgeNote(int line)
+    {
+        if (notes[line].Count <= 0 || !AudioManager.Instance.IsPlaying())
+            yield break;
+
+        int savedCurrentTime = currentTime;
+
+        lock (dequeuingLock[line])
+        {
+            Note note = notes[line].Peek();
+            int judgeTime = savedCurrentTime - note.time + judgeTimeFromUserSetting;
+
+            if (IsMiss(judgeTime))
+            {
+                if (IsOverGood(judgeTime))
+                {
+                    HandleOverGood(judgeTime);
+                }
+                else
+                {
+                    HandleFastOrSlowMiss(judgeTime);
+                }
+                Score.Instance.UpdateScore();
+                JudgeEffect.Instance.OnEffect(line);
+                HandleByNoteType(note.type, line);
+            }
+        }
+    }
+
+    public IEnumerator CheckLongNote(int line)
+    {
+        if (notes[line].Count <= 0) yield break;
+        if (longNoteCheck[line] == 0) yield break;
+
+        int savedCurrentTime = currentTime;
+        lock (dequeuingLock[line])
+        {
+            Note note = notes[line].Peek();
+            int judgeTime = savedCurrentTime - note.tail + judgeTimeFromUserSetting;
+
+            bool IsOnLongNote = (savedCurrentTime >= note.time - miss) && (savedCurrentTime <= note.tail + miss);
+            if (IsOnLongNote)
+            {
+                if (IsOverGood(judgeTime))
+                {
+                    HandleOverGood(judgeTime);
+                }
+                else
+                {
+                    HandleFastOrSlowMiss(judgeTime);
+                }
+                Score.Instance.UpdateScore();
+                longNoteCheck[line] = 0;
+                notes[line].Dequeue();
+            }
+        }
+    }
+
+    private void HandleOverGood(float time)
+    {
+        if (time <= rhythm && time >= -rhythm)
+        {
+            Score.Instance.data.rhythm++;
+            Score.Instance.data.judge = JudgeType.Rhythm;
+        }
+        else if (time <= great && time >= -great)
+        {
+            Score.Instance.data.great++;
+            Score.Instance.data.judge = JudgeType.Great;
+        }
+        else if (time <= good && time >= -good)
+        {
+            Score.Instance.data.good++;
+            Score.Instance.data.judge = JudgeType.Good;
+        }
+        Score.Instance.data.combo++;
+    }
+
+    private void HandleFastOrSlowMiss(float time)
+    {
+        if (time > 0)
+            Score.Instance.data.slowMiss++;
+        else
+            Score.Instance.data.fastMiss++;
+
+        HandleMiss();
+    }
+
+    private void HandleMiss()
+    {
+        Score.Instance.data.miss++;
+        Score.Instance.data.judge = JudgeType.Miss;
+        Score.Instance.data.combo = 0;
+    }
+
+    private void HandleByNoteType(int noteType, int line)
+    {
+        if (noteType == (int)NoteType.Short)
+        {
+            notes[line].Dequeue();
+        }
+        else if (noteType == (int)NoteType.Long)
+        {
+            longNoteCheck[line] = 1;
+        }
+    }
+
     IEnumerator IECheckMiss()
     {
         while (true)
         {
             currentTime = (int)AudioManager.Instance.GetMilliSec();
-
             for (int i = 0; i < notes.Count; i++)
             {
                 if (notes[i].Count <= 0)
-                    break;
-                Note note = notes[i].Peek();
+                    continue;
 
-                int judgeTime = note.time - currentTime + judgeTimeFromUserSetting;
-
-                if (note.type == (int)NoteType.Long)
+                lock (dequeuingLock[i])
                 {
-                    if (longNoteCheck[note.line - 1] == 0) // Head가 판정처리가 안된 경우
+                    Note note = notes[i].Peek();
+                    int judgeTime = note.time - currentTime + judgeTimeFromUserSetting;
+                    int lastJudgeTime = note.tail - currentTime + judgeTimeFromUserSetting;
+
+                    if (note.type == (int)NoteType.Long)
+                    {
+                        if (longNoteCheck[i] == 0) // Head 판정처리가 안된 경우
+                        {
+                            if (judgeTime < -miss)
+                            {
+                                Score.Instance.data.slowMiss += 2;
+                                Score.Instance.data.miss += 2;
+                                Score.Instance.data.judge = JudgeType.Miss;
+                                Score.Instance.data.combo = 0;
+
+                                Score.Instance.UpdateScore();
+                                notes[i].Dequeue();
+                            }
+                        }
+                        else // Head 판정처리가 된 경우 (롱노트 계속 누르고 있었던 경우)
+                        {
+                            if (lastJudgeTime < -miss)
+                            {
+                                Score.Instance.data.slowMiss++;
+                                HandleMiss();
+
+                                Score.Instance.UpdateScore();
+                                notes[i].Dequeue();
+                            }
+                        }
+                    }
+
+                    else if (note.type == (int)NoteType.Short)
                     {
                         if (judgeTime < -miss)
                         {
-                            Score.Instance.data.miss++;
-                            Score.Instance.data.judge = JudgeType.Miss;
-                            Score.Instance.data.combo = 0;
-                            Score.Instance.SetScore();
+                            Score.Instance.data.slowMiss++;
+                            HandleMiss();
+
+                            Score.Instance.UpdateScore();
                             notes[i].Dequeue();
                         }
                     }
                 }
-                else
-                {
-                    if (judgeTime < -miss)
-                    {
-                        Score.Instance.data.miss++;
-                        Score.Instance.data.judge = JudgeType.Miss;
-                        Score.Instance.data.combo = 0;
-                        Score.Instance.SetScore();
-                        notes[i].Dequeue();
-                    }
-                }
+
+                yield return null;
             }
 
             yield return null;

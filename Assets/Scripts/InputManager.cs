@@ -38,52 +38,52 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            judgement.Judge(0);
-            keyEffects[0].gameObject.SetActive(true);
+            StartCoroutine(judgement.JudgeNote(0));
+            keyEffects[0].SetActive(true);
         }
         else if (context.canceled)
         {
-            judgement.CheckLongNote(0);
-            keyEffects[0].gameObject.SetActive(false);
+            StartCoroutine(judgement.CheckLongNote(0));
+            keyEffects[0].SetActive(false);
         }
     }
     public void OnNoteLine1(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            judgement.Judge(1);
-            keyEffects[1].gameObject.SetActive(true);
+            StartCoroutine(judgement.JudgeNote(1));
+            keyEffects[1].SetActive(true);
         }
         else if (context.canceled)
         {
-            judgement.CheckLongNote(1);
-            keyEffects[1].gameObject.SetActive(false);
+            StartCoroutine(judgement.CheckLongNote(1));
+            keyEffects[1].SetActive(false);
         }
     }
     public void OnNoteLine2(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            judgement.Judge(2);
-            keyEffects[2].gameObject.SetActive(true);
+            StartCoroutine(judgement.JudgeNote(2));
+            keyEffects[2].SetActive(true);
         }
         else if (context.canceled)
         {
-            judgement.CheckLongNote(2);
-            keyEffects[2].gameObject.SetActive(false);
+            StartCoroutine(judgement.CheckLongNote(2));
+            keyEffects[2].SetActive(false);
         }
     }
     public void OnNoteLine3(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            judgement.Judge(3);
-            keyEffects[3].gameObject.SetActive(true);
+            StartCoroutine(judgement.JudgeNote(3));
+            keyEffects[3].SetActive(true);
         }
         else if (context.canceled)
         {
-            judgement.CheckLongNote(3);
-            keyEffects[3].gameObject.SetActive(false);
+            StartCoroutine(judgement.CheckLongNote(3));
+            keyEffects[3].SetActive(false);
         }
     }
     public void OnSpeedDown(InputAction.CallbackContext context)

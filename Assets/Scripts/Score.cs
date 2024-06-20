@@ -4,11 +4,12 @@ using UnityEngine;
 
 public struct ScoreData
 {
+    public int rhythm; // perfect
     public int great;
     public int good;
     public int miss;
     public int fastMiss; // 빨리 입력해서 미스
-    public int longMiss; // 롱노트 완성 실패, miss 카운트는 하지 않음
+    public int slowMiss; // 늦게 입력해서 미스
 
     public string[] judgeText;
     public Color[] judgeColor;
@@ -18,7 +19,7 @@ public struct ScoreData
     {
         get
         {
-            return (great * 500) + (good * 200);
+            return (rhythm * 1000) + (great * 500) + (good * 200);
         }
         set
         {
@@ -63,14 +64,14 @@ public class Score : MonoBehaviour
         data = new ScoreData
         {
             judgeText = Enum.GetNames(typeof(JudgeType)),
-            judgeColor = new Color[3] { Color.blue, Color.yellow, Color.red }
+            judgeColor = new Color[4] { Color.blue, Color.green, Color.yellow, Color.red }
         };
         uiJudgement.SetText("");
         uiCombo.SetText("");
         uiScore.SetText("0");
     }
 
-    public void SetScore()
+    public void UpdateScore()
     {
         uiJudgement.SetText(data.judgeText[(int)data.judge]);
         uiJudgement.SetColor(data.judgeColor[(int)data.judge]);
