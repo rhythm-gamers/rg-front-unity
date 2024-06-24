@@ -214,11 +214,12 @@ public class Judgement : MonoBehaviour
                 if (notes[i].Count <= 0)
                     continue;
 
+                int savedCurrentTime = currentTime;
                 lock (dequeuingLock[i])
                 {
                     Note note = notes[i].Peek();
-                    int judgeTime = note.time - currentTime + judgeTimeFromUserSetting;
-                    int lastJudgeTime = note.tail - currentTime + judgeTimeFromUserSetting;
+                    int judgeTime = note.time - savedCurrentTime + judgeTimeFromUserSetting;
+                    int lastJudgeTime = note.tail - savedCurrentTime + judgeTimeFromUserSetting;
 
                     if (note.type == (int)NoteType.Long)
                     {
