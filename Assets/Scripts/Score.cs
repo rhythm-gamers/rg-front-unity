@@ -64,7 +64,12 @@ public class Score : MonoBehaviour
         data = new ScoreData
         {
             judgeText = Enum.GetNames(typeof(JudgeType)),
-            judgeColor = new Color[4] { Color.blue, Color.green, Color.yellow, Color.red }
+            judgeColor = new Color[4] {
+                new Color(24 / 255f, 116 / 255f, 255 / 255f), // rhythm
+                new Color(54 / 255f, 255 / 255f, 124 / 255f), // great
+                new Color(249 / 255f, 217 / 255f, 35 / 255f), // good
+                new Color(255 / 255f, 83 / 255f, 83 / 255f)  // miss
+            }
         };
         uiJudgement.SetText("");
         uiCombo.SetText("");
