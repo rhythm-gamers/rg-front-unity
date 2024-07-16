@@ -39,10 +39,11 @@ public class Judgement : MonoBehaviour
     /// User에 의해 조정된 판정 타이밍
     /// </summary>
     public int judgeTimeFromUserSetting = 0;
-    public int currentTime = 0;
-    public Coroutine coCheckMiss;
 
-    private readonly object[] dequeuingLock = new object[] { new object(), new object(), new object(), new object() };
+    private int currentTime = 0;
+    private Coroutine coCheckMiss;
+
+    private readonly object[] dequeuingLock = new object[] { new(), new(), new(), new() };
 
     bool IsMiss(float time) => time <= miss && time >= -miss;
     bool IsOverGood(float time) => time <= good && time >= -good;
@@ -102,18 +103,19 @@ public class Judgement : MonoBehaviour
         if (notes[line].Count <= 0 || !AudioManager.Instance.IsPlaying())
             yield break;
 
-        int savedCurrentTime = currentTime;
+        int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            int judgeTime = savedCurrentTime - note.time + judgeTimeFromUserSetting;
+            float judgeCorrectionValue = NoteGenerator.Instance.judgeCorrectionValue;
+            float judgeTime = savedCurrentTime - note.time + judgeCorrectionValue + judgeTimeFromUserSetting;
 
             if (IsMiss(judgeTime))
             {
                 if (IsOverGood(judgeTime))
                 {
-                    HandleOverGood(judgeTime);
+                    HandleOverGoodOnShort(judgeTime);
                 }
                 else
                 {
@@ -131,18 +133,19 @@ public class Judgement : MonoBehaviour
         if (notes[line].Count <= 0) yield break;
         if (longNoteCheck[line] == 0) yield break;
 
-        int savedCurrentTime = currentTime;
+        int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            int judgeTime = savedCurrentTime - note.tail + judgeTimeFromUserSetting;
+            float judgeCorrectionValue = NoteGenerator.Instance.judgeCorrectionValue;
+            float judgeTime = savedCurrentTime - note.tail + judgeCorrectionValue + judgeTimeFromUserSetting;
 
             bool IsOnLongNote = (savedCurrentTime >= note.time - miss) && (savedCurrentTime <= note.tail + miss);
             if (IsOnLongNote)
             {
                 if (IsOverGood(judgeTime))
                 {
-                    HandleOverGood(judgeTime);
+                    HandleOverGoodOnLong(judgeTime);
                 }
                 else
                 {
@@ -155,7 +158,7 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    private void HandleOverGood(float time)
+    private void HandleOverGoodOnShort(float time)
     {
         if (time <= rhythm && time >= -rhythm)
         {
@@ -171,6 +174,21 @@ public class Judgement : MonoBehaviour
         {
             Score.Instance.data.good++;
             Score.Instance.data.judge = JudgeType.Good;
+        }
+        Score.Instance.data.combo++;
+    }
+
+    private void HandleOverGoodOnLong(float time)
+    {
+        if (time <= great && time >= -great)
+        {
+            Score.Instance.data.rhythm++;
+            Score.Instance.data.judge = JudgeType.Rhythm;
+        }
+        else if (time <= good && time >= -good)
+        {
+            Score.Instance.data.great++;
+            Score.Instance.data.judge = JudgeType.Great;
         }
         Score.Instance.data.combo++;
     }
@@ -218,8 +236,9 @@ public class Judgement : MonoBehaviour
                 lock (dequeuingLock[i])
                 {
                     Note note = notes[i].Peek();
-                    int judgeTime = note.time - savedCurrentTime + judgeTimeFromUserSetting;
-                    int lastJudgeTime = note.tail - savedCurrentTime + judgeTimeFromUserSetting;
+                    float judgeCorrectionValue = NoteGenerator.Instance.judgeCorrectionValue;
+                    float judgeTime = note.time - savedCurrentTime + judgeCorrectionValue + judgeTimeFromUserSetting;
+                    float lastJudgeTime = note.tail - savedCurrentTime + judgeCorrectionValue + judgeTimeFromUserSetting;
 
                     if (note.type == (int)NoteType.Long)
                     {
