@@ -87,18 +87,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "JudgeDown",
+                    "name": "JudgeUp",
                     "type": "Button",
-                    "id": "27e25732-62c6-4287-b761-0390699add6b",
+                    "id": "d30d5343-2d2d-447c-9517-30c376132041",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "JudgeUp",
+                    "name": "JudgeDown",
                     "type": "Button",
-                    "id": "d30d5343-2d2d-447c-9517-30c376132041",
+                    "id": "27e25732-62c6-4287-b761-0390699add6b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -262,22 +262,11 @@
                 {
                     "name": "",
                     "id": "79ab80e9-7b16-47b1-89f3-31310acf771f",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "JudgeDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "95784a52-f200-4fef-9728-654197c31582",
                     "path": "<Keyboard>/4",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "JudgeUp",
+                    "action": "JudgeDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -355,6 +344,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ArrowDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95784a52-f200-4fef-9728-654197c31582",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JudgeUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
