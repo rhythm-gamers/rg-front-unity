@@ -120,20 +120,20 @@ public class InputManager : MonoBehaviour
 #endif
         }
     }
-    public void OnJudgeDown(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            if (GameManager.Instance.isPlaying)
-                sync.Down();
-        }
-    }
     public void OnJudgeUp(InputAction.CallbackContext context)
     {
         if (context.started)
         {
             if (GameManager.Instance.isPlaying)
                 sync.Up();
+        }
+    }
+    public void OnJudgeDown(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (GameManager.Instance.isPlaying)
+                sync.Down();
         }
     }
 

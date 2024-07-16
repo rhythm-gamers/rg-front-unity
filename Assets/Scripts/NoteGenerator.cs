@@ -21,6 +21,8 @@ public class NoteGenerator : MonoBehaviour
     public readonly float[] linePos = { -1.5f, -0.5f, 0.5f, 1.5f };
     readonly float defaultInterval = 0.005f; // 1배속 기준점 (1마디 전체가 화면에 그려지는 정도를 정의)
     public float Interval { get; private set; }
+    public float DiffFromNoteBtm { get; private set; }
+    public float judgeCorrectionValue = 0; // 배속에 따라, 노트 아랫면에서 노트 중앙까지 걸리는 시간
 
     IObjectPool<NoteShort> poolShort;
     public IObjectPool<NoteShort> PoolShort
@@ -37,6 +39,12 @@ public class NoteGenerator : MonoBehaviour
     NoteShort CreatePooledShort()
     {
         GameObject note = Instantiate(notePrefab, parent.transform);
+        if (DiffFromNoteBtm == 0f)
+        {
+            DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
+            judgeCorrectionValue = DiffFromNoteBtm / Interval;
+        }
+
         note.AddComponent<NoteShort>();
         return note.GetComponent<NoteShort>();
     }
@@ -76,6 +84,12 @@ public class NoteGenerator : MonoBehaviour
         lineRenderer.widthMultiplier = 0.8f;
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = false;
+
+        if (DiffFromNoteBtm == 0f)
+        {
+            float DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
+            judgeCorrectionValue = DiffFromNoteBtm / Interval;
+        }
 
         note.AddComponent<NoteLong>();
         return note.GetComponent<NoteLong>();
@@ -142,6 +156,7 @@ public class NoteGenerator : MonoBehaviour
                 break;
             }
         }
+
         for (int j = prev; j < next; j++)
         {
             reconNotes.Add(notes[j]);
@@ -381,6 +396,8 @@ public class NoteGenerator : MonoBehaviour
 
         float time = 0;
         Interval = defaultInterval * GameManager.Instance.Speed;
+        judgeCorrectionValue = DiffFromNoteBtm / Interval;
+
         float noteSpeed = Interval * 1000;
         while (time < duration)
         {

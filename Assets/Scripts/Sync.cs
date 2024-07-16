@@ -27,8 +27,6 @@ public class Sync : MonoBehaviour
     public void Down()
     {
         judgement.judgeTimeFromUserSetting -= 25;
-        judgeLine.transform.position += Vector3.down * 0.025f;
-
         text = UIController.Instance.FindUI("UI_G_SyncTime").uiObject as UIText;
 
         int time = Mathf.Abs(judgement.judgeTimeFromUserSetting);
@@ -53,8 +51,6 @@ public class Sync : MonoBehaviour
     public void Up()
     {
         judgement.judgeTimeFromUserSetting += 25;
-        judgeLine.transform.position += Vector3.up * 0.025f;
-
         text = UIController.Instance.FindUI("UI_G_SyncTime").uiObject as UIText;
 
         int time = Mathf.Abs(judgement.judgeTimeFromUserSetting);
