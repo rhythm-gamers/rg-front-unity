@@ -34,7 +34,6 @@ public class EditorController : MonoBehaviour
     int selectedLine = 0;
 
     int longNoteMakingCount = 0;
-    GameObject longNoteTemp;
     bool isDispose;
 
     public bool isShortNoteActive;
@@ -196,7 +195,6 @@ public class EditorController : MonoBehaviour
         }
         else if (btnName == "rightButton")
         {
-            Debug.Log(selectedNoteObject);
             if (selectedNoteObject != null)
             {
                 if (isLongNoteActive)
