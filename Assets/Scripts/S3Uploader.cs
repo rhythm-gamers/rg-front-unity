@@ -1,12 +1,9 @@
-using System;
 using UnityEngine;
 using Amazon;
 using Amazon.S3;
-using Amazon.S3.Model;
-using System.Threading.Tasks;
 using Amazon.Runtime;
 using System.Collections;
-using DotNetEnv;
+using UnityEngine.Networking;
 
 public class S3Uploader : MonoBehaviour
 {
@@ -19,14 +16,14 @@ public class S3Uploader : MonoBehaviour
         }
     }
 
-    private readonly string bucketName = Env.GetString("BUCKET_NAME");
-    private readonly string awsAccessKeyId = Env.GetString("AWS_ACCESS_KEY_ID");
-    private readonly string awsSecretAccessKey = Env.GetString("AWS_SECRET_ACCESS_KEY");
+    private string presignedUrl;
+    private string queryString;
 
-    private string fileKey;
-    private readonly RegionEndpoint bucketRegion = RegionEndpoint.APNortheast2;
-
-    private static IAmazonS3 client;
+    [System.Serializable]
+    public class PresignedUrlResponse
+    {
+        public string url;
+    }
 
     void Awake()
     {
@@ -34,56 +31,56 @@ public class S3Uploader : MonoBehaviour
             instance = this;
     }
 
-    public void UploadFile(string contentBody)
+    public void UploadFile(string contentBody, string contentType)
     {
         Init();
-        StartCoroutine(IEUploadFile(contentBody));
+        StartCoroutine(IEUploadFile(contentBody, contentType));
     }
 
     private void Init()
     {
-        fileKey = $"Sheet/{GameManager.Instance.sheet.title}/{GameManager.Instance.sheet.title}.sheet";
-
-        var credentials = new BasicAWSCredentials(awsAccessKeyId, awsSecretAccessKey);
-        client = new AmazonS3Client(credentials, bucketRegion);
+        queryString = $"?bucketName={EnvManager.Instance.AWSBucketName}&objectKey=Sheet/{GameManager.Instance.sheet.title}/{GameManager.Instance.sheet.title}.sheet&expirationDuration=15";
     }
 
-    private IEnumerator IEUploadFile(string contentBody)
+    private IEnumerator IEUploadFile(string contentBody, string contentType)
     {
-        Task uploadTask = UploadFileAsync(contentBody);
-        yield return new WaitUntil(() => uploadTask.IsCompleted);
+        yield return StartCoroutine(IEGetPresignedUrl());
 
-        Debug.Log("File uploaded successfully.");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(contentBody);
+        using UnityWebRequest www = new UnityWebRequest(presignedUrl, "PUT")
+        {
+            uploadHandler = new UploadHandlerRaw(bodyRaw),
+            downloadHandler = new DownloadHandlerBuffer()
+        };
+        www.SetRequestHeader("Content-Type", contentType);
+
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("File uploaded successfully.");
+        }
+        else
+        {
+            Debug.LogError("File upload failed: " + www.error);
+        }
     }
 
-    private async Task UploadFileAsync(string contentBody)
+    private IEnumerator IEGetPresignedUrl()
     {
-        try
-        {
-            Debug.Log("S3 Uploading");
-            var putRequest1 = new PutObjectRequest
-            {
-                BucketName = bucketName,
-                Key = fileKey,
-                ContentBody = contentBody,
-                ContentType = "binary/octet-stream"
-            };
+        using UnityWebRequest www = UnityWebRequest.Get(EnvManager.Instance.AWSGenPresignedUrl + queryString);
 
-            PutObjectResponse res = await client.PutObjectAsync(putRequest1);
-        }
-        catch (AmazonS3Exception e)
+        yield return www.SendWebRequest();
+        if (www.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log(
-                $"Error encountered on server. Message:'{e.Message}' when uploading an object");
+            string jsonResponse = www.downloadHandler.text;
+
+            PresignedUrlResponse response = JsonUtility.FromJson<PresignedUrlResponse>(jsonResponse);
+            presignedUrl = response.url;
         }
-        catch (Exception e)
+        else
         {
-            Debug.Log(
-                $"Unknown encountered on server. Message:'{e.Message}' when uploading an object");
-        }
-        finally
-        {
-            client.Dispose();
+            Debug.LogError("IEGetPresignedUrl Error: " + www.error);
         }
     }
 }

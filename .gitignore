@@ -74,5 +74,10 @@ crashlytics-build.properties
 # VSCode Setting
 .vscode
 
+# Saved Sheet
+/[Aa]ssets/[Ss]heet/*
+Assets/Sheet.meta
+
 # env
-.env
+/[Aa]ssets/[Ss]cripts/[Ee]nvManager.cs
+/[Aa]ssets/[Ss]cripts/[Ee]nvManager.cs.meta

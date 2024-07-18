@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: c9605bc3bc070ed4d820e2de4535c425
-labels:
-- NuGetForUnity
+guid: 49ac76100be36bf41a885edc5f93cf83
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -15,6 +13,17 @@ PluginImporter:
   platformData:
   - first:
       Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      WebGL: WebGL
     second:
       enabled: 1
       settings: {}

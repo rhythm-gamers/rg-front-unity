@@ -51,8 +51,6 @@ public class EditorController : MonoBehaviour
 
         inputManager = FindObjectOfType<InputManager>();
 
-        AudioManager.Instance.InitForEdit();
-
         cursorObj = Instantiate(cursorPrefab);
         cursorObj.transform.position = new Vector3(-12, 0, 0);
     }
@@ -68,15 +66,20 @@ public class EditorController : MonoBehaviour
         // 현재 스냅에 따라, 스냅될 위치 알아내야함
         //Debug.Log(inputManager.mousePos);
         Vector3 mousePos = inputManager.mousePos;
-        mousePos.z = -cam.transform.position.z;
-        worldPos = cam.ScreenToWorldPoint(mousePos);
+        Vector3 normalizedMousePos = new Vector3(mousePos.x / Screen.width, mousePos.y / Screen.height, 0)
+        {
+            z = -cam.transform.position.z
+        };
+
+        worldPos = cam.ViewportToWorldPoint(normalizedMousePos);
         //int layerMask = (1 << LayerMask.NameToLayer("Grid")) + (1 << LayerMask.NameToLayer("Note"));
 
-        // Ŀ�� ��ǥ
+        // 커서 좌표
         cursorObj.transform.position = worldPos;
 
         Debug.DrawRay(worldPos, cam.transform.forward * 2, Color.red, 0.2f);
         RaycastHit2D hit = Physics2D.Raycast(worldPos, cam.transform.forward, 2f);
+
         if (hit.transform == null)
         {
             isDispose = false;
@@ -197,12 +200,13 @@ public class EditorController : MonoBehaviour
         {
             if (selectedNoteObject != null)
             {
-                if (isLongNoteActive)
+                NoteShort isNoteShortExist = selectedNoteObject.GetComponent<NoteShort>();
+                if (isLongNoteActive && !isNoteShortExist)
                 {
                     // long은 부모 찾아서 비활성화
                     selectedNoteObject.transform.parent.gameObject.SetActive(false);
                 }
-                else if (isShortNoteActive)
+                else if (isShortNoteActive && isNoteShortExist)
                 {
                     selectedNoteObject.SetActive(false);
                 }
@@ -227,7 +231,7 @@ public class EditorController : MonoBehaviour
                 if (AudioManager.Instance.Length - AudioManager.Instance.progressTime <= 0.1f) return;
 
                 Editor.Instance.objects.transform.position += Vector3.down * snap * 0.25f;
-                AudioManager.Instance.MovePosition(GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
+                AudioManager.Instance.MovePositionByAudioState(GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
                 //Debug.Log(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
             else if (scrollValue < 0)
@@ -235,7 +239,7 @@ public class EditorController : MonoBehaviour
                 if (AudioManager.Instance.progressTime == 0f) return;
 
                 Editor.Instance.objects.transform.position += Vector3.up * snap * 0.25f;
-                AudioManager.Instance.MovePosition(-GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
+                AudioManager.Instance.MovePositionByAudioState(-GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
                 //Debug.Log(-GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
         }

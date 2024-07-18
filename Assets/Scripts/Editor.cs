@@ -77,7 +77,7 @@ public class Editor : MonoBehaviour
         }
         else
         {
-            AudioManager.Instance.Play();
+            AudioManager.Instance.UnPause();
             musicController.SetText("||");
             coMove = StartCoroutine(IEMove());
         }
@@ -90,6 +90,8 @@ public class Editor : MonoBehaviour
 
         objects.transform.position = new Vector3(0f, offsetPosition, 0f);
         AudioManager.Instance.progressTime = 0f;
+        AudioManager.Instance.savedAudioTimeForWebGL = 0f;
+        AudioManager.Instance.UnPause();
         AudioManager.Instance.Pause();
         musicController.SetText(">");
     }
@@ -173,8 +175,16 @@ public class Editor : MonoBehaviour
         EditorController.Instance.isLongNoteActive = !EditorController.Instance.isLongNoteActive;
     }
 
-    public void FileSave()
+    public void SheetSave()
     {
         FindObjectOfType<SheetStorage>().Save();
+    }
+    public void SheetUpload()
+    {
+        FindObjectOfType<SheetStorage>().Upload();
+    }
+    public void SheetDownload()
+    {
+        FindObjectOfType<SheetStorage>().Download();
     }
 }

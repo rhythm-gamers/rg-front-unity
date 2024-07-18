@@ -98,7 +98,7 @@ public class InputManager : MonoBehaviour
             UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
+#if UNITY_WEBGL && !UNITY_EDITOR
             SetSpeed(speedToString);
 #endif
         }
@@ -115,7 +115,7 @@ public class InputManager : MonoBehaviour
             UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
+#if UNITY_WEBGL && !UNITY_EDITOR
             SetSpeed(speedToString);
 #endif
         }

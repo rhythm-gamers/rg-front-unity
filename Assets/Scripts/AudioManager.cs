@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -48,7 +49,7 @@ public class AudioManager : MonoBehaviour
     }
     public State state = State.Stop;
 
-    private float savedAudioTimeForPause { get; set; }
+    public float savedAudioTimeForWebGL { get; set; }
 
     void Awake()
     {
@@ -71,12 +72,13 @@ public class AudioManager : MonoBehaviour
             Stop();
     }
 
-    public void InitForEdit()
+    public IEnumerator InitForEdit()
     {
         // 한번 재생해야 곡 시간을 자유롭게 변경 가능
         Play();
-        Pause();
+        yield return new WaitUntil(() => IsPlaying());
         progressTime = 0f;
+        Pause();
     }
 
     public void Play()
@@ -88,7 +90,7 @@ public class AudioManager : MonoBehaviour
     public void Pause()
     {
         state = State.Paused;
-        savedAudioTimeForPause = progressTime;
+        savedAudioTimeForWebGL = progressTime;
         audioSource.Pause();
     }
 
@@ -102,9 +104,8 @@ public class AudioManager : MonoBehaviour
 
         state = State.Unpaused;
 
-        progressTime = savedAudioTimeForPause;
+        progressTime = savedAudioTimeForWebGL;
         audioSource.UnPause();
-
     }
 
     public void Stop()
@@ -113,14 +114,32 @@ public class AudioManager : MonoBehaviour
         audioSource.Stop();
     }
 
-    public void MovePosition(float time)
+    public void MovePositionByAudioState(float time)
     {
         float currentTime = audioSource.time;
+        void MovePosition(float time)
+        {
+            if (currentTime + time < 0)
+                progressTime = 0f;
+            else
+            {
+                progressTime += time;
+                savedAudioTimeForWebGL += time;
+            }
+        }
 
-        if (currentTime + time < 0)
-            progressTime = 0f;
+        if (IsPlaying())
+        {
+            MovePosition(time);
+            Pause();
+            UnPause();
+        }
         else
-            progressTime += time;
+        {
+            MovePosition(time);
+            UnPause();
+            Pause();
+        }
     }
 
     public void Insert(AudioClip clip)
