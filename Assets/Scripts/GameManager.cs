@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        DotNetEnv.Env.Load();
         StartCoroutine(IEInit());
     }
 
@@ -426,12 +425,13 @@ public class GameManager : MonoBehaviour
         //  Description UI 끄기
         canvases[(int)Canvas.Description].SetActive(false);
 
-        // Sheet 초기화
+        // Sheet 및 Sheet Storage 초기화
         sheet.Init();
+        FindObjectOfType<SheetStorage>().Init();
 
         // Audio 삽입 및 초기화
         AudioManager.Instance.Insert(sheet.clip);
-        AudioManager.Instance.InitForEdit();
+        StartCoroutine(AudioManager.Instance.InitForEdit());
 
         // Grid 생성
         FindObjectOfType<GridGenerator>().Init();
