@@ -1,5 +1,4 @@
 using System.Collections;
-using DotNetEnv;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -24,7 +23,7 @@ public class Parser
     }
     Step currentStep = Step.Description;
 
-    readonly string basePath = Env.GetString("CLOUDFRONT_URL");
+    readonly string basePath = EnvManager.Instance.CloudfrontUrl;
 
     public AudioClip clip;
     public Sprite img;
@@ -37,8 +36,9 @@ public class Parser
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string contents = www.downloadHandler.text;
-                string[] rows = contents.Split("\n");
+                SheetLoader.Instance.sheetContent = contents;
 
+                string[] rows = contents.Split("\n");
                 foreach (string row in rows)
                 {
                     if (row.StartsWith("[Description]"))
@@ -60,22 +60,22 @@ public class Parser
                     if (currentStep == Step.Description)
                     {
                         if (row.StartsWith("Title"))
-                            SheetLoader.Instance.originSheet.title = row.Split(':')[1].Trim();
+                            GameManager.Instance.sheet.title = row.Split(':')[1].Trim();
                         else if (row.StartsWith("Artist"))
-                            SheetLoader.Instance.originSheet.artist = row.Split(':')[1].Trim();
+                            GameManager.Instance.sheet.artist = row.Split(':')[1].Trim();
                     }
                     else if (currentStep == Step.Audio)
                     {
                         if (row.StartsWith("BPM"))
-                            SheetLoader.Instance.originSheet.bpm = int.Parse(row.Split(':')[1].Trim());
+                            GameManager.Instance.sheet.bpm = int.Parse(row.Split(':')[1].Trim());
                         else if (row.StartsWith("Offset"))
-                            SheetLoader.Instance.originSheet.offset = int.Parse(row.Split(':')[1].Trim());
+                            GameManager.Instance.sheet.offset = int.Parse(row.Split(':')[1].Trim());
                         else if (row.StartsWith("Signature"))
                         {
                             string[] s = row.Split(':');
                             s = s[1].Split('/');
                             int[] sign = { int.Parse(s[0].Trim()), int.Parse(s[1].Trim()) };
-                            SheetLoader.Instance.originSheet.signature = sign;
+                            GameManager.Instance.sheet.signature = sign;
                         }
                     }
                     else if (currentStep == Step.Note)
@@ -90,7 +90,7 @@ public class Parser
                         int tail = -1;
                         if (s.Length > 3)
                             tail = int.Parse(row.Split(',')[3].Trim());
-                        SheetLoader.Instance.originSheet.notes.Add(new Note(time, type, line, tail));
+                        GameManager.Instance.sheet.notes.Add(new Note(time, type, line, tail));
                     }
                 }
             }
@@ -98,8 +98,8 @@ public class Parser
         yield return IEGetClip(title);
         yield return IEGetImg(title);
 
-        SheetLoader.Instance.originSheet.clip = clip;
-        SheetLoader.Instance.originSheet.img = img;
+        GameManager.Instance.sheet.clip = clip;
+        GameManager.Instance.sheet.img = img;
     }
 
 

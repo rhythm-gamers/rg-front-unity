@@ -1,9 +1,30 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class SheetStorage : MonoBehaviour
 {
+    private string savedSheet;
+
+    [DllImport("__Internal")]
+    private static extern void SaveToLocalStorage(string key, string content);
+    [DllImport("__Internal")]
+    private static extern string LoadFromLocalStorage(string key);
+
+    [DllImport("__Internal")]
+    public static extern void DownloadSheet(string fileName, string fileContent);
+
+    public void Init()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        savedSheet = LoadFromLocalStorage("temp-sheet/" + GameManager.Instance.sheet.title) ?? SheetLoader.Instance.sheetContent;;
+#else
+        savedSheet = SheetLoader.Instance.sheetContent;
+#endif
+    }
+
     /*
      * 저장
         1) 노트 오브젝트 읽어서 y좌표 기반으로 시간 계산
@@ -13,7 +34,6 @@ public class SheetStorage : MonoBehaviour
         Head y좌표 = NoteLong의 y좌표
         Tail y좌표 = NoteLong.y + tail.y가 최종좌표
      */
-
     public void Save()
     {
         Sheet sheet = GameManager.Instance.sheet;
@@ -90,7 +110,41 @@ public class SheetStorage : MonoBehaviour
             $"{noteStr}";
 
         writer.TrimEnd('\r', '\n');
+        savedSheet = writer;
 
-        S3Uploader.Instance.UploadFile(writer);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        SaveToLocalStorage("temp-sheet/" + GameManager.Instance.sheet.title, writer);
+#endif
+        Debug.Log("Sheet saved successfully");
+    }
+
+    public void Upload()
+    {
+        S3Uploader.Instance.UploadFile(savedSheet, "binary/octet-stream");
+    }
+
+    public void Download()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        DownloadSheet($"{GameManager.Instance.sheet.title}.sheet", savedSheet);
+
+#else
+        string path = Application.dataPath + "/Sheet/";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        try
+        {
+            path += $"{GameManager.Instance.sheet.title}.sheet";
+            File.WriteAllText(path, savedSheet);
+            Debug.Log("Sheet downloaded successfully at " + path);
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("Error while downloading the sheet: " + e.Message);
+        }
+#endif
     }
 }

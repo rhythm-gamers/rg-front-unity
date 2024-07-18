@@ -12,13 +12,12 @@ public class SheetLoader : MonoBehaviour
         }
     }
 
-    public Sheet originSheet = new();
+    public string sheetContent = null;
     public bool bLoadFinish = false;
 
     public IEnumerator WebGLLoadSheet(string sheetName)
     {
         yield return Parser.Instance.IEParse(sheetName);
-        yield return StartCoroutine(InitGameNotes());
         bLoadFinish = true;
     }
 
@@ -35,11 +34,6 @@ public class SheetLoader : MonoBehaviour
 #endif
 
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
-    }
-
-    public IEnumerator InitGameNotes()
-    {
-        yield return GameManager.Instance.sheet = originSheet;
     }
 
     private void CheckElapsedTime()
