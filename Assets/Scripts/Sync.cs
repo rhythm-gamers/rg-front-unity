@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class Sync : MonoBehaviour
 {
-    Judgement judgement;
+    static Sync instance;
+    public static Sync Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    public float DiffFromNoteBtm { get; set; }
 
     public GameObject judgeLine;
 
@@ -12,32 +21,37 @@ public class Sync : MonoBehaviour
     private static extern void SetJudgeTime(int judgeTime);
 
     SpriteRenderer sr;
-    UIText text;
+    UIText uiSyncTime;
 
     Coroutine coPopup;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        judgement = FindObjectOfType<Judgement>();
+        if (instance == null)
+            instance = this;
+    }
+
+    public void Init()
+    {
+        judgeLine.transform.localPosition = new Vector3(0f, DiffFromNoteBtm, 0f); // 노트 높이의 절반만큼 판정선을 올림 (에디터가 노트 바닥을 기준으로 스냅을 잡기 때문)
         sr = judgeLine.GetComponent<SpriteRenderer>();
         sr.color = Color.red;
     }
 
     public void Down()
     {
-        judgement.judgeTimeFromUserSetting -= 25;
-        text = UIController.Instance.FindUI("UI_G_SyncTime").uiObject as UIText;
+        Judgement.Instance.judgeTimeFromUserSetting -= 25;
+        uiSyncTime = UIController.Instance.FindUI("UI_G_SyncTime").uiObject as UIText;
 
-        int time = Mathf.Abs(judgement.judgeTimeFromUserSetting);
+        int time = Mathf.Abs(Judgement.Instance.judgeTimeFromUserSetting);
         string txt = $"{time} ms";
-        if (judgement.judgeTimeFromUserSetting < 0)
+        if (Judgement.Instance.judgeTimeFromUserSetting < 0)
             txt = $"{time} ms SLOW";
-        else if (judgement.judgeTimeFromUserSetting > 0)
+        else if (Judgement.Instance.judgeTimeFromUserSetting > 0)
             txt = $"{time} ms FAST";
 
-        text.SetText(txt);
-        text.GetComponent<RectTransform>().anchoredPosition3D += Vector3.down * 2.5f;
+        uiSyncTime.SetText(txt);
+        uiSyncTime.GetComponent<RectTransform>().anchoredPosition3D += Vector3.down * 2.5f;
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
             SetJudgeTime(judgement.judgeTimeFromUserSetting);
@@ -45,23 +59,23 @@ public class Sync : MonoBehaviour
 
         if (coPopup != null)
             StopCoroutine(coPopup);
-        coPopup = StartCoroutine(IEPopup());
+        coPopup = StartCoroutine(AniPreset.Instance.IETextPopup(uiSyncTime, 1f));
     }
 
     public void Up()
     {
-        judgement.judgeTimeFromUserSetting += 25;
-        text = UIController.Instance.FindUI("UI_G_SyncTime").uiObject as UIText;
+        Judgement.Instance.judgeTimeFromUserSetting += 25;
+        uiSyncTime = UIController.Instance.FindUI("UI_G_SyncTime").uiObject as UIText;
 
-        int time = Mathf.Abs(judgement.judgeTimeFromUserSetting);
+        int time = Mathf.Abs(Judgement.Instance.judgeTimeFromUserSetting);
         string txt = $"{time} ms";
-        if (judgement.judgeTimeFromUserSetting < 0)
+        if (Judgement.Instance.judgeTimeFromUserSetting < 0)
             txt = $"{time} ms SLOW";
-        else if (judgement.judgeTimeFromUserSetting > 0)
+        else if (Judgement.Instance.judgeTimeFromUserSetting > 0)
             txt = $"{time} ms FAST";
 
-        text.SetText(txt);
-        text.GetComponent<RectTransform>().anchoredPosition3D += Vector3.up * 2.5f;
+        uiSyncTime.SetText(txt);
+        uiSyncTime.GetComponent<RectTransform>().anchoredPosition3D += Vector3.up * 2.5f;
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
             SetJudgeTime(judgement.judgeTimeFromUserSetting);
@@ -69,32 +83,6 @@ public class Sync : MonoBehaviour
 
         if (coPopup != null)
             StopCoroutine(coPopup);
-        coPopup = StartCoroutine(IEPopup());
-    }
-
-    IEnumerator IEPopup()
-    {
-        text.SetColor(sr.color);
-        float time = 0f;
-        float speed = 4f;
-        while (time < 1f)
-        {
-            text.SetColor(new Color(1, 1, 1, time));
-
-            time += Time.deltaTime * speed;
-            yield return null;
-        }
-        text.SetColor(Color.white);
-        yield return new WaitForSeconds(1f);
-
-        time = 0f;
-        while (time < 1f)
-        {
-            text.SetColor(new Color(1, 1, 1, 1 - time));
-
-            time += Time.deltaTime * speed;
-            yield return null;
-        }
-        text.SetColor(new Color(1, 1, 1, 0));
+        coPopup = StartCoroutine(AniPreset.Instance.IETextPopup(uiSyncTime, 1f));
     }
 }

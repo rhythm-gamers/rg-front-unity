@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
 {
     public GameObject[] keyEffects = new GameObject[4];
     Judgement judgement = null;
-    Sync sync = null;
 
     public Vector2 mousePos;
 
@@ -20,7 +19,6 @@ public class InputManager : MonoBehaviour
             effect.gameObject.SetActive(false);
         }
         judgement = FindObjectOfType<Judgement>();
-        sync = FindObjectOfType<Sync>();
     }
 
     void Update()
@@ -36,54 +34,70 @@ public class InputManager : MonoBehaviour
 
     public void OnNoteLine0(InputAction.CallbackContext context)
     {
-        if (context.started)
+
+        if (!GameManager.Instance.isPlayable)
         {
-            StartCoroutine(judgement.JudgeNote(0));
-            keyEffects[0].SetActive(true);
-        }
-        else if (context.canceled)
-        {
-            StartCoroutine(judgement.CheckLongNote(0));
-            keyEffects[0].SetActive(false);
+            if (context.started)
+            {
+                StartCoroutine(judgement.JudgeNote(0));
+                keyEffects[0].SetActive(true);
+            }
+            else if (context.canceled)
+            {
+                StartCoroutine(judgement.CheckLongNote(0));
+                keyEffects[0].SetActive(false);
+            }
         }
     }
     public void OnNoteLine1(InputAction.CallbackContext context)
     {
-        if (context.started)
+
+        if (!GameManager.Instance.isPlayable)
         {
-            StartCoroutine(judgement.JudgeNote(1));
-            keyEffects[1].SetActive(true);
-        }
-        else if (context.canceled)
-        {
-            StartCoroutine(judgement.CheckLongNote(1));
-            keyEffects[1].SetActive(false);
+            if (context.started)
+            {
+                StartCoroutine(judgement.JudgeNote(1));
+                keyEffects[1].SetActive(true);
+            }
+            else if (context.canceled)
+            {
+                StartCoroutine(judgement.CheckLongNote(1));
+                keyEffects[1].SetActive(false);
+            }
         }
     }
     public void OnNoteLine2(InputAction.CallbackContext context)
     {
-        if (context.started)
+
+        if (!GameManager.Instance.isPlayable)
         {
-            StartCoroutine(judgement.JudgeNote(2));
-            keyEffects[2].SetActive(true);
-        }
-        else if (context.canceled)
-        {
-            StartCoroutine(judgement.CheckLongNote(2));
-            keyEffects[2].SetActive(false);
+            if (context.started)
+            {
+                StartCoroutine(judgement.JudgeNote(2));
+                keyEffects[2].SetActive(true);
+            }
+            else if (context.canceled)
+            {
+                StartCoroutine(judgement.CheckLongNote(2));
+                keyEffects[2].SetActive(false);
+            }
         }
     }
     public void OnNoteLine3(InputAction.CallbackContext context)
     {
-        if (context.started)
+
+        if (!GameManager.Instance.isPlayable)
         {
-            StartCoroutine(judgement.JudgeNote(3));
-            keyEffects[3].SetActive(true);
-        }
-        else if (context.canceled)
-        {
-            StartCoroutine(judgement.CheckLongNote(3));
-            keyEffects[3].SetActive(false);
+            if (context.started)
+            {
+                StartCoroutine(judgement.JudgeNote(3));
+                keyEffects[3].SetActive(true);
+            }
+            else if (context.canceled)
+            {
+                StartCoroutine(judgement.CheckLongNote(3));
+                keyEffects[3].SetActive(false);
+            }
         }
     }
     public void OnSpeedDown(InputAction.CallbackContext context)
@@ -95,7 +109,7 @@ public class InputManager : MonoBehaviour
 
             string speedToString = GameManager.Instance.Speed.ToString("0.0");
             UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
-            UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
+            UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -125,7 +139,7 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             if (GameManager.Instance.isPlaying)
-                sync.Up();
+                Sync.Instance.Up();
         }
     }
     public void OnJudgeDown(InputAction.CallbackContext context)
@@ -133,7 +147,7 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             if (GameManager.Instance.isPlaying)
-                sync.Down();
+                Sync.Instance.Down();
         }
     }
 
@@ -176,7 +190,8 @@ public class InputManager : MonoBehaviour
             }
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
-                GameManager.Instance.Stop();
+                if (GameManager.Instance.isPlaying)
+                    GameManager.Instance.ExitEditor();
             }
         }
     }

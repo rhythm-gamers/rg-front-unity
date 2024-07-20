@@ -59,23 +59,19 @@ public class EditorController : MonoBehaviour
     {
         if (GameManager.Instance.state == GameManager.GameState.Game) return;
         if (GameManager.Instance.isPlaying == false) return;
-        if (!isShortNoteActive && !isLongNoteActive) return;
-
 
         // 그리드에 레이쏴서 위치 알아내야함
         // 현재 스냅에 따라, 스냅될 위치 알아내야함
         //Debug.Log(inputManager.mousePos);
         Vector3 mousePos = inputManager.mousePos;
-        Vector3 normalizedMousePos = new Vector3(mousePos.x / Screen.width, mousePos.y / Screen.height, 0)
-        {
-            z = -cam.transform.position.z
-        };
+        Vector3 normalizedMousePos = new Vector3(mousePos.x / Screen.width, mousePos.y / Screen.height, 0);
 
         worldPos = cam.ViewportToWorldPoint(normalizedMousePos);
+        worldPos.z = -1.5f;
         //int layerMask = (1 << LayerMask.NameToLayer("Grid")) + (1 << LayerMask.NameToLayer("Note"));
 
-        // 커서 좌표
-        cursorObj.transform.position = worldPos;
+        if (isShortNoteActive || isLongNoteActive)
+            cursorObj.transform.position = worldPos; // 커서 좌표
 
         Debug.DrawRay(worldPos, cam.transform.forward * 2, Color.red, 0.2f);
         RaycastHit2D hit = Physics2D.Raycast(worldPos, cam.transform.forward, 2f);
@@ -95,6 +91,8 @@ public class EditorController : MonoBehaviour
         else
         {
             // Debug.Log("grid");
+            if (!isShortNoteActive && !isLongNoteActive) return;
+
             int beat = int.Parse(hit.transform.name.Split('_')[1]);
             int index = hit.transform.parent.GetComponent<GridObject>().index;
             float y = hit.transform.TransformDirection(hit.transform.position).y; // Local Position To World Position
@@ -130,9 +128,10 @@ public class EditorController : MonoBehaviour
                 headTemp = hit.transform; // // head 기억해놨다가 활용
 
 
-            selectedGridPosition = new Vector3(NoteGenerator.Instance.linePos[selectedLine], y, 0f);
+            selectedGridPosition = new Vector3(NoteGenerator.Instance.linePos[selectedLine], y, -1f);
             cursorObj.transform.position = selectedGridPosition;
 
+            selectedNoteObject = null;
             isDispose = true;
         }
     }
@@ -192,7 +191,7 @@ public class EditorController : MonoBehaviour
             }
             else if (isShortNoteActive)
             {
-                NoteGenerator.Instance.DisposeNoteShort(NoteType.Short, selectedGridPosition);
+                NoteGenerator.Instance.DisposeNoteShort(selectedGridPosition);
                 Debug.Log("노트 생성");
             }
         }
@@ -201,12 +200,12 @@ public class EditorController : MonoBehaviour
             if (selectedNoteObject != null)
             {
                 NoteShort isNoteShortExist = selectedNoteObject.GetComponent<NoteShort>();
-                if (isLongNoteActive && !isNoteShortExist)
+                if (!isNoteShortExist)
                 {
                     // long은 부모 찾아서 비활성화
                     selectedNoteObject.transform.parent.gameObject.SetActive(false);
                 }
-                else if (isShortNoteActive && isNoteShortExist)
+                else if (isNoteShortExist)
                 {
                     selectedNoteObject.SetActive(false);
                 }
@@ -220,29 +219,30 @@ public class EditorController : MonoBehaviour
     /// <param name="value"></param>
     public void Scroll(float value)
     {
+        Time.timeScale = 0f;
         scrollValue = value;
 
         // 스크롤 시 해당 스냅만큼 이동 (컨트롤키가 입력되지않았을때만)
         if (!isCtrl)
         {
-            float snap = Editor.Instance.Snap;
+            double snap = Editor.Instance.Snap;
+            float snapDeltaTime = (float)(GameManager.Instance.editorSheet.BeatPerSec * 0.001 * snap);
+
             if (scrollValue > 0)
             {
                 if (AudioManager.Instance.Length - AudioManager.Instance.progressTime <= 0.1f) return;
 
-                Editor.Instance.objects.transform.position += Vector3.down * snap * 0.25f;
-                AudioManager.Instance.MovePositionByAudioState(GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
-                //Debug.Log(GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
+                StartCoroutine(AudioManager.Instance.MovePosition(snapDeltaTime));
             }
             else if (scrollValue < 0)
             {
                 if (AudioManager.Instance.progressTime == 0f) return;
 
-                Editor.Instance.objects.transform.position += Vector3.up * snap * 0.25f;
-                AudioManager.Instance.MovePositionByAudioState(-GameManager.Instance.sheet.BeatPerSec * 0.001f * snap);
+                StartCoroutine(AudioManager.Instance.MovePosition(-snapDeltaTime));
                 //Debug.Log(-GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
         }
+        Time.timeScale = 1f;
     }
 
     /// <summary>

@@ -1,28 +1,21 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class SheetStorage : MonoBehaviour
 {
     private string savedSheet;
-
-    [DllImport("__Internal")]
-    private static extern void SaveToLocalStorage(string key, string content);
-    [DllImport("__Internal")]
-    private static extern string LoadFromLocalStorage(string key);
-
-    [DllImport("__Internal")]
-    public static extern void DownloadSheet(string fileName, string fileContent);
+    private string saveFilePath;
 
     public void Init()
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
-        savedSheet = LoadFromLocalStorage("temp-sheet/" + GameManager.Instance.sheet.title) ?? SheetLoader.Instance.sheetContent;;
-#else
-        savedSheet = SheetLoader.Instance.sheetContent;
-#endif
+
+        saveFilePath = Path.Combine(Application.persistentDataPath, "lastSavedSheet.sheet");
+
+        savedSheet = LoadSavedSheet();
+        GameManager.Instance.editorSheet = Parser.Instance.ParseSheet(savedSheet);
     }
 
     /*
@@ -34,9 +27,9 @@ public class SheetStorage : MonoBehaviour
         Head y좌표 = NoteLong의 y좌표
         Tail y좌표 = NoteLong.y + tail.y가 최종좌표
      */
-    public void Save()
+    public void SaveSheet()
     {
-        Sheet sheet = GameManager.Instance.sheet;
+        Sheet sheet = GameManager.Instance.editorSheet;
         List<Note> notes = new List<Note>();
         string noteStr = string.Empty;
         float baseTime = sheet.BarPerSec / 16;
@@ -111,24 +104,29 @@ public class SheetStorage : MonoBehaviour
 
         writer.TrimEnd('\r', '\n');
         savedSheet = writer;
+        File.WriteAllText(saveFilePath, writer);
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-        SaveToLocalStorage("temp-sheet/" + GameManager.Instance.sheet.title, writer);
-#endif
-        Debug.Log("Sheet saved successfully");
+        Editor.Instance.ShowProgressLog($"Sheet saved successfully at {saveFilePath}");
+        Debug.Log($"Sheet saved successfully at {saveFilePath}");
+    }
+
+    private string LoadSavedSheet()
+    {
+        if (File.Exists(saveFilePath))
+            return File.ReadAllText(saveFilePath);
+        else
+            return SheetLoader.Instance.sheetContent; ;
     }
 
     public void Upload()
     {
+        SaveSheet();
         S3Uploader.Instance.UploadFile(savedSheet, "binary/octet-stream");
     }
 
     public void Download()
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
-        DownloadSheet($"{GameManager.Instance.sheet.title}.sheet", savedSheet);
-
-#else
+        SaveSheet();
         string path = Application.dataPath + "/Sheet/";
         if (!Directory.Exists(path))
         {
@@ -137,14 +135,18 @@ public class SheetStorage : MonoBehaviour
 
         try
         {
-            path += $"{GameManager.Instance.sheet.title}.sheet";
+            path += $"{GameManager.Instance.editorSheet.title}.sheet";
             File.WriteAllText(path, savedSheet);
+
+            Editor.Instance.ShowProgressLog("Sheet downloaded successfully at " + path);
             Debug.Log("Sheet downloaded successfully at " + path);
         }
         catch (IOException e)
         {
+            Editor.Instance.ShowProgressLog("Error while downloading the sheet: " + e.Message);
             Debug.LogError("Error while downloading the sheet: " + e.Message);
         }
-#endif
     }
+
+
 }

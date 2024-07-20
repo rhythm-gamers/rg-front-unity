@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -49,8 +50,6 @@ public class AudioManager : MonoBehaviour
     }
     public State state = State.Stop;
 
-    public float savedAudioTimeForWebGL { get; set; }
-
     void Awake()
     {
         if (instance == null)
@@ -72,13 +71,12 @@ public class AudioManager : MonoBehaviour
             Stop();
     }
 
-    public IEnumerator InitForEdit()
+    public void InitForEdit()
     {
         // 한번 재생해야 곡 시간을 자유롭게 변경 가능
         Play();
-        yield return new WaitUntil(() => IsPlaying());
-        progressTime = 0f;
         Pause();
+        progressTime = 0f;
     }
 
     public void Play()
@@ -90,7 +88,6 @@ public class AudioManager : MonoBehaviour
     public void Pause()
     {
         state = State.Paused;
-        savedAudioTimeForWebGL = progressTime;
         audioSource.Pause();
     }
 
@@ -103,8 +100,6 @@ public class AudioManager : MonoBehaviour
         }
 
         state = State.Unpaused;
-
-        progressTime = savedAudioTimeForWebGL;
         audioSource.UnPause();
     }
 
@@ -114,31 +109,18 @@ public class AudioManager : MonoBehaviour
         audioSource.Stop();
     }
 
-    public void MovePositionByAudioState(float time)
+    public IEnumerator MovePosition(float time)
     {
-        float currentTime = audioSource.time;
-        void MovePosition(float time)
-        {
-            if (currentTime + time < 0)
-                progressTime = 0f;
-            else
-            {
-                progressTime += time;
-                savedAudioTimeForWebGL += time;
-            }
-        }
+        double currentTime = audioSource.time;
 
-        if (IsPlaying())
-        {
-            MovePosition(time);
-            Pause();
-            UnPause();
-        }
+        if (currentTime + time < 0)
+            progressTime = 0f;
         else
         {
-            MovePosition(time);
-            UnPause();
-            Pause();
+            progressTime = (float)(currentTime + time);
+            yield return null;
+
+            Editor.Instance.CalibratePosition();
         }
     }
 

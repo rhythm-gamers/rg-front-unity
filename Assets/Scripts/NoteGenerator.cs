@@ -21,8 +21,8 @@ public class NoteGenerator : MonoBehaviour
     public readonly float[] linePos = { -1.5f, -0.5f, 0.5f, 1.5f };
     readonly float defaultInterval = 0.005f; // 1배속 기준점 (1마디 전체가 화면에 그려지는 정도를 정의)
     public float Interval { get; private set; }
-    public float DiffFromNoteBtm { get; private set; }
-    public float judgeCorrectionValue = 0; // 배속에 따라, 노트 아랫면에서 노트 중앙까지 걸리는 시간
+
+
 
     IObjectPool<NoteShort> poolShort;
     public IObjectPool<NoteShort> PoolShort
@@ -39,10 +39,10 @@ public class NoteGenerator : MonoBehaviour
     NoteShort CreatePooledShort()
     {
         GameObject note = Instantiate(notePrefab, parent.transform);
-        if (DiffFromNoteBtm == 0f)
+        if (Sync.Instance.DiffFromNoteBtm == 0f)
         {
-            DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
-            judgeCorrectionValue = DiffFromNoteBtm / Interval;
+            Sync.Instance.DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
+            Sync.Instance.Init();
         }
 
         note.AddComponent<NoteShort>();
@@ -85,10 +85,10 @@ public class NoteGenerator : MonoBehaviour
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = false;
 
-        if (DiffFromNoteBtm == 0f)
+        if (Sync.Instance.DiffFromNoteBtm == 0f)
         {
-            float DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
-            judgeCorrectionValue = DiffFromNoteBtm / Interval;
+            Sync.Instance.DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
+            Sync.Instance.Init();
         }
 
         note.AddComponent<NoteLong>();
@@ -201,7 +201,7 @@ public class NoteGenerator : MonoBehaviour
     /// </summary>
     void Gen2()
     {
-        Sheet sheet = GameManager.Instance.sheet;
+        Sheet sheet = GameManager.Instance.editorSheet;
 
         List<Note> notes = sheet.notes;
 
@@ -231,14 +231,14 @@ public class NoteGenerator : MonoBehaviour
                         int pos = Mathf.RoundToInt((note.time - shortPrevTime - sheet.offset) / sheet.BeatPerSec);
                         shortPrevPos += pos;
 
-                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos, 0f) });
+                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos, -1f) });
                     }
                     else
                     {
                         int pos = Mathf.RoundToInt((note.time - shortPrevTime) / sheet.BeatPerSec);
                         shortPrevPos += pos;
 
-                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos * gridLineInterval, 0f) });
+                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos * gridLineInterval, -1f) });
                     }
 
                     shortPrevTime = note.time;
@@ -292,7 +292,7 @@ public class NoteGenerator : MonoBehaviour
         }
     }
 
-    public void DisposeNoteShort(NoteType type, Vector3 pos)
+    public void DisposeNoteShort(Vector3 pos)
     {
         NoteObject noteObject = PoolShort.Get();
         noteObject.SetPosition(new Vector3[] { pos });
@@ -396,7 +396,6 @@ public class NoteGenerator : MonoBehaviour
 
         float time = 0;
         Interval = defaultInterval * GameManager.Instance.Speed;
-        judgeCorrectionValue = DiffFromNoteBtm / Interval;
 
         float noteSpeed = Interval * 1000;
         while (time < duration)

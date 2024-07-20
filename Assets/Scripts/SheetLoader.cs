@@ -17,7 +17,7 @@ public class SheetLoader : MonoBehaviour
 
     public IEnumerator WebGLLoadSheet(string sheetName)
     {
-        yield return Parser.Instance.IEParse(sheetName);
+        yield return Parser.Instance.IEParseSheet(sheetName);
         bLoadFinish = true;
     }
 
@@ -29,7 +29,7 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-#if UNITY_EDITOR == true
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
         StartCoroutine(WebGLLoadSheet("Consolation"));
 #endif
 

@@ -100,16 +100,15 @@ public class Judgement : MonoBehaviour
 
     public IEnumerator JudgeNote(int line)
     {
-        if (notes[line].Count <= 0 || !AudioManager.Instance.IsPlaying())
-            yield break;
+        if (GameManager.Instance.state == GameManager.GameState.Edit) yield break;
+        if (notes[line].Count <= 0 || !AudioManager.Instance.IsPlaying()) yield break;
 
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeCorrectionValue = NoteGenerator.Instance.judgeCorrectionValue;
-            float judgeTime = savedCurrentTime - note.time + judgeCorrectionValue + judgeTimeFromUserSetting;
+            float judgeTime = savedCurrentTime - note.time + judgeTimeFromUserSetting;
 
             if (IsMiss(judgeTime))
             {
@@ -130,6 +129,7 @@ public class Judgement : MonoBehaviour
 
     public IEnumerator CheckLongNote(int line)
     {
+        if (GameManager.Instance.state == GameManager.GameState.Edit) yield break;
         if (notes[line].Count <= 0) yield break;
         if (longNoteCheck[line] == 0) yield break;
 
@@ -137,8 +137,7 @@ public class Judgement : MonoBehaviour
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeCorrectionValue = NoteGenerator.Instance.judgeCorrectionValue;
-            float judgeTime = savedCurrentTime - note.tail + judgeCorrectionValue + judgeTimeFromUserSetting;
+            float judgeTime = savedCurrentTime - note.tail + judgeTimeFromUserSetting;
 
             bool IsOnLongNote = (savedCurrentTime >= note.time - miss) && (savedCurrentTime <= note.tail + miss);
             if (IsOnLongNote)
@@ -236,9 +235,8 @@ public class Judgement : MonoBehaviour
                 lock (dequeuingLock[i])
                 {
                     Note note = notes[i].Peek();
-                    float judgeCorrectionValue = NoteGenerator.Instance.judgeCorrectionValue;
-                    float judgeTime = note.time - savedCurrentTime + judgeCorrectionValue + judgeTimeFromUserSetting;
-                    float lastJudgeTime = note.tail - savedCurrentTime + judgeCorrectionValue + judgeTimeFromUserSetting;
+                    float judgeTime = note.time - savedCurrentTime + judgeTimeFromUserSetting;
+                    float lastJudgeTime = note.tail - savedCurrentTime + judgeTimeFromUserSetting;
 
                     if (note.type == (int)NoteType.Long)
                     {
