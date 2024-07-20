@@ -60,15 +60,25 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.state == GameManager.GameState.Game)
-            CheckIsFinished();
+        CheckIsFinished();
     }
 
     private void CheckIsFinished()
     {
+        if (audioSource.clip == null) return;
         if (!GameManager.Instance.isPlaying) return;
+
         if (Length - progressTime <= 0.1f)
-            Stop();
+        {
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+            {
+                Stop();
+            }
+            else if (GameManager.Instance.state == GameManager.GameState.Edit)
+            {
+                Editor.Instance.Stop();
+            }
+        }
     }
 
     public void InitForEdit()
@@ -116,12 +126,10 @@ public class AudioManager : MonoBehaviour
         if (currentTime + time < 0)
             progressTime = 0f;
         else
-        {
             progressTime = (float)(currentTime + time);
-            yield return null;
 
-            Editor.Instance.CalibratePosition();
-        }
+        yield return null;
+        Editor.Instance.CalibratePosition();
     }
 
     public void Insert(AudioClip clip)

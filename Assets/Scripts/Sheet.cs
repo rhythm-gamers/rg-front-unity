@@ -31,7 +31,6 @@ public class Sheet
 
     // [Audio]
     public int bpm;
-    public int offset;
     public int[] signature;
 
     // [Note]

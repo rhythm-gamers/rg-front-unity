@@ -134,13 +134,14 @@ public class NoteLong : NoteObject
     public override void SetPosition(Vector3[] pos)
     {
         transform.position = new Vector3(pos[0].x, pos[0].y, pos[0].z);
+
         head.transform.position = new Vector3(pos[0].x, pos[0].y, pos[0].z);
         tail.transform.position = new Vector3(pos[1].x, pos[1].y, pos[1].z);
-        line.transform.position = head.transform.position;
 
         Vector3 linePos = tail.transform.position - head.transform.position;
         linePos.x = 0f;
         linePos.z = 0f;
+
         lineRenderer.SetPosition(1, linePos);
     }
 
