@@ -87,4 +87,30 @@ public class AniPreset : MonoBehaviour
         }
         start.anchoredPosition3D = v0 + v1;
     }
+
+    public IEnumerator IETextPopup(UIText text, float duration)
+    {
+        text.SetColor(Color.white);
+        float time = 0f;
+        float speed = 4f;
+        while (time < duration)
+        {
+            text.SetColor(new Color(1, 1, 1, time));
+
+            time += Time.deltaTime * speed;
+            yield return null;
+        }
+        text.SetColor(Color.white);
+        yield return new WaitForSeconds(1f);
+
+        time = 0f;
+        while (time < 1f)
+        {
+            text.SetColor(new Color(1, 1, 1, 1 - time));
+
+            time += Time.deltaTime * speed;
+            yield return null;
+        }
+        text.SetColor(new Color(1, 1, 1, 0));
+    }
 }
