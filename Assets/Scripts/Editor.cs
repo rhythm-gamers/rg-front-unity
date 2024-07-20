@@ -18,7 +18,9 @@ public class Editor : MonoBehaviour
     UIText timer = null;
 
     public GameObject objects;
+
     Coroutine coMove;
+    Coroutine coPopup;
 
     int snap = 4;
     public int Snap
@@ -48,8 +50,8 @@ public class Editor : MonoBehaviour
 
         StartCoroutine(IEBarTimer());
 
-        speed = 16 / GameManager.Instance.sheet.BarPerSec;
-        offsetPosition = speed * GameManager.Instance.sheet.offset * 0.001f;
+        speed = 16 / GameManager.Instance.editorSheet.BarPerSec;
+        offsetPosition = speed * GameManager.Instance.editorSheet.offset * 0.001f;
         objects.transform.position = offsetPosition * Vector3.up;
     }
 
@@ -89,16 +91,16 @@ public class Editor : MonoBehaviour
             StopCoroutine(coMove);
 
         objects.transform.position = new Vector3(0f, offsetPosition, 0f);
-        AudioManager.Instance.progressTime = 0f;
-        AudioManager.Instance.savedAudioTimeForWebGL = 0f;
-        AudioManager.Instance.UnPause();
+
         AudioManager.Instance.Pause();
+        AudioManager.Instance.progressTime = 0f;
+
         musicController.SetText(">");
     }
 
     public void CalculateCurrentBar()
     {
-        currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.sheet.BarPerMilliSec);
+        currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.editorSheet.BarPerMilliSec);
     }
 
     IEnumerator IEBarTimer()
@@ -132,7 +134,7 @@ public class Editor : MonoBehaviour
         Stop();
     }
 
-    public void Progress()
+    public void CalibratePosition()
     {
         if (slider != null)
         {
@@ -147,7 +149,7 @@ public class Editor : MonoBehaviour
 
             // 한 그리드(한 마디)의 게임오브젝트 y좌표의 높이는 16
             // 현재 음악위치 * 16 = 높이s
-            float barPerTime = GameManager.Instance.sheet.BarPerSec;
+            float barPerTime = GameManager.Instance.editorSheet.BarPerSec;
             float pos = time / barPerTime * 16;
 
             objects.transform.position = new Vector3(0f, -pos + offsetPosition, 0f);
@@ -158,26 +160,29 @@ public class Editor : MonoBehaviour
     public void SelectShortNote()
     {
         if (EditorController.Instance.isLongNoteActive)
-        {
             EditorController.Instance.isLongNoteActive = false;
-        }
-        EditorController.Instance.cursorObj.transform.position = new Vector3(-12, 0, 0);
+
+        InitNoteCursor();
         EditorController.Instance.isShortNoteActive = !EditorController.Instance.isShortNoteActive;
     }
 
     public void SelectLongNote()
     {
         if (EditorController.Instance.isShortNoteActive)
-        {
             EditorController.Instance.isShortNoteActive = false;
-        }
-        EditorController.Instance.cursorObj.transform.position = new Vector3(-12, 0, 0);
+
+        InitNoteCursor();
         EditorController.Instance.isLongNoteActive = !EditorController.Instance.isLongNoteActive;
+    }
+
+    public void InitNoteCursor()
+    {
+        EditorController.Instance.cursorObj.transform.position = new Vector3(-12, 0, 0);
     }
 
     public void SheetSave()
     {
-        FindObjectOfType<SheetStorage>().Save();
+        FindObjectOfType<SheetStorage>().SaveSheet();
     }
     public void SheetUpload()
     {
@@ -186,5 +191,16 @@ public class Editor : MonoBehaviour
     public void SheetDownload()
     {
         FindObjectOfType<SheetStorage>().Download();
+    }
+
+    public void ShowProgressLog(string log)
+    {
+        if (coPopup != null)
+            StopCoroutine(coPopup);
+
+        UIText uiProgressLog = UIController.Instance.FindUI("UI_E_ProgressLog").uiObject as UIText;
+        uiProgressLog.SetText(log);
+
+        coPopup = StartCoroutine(AniPreset.Instance.IETextPopup(uiProgressLog, 3f));
     }
 }

@@ -28,7 +28,7 @@ public class Parser
     public AudioClip clip;
     public Sprite img;
 
-    public IEnumerator IEParse(string title)
+    public IEnumerator IEParseSheet(string title)
     {
         using (UnityWebRequest www = UnityWebRequest.Get($"{basePath}/Sheet/{title}/{title}.sheet"))
         {
@@ -38,61 +38,7 @@ public class Parser
                 string contents = www.downloadHandler.text;
                 SheetLoader.Instance.sheetContent = contents;
 
-                string[] rows = contents.Split("\n");
-                foreach (string row in rows)
-                {
-                    if (row.StartsWith("[Description]"))
-                    {
-                        currentStep = Step.Description;
-                        continue;
-                    }
-                    else if (row.StartsWith("[Audio]"))
-                    {
-                        currentStep = Step.Audio;
-                        continue;
-                    }
-                    else if (row.StartsWith("[Note]"))
-                    {
-                        currentStep = Step.Note;
-                        continue;
-                    }
-
-                    if (currentStep == Step.Description)
-                    {
-                        if (row.StartsWith("Title"))
-                            GameManager.Instance.sheet.title = row.Split(':')[1].Trim();
-                        else if (row.StartsWith("Artist"))
-                            GameManager.Instance.sheet.artist = row.Split(':')[1].Trim();
-                    }
-                    else if (currentStep == Step.Audio)
-                    {
-                        if (row.StartsWith("BPM"))
-                            GameManager.Instance.sheet.bpm = int.Parse(row.Split(':')[1].Trim());
-                        else if (row.StartsWith("Offset"))
-                            GameManager.Instance.sheet.offset = int.Parse(row.Split(':')[1].Trim());
-                        else if (row.StartsWith("Signature"))
-                        {
-                            string[] s = row.Split(':');
-                            s = s[1].Split('/');
-                            int[] sign = { int.Parse(s[0].Trim()), int.Parse(s[1].Trim()) };
-                            GameManager.Instance.sheet.signature = sign;
-                        }
-                    }
-                    else if (currentStep == Step.Note)
-                    {
-                        if (string.IsNullOrEmpty(row))
-                            break;
-
-                        string[] s = row.Split(',');
-                        int time = int.Parse(s[0].Trim());
-                        int type = int.Parse(s[1].Trim());
-                        int line = int.Parse(s[2].Trim());
-                        int tail = -1;
-                        if (s.Length > 3)
-                            tail = int.Parse(row.Split(',')[3].Trim());
-                        GameManager.Instance.sheet.notes.Add(new Note(time, type, line, tail));
-                    }
-                }
+                GameManager.Instance.sheet = ParseSheet(contents);
             }
         }
         yield return IEGetClip(title);
@@ -102,7 +48,67 @@ public class Parser
         GameManager.Instance.sheet.img = img;
     }
 
+    public Sheet ParseSheet(string sheetStr)
+    {
+        Sheet newSheet = new();
 
+        string[] rows = sheetStr.Split("\n");
+        foreach (string row in rows)
+        {
+            if (row.StartsWith("[Description]"))
+            {
+                currentStep = Step.Description;
+                continue;
+            }
+            else if (row.StartsWith("[Audio]"))
+            {
+                currentStep = Step.Audio;
+                continue;
+            }
+            else if (row.StartsWith("[Note]"))
+            {
+                currentStep = Step.Note;
+                continue;
+            }
+
+            if (currentStep == Step.Description)
+            {
+                if (row.StartsWith("Title"))
+                    newSheet.title = row.Split(':')[1].Trim();
+                else if (row.StartsWith("Artist"))
+                    newSheet.artist = row.Split(':')[1].Trim();
+            }
+            else if (currentStep == Step.Audio)
+            {
+                if (row.StartsWith("BPM"))
+                    newSheet.bpm = int.Parse(row.Split(':')[1].Trim());
+                else if (row.StartsWith("Offset"))
+                    newSheet.offset = int.Parse(row.Split(':')[1].Trim());
+                else if (row.StartsWith("Signature"))
+                {
+                    string[] s = row.Split(':');
+                    s = s[1].Split('/');
+                    int[] sign = { int.Parse(s[0].Trim()), int.Parse(s[1].Trim()) };
+                    newSheet.signature = sign;
+                }
+            }
+            else if (currentStep == Step.Note)
+            {
+                if (string.IsNullOrEmpty(row))
+                    break;
+
+                string[] s = row.Split(',');
+                int time = int.Parse(s[0].Trim());
+                int type = int.Parse(s[1].Trim());
+                int line = int.Parse(s[2].Trim());
+                int tail = -1;
+                if (s.Length > 3)
+                    tail = int.Parse(row.Split(',')[3].Trim());
+                newSheet.notes.Add(new Note(time, type, line, tail));
+            }
+        }
+        return newSheet;
+    }
 
 
     public IEnumerator IEGetClip(string title)

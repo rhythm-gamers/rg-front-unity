@@ -58,10 +58,12 @@ public class S3Uploader : MonoBehaviour
 
         if (www.result == UnityWebRequest.Result.Success)
         {
+            Editor.Instance.ShowProgressLog("File uploaded successfully.");
             Debug.Log("File uploaded successfully.");
         }
         else
         {
+            Editor.Instance.ShowProgressLog("File upload failed: " + www.error);
             Debug.LogError("File upload failed: " + www.error);
         }
     }
@@ -80,6 +82,7 @@ public class S3Uploader : MonoBehaviour
         }
         else
         {
+            Editor.Instance.ShowProgressLog("IEGetPresignedUrl Error: " + www.error);
             Debug.LogError("IEGetPresignedUrl Error: " + www.error);
         }
     }

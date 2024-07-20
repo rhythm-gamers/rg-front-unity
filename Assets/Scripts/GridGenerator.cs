@@ -12,7 +12,7 @@ public class GridGenerator : MonoBehaviour
 
     public void Init()
     {
-        int barCount = (int)(AudioManager.Instance.Length * 1000 / GameManager.Instance.sheet.BarPerMilliSec);
+        int barCount = (int)(AudioManager.Instance.Length * 1000 / GameManager.Instance.editorSheet.BarPerMilliSec);
 
         if (gridList.Count < barCount)
         {
