@@ -39,14 +39,14 @@ public class NoteGenerator : MonoBehaviour
     NoteShort CreatePooledShort()
     {
         GameObject note = Instantiate(notePrefab, parent.transform);
+
         if (Sync.Instance.DiffFromNoteBtm == 0f)
         {
             Sync.Instance.DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
             Sync.Instance.Init();
         }
 
-        note.AddComponent<NoteShort>();
-        return note.GetComponent<NoteShort>();
+        return note.AddComponent<NoteShort>();
     }
 
     IObjectPool<NoteLong> poolLong;
@@ -87,12 +87,11 @@ public class NoteGenerator : MonoBehaviour
 
         if (Sync.Instance.DiffFromNoteBtm == 0f)
         {
-            Sync.Instance.DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
+            Sync.Instance.DiffFromNoteBtm = head.GetComponent<SpriteRenderer>().bounds.center.y;
             Sync.Instance.Init();
         }
 
-        note.AddComponent<NoteLong>();
-        return note.GetComponent<NoteLong>();
+        return note.AddComponent<NoteLong>();
     }
 
     int currentBar = 3; // 최초 플레이 시 3마디 먼저 생성
@@ -152,9 +151,7 @@ public class NoteGenerator : MonoBehaviour
         for (; next < notes.Count; next++)
         {
             if (notes[next].time > currentBar * GameManager.Instance.sheet.BarPerMilliSec)
-            {
                 break;
-            }
         }
 
         for (int j = prev; j < next; j++)
@@ -225,40 +222,32 @@ public class NoteGenerator : MonoBehaviour
             switch (note.type)
             {
                 case (int)NoteType.Short:
-                    noteObject = PoolShort.Get();
-                    if (shortPrevTime == 0)
                     {
-                        int pos = Mathf.RoundToInt((note.time - shortPrevTime - sheet.offset) / sheet.BeatPerSec);
-                        shortPrevPos += pos;
+                        noteObject = PoolShort.Get();
 
-                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos, -1f) });
-                    }
-                    else
-                    {
                         int pos = Mathf.RoundToInt((note.time - shortPrevTime) / sheet.BeatPerSec);
                         shortPrevPos += pos;
 
                         noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos * gridLineInterval, -1f) });
+                        shortPrevTime = note.time;
+                        break;
                     }
 
-                    shortPrevTime = note.time;
-
-                    break;
                 case (int)NoteType.Long:
                     {
                         noteObject = PoolLong.Get();
                         if (headLongPrevTime == 0)
                         {
-                            int pos = Mathf.RoundToInt((note.time - headLongPrevTime - sheet.offset) / sheet.BeatPerSec);
+                            int pos = Mathf.RoundToInt((note.time - headLongPrevTime) / sheet.BeatPerSec);
                             headLongPrevPos += pos;
 
-                            int pos2 = Mathf.RoundToInt((note.tail - tailLongPrevTime - sheet.offset) / sheet.BeatPerSec);
+                            int pos2 = Mathf.RoundToInt((note.tail - tailLongPrevTime) / sheet.BeatPerSec);
                             tailLongPrevPos += pos2;
 
                             noteObject.SetPosition(new Vector3[]
                             {
-                                new Vector3(linePos[note.line - 1], headLongPrevPos * gridLineInterval, 0f),
-                                new Vector3(linePos[note.line - 1], tailLongPrevPos * gridLineInterval, 0f)
+                                new Vector3(linePos[note.line - 1], headLongPrevPos * gridLineInterval, -1f),
+                                new Vector3(linePos[note.line - 1], tailLongPrevPos * gridLineInterval, -1f)
                             });
                         }
                         else
@@ -271,8 +260,8 @@ public class NoteGenerator : MonoBehaviour
 
                             noteObject.SetPosition(new Vector3[]
                             {
-                            new Vector3(linePos[note.line - 1], headLongPrevPos * gridLineInterval, 0f),
-                            new Vector3(linePos[note.line - 1], tailLongPrevPos * gridLineInterval, 0f)
+                            new Vector3(linePos[note.line - 1], headLongPrevPos * gridLineInterval, -1f),
+                            new Vector3(linePos[note.line - 1], tailLongPrevPos * gridLineInterval, -1f)
                             });
                         }
                         headLongPrevTime = note.time;

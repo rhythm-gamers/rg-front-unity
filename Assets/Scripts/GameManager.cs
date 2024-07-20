@@ -181,8 +181,8 @@ public class GameManager : MonoBehaviour
             // Editor 초기화
             Editor.Instance.Stop();
 
-            // Note Cursor 초기화
-            Editor.Instance.InitNoteCursor();
+            // Cursor 초기화
+            EditorController.Instance.InitCursorState(false);
             EditorController.Instance.isLongNoteActive = false;
             EditorController.Instance.isShortNoteActive = false;
 

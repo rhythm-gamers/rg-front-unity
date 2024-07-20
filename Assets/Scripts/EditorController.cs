@@ -15,6 +15,10 @@ public class EditorController : MonoBehaviour
 
     public GameObject cursorPrefab;
     public GameObject cursorObj;
+    public void InitCursorState(bool nextState)
+    {
+        cursorObj.SetActive(nextState);
+    }
 
     public bool isCtrl;
     float scrollValue;
@@ -52,7 +56,7 @@ public class EditorController : MonoBehaviour
         inputManager = FindObjectOfType<InputManager>();
 
         cursorObj = Instantiate(cursorPrefab);
-        cursorObj.transform.position = new Vector3(-12, 0, 0);
+        InitCursorState(false);
     }
 
     void Update()
@@ -70,8 +74,7 @@ public class EditorController : MonoBehaviour
         worldPos.z = -1.5f;
         //int layerMask = (1 << LayerMask.NameToLayer("Grid")) + (1 << LayerMask.NameToLayer("Note"));
 
-        if (isShortNoteActive || isLongNoteActive)
-            cursorObj.transform.position = worldPos; // 커서 좌표
+        cursorObj.transform.position = worldPos; // 커서 좌표
 
         Debug.DrawRay(worldPos, cam.transform.forward * 2, Color.red, 0.2f);
         RaycastHit2D hit = Physics2D.Raycast(worldPos, cam.transform.forward, 2f);
@@ -219,7 +222,6 @@ public class EditorController : MonoBehaviour
     /// <param name="value"></param>
     public void Scroll(float value)
     {
-        Time.timeScale = 0f;
         scrollValue = value;
 
         // 스크롤 시 해당 스냅만큼 이동 (컨트롤키가 입력되지않았을때만)
@@ -242,7 +244,6 @@ public class EditorController : MonoBehaviour
                 //Debug.Log(-GameManager.Instance.sheets[GameManager.Instance.title].BeatPerSec * 0.001f * snap);
             }
         }
-        Time.timeScale = 1f;
     }
 
     /// <summary>

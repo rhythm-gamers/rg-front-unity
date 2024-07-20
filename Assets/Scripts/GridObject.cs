@@ -17,7 +17,7 @@ public class GridObject : MonoBehaviour
             lines[i].transform.localPosition = new Vector3(0f, i * 0.25f, 0f);
             if (i > 0)
             {
-                lines[i].transform.localScale = new Vector3(4, 0.023f, 1);
+                lines[i].transform.localScale = new Vector3(4, 0.028f, 1);
             }
         }
 

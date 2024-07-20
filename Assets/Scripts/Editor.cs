@@ -33,7 +33,6 @@ public class Editor : MonoBehaviour
     }
 
     public int currentBar = 0;
-    public float offsetPosition;
 
     private void Awake()
     {
@@ -41,7 +40,7 @@ public class Editor : MonoBehaviour
             instance = this;
     }
 
-    float speed;
+    public float speed;
     public void Init()
     {
         slider = UIController.Instance.GetUI("UI_E_ProgressBar").uiObject as UISlider;
@@ -51,8 +50,7 @@ public class Editor : MonoBehaviour
         StartCoroutine(IEBarTimer());
 
         speed = 16 / GameManager.Instance.editorSheet.BarPerSec;
-        offsetPosition = speed * GameManager.Instance.editorSheet.offset * 0.001f;
-        objects.transform.position = offsetPosition * Vector3.up;
+        objects.transform.position = Vector3.zero;
     }
 
     void Update()
@@ -90,7 +88,7 @@ public class Editor : MonoBehaviour
         if (coMove != null)
             StopCoroutine(coMove);
 
-        objects.transform.position = new Vector3(0f, offsetPosition, 0f);
+        objects.transform.position = Vector3.zero;
 
         AudioManager.Instance.Pause();
         AudioManager.Instance.progressTime = 0f;
@@ -152,8 +150,7 @@ public class Editor : MonoBehaviour
             float barPerTime = GameManager.Instance.editorSheet.BarPerSec;
             float pos = time / barPerTime * 16;
 
-            objects.transform.position = new Vector3(0f, -pos + offsetPosition, 0f);
-
+            objects.transform.position = new Vector3(0f, -pos, 0f);
         }
     }
 
@@ -162,8 +159,10 @@ public class Editor : MonoBehaviour
         if (EditorController.Instance.isLongNoteActive)
             EditorController.Instance.isLongNoteActive = false;
 
-        InitNoteCursor();
-        EditorController.Instance.isShortNoteActive = !EditorController.Instance.isShortNoteActive;
+        bool nextState = !EditorController.Instance.isShortNoteActive;
+
+        EditorController.Instance.isShortNoteActive = nextState;
+        EditorController.Instance.InitCursorState(nextState);
     }
 
     public void SelectLongNote()
@@ -171,14 +170,13 @@ public class Editor : MonoBehaviour
         if (EditorController.Instance.isShortNoteActive)
             EditorController.Instance.isShortNoteActive = false;
 
-        InitNoteCursor();
-        EditorController.Instance.isLongNoteActive = !EditorController.Instance.isLongNoteActive;
+        bool nextState = !EditorController.Instance.isLongNoteActive;
+
+        EditorController.Instance.isLongNoteActive = nextState;
+        EditorController.Instance.InitCursorState(nextState);
     }
 
-    public void InitNoteCursor()
-    {
-        EditorController.Instance.cursorObj.transform.position = new Vector3(-12, 0, 0);
-    }
+
 
     public void SheetSave()
     {
