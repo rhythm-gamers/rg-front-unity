@@ -20,6 +20,18 @@ public class EditorController : MonoBehaviour
         cursorObj.SetActive(nextState);
     }
 
+    // 4비트, 8비트, 12비트, 16비트, 24비트, 32비트, 48비트, 64비트
+    public readonly int[] snap = { 48, 24, 16, 12, 8, 6, 4, 3 };
+    int snapIdx = 3; // 16비트 스냅으로 시작
+    public int SnapIdx
+    {
+        get { return snapIdx; }
+        set
+        {
+            snapIdx = Math.Clamp(value, 0, snap.Length - 1);
+        }
+    }
+
     public bool isCtrl;
     float scrollValue;
     Coroutine coCtrl;
@@ -227,8 +239,7 @@ public class EditorController : MonoBehaviour
         // 스크롤 시 해당 스냅만큼 이동 (컨트롤키가 입력되지않았을때만)
         if (!isCtrl)
         {
-            double snap = Editor.Instance.Snap;
-            float snapDeltaTime = (float)(GameManager.Instance.editorSheet.BeatPerSec * 0.001 * snap);
+            float snapDeltaTime = (float)(GameManager.Instance.sheet.BeatPerSec * snap[SnapIdx]);
 
             if (scrollValue > 0)
             {
@@ -265,14 +276,14 @@ public class EditorController : MonoBehaviour
             if (scrollValue > 0)
             {
                 // 스냅업
-                Editor.Instance.Snap /= 2;
-                GridSnapListener.Invoke(Editor.Instance.Snap);
+                SnapIdx += 1;
+                GridSnapListener.Invoke(snap[SnapIdx]);
             }
             else if (scrollValue < 0)
             {
                 // 스냅다운
-                Editor.Instance.Snap *= 2;
-                GridSnapListener.Invoke(Editor.Instance.Snap);
+                SnapIdx -= 1;
+                GridSnapListener.Invoke(snap[SnapIdx]);
             }
             scrollValue = 0;
 

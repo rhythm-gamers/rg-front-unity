@@ -55,7 +55,7 @@ public class PauseNavigator : MonoBehaviour
             Button button = selectedObject.GetComponent<Button>();
             if (button != null)
             {
-                UIController.Instance.find.Invoke(button.gameObject.name);
+                UIController.Instance.FindUI(button.gameObject.name);
             }
         }
     }

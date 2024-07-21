@@ -12,6 +12,6 @@ public class UISlider : UIObject
 
     public void OnValue(float value)
     {
-        UIController.Instance.find.Invoke(Name);
+        UIController.Instance.FindUI(Name);
     }
 }

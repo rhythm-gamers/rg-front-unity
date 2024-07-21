@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +12,9 @@ public class UIImage : UIObject
         image = GetComponent<Image>();
     }
 
-    public void SetSprite(Sprite sprite)
+    public void SetSprite(Sprite sprite, Action<Image, Sprite> scalerFunc = null)
     {
+        scalerFunc?.Invoke(image, sprite);
         image.sprite = sprite;
     }
 

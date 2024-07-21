@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class Parser
+public class Parser : MonoBehaviour
 {
     static Parser instance;
     public static Parser Instance
     {
         get
         {
-            if (instance == null)
-                instance = new Parser();
             return instance;
         }
     }
@@ -27,27 +24,26 @@ public class Parser
 
     readonly string basePath = EnvManager.Instance.CloudfrontUrl;
 
-    public AudioClip clip;
-    public Sprite img;
+    private Sheet sheet;
+    private AudioClip clip;
+    private Sprite img;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
 
     public IEnumerator IEParseSheet(string title)
     {
-        using (UnityWebRequest www = UnityWebRequest.Get($"{basePath}/Sheet/{title}/{title}.sheet"))
-        {
-            yield return www.SendWebRequest();
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                string contents = www.downloadHandler.text;
-                SheetLoader.Instance.sheetContent = contents;
-
-                GameManager.Instance.sheet = ParseSheet(contents);
-            }
-        }
+        yield return IEGetSheet(title);
         yield return IEGetClip(title);
         yield return IEGetImg(title);
 
-        GameManager.Instance.sheet.clip = clip;
-        GameManager.Instance.sheet.img = img;
+        sheet.clip = clip;
+        sheet.img = img;
+
+        GameManager.Instance.sheet = sheet;
     }
 
     public Sheet ParseSheet(string sheetStr)
@@ -107,6 +103,10 @@ public class Parser
                 newSheet.notes.Add(new Note(time, type, line, tail));
             }
         }
+
+        newSheet.clip = clip;
+        newSheet.img = img;
+
         return newSheet;
     }
 
@@ -185,25 +185,52 @@ public class Parser
         return writer.TrimEnd('\r', '\n');
     }
 
+    public IEnumerator IEGetSheet(string title)
+    {
+        yield return StartCoroutine(NetworkManager.Instance.GetRequest($"{basePath}/Sheet/{title}/{title}.sheet",
+                data =>
+                {
+                    SheetLoader.Instance.sheetContent = data;
+                    sheet = ParseSheet(data);
+                },
+                error =>
+                {
+                    Debug.LogError($"Failed to download sheet: {error}");
+                }
+            )
+        );
+    }
+
 
     public IEnumerator IEGetClip(string title)
     {
-        using (UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip($"{basePath}/Sheet/{title}/{title}.mp3", AudioType.MPEG))
-        {
-            yield return request.SendWebRequest();
-            clip = DownloadHandlerAudioClip.GetContent(request);
-            clip.name = title;
-        }
+        yield return StartCoroutine(NetworkManager.Instance.GetAudioRequest($"{basePath}/Sheet/{title}/{title}.mp3",
+                data =>
+                {
+                    clip = data;
+                    clip.name = title;
+                },
+                error =>
+                {
+                    Debug.LogError($"Failed to download clip: {error}");
+                }
+            )
+        );
     }
 
     public IEnumerator IEGetImg(string title)
     {
-        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture($"{basePath}/Sheet/{title}/{title}.jpg"))
-        {
-            yield return request.SendWebRequest();
-            Texture2D t = DownloadHandlerTexture.GetContent(request);
-            img = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f));
-            img.name = title;
-        }
+        yield return StartCoroutine(NetworkManager.Instance.GetImgRequest($"{basePath}/Sheet/{title}/{title}.jpg",
+               data =>
+               {
+                   img = Sprite.Create(data, new Rect(0, 0, data.width, data.height), new Vector2(0.5f, 0.5f));
+                   img.name = title;
+               },
+               error =>
+               {
+                   Debug.LogError($"Failed to download img: {error}");
+               }
+           )
+       );
     }
 }

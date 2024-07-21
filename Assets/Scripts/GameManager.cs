@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     Coroutine coPlaying;
 
     public Sheet sheet = new();
-    public Sheet editorSheet = new();
 
     float speed = 1.0f;
 
@@ -52,8 +51,8 @@ public class GameManager : MonoBehaviour
         speed = userSpeed;
 
         yield return new WaitUntil(() => UIController.Instance.isInit == true);
-        UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
-        UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
+        UIText inGameSpeedUI = UIController.Instance.FindUI("UI_G_Speed").uiObject as UIText;
+        UIText outGameSpeedUI = UIController.Instance.FindUI("UI_S_Speed").uiObject as UIText;
         inGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
         outGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
     }
@@ -155,10 +154,10 @@ public class GameManager : MonoBehaviour
         // 노트 생성 중지
         NoteGenerator.Instance.StopGen();
 
-        // Game UI 켜기
+        // Game UI 끄기
         canvases[(int)Canvas.Game].SetActive(false);
 
-        // BGA 켜기
+        // BGA 끄기
         canvases[(int)Canvas.GameBGA].SetActive(false);
 
         // playing timer 끄기
@@ -173,27 +172,29 @@ public class GameManager : MonoBehaviour
 
     public void ExitEditor()
     {
-        if (state == GameState.Edit)
-        {
-            // Editor UI 끄기
-            canvases[(int)Canvas.Editor].SetActive(false);
+        isPlaying = false;
 
-            // Editor 초기화
-            Editor.Instance.Stop();
+        // Editor UI 끄기
+        canvases[(int)Canvas.Editor].SetActive(false);
 
-            // Cursor 초기화
-            EditorController.Instance.InitCursorState(false);
-            EditorController.Instance.isLongNoteActive = false;
-            EditorController.Instance.isShortNoteActive = false;
+        // BGA 끄기
+        canvases[(int)Canvas.GameBGA].SetActive(false);
 
-            // 그리드 UI 끄기
-            FindObjectOfType<GridGenerator>().InActivate();
+        // Editor 초기화
+        Editor.Instance.Stop();
 
-            // 노트 Gen 끄기
-            NoteGenerator.Instance.StopGen();
+        // Cursor 초기화
+        EditorController.Instance.InitCursorState(false);
+        EditorController.Instance.isLongNoteActive = false;
+        EditorController.Instance.isShortNoteActive = false;
 
-            Description();
-        }
+        // 그리드 UI 끄기
+        FindObjectOfType<GridGenerator>().InActivate();
+
+        // 노트 Gen 끄기
+        NoteGenerator.Instance.StopGen();
+
+        Description();
     }
 
     IEnumerator IEInit()
@@ -226,7 +227,8 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.Editor].SetActive(false);
 
         // 선택화면 아이템 생성
-        yield return new WaitUntil(() => SheetLoader.Instance.bLoadFinish == true);
+        yield return new WaitUntil(() => SheetLoader.Instance.isLoadFinish == true);
+
         ItemGenerator.Instance.Init();
 
         // 타이틀 화면 시작
@@ -264,7 +266,7 @@ public class GameManager : MonoBehaviour
 
         if (state == GameState.Edit)
         {
-            UIText SpeedUI = UIController.Instance.find.Invoke("UI_D_Speed").uiObject as UIText;
+            UIText SpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             SpeedUI.gameObject.SetActive(false);
         }
 
@@ -298,6 +300,9 @@ public class GameManager : MonoBehaviour
 
         // Sheet 초기화
         sheet.Init();
+
+        // BGA 설정
+        canvases[(int)Canvas.GameBGA].GetComponentInChildren<BGA>().Init();
 
         // Audio 삽입
         AudioManager.Instance.Insert(sheet.clip);
@@ -414,7 +419,10 @@ public class GameManager : MonoBehaviour
 
         // Sheet 및 Sheet Storage 초기화
         FindObjectOfType<SheetStorage>().Init();
-        editorSheet.Init();
+        sheet.Init();
+
+        // BGA 설정
+        canvases[(int)Canvas.GameBGA].GetComponentInChildren<BGA>().Init();
 
         // Audio 삽입 및 초기화
         AudioManager.Instance.Insert(sheet.clip);
@@ -423,14 +431,17 @@ public class GameManager : MonoBehaviour
         // Grid 생성
         FindObjectOfType<GridGenerator>().Init();
 
+        // Editor 초기화
+        Editor.Instance.Init();
+
         // Note 생성
         NoteGenerator.Instance.GenAll();
 
         // Editor UI 켜기
         canvases[(int)Canvas.Editor].SetActive(true);
 
-        // Editor 초기화
-        Editor.Instance.Init();
+        // BGA 켜기
+        canvases[(int)Canvas.GameBGA].SetActive(true);
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 2f));

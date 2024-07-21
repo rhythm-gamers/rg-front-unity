@@ -11,7 +11,6 @@ public class UIController : MonoBehaviour
     }
 
     public bool isInit = false;
-    public Func<string, UIActor> find;
     Dictionary<string, UIActor> uiObjectDic = new Dictionary<string, UIActor>();
 
     private void Awake()
@@ -22,8 +21,6 @@ public class UIController : MonoBehaviour
 
     public void Init()
     {
-        find = FindUI;
-
         UIObject[] objs = FindObjectsOfType<UIObject>();
         foreach (UIObject obj in objs)
         {

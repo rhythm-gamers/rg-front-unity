@@ -22,16 +22,6 @@ public class Editor : MonoBehaviour
     Coroutine coMove;
     Coroutine coPopup;
 
-    int snap = 4;
-    public int Snap
-    {
-        get { return snap; }
-        set
-        {
-            snap = Mathf.Clamp(value, 1, 16);
-        }
-    }
-
     public int currentBar = 0;
 
     private void Awake()
@@ -43,27 +33,37 @@ public class Editor : MonoBehaviour
     public float speed;
     public void Init()
     {
+        GridGenerator gridGenerator = FindObjectOfType<GridGenerator>();
+        speed = gridGenerator.barInterval / GameManager.Instance.sheet.BarPerSec;
+
         slider = UIController.Instance.GetUI("UI_E_ProgressBar").uiObject as UISlider;
         musicController = UIController.Instance.GetUI("UI_E_Play").uiObject as UIButton;
         timer = UIController.Instance.GetUI("UI_E_Time").uiObject as UIText;
 
         StartCoroutine(IEBarTimer());
 
-        speed = 16 / GameManager.Instance.editorSheet.BarPerSec;
         objects.transform.position = Vector3.zero;
     }
 
     void Update()
     {
-        float value = Mathf.Clamp(1 / AudioManager.Instance.Length * AudioManager.Instance.progressTime, 0f, 1f);
         if (slider != null)
         {
+            float value = Mathf.Clamp(1 / AudioManager.Instance.Length * AudioManager.Instance.progressTime, 0f, 1f);
             slider.slider.value = value;
         }
         if (timer != null)
         {
             timer.SetText(TimeSpan.FromSeconds(AudioManager.Instance.progressTime).ToString(@"mm\:ss\:fff"));
         }
+    }
+
+    public void Move()
+    {
+        if (coMove != null)
+            StopCoroutine(coMove);
+
+        coMove = StartCoroutine(IEMove());
     }
 
     public void Play()
@@ -98,7 +98,7 @@ public class Editor : MonoBehaviour
 
     public void CalculateCurrentBar()
     {
-        currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.editorSheet.BarPerMilliSec);
+        currentBar = (int)(AudioManager.Instance.progressTime * 1000 / GameManager.Instance.sheet.BarPerMilliSec);
     }
 
     IEnumerator IEBarTimer()
@@ -113,11 +113,14 @@ public class Editor : MonoBehaviour
 
 
 
-    IEnumerator IEMove()
+    public IEnumerator IEMove()
     {
         while (true)
         {
-            objects.transform.position += Vector3.down * Time.deltaTime * speed;
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                objects.transform.position += Vector3.down * Time.deltaTime * speed * GameManager.Instance.Speed;
+            else
+                objects.transform.position += Vector3.down * Time.deltaTime * speed;
             yield return null;
         }
     }
@@ -147,7 +150,7 @@ public class Editor : MonoBehaviour
 
             // 한 그리드(한 마디)의 게임오브젝트 y좌표의 높이는 16
             // 현재 음악위치 * 16 = 높이s
-            float barPerTime = GameManager.Instance.editorSheet.BarPerSec;
+            float barPerTime = GameManager.Instance.sheet.BarPerSec;
             float pos = time / barPerTime * 16;
 
             objects.transform.position = new Vector3(0f, -pos, 0f);

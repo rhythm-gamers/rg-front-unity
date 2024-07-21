@@ -119,7 +119,6 @@ public class NoteGenerator : MonoBehaviour
     }
 
 
-
     // 한 번에 다 생성 (에디팅할때 사용)
     public void GenAll()
     {
@@ -198,14 +197,10 @@ public class NoteGenerator : MonoBehaviour
     /// </summary>
     void Gen2()
     {
-        Sheet sheet = GameManager.Instance.editorSheet;
+        Sheet sheet = GameManager.Instance.sheet;
 
         List<Note> notes = sheet.notes;
 
-        // (노트시간 - 오프셋) / 1비트(1박당 32비트시간값) = 노트의 위치
-        // 노트의 위치 * 0.25(그리드의 1박당 32비트기준 간격) = 최종적인 노트의 위치
-
-        float gridLineInterval = 0.25f;
 
         float shortPrevPos = 0;
         int shortPrevTime = 0;
@@ -224,11 +219,10 @@ public class NoteGenerator : MonoBehaviour
                 case (int)NoteType.Short:
                     {
                         noteObject = PoolShort.Get();
-
-                        int pos = Mathf.RoundToInt((note.time - shortPrevTime) / sheet.BeatPerSec);
+                        float pos = (note.time - shortPrevTime) * Editor.Instance.speed * 0.001f;
                         shortPrevPos += pos;
 
-                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos * gridLineInterval, -1f) });
+                        noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos, -1f) });
                         shortPrevTime = note.time;
                         break;
                     }
@@ -238,30 +232,30 @@ public class NoteGenerator : MonoBehaviour
                         noteObject = PoolLong.Get();
                         if (headLongPrevTime == 0)
                         {
-                            int pos = Mathf.RoundToInt((note.time - headLongPrevTime) / sheet.BeatPerSec);
+                            float pos = (note.time - headLongPrevTime) * Editor.Instance.speed * 0.001f;
                             headLongPrevPos += pos;
 
-                            int pos2 = Mathf.RoundToInt((note.tail - tailLongPrevTime) / sheet.BeatPerSec);
+                            float pos2 = (note.tail - tailLongPrevTime) * Editor.Instance.speed * 0.001f;
                             tailLongPrevPos += pos2;
 
                             noteObject.SetPosition(new Vector3[]
                             {
-                                new Vector3(linePos[note.line - 1], headLongPrevPos * gridLineInterval, -1f),
-                                new Vector3(linePos[note.line - 1], tailLongPrevPos * gridLineInterval, -1f)
+                                new Vector3(linePos[note.line - 1], headLongPrevPos, -1f),
+                                new Vector3(linePos[note.line - 1], tailLongPrevPos, -1f)
                             });
                         }
                         else
                         {
-                            int pos = Mathf.RoundToInt((note.time - headLongPrevTime) / sheet.BeatPerSec);
+                            float pos = (note.time - headLongPrevTime) * Editor.Instance.speed * 0.001f;
                             headLongPrevPos += pos;
 
-                            int pos2 = Mathf.RoundToInt((note.tail - tailLongPrevTime) / sheet.BeatPerSec);
+                            float pos2 = (note.tail - tailLongPrevTime) * Editor.Instance.speed * 0.001f;
                             tailLongPrevPos += pos2;
 
                             noteObject.SetPosition(new Vector3[]
                             {
-                            new Vector3(linePos[note.line - 1], headLongPrevPos * gridLineInterval, -1f),
-                            new Vector3(linePos[note.line - 1], tailLongPrevPos * gridLineInterval, -1f)
+                            new Vector3(linePos[note.line - 1], headLongPrevPos, -1f),
+                            new Vector3(linePos[note.line - 1], tailLongPrevPos, -1f)
                             });
                         }
                         headLongPrevTime = note.time;
@@ -396,6 +390,7 @@ public class NoteGenerator : MonoBehaviour
                 note.speed = noteSpeed;
                 note.Interpolate(milli, Interval);
             }
+
             time += rate;
             yield return new WaitForSeconds(rate);
         }
