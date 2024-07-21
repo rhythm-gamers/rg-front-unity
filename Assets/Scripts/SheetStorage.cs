@@ -11,11 +11,10 @@ public class SheetStorage : MonoBehaviour
 
     public void Init()
     {
-
         saveFilePath = Path.Combine(Application.persistentDataPath, "lastSavedSheet.sheet");
 
         savedSheet = LoadSavedSheet();
-        GameManager.Instance.editorSheet = Parser.Instance.ParseSheet(savedSheet);
+        GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
     }
 
     /*
@@ -29,7 +28,7 @@ public class SheetStorage : MonoBehaviour
      */
     public void SaveSheet()
     {
-        Sheet sheet = GameManager.Instance.editorSheet;
+        Sheet sheet = GameManager.Instance.sheet;
 
         savedSheet = Parser.Instance.StringifySheet(sheet);
         File.WriteAllText(saveFilePath, savedSheet);
@@ -63,7 +62,7 @@ public class SheetStorage : MonoBehaviour
 
         try
         {
-            path += $"{GameManager.Instance.editorSheet.title}.sheet";
+            path += $"{GameManager.Instance.sheet.title}.sheet";
             File.WriteAllText(path, savedSheet);
 
             Editor.Instance.ShowProgressLog("Sheet downloaded successfully at " + path);

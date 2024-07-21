@@ -13,12 +13,12 @@ public class SheetLoader : MonoBehaviour
     }
 
     public string sheetContent = null;
-    public bool bLoadFinish = false;
+    public bool isLoadFinish = false;
 
     public IEnumerator WebGLLoadSheet(string sheetName)
     {
         yield return Parser.Instance.IEParseSheet(sheetName);
-        bLoadFinish = true;
+        isLoadFinish = true;
     }
 
     void Awake()
@@ -30,7 +30,7 @@ public class SheetLoader : MonoBehaviour
     public void Init()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
-        StartCoroutine(WebGLLoadSheet("Consolation"));
+        StartCoroutine(WebGLLoadSheet("Splendid Circus"));
 #endif
 
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
@@ -38,7 +38,7 @@ public class SheetLoader : MonoBehaviour
 
     private void CheckElapsedTime()
     {
-        if (bLoadFinish == true)
+        if (isLoadFinish == true)
         {
             CancelInvoke(nameof(CheckElapsedTime));
         }
