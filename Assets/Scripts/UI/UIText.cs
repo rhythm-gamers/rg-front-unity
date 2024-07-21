@@ -22,6 +22,6 @@ public class UIText : UIObject
 
     public void ChangeText()
     {
-        UIController.Instance.find.Invoke(Name);
+        UIController.Instance.FindUI(Name);
     }
 }

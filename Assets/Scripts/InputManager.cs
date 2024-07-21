@@ -108,8 +108,8 @@ public class InputManager : MonoBehaviour
             NoteGenerator.Instance.Interpolate();
 
             string speedToString = GameManager.Instance.Speed.ToString("0.0");
-            UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
-            UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_D_Speed").uiObject as UIText;
+            UIText inGameSpeedUI = UIController.Instance.FindUI("UI_G_Speed").uiObject as UIText;
+            UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -125,8 +125,8 @@ public class InputManager : MonoBehaviour
             NoteGenerator.Instance.Interpolate();
 
             string speedToString = GameManager.Instance.Speed.ToString("0.0");
-            UIText inGameSpeedUI = UIController.Instance.find.Invoke("UI_G_Speed").uiObject as UIText;
-            UIText outGameSpeedUI = UIController.Instance.find.Invoke("UI_S_Speed").uiObject as UIText;
+            UIText inGameSpeedUI = UIController.Instance.FindUI("UI_G_Speed").uiObject as UIText;
+            UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
 #if UNITY_WEBGL && !UNITY_EDITOR

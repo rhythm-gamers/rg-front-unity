@@ -23,6 +23,6 @@ public class UIButton : UIObject
     public void OnClick()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        UIController.Instance.find.Invoke(Name);
+        UIController.Instance.FindUI(Name);
     }
 }
