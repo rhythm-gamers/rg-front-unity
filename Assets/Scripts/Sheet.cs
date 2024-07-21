@@ -43,15 +43,15 @@ public class Sheet
     public float BarPerSec { get; private set; }
     public float BeatPerSec { get; private set; }
 
-    public int BarPerMilliSec { get; private set; }
-    public int BeatPerMilliSec { get; private set; }
+    public float BarPerMilliSec { get; private set; }
+    public float BeatPerMilliSec { get; private set; }
 
     public void Init()
     {
         BarPerMilliSec = (int)(signature[0] / (bpm / 60f) * 1000);
-        BeatPerMilliSec = BarPerMilliSec / 64;
+        BeatPerMilliSec = BarPerMilliSec / 192f;
 
         BarPerSec = BarPerMilliSec * 0.001f;
-        BeatPerSec = BarPerMilliSec / 64f;
+        BeatPerSec = BarPerSec / 192f;
     }
 }
