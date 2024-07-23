@@ -50,7 +50,9 @@ public class Parser : MonoBehaviour
     {
         Sheet newSheet = new();
 
-        string[] rows = sheetStr.Split("\n");
+        string[] rows = sheetStr?.Split("\n");
+        if (rows == null) return null;
+
         foreach (string row in rows)
         {
             if (row.StartsWith("[Description]"))
@@ -110,8 +112,10 @@ public class Parser : MonoBehaviour
         return newSheet;
     }
 
-    public string StringifySheet(Sheet sheet)
+    public string StringifyEditedSheet()
     {
+        Sheet sheet = GameManager.Instance.sheet;
+
         List<Note> notes = new List<Note>();
         string noteStr = string.Empty;
         float baseTime = sheet.BarPerSec / 16;
@@ -142,7 +146,7 @@ public class Parser : MonoBehaviour
             if (note is NoteShort)
             {
                 NoteShort noteShort = note as NoteShort;
-                int noteTime = (int)(noteShort.transform.localPosition.y * baseTime * 1000);
+                int noteTime = Mathf.RoundToInt(noteShort.transform.localPosition.y * 1000 * baseTime);
 
                 notes.Add(new Note(noteTime, (int)NoteType.Short, findLine + 1, -1));
                 //noteStr += $"{noteTime}, {(int)NoteType.Short}, {findLine + 1}\n";
@@ -150,8 +154,8 @@ public class Parser : MonoBehaviour
             else if (note is NoteLong)
             {
                 NoteLong noteLong = note as NoteLong;
-                int headTime = (int)(noteLong.transform.localPosition.y * baseTime * 1000);
-                int tailTime = (int)((noteLong.transform.localPosition.y + noteLong.tail.transform.localPosition.y) * baseTime * 1000);
+                int headTime = Mathf.RoundToInt(noteLong.transform.localPosition.y * 1000 * baseTime);
+                int tailTime = Mathf.RoundToInt((noteLong.transform.localPosition.y + noteLong.tail.transform.localPosition.y) * baseTime * 1000);
 
                 notes.Add(new Note(headTime, (int)NoteType.Long, findLine + 1, tailTime));
                 //noteStr += $"{headTime}, {(int)NoteType.Long}, {findLine + 1}, {tailTime}\n";

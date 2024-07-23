@@ -70,14 +70,18 @@ public class NoteShort : NoteObject
         {
             GetComponent<BoxCollider2D>().enabled = false;
         }
+
+#if !UNITY_WEBGL
         else
         {
             StartCoroutine(IECheckCollider());
         }
+#endif
     }
 
     public override IEnumerator IECheckCollider()
     {
+#if !UNITY_WEBGL
         WaitForSeconds wait = new WaitForSeconds(0.1f);
         while (true)
         {
@@ -95,6 +99,9 @@ public class NoteShort : NoteObject
 
             yield return wait;
         }
+#else
+        yield return null;
+#endif
     }
 }
 
@@ -165,14 +172,18 @@ public class NoteLong : NoteObject
             head.GetComponent<BoxCollider2D>().enabled = false;
             tail.GetComponent<BoxCollider2D>().enabled = false;
         }
+
+#if !UNITY_WEBGL
         else
         {
             StartCoroutine(IECheckCollider());
         }
+#endif
     }
 
     public override IEnumerator IECheckCollider()
     {
+#if !UNITY_WEBGL
         WaitForSeconds wait = new WaitForSeconds(0.1f);
         while (true)
         {
@@ -191,5 +202,8 @@ public class NoteLong : NoteObject
 
             yield return wait;
         }
+#else
+        yield return null;
+#endif
     }
 }

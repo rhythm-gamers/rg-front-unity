@@ -53,8 +53,8 @@ public class Sync : MonoBehaviour
         uiSyncTime.SetText(txt);
         uiSyncTime.GetComponent<RectTransform>().anchoredPosition3D += Vector3.down * 2.5f;
 
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
-            SetJudgeTime(judgement.judgeTimeFromUserSetting);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        SetJudgeTime(Judgement.Instance.judgeTimeFromUserSetting);
 #endif
 
         if (coPopup != null)
@@ -77,8 +77,8 @@ public class Sync : MonoBehaviour
         uiSyncTime.SetText(txt);
         uiSyncTime.GetComponent<RectTransform>().anchoredPosition3D += Vector3.up * 2.5f;
 
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
-            SetJudgeTime(judgement.judgeTimeFromUserSetting);
+#if UNITY_WEBGL && !UNITY_EDITOR
+        SetJudgeTime(Judgement.Instance.judgeTimeFromUserSetting);
 #endif
 
         if (coPopup != null)

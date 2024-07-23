@@ -74,10 +74,13 @@ public class AudioManager : MonoBehaviour
             {
                 Stop();
             }
+
+#if !UNITY_WEBGL
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 Editor.Instance.Stop();
             }
+#endif
         }
     }
 
@@ -91,23 +94,23 @@ public class AudioManager : MonoBehaviour
 
     public void Play()
     {
+        if (audioSource.clip == null) return;
+
         state = State.Playing;
         audioSource.Play();
     }
 
     public void Pause()
     {
+        if (audioSource.clip == null) return;
+
         state = State.Paused;
         audioSource.Pause();
     }
 
     public void UnPause()
     {
-        if (audioSource.clip == null)
-        {
-            Debug.LogError("Audio clip is null. Cannot unpause.");
-            return;
-        }
+        if (audioSource.clip == null) return;
 
         state = State.Unpaused;
         audioSource.UnPause();
@@ -115,21 +118,10 @@ public class AudioManager : MonoBehaviour
 
     public void Stop()
     {
+        if (audioSource.clip == null) return;
+
         state = State.Stop;
         audioSource.Stop();
-    }
-
-    public IEnumerator MovePosition(float time)
-    {
-        double currentTime = audioSource.time;
-
-        if (currentTime + time < 0)
-            progressTime = 0f;
-        else
-            progressTime = (float)(currentTime + time);
-
-        yield return null;
-        Editor.Instance.CalibratePosition();
     }
 
     public void Insert(AudioClip clip)
@@ -146,4 +138,20 @@ public class AudioManager : MonoBehaviour
     {
         return audioSource.isPlaying;
     }
+
+
+#if !UNITY_WEBGL
+    public IEnumerator MovePosition(float time)
+    {
+        double currentTime = audioSource.time;
+
+        if (currentTime + time < 0)
+            progressTime = 0f;
+        else
+            progressTime = (float)(currentTime + time);
+
+        yield return null;
+        Editor.Instance.CalibratePosition();
+    }
+#endif
 }

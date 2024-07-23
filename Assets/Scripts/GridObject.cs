@@ -1,3 +1,5 @@
+#if !UNITY_WEBGL
+
 using UnityEngine;
 
 public class GridObject : MonoBehaviour
@@ -88,3 +90,5 @@ public class GridObject : MonoBehaviour
         }
     }
 }
+
+#endif
