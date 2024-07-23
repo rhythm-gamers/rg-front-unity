@@ -15,7 +15,7 @@ public class EditorController : MonoBehaviour
 
     public GameObject cursorPrefab;
     public GameObject cursorObj;
-    public void InitCursorState(bool nextState)
+    public void SetActiveCursor(bool nextState)
     {
         cursorObj.SetActive(nextState);
     }
@@ -61,6 +61,13 @@ public class EditorController : MonoBehaviour
             instance = this;
     }
 
+    public void InitCursor()
+    {
+        isLongNoteActive = false;
+        isShortNoteActive = false;
+        SetActiveCursor(false);
+    }
+
     void Start()
     {
         cam = Camera.main;
@@ -68,7 +75,7 @@ public class EditorController : MonoBehaviour
         inputManager = FindObjectOfType<InputManager>();
 
         cursorObj = Instantiate(cursorPrefab);
-        InitCursorState(false);
+        InitCursor();
     }
 
     void Update()
@@ -156,7 +163,7 @@ public class EditorController : MonoBehaviour
     /// </summary>
     public void Space()
     {
-        Editor.Instance.Play();
+        Editor.Instance.PlayOrPause();
     }
 
     /// <summary>
@@ -207,7 +214,6 @@ public class EditorController : MonoBehaviour
             else if (isShortNoteActive)
             {
                 NoteGenerator.Instance.DisposeNoteShort(selectedGridPosition);
-                Debug.Log("노트 생성");
             }
         }
         else if (btnName == "rightButton")

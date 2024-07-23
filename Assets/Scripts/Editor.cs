@@ -66,7 +66,7 @@ public class Editor : MonoBehaviour
         coMove = StartCoroutine(IEMove());
     }
 
-    public void Play()
+    public void PlayOrPause()
     {
         if (AudioManager.Instance.IsPlaying())
         {
@@ -127,7 +127,7 @@ public class Editor : MonoBehaviour
 
     public void Play(UIObject uiObject)
     {
-        Play();
+        PlayOrPause();
     }
 
     public void Stop(UIObject uiObject)
@@ -165,7 +165,7 @@ public class Editor : MonoBehaviour
         bool nextState = !EditorController.Instance.isShortNoteActive;
 
         EditorController.Instance.isShortNoteActive = nextState;
-        EditorController.Instance.InitCursorState(nextState);
+        EditorController.Instance.SetActiveCursor(nextState);
     }
 
     public void SelectLongNote()
@@ -176,7 +176,7 @@ public class Editor : MonoBehaviour
         bool nextState = !EditorController.Instance.isLongNoteActive;
 
         EditorController.Instance.isLongNoteActive = nextState;
-        EditorController.Instance.InitCursorState(nextState);
+        EditorController.Instance.SetActiveCursor(nextState);
     }
 
 

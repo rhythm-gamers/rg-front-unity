@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
 public class SheetStorage : MonoBehaviour
@@ -14,7 +11,11 @@ public class SheetStorage : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, "lastSavedSheet.sheet");
 
         savedSheet = LoadSavedSheet();
-        GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
+
+        if (savedSheet != null)
+            GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
+        else
+            savedSheet = SheetLoader.Instance.sheetContent;
     }
 
     /*
@@ -28,32 +29,35 @@ public class SheetStorage : MonoBehaviour
      */
     public void SaveSheet()
     {
-        Sheet sheet = GameManager.Instance.sheet;
-
-        savedSheet = Parser.Instance.StringifySheet(sheet);
+        savedSheet = Parser.Instance.StringifyEditedSheet();
         File.WriteAllText(saveFilePath, savedSheet);
 
         Editor.Instance.ShowProgressLog($"Sheet saved successfully at {saveFilePath}");
         Debug.Log($"Sheet saved successfully at {saveFilePath}");
     }
 
-    private string LoadSavedSheet()
+    public string LoadSavedSheet()
     {
         if (File.Exists(saveFilePath))
             return File.ReadAllText(saveFilePath);
         else
-            return SheetLoader.Instance.sheetContent; ;
+            return null;
+    }
+
+    public bool CompareEditedSheet()
+    {
+        string editedSheet = Parser.Instance.StringifyEditedSheet();
+        bool isChangedEditedSheet = editedSheet != savedSheet;
+        return isChangedEditedSheet;
     }
 
     public void Upload()
     {
-        SaveSheet();
         S3Uploader.Instance.UploadFile(savedSheet, "binary/octet-stream");
     }
 
     public void Download()
     {
-        SaveSheet();
         string path = Application.dataPath + "/Sheet/";
         if (!Directory.Exists(path))
         {

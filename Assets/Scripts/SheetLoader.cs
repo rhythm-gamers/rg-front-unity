@@ -29,7 +29,7 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+#if !UNIY_WEBGL
         StartCoroutine(WebGLLoadSheet("Splendid Circus"));
 #endif
 

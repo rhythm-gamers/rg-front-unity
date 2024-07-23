@@ -25,7 +25,7 @@ public class InputManager : MonoBehaviour
     {
         if (GameManager.Instance.state == GameManager.GameState.Edit)
         {
-            if (GameManager.Instance.isPlaying)
+            if (!GameManager.Instance.isPaused)
             {
                 mousePos = Mouse.current.position.ReadValue();
             }
@@ -112,7 +112,7 @@ public class InputManager : MonoBehaviour
             UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             SetSpeed(speedToString);
 #endif
         }
@@ -129,7 +129,7 @@ public class InputManager : MonoBehaviour
             UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
             SetSpeed(speedToString);
 #endif
         }
@@ -158,13 +158,8 @@ public class InputManager : MonoBehaviour
             if (GameManager.Instance.state == GameManager.GameState.Game)
             {
                 if (GameManager.Instance.isPlayable)
-                {
                     GameManager.Instance.Play();
-                }
-                else if (GameManager.Instance.isPaused)
-                {
-                    PauseNavigator.Instance.ActivateButton();
-                }
+
             }
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
@@ -180,18 +175,12 @@ public class InputManager : MonoBehaviour
             if (GameManager.Instance.state == GameManager.GameState.Game)
             {
                 if (GameManager.Instance.isPlaying)
-                {
                     GameManager.Instance.Pause();
-                }
-                else if (GameManager.Instance.isPaused)
-                {
-                    GameManager.Instance.UnPause();
-                }
             }
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 if (GameManager.Instance.isPlaying)
-                    GameManager.Instance.ExitEditor();
+                    GameManager.Instance.CheckIsChangedSheet();
             }
         }
     }
@@ -249,34 +238,12 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void OnArrowUp(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            if (GameManager.Instance.isPaused)
-            {
-                PauseNavigator.Instance.Navigate(-1);
-            }
-        }
-    }
 
-    public void OnArrowDown(InputAction.CallbackContext context)
+#if !UNITY_WEBGL
+    // 게임 바로 끝내기
+    public void OnTest()
     {
-        if (context.started)
-        {
-            if (GameManager.Instance.isPaused)
-            {
-                PauseNavigator.Instance.Navigate(1);
-            }
-        }
-    }
-
-    // �׽�Ʈ�� �ڵ�
-    public void OnTest(InputAction.CallbackContext context)
-    {
-        // Audio Time�� ������ �Ű� ���â�� �ٷ� �� �� �ְ� ����
         AudioManager.Instance.audioSource.time = AudioManager.Instance.Length;
-
-        //FindObjectOfType<SheetStorage>().Save();
     }
+#endif
 }
