@@ -1,3 +1,5 @@
+#if !UNITY_WEBGL
+
 using System;
 using System.Collections;
 using UnityEngine;
@@ -307,3 +309,5 @@ public class EditorController : MonoBehaviour
     //    GUI.Label(new Rect(100, 400, 100, 100), "Snap : " + Editor.Instance.Snap.ToString(), style);
     //}
 }
+
+#endif

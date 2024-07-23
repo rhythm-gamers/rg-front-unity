@@ -115,14 +115,7 @@ public class NoteGenerator : MonoBehaviour
         Interval = defaultInterval * GameManager.Instance.Speed;
         coGenTimer = StartCoroutine(IEGenTimer(GameManager.Instance.sheet.BarPerMilliSec * 0.001f)); // 음악의 1마디 시간마다 생성할 노트 오브젝트 탐색
         coReleaseTimer = StartCoroutine(IEReleaseTimer(GameManager.Instance.sheet.BarPerMilliSec * 0.001f * 0.5f)); // 1마디 시간의 절반 주기로 해제할 노트 오브젝트 탐색
-        coInterpolate = StartCoroutine(IEInterpolate(0.1f, 4f));
-    }
-
-
-    // 한 번에 다 생성 (에디팅할때 사용)
-    public void GenAll()
-    {
-        Gen2();
+        coInterpolate = StartCoroutine(IEInterpolate(GameManager.Instance.sheet.BeatPerSec, 4f));
     }
 
     // 노트 생성 중지 및 노트 Release
@@ -190,6 +183,137 @@ public class NoteGenerator : MonoBehaviour
             noteObject.Move();
             toReleaseList.Add(noteObject);
         }
+    }
+
+
+
+    public void DisposeNoteShort(Vector3 pos)
+    {
+        NoteObject noteObject = PoolShort.Get();
+        noteObject.SetPosition(new Vector3[] { pos });
+        noteObject.gameObject.SetActive(true);
+        noteObject.SetCollider();
+        toReleaseList.Add(noteObject);
+    }
+
+    NoteObject noteObjectTemp;
+    public void DisposeNoteLong(int makingCount, Vector3[] pos)
+    {
+        if (makingCount == 0)
+        {
+            noteObjectTemp = PoolLong.Get();
+            noteObjectTemp.SetPosition(new Vector3[] { pos[0], pos[1] });
+            noteObjectTemp.gameObject.SetActive(true);
+        }
+        else if (makingCount == 1)
+        {
+            noteObjectTemp.SetPosition(new Vector3[] { pos[0], pos[1] });
+            noteObjectTemp.SetCollider();
+            toReleaseList.Add(noteObjectTemp);
+        }
+    }
+
+    void ReleaseCompleted()
+    {
+        foreach (NoteObject note in toReleaseList)
+        {
+            note.gameObject.SetActive(false);
+
+            if (note is NoteShort)
+                PoolShort.Release(note as NoteShort);
+            else
+                PoolLong.Release(note as NoteLong);
+        }
+
+        // 현재 위치 초기화
+        currentBar = 3;
+        prev = 0;
+        next = 0;
+#if !UNITY_WEBGL
+        Editor.Instance.objects.transform.position = Vector3.zero;
+#endif
+        // ReleaseList 초기화
+        toReleaseList.Clear();
+    }
+
+    void Release()
+    {
+        List<NoteObject> reconNotes = new List<NoteObject>();
+        foreach (NoteObject note in toReleaseList)
+        {
+            if (!note.life)
+            {
+                if (note is NoteShort)
+                    PoolShort.Release(note as NoteShort);
+                else
+                    PoolLong.Release(note as NoteLong);
+
+                note.gameObject.SetActive(false);
+            }
+            else
+            {
+                reconNotes.Add(note);
+            }
+        }
+        toReleaseList.Clear();
+        toReleaseList.AddRange(reconNotes);
+    }
+
+    public void Interpolate()
+    {
+        if (coInterpolate != null)
+            StopCoroutine(coInterpolate);
+
+        coInterpolate = StartCoroutine(IEInterpolate());
+    }
+
+    IEnumerator IEGenTimer(float interval)
+    {
+        while (true)
+        {
+            Gen();
+            yield return new WaitForSeconds(interval);
+            currentBar++;
+        }
+    }
+
+    IEnumerator IEReleaseTimer(float interval)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(interval);
+            Release();
+        }
+    }
+
+    IEnumerator IEInterpolate(float rate = 1f, float duration = 1f)
+    {
+        if (toReleaseList.Count == 0) yield break;
+
+        float time = 0;
+        Interval = defaultInterval * GameManager.Instance.Speed;
+
+        float noteSpeed = Interval * 1000;
+        while (time < duration)
+        {
+            float milli = AudioManager.Instance.GetMilliSec();
+
+            foreach (NoteObject note in toReleaseList)
+            {
+                note.speed = noteSpeed;
+                note.Interpolate(milli, Interval);
+            }
+
+            time += rate;
+            yield return new WaitForSeconds(rate);
+        }
+    }
+
+#if !UNITY_WEBGL
+    // 한 번에 다 생성 (에디팅할때 사용)
+    public void GenAll()
+    {
+        Gen2();
     }
 
     /// <summary>
@@ -274,125 +398,5 @@ public class NoteGenerator : MonoBehaviour
             toReleaseList.Add(noteObject); // 에디팅끝나면 Release호출해서 해제해주기
         }
     }
-
-    public void DisposeNoteShort(Vector3 pos)
-    {
-        NoteObject noteObject = PoolShort.Get();
-        noteObject.SetPosition(new Vector3[] { pos });
-        noteObject.gameObject.SetActive(true);
-        noteObject.SetCollider();
-        toReleaseList.Add(noteObject);
-    }
-
-    NoteObject noteObjectTemp;
-    public void DisposeNoteLong(int makingCount, Vector3[] pos)
-    {
-        if (makingCount == 0)
-        {
-            noteObjectTemp = PoolLong.Get();
-            noteObjectTemp.SetPosition(new Vector3[] { pos[0], pos[1] });
-            noteObjectTemp.gameObject.SetActive(true);
-        }
-        else if (makingCount == 1)
-        {
-            noteObjectTemp.SetPosition(new Vector3[] { pos[0], pos[1] });
-            noteObjectTemp.SetCollider();
-            toReleaseList.Add(noteObjectTemp);
-        }
-    }
-
-    void ReleaseCompleted()
-    {
-        foreach (NoteObject note in toReleaseList)
-        {
-            note.gameObject.SetActive(false);
-
-            if (note is NoteShort)
-                PoolShort.Release(note as NoteShort);
-            else
-                PoolLong.Release(note as NoteLong);
-        }
-
-        // 현재 위치 초기화
-        currentBar = 3;
-        prev = 0;
-        next = 0;
-        Editor.Instance.objects.transform.position = Vector3.zero;
-
-        // ReleaseList 초기화
-        toReleaseList.Clear();
-    }
-
-    void Release()
-    {
-        List<NoteObject> reconNotes = new List<NoteObject>();
-        foreach (NoteObject note in toReleaseList)
-        {
-            if (!note.life)
-            {
-                if (note is NoteShort)
-                    PoolShort.Release(note as NoteShort);
-                else
-                    PoolLong.Release(note as NoteLong);
-
-                note.gameObject.SetActive(false);
-            }
-            else
-            {
-                reconNotes.Add(note);
-            }
-        }
-        toReleaseList.Clear();
-        toReleaseList.AddRange(reconNotes);
-    }
-
-    public void Interpolate()
-    {
-        if (coInterpolate != null)
-            StopCoroutine(coInterpolate);
-
-        coInterpolate = StartCoroutine(IEInterpolate());
-    }
-
-    IEnumerator IEGenTimer(float interval)
-    {
-        while (true)
-        {
-            Gen();
-            yield return new WaitForSeconds(interval);
-            currentBar++;
-        }
-    }
-
-    IEnumerator IEReleaseTimer(float interval)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-            Release();
-        }
-    }
-
-    IEnumerator IEInterpolate(float rate = 1f, float duration = 1f)
-    {
-        if (toReleaseList.Count == 0) yield break;
-
-        float time = 0;
-        Interval = defaultInterval * GameManager.Instance.Speed;
-
-        float noteSpeed = Interval * 1000;
-        while (time < duration)
-        {
-            float milli = AudioManager.Instance.GetMilliSec();
-
-            foreach (NoteObject note in toReleaseList)
-            {
-                note.speed = noteSpeed;
-                note.Interpolate(milli, Interval);
-            }
-
-            time += rate;
-            yield return new WaitForSeconds(rate);
-        }
-    }
+#endif
 }

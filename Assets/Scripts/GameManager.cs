@@ -99,7 +99,9 @@ public class GameManager : MonoBehaviour
 
     public void Edit()
     {
+#if !UNITY_WEBGL
         StartCoroutine(IEEdit());
+#endif
     }
 
 
@@ -138,13 +140,15 @@ public class GameManager : MonoBehaviour
 
     public void ResumeEditor()
     {
+#if !UNITY_WEBGL
         canvases[(int)Canvas.WarningPopup].SetActive(false);
 
-        EditorController.Instance.SetActiveCursor(true);
+        EditorController.Instance.InitCursor();
+#endif
     }
-
     public void ExitEditor()
     {
+#if !UNITY_WEBGL
         canvases[(int)Canvas.WarningPopup].SetActive(false);
 
         // Editor 초기화
@@ -162,6 +166,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.progressTime = 0f;
 
         Description();
+#endif
     }
     // Finish Button Navigator OnClick
 
@@ -185,8 +190,10 @@ public class GameManager : MonoBehaviour
         // 음악 멈추기
         AudioManager.Instance.Pause();
     }
+
     public void CheckIsChangedSheet()
     {
+#if !UNITY_WEBGL
         bool isChangeSheet = FindObjectOfType<SheetStorage>().CompareEditedSheet();
         if (isChangeSheet)
         {
@@ -202,34 +209,13 @@ public class GameManager : MonoBehaviour
         {
             ExitEditor();
         }
+#endif
     }
     // Finish Input Manager Method
 
-    public void ApplyGameModeUI()
+    public void ChangeGameMode(UIObject uIObject = null)
     {
-        UIButton GameModeUI = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
-        UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
-        UIText EditorHotkeyUI = UIController.Instance.GetUI("UI_G_EditorHotkey").uiObject as UIText;
-
-#if UNITY_WEBGL
-        GameModeUI.gameObject.SetActive(false);
-        EditorHotkeyUI.gameObject.SetActive(false);
-#endif
-
-        if (state == GameState.Game)
-        {
-            GameModeUI.SetText("Game Mode");
-            SpeedUI.gameObject.SetActive(true);
-        }
-        else
-        {
-            GameModeUI.SetText("Edit Mode");
-            SpeedUI.gameObject.SetActive(false);
-        }
-    }
-
-    public void ChangeGameMode(UIObject uIObject)
-    {
+#if !UNITY_WEBGL
         UIButton uiButton = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
         UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
 
@@ -245,15 +231,15 @@ public class GameManager : MonoBehaviour
             uiButton.SetText("Game Mode");
             SpeedUI.gameObject.SetActive(true);
         }
+#endif
     }
-
 
     IEnumerator IEInit()
     {
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-        state = GameState.Edit;
-#elif UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL
         state = GameState.Game;
+#else
+        state = GameState.Edit;
 #endif
 
         SheetLoader.Instance.Init();
@@ -270,6 +256,17 @@ public class GameManager : MonoBehaviour
 
         // UIObject들이 자기자신을 캐싱할때까지 여유를 주고 비활성화(임시코드)
         yield return new WaitForSecondsRealtime(2f);
+
+        // 에디터 전용 UI 끄기
+        UIButton GameModeUI = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
+        UIText EditorHotkeyUI = UIController.Instance.GetUI("UI_G_EditorHotkey").uiObject as UIText;
+        GameModeUI.gameObject.SetActive(false);
+        EditorHotkeyUI.gameObject.SetActive(false);
+
+#if !UNITY_WEBGL
+        ActiveOnlyEditorUI();
+#endif 
+
         canvases[(int)Canvas.Game].SetActive(false);
         canvases[(int)Canvas.Pause].SetActive(false);
         canvases[(int)Canvas.GameBGA].SetActive(false);
@@ -277,6 +274,8 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.Description].SetActive(false);
         canvases[(int)Canvas.Editor].SetActive(false);
         canvases[(int)Canvas.WarningPopup].SetActive(false);
+
+
 
         yield return new WaitUntil(() => SheetLoader.Instance.isLoadFinish == true);
 
@@ -322,9 +321,6 @@ public class GameManager : MonoBehaviour
         // Result UI 끄기
         canvases[(int)Canvas.Result].SetActive(false);
 
-        // Game Mode에 따라 UI 핸들링
-        ApplyGameModeUI();
-
         // BGA 켜기
         canvases[(int)Canvas.GameBGA].SetActive(true);
 
@@ -356,10 +352,11 @@ public class GameManager : MonoBehaviour
         //  Description UI 끄기
         canvases[(int)Canvas.Description].SetActive(false);
 
-        // Sheet 초기화
 #if !UNITY_WEBGL
         FindObjectOfType<SheetStorage>().Init(); // 에디팅 후 테스트 시, 임시 저장된 채보를 사용
 #endif
+
+        // Sheet 초기화
         sheet.Init();
 
         // Audio 삽입
@@ -458,8 +455,24 @@ public class GameManager : MonoBehaviour
         Description();
     }
 
+
+#if !UNITY_WEBGL
+    void ActiveOnlyEditorUI()
+    {
+        UIButton GameModeUI = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
+        UIText EditorHotkeyUI = UIController.Instance.GetUI("UI_G_EditorHotkey").uiObject as UIText;
+        UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
+
+        GameModeUI.SetText("Edit Mode");
+
+        GameModeUI.gameObject.SetActive(true);
+        EditorHotkeyUI.gameObject.SetActive(true);
+        SpeedUI.gameObject.SetActive(false);
+    }
+
     IEnumerator IEEdit()
     {
+
         // 새 게임을 시작할 수 없게 해줌
         isPlaying = true;
         isPlayable = false;
@@ -495,4 +508,5 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 2f));
         canvases[(int)Canvas.SFX].SetActive(false);
     }
+#endif
 }

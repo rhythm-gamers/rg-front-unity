@@ -1,7 +1,6 @@
+#if !UNITY_WEBGL
+
 using UnityEngine;
-using Amazon;
-using Amazon.S3;
-using Amazon.Runtime;
 using System.Collections;
 using UnityEngine.Networking;
 
@@ -87,3 +86,5 @@ public class S3Uploader : MonoBehaviour
         }
     }
 }
+
+#endif

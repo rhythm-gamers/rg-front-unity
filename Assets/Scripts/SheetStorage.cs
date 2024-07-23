@@ -27,14 +27,6 @@ public class SheetStorage : MonoBehaviour
         Head y좌표 = NoteLong의 y좌표
         Tail y좌표 = NoteLong.y + tail.y가 최종좌표
      */
-    public void SaveSheet()
-    {
-        savedSheet = Parser.Instance.StringifyEditedSheet();
-        File.WriteAllText(saveFilePath, savedSheet);
-
-        Editor.Instance.ShowProgressLog($"Sheet saved successfully at {saveFilePath}");
-        Debug.Log($"Sheet saved successfully at {saveFilePath}");
-    }
 
     public string LoadSavedSheet()
     {
@@ -42,6 +34,17 @@ public class SheetStorage : MonoBehaviour
             return File.ReadAllText(saveFilePath);
         else
             return null;
+    }
+
+
+#if !UNITY_WEBGL
+    public void SaveSheet()
+    {
+        savedSheet = Parser.Instance.StringifyEditedSheet();
+        File.WriteAllText(saveFilePath, savedSheet);
+
+        Editor.Instance.ShowProgressLog($"Sheet saved successfully at {saveFilePath}");
+        Debug.Log($"Sheet saved successfully at {saveFilePath}");
     }
 
     public bool CompareEditedSheet()
@@ -53,11 +56,14 @@ public class SheetStorage : MonoBehaviour
 
     public void Upload()
     {
+        SaveSheet();
         S3Uploader.Instance.UploadFile(savedSheet, "binary/octet-stream");
     }
 
     public void Download()
     {
+        SaveSheet();
+
         string path = Application.dataPath + "/Sheet/";
         if (!Directory.Exists(path))
         {
@@ -78,6 +84,6 @@ public class SheetStorage : MonoBehaviour
             Debug.LogError("Error while downloading the sheet: " + e.Message);
         }
     }
-
+#endif
 
 }

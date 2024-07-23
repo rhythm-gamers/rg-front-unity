@@ -21,17 +21,6 @@ public class InputManager : MonoBehaviour
         judgement = FindObjectOfType<Judgement>();
     }
 
-    void Update()
-    {
-        if (GameManager.Instance.state == GameManager.GameState.Edit)
-        {
-            if (!GameManager.Instance.isPaused)
-            {
-                mousePos = Mouse.current.position.ReadValue();
-            }
-        }
-    }
-
     public void OnNoteLine0(InputAction.CallbackContext context)
     {
 
@@ -112,7 +101,7 @@ public class InputManager : MonoBehaviour
             UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL
+#if UNITY_WEBGL && !UNITY_EDITOR
             SetSpeed(speedToString);
 #endif
         }
@@ -129,7 +118,7 @@ public class InputManager : MonoBehaviour
             UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
             inGameSpeedUI.SetText("Speed " + speedToString);
             outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL
+#if UNITY_WEBGL && !UNITY_EDITOR
             SetSpeed(speedToString);
 #endif
         }
@@ -159,8 +148,8 @@ public class InputManager : MonoBehaviour
             {
                 if (GameManager.Instance.isPlayable)
                     GameManager.Instance.Play();
-
             }
+
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 if (GameManager.Instance.isPlayable)
@@ -168,6 +157,7 @@ public class InputManager : MonoBehaviour
             }
         }
     }
+
     public void OnExit(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -177,6 +167,7 @@ public class InputManager : MonoBehaviour
                 if (GameManager.Instance.isPlaying)
                     GameManager.Instance.Pause();
             }
+
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 if (GameManager.Instance.isPlaying)
@@ -185,9 +176,24 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    // 에디터
+
+    // 에디터 코드
+    void Update()
+    {
+#if !UNITY_WEBGL
+        if (GameManager.Instance.state == GameManager.GameState.Edit)
+        {
+            if (!GameManager.Instance.isPaused)
+            {
+                mousePos = Mouse.current.position.ReadValue();
+            }
+        }
+#endif
+    }
+
     public void OnMouseBtn(InputAction.CallbackContext context)
     {
+#if !UNITY_WEBGL
         if (context.started)
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
@@ -198,10 +204,12 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
+#endif
     }
 
     public void OnMouseWheel(InputAction.CallbackContext context)
     {
+#if !UNITY_WEBGL
         if (context.started)
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
@@ -210,19 +218,23 @@ public class InputManager : MonoBehaviour
                     EditorController.Instance.Scroll(context.ReadValue<float>());
             }
         }
+#endif
     }
 
     public void OnSpace(InputAction.CallbackContext context)
     {
+#if !UNITY_WEBGL
         if (context.started)
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
                 EditorController.Instance.Space();
         }
+#endif
     }
 
     public void OnCtrl(InputAction.CallbackContext context)
     {
+#if !UNITY_WEBGL
         if (context.started)
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
@@ -236,14 +248,14 @@ public class InputManager : MonoBehaviour
             if (GameManager.Instance.state == GameManager.GameState.Edit)
                 EditorController.Instance.isCtrl = false;
         }
-    }
-
-
-#if !UNITY_WEBGL
-    // 게임 바로 끝내기
-    public void OnTest()
-    {
-        AudioManager.Instance.audioSource.time = AudioManager.Instance.Length;
-    }
 #endif
+    }
+
+    // 게임 바로 끝내기
+    public void OnStopGame()
+    {
+#if !UNITY_WEBGL
+        AudioManager.Instance.Stop();
+#endif
+    }
 }

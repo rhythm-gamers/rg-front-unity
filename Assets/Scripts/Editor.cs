@@ -1,3 +1,5 @@
+#if !UNITY_WEBGL
+
 using System;
 using System.Collections;
 using UnityEngine;
@@ -205,3 +207,5 @@ public class Editor : MonoBehaviour
         coPopup = StartCoroutine(AniPreset.Instance.IETextPopup(uiProgressLog, 3f));
     }
 }
+
+#endif
