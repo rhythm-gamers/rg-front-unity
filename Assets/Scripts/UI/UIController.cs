@@ -27,15 +27,14 @@ public class UIController : MonoBehaviour
             uiObjectDic.Add(obj.Name, new UIActor(obj, null));
         }
 
+        uiObjectDic["UI_D_GameMode"].action = GameManager.Instance.ChangeGameMode;
+
         uiObjectDic["UI_G_Judgement"].action = Score.Instance.Ani;
         uiObjectDic["UI_G_Combo"].action = Score.Instance.Ani;
 
         //uiObjectDic["UI_E_ProgressBar"].action = Editor.Instance.Progress;
         uiObjectDic["UI_E_Play"].action = Editor.Instance.Play;
         uiObjectDic["UI_E_Stop"].action = Editor.Instance.Stop;
-
-        uiObjectDic["UI_P_Resume"].action = GameManager.Instance.UnPause;
-        uiObjectDic["UI_P_Retry"].action = GameManager.Instance.Retry;
 
         isInit = true;
     }
