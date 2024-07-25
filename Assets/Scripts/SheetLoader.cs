@@ -12,12 +12,13 @@ public class SheetLoader : MonoBehaviour
         }
     }
 
-    public string sheetContent = null;
+    readonly string basePath = EnvManager.Instance.CloudfrontUrl;
+
     public bool isLoadFinish = false;
 
     public IEnumerator WebGLLoadSheet(string sheetName)
     {
-        yield return Parser.Instance.IEParseSheet(sheetName);
+        yield return StartCoroutine(Parser.Instance.IEParseGameSheet($"{basePath}/Sheet/{sheetName}", sheetName));
         isLoadFinish = true;
     }
 
@@ -29,10 +30,6 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-#if !UNIY_WEBGL
-        StartCoroutine(WebGLLoadSheet("Splendid Circus"));
-#endif
-
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
     }
 

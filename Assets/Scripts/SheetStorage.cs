@@ -1,21 +1,40 @@
+#if !UNITY_WEBGL
+
+using System.Collections;
 using System.IO;
 using UnityEngine;
 
 public class SheetStorage : MonoBehaviour
 {
-    private string savedSheet;
-    private string saveFilePath;
+    static SheetStorage instance;
+    public static SheetStorage Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    public string savedSheet;
+
+    private string localSaveFilePath;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+
+        localSaveFilePath = $"{Application.persistentDataPath}/Sheet";
+    }
 
     public void Init()
     {
-        saveFilePath = Path.Combine(Application.persistentDataPath, "lastSavedSheet.sheet");
+        string title = GameManager.Instance.sheet.title;
 
-        savedSheet = LoadSavedSheet();
+        savedSheet = LoadSavedSheet($"{localSaveFilePath}/{title}/{title}.sheet");
 
         if (savedSheet != null)
             GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
-        else
-            savedSheet = SheetLoader.Instance.sheetContent;
     }
 
     /*
@@ -28,23 +47,53 @@ public class SheetStorage : MonoBehaviour
         Tail y좌표 = NoteLong.y + tail.y가 최종좌표
      */
 
-    public string LoadSavedSheet()
+    public string LoadSavedSheet(string filePath)
     {
-        if (File.Exists(saveFilePath))
-            return File.ReadAllText(saveFilePath);
+        if (File.Exists(filePath))
+            return File.ReadAllText(filePath);
         else
             return null;
     }
 
-
-#if !UNITY_WEBGL
-    public void SaveSheet()
+    public void SaveNewSheet(Sheet sheet)
     {
-        savedSheet = Parser.Instance.StringifyEditedSheet();
-        File.WriteAllText(saveFilePath, savedSheet);
+        string title = sheet.title;
+        string sheetContent = Parser.Instance.StringifyNewSheet(sheet);
 
-        Editor.Instance.ShowProgressLog($"Sheet saved successfully at {saveFilePath}");
-        Debug.Log($"Sheet saved successfully at {saveFilePath}");
+        string fullFilePath = Path.Combine(localSaveFilePath, title, $"{title}.sheet");
+        File.WriteAllText(fullFilePath, sheetContent);
+
+        Debug.Log($"New Sheet saved successfully at {fullFilePath}");
+    }
+    public void SaveEditedSheet()
+    {
+        string title = GameManager.Instance.sheet.title;
+        savedSheet = Parser.Instance.StringifyEditedSheet();
+
+        string fullFilePath = Path.Combine(localSaveFilePath, title, $"{title}.sheet");
+        File.WriteAllText(fullFilePath, savedSheet);
+
+        Editor.Instance.ShowProgressLog($"Sheet saved successfully at {fullFilePath}");
+        Debug.Log($"Sheet saved successfully at {fullFilePath}");
+    }
+    private void SaveThumbnail(Sprite sprite, string fullFilePath)
+    {
+        Texture2D texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
+        texture.SetPixels(sprite.texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height));
+        texture.Apply();
+
+        byte[] pngData = texture.EncodeToPNG();
+        if (pngData != null)
+        {
+            File.WriteAllBytes(fullFilePath, pngData);
+            Debug.Log($"Thumbnail saved successfully at {fullFilePath}");
+        }
+    }
+    private void SaveMp3(string audioPath, string fullFilePath)
+    {
+        File.Copy(audioPath, fullFilePath, true);
+
+        Debug.Log($"Mp3 saved successfully at {fullFilePath}");
     }
 
     public bool CompareEditedSheet()
@@ -54,17 +103,38 @@ public class SheetStorage : MonoBehaviour
         return isChangedEditedSheet;
     }
 
+    public void AddNewSheet(Sheet sheet, Sprite sprite, string audioPath)
+    {
+        string title = sheet.title;
+
+        if (!Directory.Exists($"{localSaveFilePath}/{title}"))
+        {
+            Directory.CreateDirectory($"{localSaveFilePath}/{title}");
+        }
+
+        SaveNewSheet(sheet);
+        SaveThumbnail(sprite, $"{localSaveFilePath}/{title}/{title}.png");
+        SaveMp3(audioPath, $"{localSaveFilePath}/{title}/{title}.mp3");
+
+        S3Uploader.Instance.UploadNewSheet(localSaveFilePath, title);
+
+        Debug.Log($"Sheet files saved successfully");
+    }
+
     public void Upload()
     {
-        SaveSheet();
-        S3Uploader.Instance.UploadFile(savedSheet, "binary/octet-stream");
+        SaveEditedSheet();
+
+        string title = GameManager.Instance.sheet.title;
+        S3Uploader.Instance.UploadSheet(localSaveFilePath, title);
     }
 
     public void Download()
     {
-        SaveSheet();
+        SaveEditedSheet();
 
-        string path = Application.dataPath + "/Sheet/";
+        string title = GameManager.Instance.sheet.title;
+        string path = Path.Combine(Application.dataPath, "Sheet", title);
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
@@ -72,11 +142,11 @@ public class SheetStorage : MonoBehaviour
 
         try
         {
-            path += $"{GameManager.Instance.sheet.title}.sheet";
-            File.WriteAllText(path, savedSheet);
+            string saveFilePath = Path.Combine(path, $"{title}.sheet");
+            File.WriteAllText(saveFilePath, savedSheet);
 
-            Editor.Instance.ShowProgressLog("Sheet downloaded successfully at " + path);
-            Debug.Log("Sheet downloaded successfully at " + path);
+            Editor.Instance.ShowProgressLog("Sheet downloaded successfully at " + saveFilePath);
+            Debug.Log("Sheet downloaded successfully at " + saveFilePath);
         }
         catch (IOException e)
         {
@@ -84,6 +154,6 @@ public class SheetStorage : MonoBehaviour
             Debug.LogError("Error while downloading the sheet: " + e.Message);
         }
     }
-#endif
-
 }
+
+#endif
