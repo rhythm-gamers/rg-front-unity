@@ -41,8 +41,6 @@ public class EditorController : MonoBehaviour
     Camera cam;
     Vector3 worldPos;
 
-    InputManager inputManager;
-
     public Action<int> GridSnapListener;
 
     GameObject selectedNoteObject;
@@ -74,8 +72,6 @@ public class EditorController : MonoBehaviour
     {
         cam = Camera.main;
 
-        inputManager = FindObjectOfType<InputManager>();
-
         cursorObj = Instantiate(cursorPrefab);
         InitCursor();
     }
@@ -88,7 +84,7 @@ public class EditorController : MonoBehaviour
         // 그리드에 레이쏴서 위치 알아내야함
         // 현재 스냅에 따라, 스냅될 위치 알아내야함
         //Debug.Log(inputManager.mousePos);
-        Vector3 mousePos = inputManager.mousePos;
+        Vector3 mousePos = EditMouseController.Instance.mousePos;
         Vector3 normalizedMousePos = new Vector3(mousePos.x / Screen.width, mousePos.y / Screen.height, 0);
 
         worldPos = cam.ViewportToWorldPoint(normalizedMousePos);

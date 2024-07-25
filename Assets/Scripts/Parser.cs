@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Parser : MonoBehaviour
 {
@@ -22,8 +25,6 @@ public class Parser : MonoBehaviour
     }
     Step currentStep = Step.Description;
 
-    readonly string basePath = EnvManager.Instance.CloudfrontUrl;
-
     private Sheet sheet;
     private AudioClip clip;
     private Sprite img;
@@ -34,11 +35,11 @@ public class Parser : MonoBehaviour
             instance = this;
     }
 
-    public IEnumerator IEParseSheet(string title)
+    public IEnumerator IEParseGameSheet(string path, string title)
     {
-        yield return IEGetSheet(title);
-        yield return IEGetClip(title);
-        yield return IEGetImg(title);
+        yield return IEGetSheet(path, title);
+        yield return IEGetClip(path, title);
+        yield return IEGetImg(path, title);
 
         sheet.clip = clip;
         sheet.img = img;
@@ -189,12 +190,27 @@ public class Parser : MonoBehaviour
         return writer.TrimEnd('\r', '\n');
     }
 
-    public IEnumerator IEGetSheet(string title)
+    public string StringifyNewSheet(Sheet sheet)
     {
-        yield return StartCoroutine(NetworkManager.Instance.GetRequest($"{basePath}/Sheet/{title}/{title}.sheet",
+        string writer = $"[Description]\n" +
+            $"Title: {sheet.title}\n" +
+            $"Artist: {sheet.artist}\n\n" +
+            $"[Audio]\n" +
+            $"BPM: {sheet.bpm}\n" +
+            $"Signature: {sheet.signature[0]}/{sheet.signature[1]}\n\n" +
+            $"[Note]\n";
+
+        return writer.TrimEnd('\r', '\n');
+    }
+
+    public IEnumerator IEGetSheet(string path, string title)
+    {
+        yield return StartCoroutine(NetworkManager.Instance.GetRequest($"{path}/{title}.sheet",
                 data =>
                 {
-                    SheetLoader.Instance.sheetContent = data;
+                    if (GameManager.Instance.state == GameManager.GameState.Edit)
+                        SheetStorage.Instance.savedSheet = data;
+
                     sheet = ParseSheet(data);
                 },
                 error =>
@@ -205,10 +221,9 @@ public class Parser : MonoBehaviour
         );
     }
 
-
-    public IEnumerator IEGetClip(string title)
+    public IEnumerator IEGetClip(string path, string title)
     {
-        yield return StartCoroutine(NetworkManager.Instance.GetAudioRequest($"{basePath}/Sheet/{title}/{title}.mp3",
+        yield return StartCoroutine(NetworkManager.Instance.GetAudioRequest($"{path}/{title}.mp3",
                 data =>
                 {
                     clip = data;
@@ -222,9 +237,9 @@ public class Parser : MonoBehaviour
         );
     }
 
-    public IEnumerator IEGetImg(string title)
+    public IEnumerator IEGetImg(string path, string title)
     {
-        yield return StartCoroutine(NetworkManager.Instance.GetImgRequest($"{basePath}/Sheet/{title}/{title}.jpg",
+        yield return StartCoroutine(NetworkManager.Instance.GetImgRequest($"{path}/{title}.png",
                data =>
                {
                    img = Sprite.Create(data, new Rect(0, 0, data.width, data.height), new Vector2(0.5f, 0.5f));
@@ -237,4 +252,18 @@ public class Parser : MonoBehaviour
            )
        );
     }
+
+    public Sprite LoadImageFromLocal(string filePath)
+    {
+        byte[] fileData = File.ReadAllBytes(filePath);
+
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(fileData);
+
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+
+        return sprite;
+    }
+
+
 }

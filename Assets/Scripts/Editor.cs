@@ -185,15 +185,15 @@ public class Editor : MonoBehaviour
 
     public void SheetSave()
     {
-        FindObjectOfType<SheetStorage>().SaveSheet();
+        SheetStorage.Instance.SaveEditedSheet();
     }
     public void SheetUpload()
     {
-        FindObjectOfType<SheetStorage>().Upload();
+        SheetStorage.Instance.Upload();
     }
     public void SheetDownload()
     {
-        FindObjectOfType<SheetStorage>().Download();
+        SheetStorage.Instance.Download();
     }
 
     public void ShowProgressLog(string log)

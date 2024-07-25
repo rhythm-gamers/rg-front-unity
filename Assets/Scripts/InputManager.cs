@@ -5,21 +5,10 @@ using System.Runtime.InteropServices;
 public class InputManager : MonoBehaviour
 {
     public GameObject[] keyEffects = new GameObject[4];
-    Judgement judgement = null;
-
-    public Vector2 mousePos;
 
     [DllImport("__Internal")]
     private static extern void SetSpeed(string speed);
 
-    void Start()
-    {
-        foreach (var effect in keyEffects)
-        {
-            effect.gameObject.SetActive(false);
-        }
-        judgement = FindObjectOfType<Judgement>();
-    }
 
     public void OnNoteLine0(InputAction.CallbackContext context)
     {
@@ -28,12 +17,12 @@ public class InputManager : MonoBehaviour
         {
             if (context.started)
             {
-                StartCoroutine(judgement.JudgeNote(0));
+                StartCoroutine(Judgement.Instance.JudgeNote(0));
                 keyEffects[0].SetActive(true);
             }
             else if (context.canceled)
             {
-                StartCoroutine(judgement.CheckLongNote(0));
+                StartCoroutine(Judgement.Instance.CheckLongNote(0));
                 keyEffects[0].SetActive(false);
             }
         }
@@ -45,12 +34,12 @@ public class InputManager : MonoBehaviour
         {
             if (context.started)
             {
-                StartCoroutine(judgement.JudgeNote(1));
+                StartCoroutine(Judgement.Instance.JudgeNote(1));
                 keyEffects[1].SetActive(true);
             }
             else if (context.canceled)
             {
-                StartCoroutine(judgement.CheckLongNote(1));
+                StartCoroutine(Judgement.Instance.CheckLongNote(1));
                 keyEffects[1].SetActive(false);
             }
         }
@@ -62,12 +51,12 @@ public class InputManager : MonoBehaviour
         {
             if (context.started)
             {
-                StartCoroutine(judgement.JudgeNote(2));
+                StartCoroutine(Judgement.Instance.JudgeNote(2));
                 keyEffects[2].SetActive(true);
             }
             else if (context.canceled)
             {
-                StartCoroutine(judgement.CheckLongNote(2));
+                StartCoroutine(Judgement.Instance.CheckLongNote(2));
                 keyEffects[2].SetActive(false);
             }
         }
@@ -79,12 +68,12 @@ public class InputManager : MonoBehaviour
         {
             if (context.started)
             {
-                StartCoroutine(judgement.JudgeNote(3));
+                StartCoroutine(Judgement.Instance.JudgeNote(3));
                 keyEffects[3].SetActive(true);
             }
             else if (context.canceled)
             {
-                StartCoroutine(judgement.CheckLongNote(3));
+                StartCoroutine(Judgement.Instance.CheckLongNote(3));
                 keyEffects[3].SetActive(false);
             }
         }
@@ -174,21 +163,6 @@ public class InputManager : MonoBehaviour
                     GameManager.Instance.CheckIsChangedSheet();
             }
         }
-    }
-
-
-    // 에디터 코드
-    void Update()
-    {
-#if !UNITY_WEBGL
-        if (GameManager.Instance.state == GameManager.GameState.Edit)
-        {
-            if (!GameManager.Instance.isPaused)
-            {
-                mousePos = Mouse.current.position.ReadValue();
-            }
-        }
-#endif
     }
 
     public void OnMouseBtn(InputAction.CallbackContext context)

@@ -62,6 +62,11 @@ public class ButtonNavigator : MonoBehaviour
         }
     }
 
+    public void OnArrowUpLeft()
+    {
+        Navigate(-1);
+    }
+
     public void OnArrowDownRight()
     {
         Navigate(1);

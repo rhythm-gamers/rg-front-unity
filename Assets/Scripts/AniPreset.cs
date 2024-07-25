@@ -10,6 +10,7 @@ public class AniPreset : MonoBehaviour
         get { return instance; }
     }
 
+
     Dictionary<string, bool> signalDic = new Dictionary<string, bool>();
 
     private void Awake()
@@ -20,7 +21,7 @@ public class AniPreset : MonoBehaviour
 
     public void Join(string uiName)
     {
-        signalDic.Add(uiName, true);
+        signalDic.TryAdd(uiName, true);
     }
 
     public void PlayPop(string uiName, RectTransform rect)
