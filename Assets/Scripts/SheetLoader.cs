@@ -30,6 +30,9 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
+#if UNITY_WEBGL && UNITY_EDITOR
+        StartCoroutine(WebGLLoadSheet("Consolation"));
+#endif
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
     }
 

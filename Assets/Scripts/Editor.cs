@@ -35,8 +35,7 @@ public class Editor : MonoBehaviour
     public float speed;
     public void Init()
     {
-        GridGenerator gridGenerator = FindObjectOfType<GridGenerator>();
-        speed = gridGenerator.barInterval / GameManager.Instance.sheet.BarPerSec;
+        speed = GridGenerator.Instance.barInterval / GameManager.Instance.sheet.BarPerSec;
 
         slider = UIController.Instance.GetUI("UI_E_ProgressBar").uiObject as UISlider;
         musicController = UIController.Instance.GetUI("UI_E_Play").uiObject as UIButton;

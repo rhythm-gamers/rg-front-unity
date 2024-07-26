@@ -13,10 +13,8 @@ public class GridObject : MonoBehaviour
 
     void Start()
     {
-        GridGenerator gridGenerator = FindObjectOfType<GridGenerator>();
-
         snap = EditorController.Instance.snap;
-        lines = new GameObject[gridGenerator.lineCount];
+        lines = new GameObject[GridGenerator.Instance.lineCount];
 
         for (int i = 0; i < lines.Length; i++)
         {
