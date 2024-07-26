@@ -116,16 +116,14 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            if (GameManager.Instance.isPlaying)
-                Sync.Instance.Up();
+            Sync.Instance.Up();
         }
     }
     public void OnJudgeDown(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            if (GameManager.Instance.isPlaying)
-                Sync.Instance.Down();
+            Sync.Instance.Down();
         }
     }
 
@@ -138,12 +136,13 @@ public class InputManager : MonoBehaviour
                 if (GameManager.Instance.isPlayable)
                     GameManager.Instance.Play();
             }
-
+#if !UNITY_WEBGL
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 if (GameManager.Instance.isPlayable)
                     GameManager.Instance.Edit();
             }
+#endif
         }
     }
 
@@ -221,6 +220,27 @@ public class InputManager : MonoBehaviour
         {
             if (GameManager.Instance.state == GameManager.GameState.Edit)
                 EditorController.Instance.isCtrl = false;
+        }
+#endif
+    }
+
+    public void OnGridOffsetUp(InputAction.CallbackContext context)
+    {
+#if !UNITY_WEBGL
+        if (context.started)
+        {
+            if (GameManager.Instance.isPlaying)
+                GridGenerator.Instance.GridOffsetUp();
+        }
+#endif
+    }
+    public void OnGridOffsetDown(InputAction.CallbackContext context)
+    {
+#if !UNITY_WEBGL
+        if (context.started)
+        {
+            if (GameManager.Instance.isPlaying)
+                GridGenerator.Instance.GridOffsetDown();
         }
 #endif
     }

@@ -83,6 +83,8 @@ public class Parser : MonoBehaviour
             {
                 if (row.StartsWith("BPM"))
                     newSheet.bpm = int.Parse(row.Split(':')[1].Trim());
+                else if (row.StartsWith("Offset"))
+                    newSheet.offset = int.Parse(row.Split(':')[1].Trim());
                 else if (row.StartsWith("Signature"))
                 {
                     string[] s = row.Split(':');
@@ -119,7 +121,7 @@ public class Parser : MonoBehaviour
 
         List<Note> notes = new List<Note>();
         string noteStr = string.Empty;
-        float baseTime = sheet.BarPerSec / 16;
+        float baseTime = sheet.BarPerMilliSec / 16;
         foreach (NoteObject note in NoteGenerator.Instance.toReleaseList)
         {
             if (!note.gameObject.activeSelf) // 비활성화되어있다면 삭제된 노트이므로 무시
@@ -147,7 +149,7 @@ public class Parser : MonoBehaviour
             if (note is NoteShort)
             {
                 NoteShort noteShort = note as NoteShort;
-                int noteTime = Mathf.RoundToInt(noteShort.transform.localPosition.y * 1000 * baseTime);
+                int noteTime = Mathf.RoundToInt(noteShort.transform.localPosition.y * baseTime);
 
                 notes.Add(new Note(noteTime, (int)NoteType.Short, findLine + 1, -1));
                 //noteStr += $"{noteTime}, {(int)NoteType.Short}, {findLine + 1}\n";
@@ -155,8 +157,8 @@ public class Parser : MonoBehaviour
             else if (note is NoteLong)
             {
                 NoteLong noteLong = note as NoteLong;
-                int headTime = Mathf.RoundToInt(noteLong.transform.localPosition.y * 1000 * baseTime);
-                int tailTime = Mathf.RoundToInt((noteLong.transform.localPosition.y + noteLong.tail.transform.localPosition.y) * baseTime * 1000);
+                int headTime = Mathf.RoundToInt(noteLong.transform.localPosition.y * baseTime);
+                int tailTime = Mathf.RoundToInt((noteLong.transform.localPosition.y + noteLong.tail.transform.localPosition.y) * baseTime);
 
                 notes.Add(new Note(headTime, (int)NoteType.Long, findLine + 1, tailTime));
                 //noteStr += $"{headTime}, {(int)NoteType.Long}, {findLine + 1}, {tailTime}\n";
@@ -183,6 +185,7 @@ public class Parser : MonoBehaviour
             $"Artist: {sheet.artist}\n\n" +
             $"[Audio]\n" +
             $"BPM: {sheet.bpm}\n" +
+            $"Offset: {sheet.offset}\n" +
             $"Signature: {sheet.signature[0]}/{sheet.signature[1]}\n\n" +
             $"[Note]\n" +
             $"{noteStr}";
@@ -197,6 +200,7 @@ public class Parser : MonoBehaviour
             $"Artist: {sheet.artist}\n\n" +
             $"[Audio]\n" +
             $"BPM: {sheet.bpm}\n" +
+            $"Offset: {sheet.offset}\n" +
             $"Signature: {sheet.signature[0]}/{sheet.signature[1]}\n\n" +
             $"[Note]\n";
 
@@ -208,9 +212,10 @@ public class Parser : MonoBehaviour
         yield return StartCoroutine(NetworkManager.Instance.GetRequest($"{path}/{title}.sheet",
                 data =>
                 {
+#if !UNITY_WEBGL
                     if (GameManager.Instance.state == GameManager.GameState.Edit)
                         SheetStorage.Instance.savedSheet = data;
-
+#endif
                     sheet = ParseSheet(data);
                 },
                 error =>

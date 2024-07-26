@@ -2402,11 +2402,11 @@ RectTransform:
   - {fileID: 1734071131}
   - {fileID: 2030395374}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 1
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -290, y: -100}
+  m_AnchoredPosition: {x: -290, y: -129}
   m_SizeDelta: {x: 410, y: 160.00009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &269384843
@@ -3474,6 +3474,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ef922010-7a98-4e43-bfe8-4cf368ca5c77
     m_ActionName: Navigator/ArrowUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1f279f38-6c6f-4832-8c32-f563f9f51927
+    m_ActionName: Player/GridOffsetDown[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7147a1c2-268b-4ad8-b1ff-ee94912e3e40
+    m_ActionName: Player/GridOffsetUp[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c873a7a7-06ad-4824-a5ec-8ab76a2a9599
+    m_ActionName: Navigator/NextInputField[/Keyboard/enter,/Keyboard/numpadEnter,/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3513,7 +3525,7 @@ RectTransform:
   m_Children:
   - {fileID: 676093874}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4512,7 +4524,7 @@ RectTransform:
   m_Children:
   - {fileID: 624974157}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10871,7 +10883,7 @@ RectTransform:
   - {fileID: 837419117}
   - {fileID: 1954596925}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -10912,8 +10924,9 @@ RectTransform:
   - {fileID: 1530216043}
   - {fileID: 1256208951}
   - {fileID: 1799658574}
+  - {fileID: 1457318975}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -11521,7 +11534,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15030,8 +15043,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 4118834520553191670, guid: f27f05e4b4cb83e43870e01b8a0ae687, type: 3}
-  barCount: 0
   lineCount: 192
+  barCount: 0
 --- !u!1 &933869497
 GameObject:
   m_ObjectHideFlags: 0
@@ -15724,7 +15737,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16975,7 +16988,7 @@ RectTransform:
   - {fileID: 1270502438}
   - {fileID: 1060971029}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24655,6 +24668,142 @@ RectTransform:
   m_AnchoredPosition: {x: 1.000061, y: 159}
   m_SizeDelta: {x: 500, y: 110.00006}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1457318974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1457318975}
+  - component: {fileID: 1457318977}
+  - component: {fileID: 1457318976}
+  m_Layer: 5
+  m_Name: 1, 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1457318975
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457318974}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 600151056}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -259.5}
+  m_SizeDelta: {x: 600, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1457318976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457318974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "-  \uC22B\uC790 1, 2: \uADF8\uB9AC\uB4DC \uC624\uD504\uC14B \uAC10\uC18C,
+    \uC99D\uAC00"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 56865791c1467b445aba7cd9b341ad97, type: 2}
+  m_sharedMaterial: {fileID: 1014613848009322073, guid: 56865791c1467b445aba7cd9b341ad97, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 32
+  m_fontSizeBase: 32
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1457318977
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457318974}
+  m_CullTransparentMesh: 1
 --- !u!1 &1465588813
 GameObject:
   m_ObjectHideFlags: 0
@@ -25196,6 +25345,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ef922010-7a98-4e43-bfe8-4cf368ca5c77
     m_ActionName: Navigator/ArrowUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1f279f38-6c6f-4832-8c32-f563f9f51927
+    m_ActionName: Player/GridOffsetDown[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7147a1c2-268b-4ad8-b1ff-ee94912e3e40
+    m_ActionName: Player/GridOffsetUp[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c873a7a7-06ad-4824-a5ec-8ab76a2a9599
+    m_ActionName: Navigator/NextInputField[/Keyboard/enter,/Keyboard/numpadEnter,/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -31555,7 +31716,6 @@ MonoBehaviour:
   parent: {fileID: 1081325745}
   notePrefab: {fileID: 524847784843648390, guid: 3b5e911c3cef1034bbc43d3e0dd1f50f, type: 3}
   lineRendererMaterial: {fileID: 2100000, guid: 18b7f4bcf146a1143b8726bb472a42b0, type: 2}
-  isReleased: 0
   toReleaseList: []
 --- !u!4 &1719851596
 Transform:
@@ -32028,7 +32188,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -32711,7 +32871,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -33052,7 +33212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1869220443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39872,7 +40032,7 @@ RectTransform:
   - {fileID: 2033357951}
   - {fileID: 714748539}
   m_Father: {fileID: 2107412719}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -40787,6 +40947,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ef922010-7a98-4e43-bfe8-4cf368ca5c77
     m_ActionName: Navigator/ArrowUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1f279f38-6c6f-4832-8c32-f563f9f51927
+    m_ActionName: Player/GridOffsetDown[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7147a1c2-268b-4ad8-b1ff-ee94912e3e40
+    m_ActionName: Player/GridOffsetUp[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c873a7a7-06ad-4824-a5ec-8ab76a2a9599
+    m_ActionName: Navigator/NextInputField[/Keyboard/enter,/Keyboard/numpadEnter,/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -41274,7 +41446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2107412716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41349,7 +41521,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 368408587}
-  - {fileID: 245429777}
   - {fileID: 1141737056}
   - {fileID: 597983800}
   - {fileID: 635294780}
@@ -41358,6 +41529,7 @@ RectTransform:
   - {fileID: 368034309}
   - {fileID: 986761393}
   - {fileID: 600151056}
+  - {fileID: 245429777}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41400,7 +41572,19 @@ MonoBehaviour:
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_DeviceRegainedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -41612,6 +41796,42 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ef922010-7a98-4e43-bfe8-4cf368ca5c77
     m_ActionName: Navigator/ArrowUp[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2107412720}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGridOffsetDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1f279f38-6c6f-4832-8c32-f563f9f51927
+    m_ActionName: Player/GridOffsetDown[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2107412720}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnGridOffsetUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7147a1c2-268b-4ad8-b1ff-ee94912e3e40
+    m_ActionName: Player/GridOffsetUp[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c873a7a7-06ad-4824-a5ec-8ab76a2a9599
+    m_ActionName: Navigator/NextInputField[/Keyboard/enter,/Keyboard/numpadEnter,/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

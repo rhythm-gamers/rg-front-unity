@@ -103,26 +103,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IEInitPlay());
     }
 
-    public void EditorMenu()
-    {
-        StartCoroutine(IEEditorMenu());
-    }
-
-    public void WriteSheet()
-    {
-        StartCoroutine(IEWriteSheet());
-    }
-
-    public void SelectSheet()
-    {
-        StartCoroutine(IESelectSheet());
-    }
-
-    public void Edit()
-    {
-        StartCoroutine(IEEdit());
-    }
-
 
     // Button Navigator OnClick
     public void UnPause()
@@ -174,7 +154,7 @@ public class GameManager : MonoBehaviour
         EditorController.Instance.InitCursor();
 
         // 그리드 UI 끄기
-        FindObjectOfType<GridGenerator>().InActivate();
+        GridGenerator.Instance.InActivate();
 
         // 노트 Gen 끄기
         NoteGenerator.Instance.StopGen();
@@ -314,13 +294,13 @@ public class GameManager : MonoBehaviour
         // 채보 로드
         SheetLoader.Instance.Init();
 
+        yield return new WaitUntil(() => SheetLoader.Instance.isLoadFinish == true);
+
         // BGA 설정
         canvases[(int)Canvas.GameBGA].GetComponentInChildren<BGA>().Init();
 
         // 선택화면 아이템 생성
         ItemGenerator.Instance.Init();
-
-        yield return new WaitUntil(() => SheetLoader.Instance.isLoadFinish == true);
 
         // 화면 페이드 인
         canvases[(int)Canvas.SFX].SetActive(true);
@@ -496,6 +476,27 @@ public class GameManager : MonoBehaviour
 
     // 에디터 전용 메서드
 #if !UNITY_WEBGL
+    public void EditorMenu()
+    {
+        StartCoroutine(IEEditorMenu());
+    }
+
+    public void WriteSheet()
+    {
+        StartCoroutine(IEWriteSheet());
+    }
+
+    public void SelectSheet()
+    {
+        StartCoroutine(IESelectSheet());
+    }
+
+    public void Edit()
+    {
+        StartCoroutine(IEEdit());
+    }
+
+
     void ActiveMasterUI()
     {
         UIButton GameModeUI = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
@@ -578,7 +579,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.InitForEdit();
 
         // Grid 생성
-        FindObjectOfType<GridGenerator>().Init();
+        GridGenerator.Instance.Init();
 
         // Editor 초기화
         Editor.Instance.Init();
