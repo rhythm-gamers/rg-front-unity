@@ -113,10 +113,11 @@ public class EditorController : MonoBehaviour
             // Debug.Log("grid");
             if (!isShortNoteActive && !isLongNoteActive) return;
 
-            int beat = int.Parse(hit.transform.name.Split('_')[1]);
             int index = hit.transform.parent.GetComponent<GridObject>().index;
-            float y = hit.transform.TransformDirection(hit.transform.position).y; // Local Position To World Position
+            int beat = int.Parse(hit.transform.name.Split('_')[1]);
+            float y = hit.transform.position.y;
 
+            Debug.Log(index + " " + beat + " " + y);
             if (worldPos.x < -1f && worldPos.x > -2f)
             {
                 //Debug.Log($"0번 레인 : {index}번 그리드 : {beat} 비트");
@@ -146,7 +147,6 @@ public class EditorController : MonoBehaviour
             */
             if (longNoteMakingCount == 0)
                 headTemp = hit.transform; // // head 기억해놨다가 활용
-
 
             selectedGridPosition = new Vector3(NoteGenerator.Instance.linePos[selectedLine], y, -1f);
             cursorObj.transform.position = selectedGridPosition;
