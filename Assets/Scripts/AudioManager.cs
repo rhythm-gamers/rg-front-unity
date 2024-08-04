@@ -50,6 +50,8 @@ public class AudioManager : MonoBehaviour
     }
     public State state = State.Stop;
 
+    private float savedAudioTimeForWebGL { get; set; }
+
     void Awake()
     {
         if (instance == null)
@@ -103,6 +105,9 @@ public class AudioManager : MonoBehaviour
     public void Pause()
     {
         if (audioSource.clip == null) return;
+#if UNITY_WEBGL
+        savedAudioTimeForWebGL = progressTime;
+#endif
 
         state = State.Paused;
         audioSource.Pause();
@@ -111,6 +116,9 @@ public class AudioManager : MonoBehaviour
     public void UnPause()
     {
         if (audioSource.clip == null) return;
+#if UNITY_WEBGL
+        progressTime = savedAudioTimeForWebGL;
+#endif
 
         state = State.Unpaused;
         audioSource.UnPause();
