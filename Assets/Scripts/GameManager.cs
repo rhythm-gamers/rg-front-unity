@@ -135,8 +135,6 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
-        if (Time.timeScale == 0) Time.timeScale = 1;
-
         // Game UI 끄기
         canvases[(int)Canvas.Game].SetActive(false);
 
@@ -370,6 +368,7 @@ public class GameManager : MonoBehaviour
         isPlayable = false;
 
         // 게임 재시작 시 초기화 옵션
+        if (Time.timeScale == 0) Time.timeScale = 1;
         isPlaying = false;
         AudioManager.Instance.Pause();
         AudioManager.Instance.progressTime = 0f;
@@ -569,6 +568,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator IEEdit()
     {
+        yield return new WaitUntil(() => isPlayable);
+
         // 새 게임을 시작할 수 없게 해줌
         isPlaying = true;
         isPlayable = false;
