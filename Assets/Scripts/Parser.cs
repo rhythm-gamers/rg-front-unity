@@ -121,7 +121,8 @@ public class Parser : MonoBehaviour
 
         List<Note> notes = new List<Note>();
         string noteStr = string.Empty;
-        float baseTime = sheet.BarPerMilliSec / 16;
+        float baseTime = sheet.BarPerMilliSec / 16f;
+
         foreach (NoteObject note in NoteGenerator.Instance.toReleaseList)
         {
             if (!note.gameObject.activeSelf) // 비활성화되어있다면 삭제된 노트이므로 무시

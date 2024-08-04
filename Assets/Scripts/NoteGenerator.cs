@@ -40,10 +40,7 @@ public class NoteGenerator : MonoBehaviour
         GameObject note = Instantiate(notePrefab, parent.transform);
 
         if (Sync.Instance.DiffFromNoteBtm == 0f)
-        {
             Sync.Instance.DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
-            Sync.Instance.Init();
-        }
 
         return note.AddComponent<NoteShort>();
     }
@@ -85,10 +82,7 @@ public class NoteGenerator : MonoBehaviour
         lineRenderer.useWorldSpace = false;
 
         if (Sync.Instance.DiffFromNoteBtm == 0f)
-        {
             Sync.Instance.DiffFromNoteBtm = head.GetComponent<SpriteRenderer>().bounds.center.y;
-            Sync.Instance.Init();
-        }
 
         return note.AddComponent<NoteLong>();
     }
@@ -332,7 +326,6 @@ public class NoteGenerator : MonoBehaviour
 
         List<Note> notes = sheet.notes;
 
-
         float shortPrevPos = 0;
         int shortPrevTime = 0;
 
@@ -350,7 +343,7 @@ public class NoteGenerator : MonoBehaviour
                 case (int)NoteType.Short:
                     {
                         noteObject = PoolShort.Get();
-                        float pos = (note.time - shortPrevTime) * Editor.Instance.speed * 0.001f;
+                        float pos = Utils.Instance.MilliSecToBar(note.time - shortPrevTime);
                         shortPrevPos += pos;
 
                         noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], shortPrevPos, -1f) });
@@ -363,10 +356,10 @@ public class NoteGenerator : MonoBehaviour
                         noteObject = PoolLong.Get();
                         if (headLongPrevTime == 0)
                         {
-                            float pos = (note.time - headLongPrevTime) * Editor.Instance.speed * 0.001f;
+                            float pos = Utils.Instance.MilliSecToBar(note.time - headLongPrevTime);
                             headLongPrevPos += pos;
 
-                            float pos2 = (note.tail - tailLongPrevTime) * Editor.Instance.speed * 0.001f;
+                            float pos2 = Utils.Instance.MilliSecToBar(note.tail - tailLongPrevTime);
                             tailLongPrevPos += pos2;
 
                             noteObject.SetPosition(new Vector3[]
@@ -377,10 +370,10 @@ public class NoteGenerator : MonoBehaviour
                         }
                         else
                         {
-                            float pos = (note.time - headLongPrevTime) * Editor.Instance.speed * 0.001f;
+                            float pos = Utils.Instance.MilliSecToBar(note.time - headLongPrevTime);
                             headLongPrevPos += pos;
 
-                            float pos2 = (note.tail - tailLongPrevTime) * Editor.Instance.speed * 0.001f;
+                            float pos2 = Utils.Instance.MilliSecToBar(note.tail - tailLongPrevTime);
                             tailLongPrevPos += pos2;
 
                             noteObject.SetPosition(new Vector3[]

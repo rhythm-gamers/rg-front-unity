@@ -1,5 +1,6 @@
 #if !UNITY_WEBGL
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,7 +34,8 @@ public class GridGenerator : MonoBehaviour
     public void Init()
     {
         int barPerMilliSec = GameManager.Instance.sheet.BarPerMilliSec;
-        float gridOffset = GameManager.Instance.sheet.offset / (barPerMilliSec / barInterval);
+        float gridOffset = Utils.Instance.MilliSecToBar(GameManager.Instance.sheet.offset);
+
         barCount = (int)(AudioManager.Instance.Length * 1000 / barPerMilliSec);
 
         if (gridList.Count < barCount)
@@ -72,7 +74,7 @@ public class GridGenerator : MonoBehaviour
         if (offset >= AudioManager.Instance.Length * 1000)
             GameManager.Instance.sheet.offset = (int)(AudioManager.Instance.Length * 1000);
         else
-            GameManager.Instance.sheet.offset += barPerMilliSec / 16;
+            GameManager.Instance.sheet.offset += barPerMilliSec / barInterval;
 
         MoveGridOffset(gridOffsetUnit);
     }
@@ -85,7 +87,7 @@ public class GridGenerator : MonoBehaviour
         if (offset <= 0)
             GameManager.Instance.sheet.offset = 0;
         else
-            GameManager.Instance.sheet.offset -= barPerMilliSec / 16;
+            GameManager.Instance.sheet.offset -= barPerMilliSec / barInterval;
 
         MoveGridOffset(-gridOffsetUnit);
     }
