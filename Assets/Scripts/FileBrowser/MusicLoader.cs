@@ -84,7 +84,6 @@ public class MusicLoader : MonoBehaviour
             ));
 
         audioSource.clip = localClip;
-        audioSource.Play();
 
         FileManager.Instance.audioSource = audioSource;
         FileManager.Instance.audioPath = filePath;
