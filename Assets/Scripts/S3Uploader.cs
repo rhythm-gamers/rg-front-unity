@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 using System;
+using System.IO;
 
 public class S3Uploader : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class S3Uploader : MonoBehaviour
         byte[] bodyRaw;
         try
         {
-            bodyRaw = System.IO.File.ReadAllBytes(localFilePath);
+            bodyRaw = File.ReadAllBytes(localFilePath);
         }
         catch (Exception e)
         {
@@ -85,7 +86,7 @@ public class S3Uploader : MonoBehaviour
         byte[] fileData;
         try
         {
-            fileData = System.IO.File.ReadAllBytes(filePath);
+            fileData = File.ReadAllBytes(filePath);
         }
         catch (Exception e)
         {
@@ -121,7 +122,7 @@ public class S3Uploader : MonoBehaviour
         byte[] fileData;
         try
         {
-            fileData = System.IO.File.ReadAllBytes(filePath);
+            fileData = File.ReadAllBytes(filePath);
         }
         catch (Exception e)
         {
