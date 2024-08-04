@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +37,6 @@ public class Judgement : MonoBehaviour
     /// <summary>
     /// User에 의해 조정된 판정 타이밍
     /// </summary>
-    public int judgeTimeFromUserSetting = 0;
 
     private int currentTime = 0;
     private Coroutine coCheckMiss;
@@ -47,12 +45,6 @@ public class Judgement : MonoBehaviour
 
     bool IsMiss(float time) => time <= miss && time >= -miss;
     bool IsOverGood(float time) => time <= good && time >= -good;
-
-    IEnumerator WebGLInitUserJudgeTime(int judgeTime)
-    {
-        judgeTimeFromUserSetting = judgeTime;
-        yield return new WaitUntil(() => UIController.Instance.isInit == true);
-    }
 
     void Awake()
     {
@@ -108,7 +100,7 @@ public class Judgement : MonoBehaviour
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.time + judgeTimeFromUserSetting;
+            float judgeTime = savedCurrentTime - note.time;
 
             if (IsMiss(judgeTime))
             {
@@ -137,7 +129,7 @@ public class Judgement : MonoBehaviour
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.tail + judgeTimeFromUserSetting;
+            float judgeTime = savedCurrentTime - note.tail;
 
             bool IsOnLongNote = (savedCurrentTime >= note.time - miss) && (savedCurrentTime <= note.tail + miss);
             if (IsOnLongNote)
@@ -235,8 +227,8 @@ public class Judgement : MonoBehaviour
                 lock (dequeuingLock[i])
                 {
                     Note note = notes[i].Peek();
-                    float judgeTime = note.time - savedCurrentTime + judgeTimeFromUserSetting;
-                    float lastJudgeTime = note.tail - savedCurrentTime + judgeTimeFromUserSetting;
+                    float judgeTime = note.time - savedCurrentTime;
+                    float lastJudgeTime = note.tail - savedCurrentTime;
 
                     if (note.type == (int)NoteType.Long)
                     {
