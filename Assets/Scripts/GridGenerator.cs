@@ -28,8 +28,6 @@ public class GridGenerator : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-
-        Debug.Log("Awake gridOffsetUnit: " + gridOffsetUnit);
     }
 
     public void Init()
@@ -37,8 +35,6 @@ public class GridGenerator : MonoBehaviour
         int barPerMilliSec = GameManager.Instance.sheet.BarPerMilliSec;
         float gridOffset = GameManager.Instance.sheet.offset / (barPerMilliSec / barInterval);
         barCount = (int)(AudioManager.Instance.Length * 1000 / barPerMilliSec);
-
-        Debug.Log("Init gridOffsetUnit: " + gridOffsetUnit);
 
         if (gridList.Count < barCount)
         {
@@ -70,7 +66,6 @@ public class GridGenerator : MonoBehaviour
 
     public void GridOffsetUp()
     {
-        Debug.Log("GridOffsetUp gridOffsetUnit: " + gridOffsetUnit);
         int offset = GameManager.Instance.sheet.offset;
         int barPerMilliSec = GameManager.Instance.sheet.BarPerMilliSec;
 
@@ -84,7 +79,6 @@ public class GridGenerator : MonoBehaviour
 
     public void GridOffsetDown()
     {
-        Debug.Log("GridOffsetDown gridOffsetUnit: " + gridOffsetUnit);
         int offset = GameManager.Instance.sheet.offset;
         int barPerMilliSec = GameManager.Instance.sheet.BarPerMilliSec;
 
@@ -98,7 +92,6 @@ public class GridGenerator : MonoBehaviour
 
     private void MoveGridOffset(int gridOffsetUnit)
     {
-        Debug.Log("MoveGridOffset gridOffsetUnit: " + gridOffsetUnit);
         foreach (GameObject grid in gridList)
         {
             Vector3 gridPos = grid.transform.localPosition;

@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     public Sheet sheet = new();
 
     float speed = 2.5f;
-
     public float Speed
     {
         get
@@ -46,6 +45,8 @@ public class GameManager : MonoBehaviour
             speed = Mathf.Clamp(value, 1.0f, 5.0f);
         }
     }
+
+    private InputActions inputActions;
 
     IEnumerator WebGLInitUserSpeed(float userSpeed)
     {
@@ -81,6 +82,17 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+        inputActions = new InputActions();
+    }
+    private void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Disable();
     }
 
     void Start()
@@ -466,8 +478,8 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
         canvases[(int)Canvas.SFX].SetActive(false);
 
-        // 5초 대기
-        yield return new WaitForSeconds(5f);
+        // 사용자 엔터 대기
+        yield return new WaitUntil(() => inputActions.Player.Enter.triggered);
 
         // 선택 화면 불러오기
         Description();
