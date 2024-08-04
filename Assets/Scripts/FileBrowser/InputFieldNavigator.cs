@@ -9,10 +9,12 @@ public class InputFieldNavigator : MonoBehaviour
     private InputAction navigateAction;
     private int currentIndex = 0;
 
+    private InputActions inputActions;
+
     void Awake()
     {
-        InputActionAsset inputActionAsset = Resources.Load<InputActionAsset>("Controller");
-        navigateAction = inputActionAsset.FindActionMap("Navigator").FindAction("NextInputField");
+        inputActions = new InputActions();
+        navigateAction = inputActions.Navigator.NextInputField;
 
         navigateAction.performed += ctx => OnNavigate(ctx);
 
@@ -24,6 +26,16 @@ public class InputFieldNavigator : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputActions.Disable();
+    }
+
     void OnNavigate(InputAction.CallbackContext context)
     {
         if (context.control.device is Keyboard && (context.control.name == "enter" || context.control.name == "numpadEnter" || context.control.name == "tab"))
@@ -31,7 +43,7 @@ public class InputFieldNavigator : MonoBehaviour
             currentIndex++;
             if (currentIndex >= inputFields.Length)
             {
-                currentIndex = 0; // 마지막 InputField에서 엔터를 누르면 첫 번째 InputField로 돌아갑니다.
+                currentIndex = 0;
             }
 
             inputFields[currentIndex].ActivateInputField();
