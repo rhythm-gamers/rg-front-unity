@@ -1,13 +1,39 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Runtime.InteropServices;
+using System.Collections;
+using System;
 
 public class InputManager : MonoBehaviour
 {
     public GameObject[] keyEffects = new GameObject[4];
 
-    [DllImport("__Internal")]
-    private static extern void SetSpeed(string speed);
+    private Coroutine intervalCoroutine;
+
+    private void RunAtIntervalsPressed(Action method)
+    {
+        if (intervalCoroutine == null)
+        {
+            intervalCoroutine = StartCoroutine(RunFunctionAtIntervals(method));
+        }
+    }
+    private void RunAtIntervalsReleased()
+    {
+        if (intervalCoroutine != null)
+        {
+            StopCoroutine(intervalCoroutine);
+            intervalCoroutine = null;
+        }
+    }
+    private IEnumerator RunFunctionAtIntervals(Action method)
+    {
+        while (true)
+        {
+            method();
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
+    }
+
 
 
     public void OnNoteLine0(InputAction.CallbackContext context)
@@ -81,50 +107,30 @@ public class InputManager : MonoBehaviour
     public void OnSpeedDown(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
-            GameManager.Instance.Speed -= 0.1f;
-            NoteGenerator.Instance.Interpolate();
-
-            string speedToString = GameManager.Instance.Speed.ToString("0.0");
-            UIText inGameSpeedUI = UIController.Instance.FindUI("UI_G_Speed").uiObject as UIText;
-            UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
-            inGameSpeedUI.SetText("Speed " + speedToString);
-            outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL && !UNITY_EDITOR
-            SetSpeed(speedToString);
-#endif
-        }
+            RunAtIntervalsPressed(Sync.Instance.SpeedDown);
+        else if (context.canceled)
+            RunAtIntervalsReleased();
     }
     public void OnSpeedUp(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
-            GameManager.Instance.Speed += 0.1f;
-            NoteGenerator.Instance.Interpolate();
-
-            string speedToString = GameManager.Instance.Speed.ToString("0.0");
-            UIText inGameSpeedUI = UIController.Instance.FindUI("UI_G_Speed").uiObject as UIText;
-            UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
-            inGameSpeedUI.SetText("Speed " + speedToString);
-            outGameSpeedUI.SetText("Speed " + speedToString);
-#if UNITY_WEBGL && !UNITY_EDITOR
-            SetSpeed(speedToString);
-#endif
-        }
+            RunAtIntervalsPressed(Sync.Instance.SpeedUp);
+        else if (context.canceled)
+            RunAtIntervalsReleased();
     }
     public void OnJudgeUp(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
-            Sync.Instance.Up();
-        }
+            RunAtIntervalsPressed(Sync.Instance.JudgeOffsetUp);
+        else if (context.canceled)
+            RunAtIntervalsReleased();
     }
     public void OnJudgeDown(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
-            Sync.Instance.Down();
-        }
+            RunAtIntervalsPressed(Sync.Instance.JudgeOffsetDown);
+        else if (context.canceled)
+            RunAtIntervalsReleased();
     }
 
     public void OnEnter(InputAction.CallbackContext context)
