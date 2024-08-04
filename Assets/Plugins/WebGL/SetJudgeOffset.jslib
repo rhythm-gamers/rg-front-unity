@@ -1,7 +1,7 @@
 mergeInto(LibraryManager.library, {
-  SetJudgeTime: function (judgeTime) {
+  SetJudgeOffset: function (judgeOffset) {
     try {
-      window.dispatchReactUnityEvent("SetJudgeTime", judgeTime);
+      window.dispatchReactUnityEvent("SetJudgeOffset", judgeOffset);
     } catch (e) {
       console.warn("Failed to dispatch event");
     }
