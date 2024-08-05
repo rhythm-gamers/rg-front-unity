@@ -622,6 +622,56 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""NoteEditor"",
+            ""id"": ""e4ab12ee-e02c-43de-b84a-303dd117fc33"",
+            ""actions"": [
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""974a68ed-1427-459b-958c-e59afcea7aad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""bdcc0389-cada-467e-9199-142883182d3a"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""f2d140af-6d05-46b2-a2cd-242240ba2b13"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""7866c105-2f29-4dbc-9a5b-167f96fb282d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -674,6 +724,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Navigator_ArrowDown = m_Navigator.FindAction("ArrowDown", throwIfNotFound: true);
         m_Navigator_ArrowUp = m_Navigator.FindAction("ArrowUp", throwIfNotFound: true);
         m_Navigator_NextInputField = m_Navigator.FindAction("NextInputField", throwIfNotFound: true);
+        // NoteEditor
+        m_NoteEditor = asset.FindActionMap("NoteEditor", throwIfNotFound: true);
+        m_NoteEditor_Save = m_NoteEditor.FindAction("Save", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -995,6 +1048,39 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         }
     }
     public NavigatorActions @Navigator => new NavigatorActions(this);
+
+    // NoteEditor
+    private readonly InputActionMap m_NoteEditor;
+    private INoteEditorActions m_NoteEditorActionsCallbackInterface;
+    private readonly InputAction m_NoteEditor_Save;
+    public struct NoteEditorActions
+    {
+        private @InputActions m_Wrapper;
+        public NoteEditorActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Save => m_Wrapper.m_NoteEditor_Save;
+        public InputActionMap Get() { return m_Wrapper.m_NoteEditor; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NoteEditorActions set) { return set.Get(); }
+        public void SetCallbacks(INoteEditorActions instance)
+        {
+            if (m_Wrapper.m_NoteEditorActionsCallbackInterface != null)
+            {
+                @Save.started -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
+            }
+            m_Wrapper.m_NoteEditorActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
+            }
+        }
+    }
+    public NoteEditorActions @NoteEditor => new NoteEditorActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -1036,5 +1122,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnArrowDown(InputAction.CallbackContext context);
         void OnArrowUp(InputAction.CallbackContext context);
         void OnNextInputField(InputAction.CallbackContext context);
+    }
+    public interface INoteEditorActions
+    {
+        void OnSave(InputAction.CallbackContext context);
     }
 }
