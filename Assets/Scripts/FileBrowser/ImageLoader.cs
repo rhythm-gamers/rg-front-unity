@@ -3,15 +3,30 @@
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleFileBrowser;
+using TMPro;
 
 public class ImageLoader : MonoBehaviour
 {
     public Button loadButton;
     public Image displayImage;
+    public TextMeshProUGUI guideText;
 
     void Start()
     {
         loadButton.onClick.AddListener(OnLoadButtonClicked);
+    }
+
+    public void Init()
+    {
+        if (displayImage != null)
+        {
+            displayImage.sprite = null;
+            displayImage.enabled = true;
+
+            Color color = guideText.color;
+            color.a = 255;
+            guideText.color = color;
+        }
     }
 
     void OnLoadButtonClicked()
@@ -31,8 +46,11 @@ public class ImageLoader : MonoBehaviour
             string filePath = paths[0];
             Sprite sprite = Parser.Instance.LoadImageFromLocal(filePath);
 
+            Color color = guideText.color;
+            color.a = 0;
+            guideText.color = color;
+
             displayImage.sprite = sprite;
-            FileManager.Instance.thumbnail = sprite;
         }
     }
 

@@ -12,13 +12,22 @@ public class MusicLoader : MonoBehaviour
     public Button loadButton;
     public TextMeshProUGUI displaySongName;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     void Start()
     {
         // Set up the button click event
         loadButton.onClick.AddListener(OnLoadButtonClicked);
         audioSource = GetComponent<AudioSource>();
+    }
+
+    public void Init()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = null;
+            displaySongName.text = "음원 이름.mp3";
+        }
     }
 
     public void Play()
@@ -59,7 +68,7 @@ public class MusicLoader : MonoBehaviour
 
             displaySongName.SetText(fileName);
 
-            StartCoroutine(LoadAndPlayMusic(filePath));
+            StartCoroutine(LoadMusic(filePath));
         }
     }
 
@@ -68,7 +77,7 @@ public class MusicLoader : MonoBehaviour
         Debug.Log("File selection canceled.");
     }
 
-    public IEnumerator LoadAndPlayMusic(string filePath)
+    public IEnumerator LoadMusic(string filePath)
     {
         AudioClip localClip = null;
 
@@ -85,7 +94,6 @@ public class MusicLoader : MonoBehaviour
 
         audioSource.clip = localClip;
 
-        FileManager.Instance.audioSource = audioSource;
         FileManager.Instance.audioPath = filePath;
         yield return null;
     }
