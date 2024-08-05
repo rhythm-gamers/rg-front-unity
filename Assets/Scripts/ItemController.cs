@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemController : MonoBehaviour
 {
@@ -11,10 +13,7 @@ public class ItemController : MonoBehaviour
         }
     }
 
-    public RectTransform rect;
-    public RectTransform dest;
-
-    public int page = 0;
+    public GameObject item;
 
     void Awake()
     {
@@ -22,10 +21,17 @@ public class ItemController : MonoBehaviour
             instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
-        rect = GetComponent<RectTransform>();
-        dest.anchoredPosition3D = new Vector3(1920f, 0f, 0f);
+        Image cover = item.transform.GetChild(0).GetComponent<Image>();
+        TextMeshProUGUI level = item.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI title = item.transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI artist = item.transform.GetChild(2).GetChild(1).GetComponent<TextMeshProUGUI>();
+
+
+        cover.sprite = GameManager.Instance.sheet.img;
+        level.text = "";
+        title.text = GameManager.Instance.sheet.title;
+        artist.text = GameManager.Instance.sheet.artist;
     }
 }
