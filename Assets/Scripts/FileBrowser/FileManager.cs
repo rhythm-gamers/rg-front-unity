@@ -16,9 +16,7 @@ public class FileManager : MonoBehaviour
         }
     }
 
-    public AudioSource audioSource;
     public string audioPath;
-    public Sprite thumbnail;
     public TMP_InputField titleInput;
     public TMP_InputField artistInput;
     public TMP_InputField bpmInput;
@@ -38,6 +36,17 @@ public class FileManager : MonoBehaviour
         addSheetBtn.onClick.AddListener(OnAddSheetBtnClicked);
     }
 
+    void Init()
+    {
+        audioPath = null;
+        titleInput.text = "";
+        artistInput.text = "";
+        bpmInput.text = "";
+        signatureInput.text = "";
+        FindObjectOfType<MusicLoader>().Init();
+        FindObjectOfType<ImageLoader>().Init();
+    }
+
     public void OnAddSheetBtnClicked()
     {
         Regex myRegExp = new(@"^[1-9]\d?/[1-9]\d?$");
@@ -49,6 +58,8 @@ public class FileManager : MonoBehaviour
         string title = titleInput.text.Trim();
         string artist = artistInput.text.Trim();
         int bpm = int.Parse(bpmInput.text);
+        AudioSource audioSource = FindObjectOfType<MusicLoader>().audioSource;
+        Sprite thumbnail = FindObjectOfType<ImageLoader>().displayImage.sprite;
 
         if (thumbnail == null) return;
         if (audioSource.clip == null) return;
@@ -66,6 +77,7 @@ public class FileManager : MonoBehaviour
 
         SheetStorage.Instance.AddNewSheet(newSheet, thumbnail, audioPath);
 
+        Init();
         GameManager.Instance.EditorMenu();
     }
 }

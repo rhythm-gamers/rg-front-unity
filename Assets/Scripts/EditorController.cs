@@ -117,7 +117,6 @@ public class EditorController : MonoBehaviour
             int beat = int.Parse(hit.transform.name.Split('_')[1]);
             float y = hit.transform.position.y;
 
-            Debug.Log(index + " " + beat + " " + y);
             if (worldPos.x < -1f && worldPos.x > -2f)
             {
                 //Debug.Log($"0번 레인 : {index}번 그리드 : {beat} 비트");
