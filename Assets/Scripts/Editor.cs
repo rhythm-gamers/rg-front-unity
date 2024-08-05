@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Editor : MonoBehaviour
 {
@@ -26,13 +27,28 @@ public class Editor : MonoBehaviour
 
     public int currentBar = 0;
 
+    public float speed;
+
+    private InputActions inputActions;
+    private void OnEnable()
+    {
+        inputActions.Enable();
+        inputActions.NoteEditor.Save.performed += (ctx) => SheetSave(ctx);
+    }
+    private void OnDisable()
+    {
+        inputActions.Disable();
+        inputActions.NoteEditor.Save.performed -= (ctx) => SheetSave(ctx);
+    }
+
     private void Awake()
     {
         if (instance == null)
             instance = this;
+
+        inputActions = new InputActions();
     }
 
-    public float speed;
     public void Init()
     {
         speed = GridGenerator.Instance.barInterval / GameManager.Instance.sheet.BarPerSec;
@@ -182,7 +198,7 @@ public class Editor : MonoBehaviour
 
 
 
-    public void SheetSave()
+    public void SheetSave(InputAction.CallbackContext? context)
     {
         SheetStorage.Instance.SaveEditedSheet();
     }
