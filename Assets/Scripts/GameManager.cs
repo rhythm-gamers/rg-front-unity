@@ -318,7 +318,7 @@ public class GameManager : MonoBehaviour
 
         // 타이틀 인트로 재생
         canvases[(int)Canvas.Title].GetComponent<Animation>().Play();
-        yield return new WaitForSeconds(5.6f);
+        yield return new WaitForSeconds(4f);
 
         // 선택화면 시작
         Description();
