@@ -309,8 +309,8 @@ public class GameManager : MonoBehaviour
         // BGA 설정
         canvases[(int)Canvas.GameBGA].GetComponentInChildren<BGA>().Init();
 
-        // 선택화면 아이템 생성
-        ItemGenerator.Instance.Init();
+        // 선택화면 채보 정보 초기화
+        ItemController.Instance.Init();
 
         // 화면 페이드 인
         canvases[(int)Canvas.SFX].SetActive(true);
