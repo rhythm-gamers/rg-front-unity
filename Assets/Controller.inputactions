@@ -613,6 +613,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeGameMode",
+                    "type": "Button",
+                    "id": "1e663e82-4752-4d6c-9899-404edbaf621e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -648,6 +657,17 @@
                     "action": "Save",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f11a1524-fadb-46f9-a71a-0fb67524d00e",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeGameMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

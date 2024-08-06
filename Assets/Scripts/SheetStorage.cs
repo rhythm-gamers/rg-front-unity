@@ -1,6 +1,5 @@
 #if !UNITY_WEBGL
 
-using System.Collections;
 using System.IO;
 using UnityEngine;
 
