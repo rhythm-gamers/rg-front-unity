@@ -45,7 +45,7 @@ public class Sync : MonoBehaviour
         if (instance == null)
             instance = this;
 
-#if !UNITY_WEBGL
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
         isJudgeOffsetInit = true;
 #endif
     }
