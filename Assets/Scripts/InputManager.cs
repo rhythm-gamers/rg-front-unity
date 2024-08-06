@@ -107,28 +107,36 @@ public class InputManager : MonoBehaviour
     public void OnSpeedDown(InputAction.CallbackContext context)
     {
         if (context.started)
-            RunAtIntervalsPressed(Sync.Instance.SpeedDown);
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                RunAtIntervalsPressed(Sync.Instance.SpeedDown);
+            else return;
         else if (context.canceled)
             RunAtIntervalsReleased();
     }
     public void OnSpeedUp(InputAction.CallbackContext context)
     {
         if (context.started)
-            RunAtIntervalsPressed(Sync.Instance.SpeedUp);
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                RunAtIntervalsPressed(Sync.Instance.SpeedUp);
+            else return;
         else if (context.canceled)
             RunAtIntervalsReleased();
     }
     public void OnJudgeUp(InputAction.CallbackContext context)
     {
         if (context.started)
-            RunAtIntervalsPressed(Sync.Instance.JudgeOffsetUp);
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                RunAtIntervalsPressed(Sync.Instance.JudgeOffsetUp);
+            else return;
         else if (context.canceled)
             RunAtIntervalsReleased();
     }
     public void OnJudgeDown(InputAction.CallbackContext context)
     {
         if (context.started)
-            RunAtIntervalsPressed(Sync.Instance.JudgeOffsetDown);
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                RunAtIntervalsPressed(Sync.Instance.JudgeOffsetDown);
+            else return;
         else if (context.canceled)
             RunAtIntervalsReleased();
     }

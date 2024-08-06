@@ -38,10 +38,6 @@ public class NoteGenerator : MonoBehaviour
     NoteShort CreatePooledShort()
     {
         GameObject note = Instantiate(notePrefab, parent.transform);
-
-        if (Sync.Instance.DiffFromNoteBtm == 0f)
-            Sync.Instance.DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
-
         return note.AddComponent<NoteShort>();
     }
 
@@ -80,9 +76,6 @@ public class NoteGenerator : MonoBehaviour
         lineRenderer.widthMultiplier = 0.8f;
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = false;
-
-        if (Sync.Instance.DiffFromNoteBtm == 0f)
-            Sync.Instance.DiffFromNoteBtm = head.GetComponent<SpriteRenderer>().bounds.center.y;
 
         return note.AddComponent<NoteLong>();
     }
