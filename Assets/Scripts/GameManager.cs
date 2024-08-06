@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -222,20 +223,25 @@ public class GameManager : MonoBehaviour
     public void ChangeGameMode()
     {
 #if !UNITY_WEBGL
-        UIButton uiButton = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
+        UIButton GameModeBtn = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
         UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
+        UIText OffsetUI = UIController.Instance.GetUI("UI_D_Offset").uiObject as UIText;
 
         if (state == GameState.Game)
         {
             state = GameState.Edit;
-            uiButton.SetText("Edit Mode");
+            Sync.Instance.ResetJudgeOffset();
+
+            GameModeBtn.SetText("Edit Mode");
             SpeedUI.gameObject.SetActive(false);
+            OffsetUI.gameObject.SetActive(false);
         }
         else
         {
             state = GameState.Game;
-            uiButton.SetText("Game Mode");
+            GameModeBtn.SetText("Game Mode");
             SpeedUI.gameObject.SetActive(true);
+            OffsetUI.gameObject.SetActive(true);
         }
 #endif
     }
@@ -311,6 +317,9 @@ public class GameManager : MonoBehaviour
 
         // 선택화면 채보 정보 초기화
         ItemController.Instance.Init();
+
+        // 판정선 오프셋 오브젝트들 초기화
+        Sync.Instance.Init();
 
         // 화면 페이드 인
         canvases[(int)Canvas.SFX].SetActive(true);
@@ -510,15 +519,17 @@ public class GameManager : MonoBehaviour
 
     void ActiveMasterUI()
     {
-        UIButton GameModeUI = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
+        UIButton GameModeBtn = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
         UIText EditorHotkeyUI = UIController.Instance.GetUI("UI_G_EditorHotkey").uiObject as UIText;
         UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
+        UIText OffsetUI = UIController.Instance.GetUI("UI_D_Offset").uiObject as UIText;
 
-        GameModeUI.SetText("Edit Mode");
+        GameModeBtn.SetText("Edit Mode");
 
-        GameModeUI.gameObject.SetActive(true);
+        GameModeBtn.gameObject.SetActive(true);
         EditorHotkeyUI.gameObject.SetActive(true);
         SpeedUI.gameObject.SetActive(false);
+        OffsetUI.gameObject.SetActive(false);
     }
 
     IEnumerator IEEditorMenu()
