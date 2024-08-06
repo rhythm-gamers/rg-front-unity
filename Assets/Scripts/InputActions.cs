@@ -635,6 +635,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeGameMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e663e82-4752-4d6c-9899-404edbaf621e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -670,6 +679,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f11a1524-fadb-46f9-a71a-0fb67524d00e"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeGameMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -727,6 +747,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         // NoteEditor
         m_NoteEditor = asset.FindActionMap("NoteEditor", throwIfNotFound: true);
         m_NoteEditor_Save = m_NoteEditor.FindAction("Save", throwIfNotFound: true);
+        m_NoteEditor_ChangeGameMode = m_NoteEditor.FindAction("ChangeGameMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1053,11 +1074,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_NoteEditor;
     private INoteEditorActions m_NoteEditorActionsCallbackInterface;
     private readonly InputAction m_NoteEditor_Save;
+    private readonly InputAction m_NoteEditor_ChangeGameMode;
     public struct NoteEditorActions
     {
         private @InputActions m_Wrapper;
         public NoteEditorActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Save => m_Wrapper.m_NoteEditor_Save;
+        public InputAction @ChangeGameMode => m_Wrapper.m_NoteEditor_ChangeGameMode;
         public InputActionMap Get() { return m_Wrapper.m_NoteEditor; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1070,6 +1093,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Save.started -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
                 @Save.performed -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
                 @Save.canceled -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
+                @ChangeGameMode.started -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnChangeGameMode;
+                @ChangeGameMode.performed -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnChangeGameMode;
+                @ChangeGameMode.canceled -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnChangeGameMode;
             }
             m_Wrapper.m_NoteEditorActionsCallbackInterface = instance;
             if (instance != null)
@@ -1077,6 +1103,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Save.started += instance.OnSave;
                 @Save.performed += instance.OnSave;
                 @Save.canceled += instance.OnSave;
+                @ChangeGameMode.started += instance.OnChangeGameMode;
+                @ChangeGameMode.performed += instance.OnChangeGameMode;
+                @ChangeGameMode.canceled += instance.OnChangeGameMode;
             }
         }
     }
@@ -1126,5 +1155,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     public interface INoteEditorActions
     {
         void OnSave(InputAction.CallbackContext context);
+        void OnChangeGameMode(InputAction.CallbackContext context);
     }
 }
