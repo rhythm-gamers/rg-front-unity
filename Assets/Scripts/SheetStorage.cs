@@ -16,7 +16,7 @@ public class SheetStorage : MonoBehaviour
 
     public string savedSheet;
 
-    public readonly string[] keyNums = { "4", "5", "6" };
+    public readonly int[] keyNums = { 4, 5, 6 };
 
 
     private string localSaveFilePath;
@@ -106,12 +106,14 @@ public class SheetStorage : MonoBehaviour
     {
         string title = sheet.title;
 
-        foreach (string keyNum in keyNums)
+        foreach (int keyNum in keyNums)
         {
             if (!Directory.Exists($"{localSaveFilePath}/{keyNum}/{title}"))
             {
                 Directory.CreateDirectory($"{localSaveFilePath}/{keyNum}/{title}");
             }
+
+            sheet.keyNum = keyNum;
 
             SaveNewSheet(sheet, $"{localSaveFilePath}/{keyNum}/{title}/{title}.sheet");
             SaveThumbnail(sprite, $"{localSaveFilePath}/{keyNum}/{title}/{title}.png");

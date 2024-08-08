@@ -76,6 +76,8 @@ public class Parser : MonoBehaviour
                     newSheet.title = row.Split(':')[1].Trim();
                 else if (row.StartsWith("Artist"))
                     newSheet.artist = row.Split(':')[1].Trim();
+                else if (row.StartsWith("Key"))
+                    newSheet.keyNum = int.Parse(row.Split(':')[1].Trim());
             }
             else if (currentStep == Step.Audio)
             {
@@ -181,7 +183,8 @@ public class Parser : MonoBehaviour
 
         string writer = $"[Description]\n" +
             $"Title: {sheet.title}\n" +
-            $"Artist: {sheet.artist}\n\n" +
+            $"Artist: {sheet.artist}\n" +
+            $"Key: {sheet.keyNum}\n\n" +
             $"[Audio]\n" +
             $"BPM: {sheet.bpm}\n" +
             $"Offset: {sheet.offset}\n" +
@@ -196,7 +199,8 @@ public class Parser : MonoBehaviour
     {
         string writer = $"[Description]\n" +
             $"Title: {sheet.title}\n" +
-            $"Artist: {sheet.artist}\n\n" +
+            $"Artist: {sheet.artist}\n" +
+            $"Key: {sheet.keyNum}\n\n" +
             $"[Audio]\n" +
             $"BPM: {sheet.bpm}\n" +
             $"Offset: {sheet.offset}\n" +

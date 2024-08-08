@@ -28,6 +28,7 @@ public class Sheet
     // [Description]
     public string title;
     public string artist;
+    public int keyNum;
 
     // [Audio]
     public int bpm;
