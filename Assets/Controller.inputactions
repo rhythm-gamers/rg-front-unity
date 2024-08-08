@@ -2,139 +2,13 @@
     "name": "Controller",
     "maps": [
         {
-            "name": "Player",
-            "id": "db05428a-50db-43af-b17c-8b51ce39b540",
+            "name": "EditorMenu",
+            "id": "593e385a-db61-46ea-8728-35ea1f5ddb81",
             "actions": [
                 {
-                    "name": "NoteLine0",
+                    "name": "ArrowDown",
                     "type": "Button",
-                    "id": "209d56a0-a636-407a-ae54-a8ee286ececf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "NoteLine1",
-                    "type": "Button",
-                    "id": "e7b1732f-ef26-4377-9301-5ec8efed6a6c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "NoteLine2",
-                    "type": "Button",
-                    "id": "e46c3c23-582c-404a-902b-10f3602a61db",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "NoteLine3",
-                    "type": "Button",
-                    "id": "53c3226d-2a41-4a18-bb7d-7af1f6c37556",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SpeedDown",
-                    "type": "Button",
-                    "id": "84480ec6-379b-4f01-87b9-097aa18cacc2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SpeedUp",
-                    "type": "Button",
-                    "id": "40fa9caf-89b3-4f6e-bcfb-b22bce928c65",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Enter",
-                    "type": "Button",
-                    "id": "6e962b13-54d0-4c7e-85b7-8ea2414942df",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ESC",
-                    "type": "Button",
-                    "id": "2866788b-adb2-4c37-99d9-d815f6fe22e3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "StopGame",
-                    "type": "Button",
-                    "id": "01b6ad48-fdfa-497e-a395-4877066557ec",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "JudgeUp",
-                    "type": "Button",
-                    "id": "d30d5343-2d2d-447c-9517-30c376132041",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "JudgeDown",
-                    "type": "Button",
-                    "id": "27e25732-62c6-4287-b761-0390699add6b",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Space",
-                    "type": "Button",
-                    "id": "a5dd8775-b561-4df2-aba6-1d8c669a6cf8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MouseBtn",
-                    "type": "Button",
-                    "id": "d076a48a-4528-48b9-a439-69ab96325469",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MouseWheel",
-                    "type": "Value",
-                    "id": "f4051ae3-8507-4b17-a740-bbcc6e981075",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Ctrl",
-                    "type": "Button",
-                    "id": "4385e1ae-146f-4bf8-a4f1-0cfaffcf0048",
+                    "id": "2d982125-3c3d-4bdb-aa7c-acfa06395957",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -143,52 +17,16 @@
                 {
                     "name": "ArrowUp",
                     "type": "Button",
-                    "id": "e9656a92-7a48-4ee7-b13d-075a327ad4c9",
+                    "id": "6873981b-afe3-4a0c-9f72-e8b7f25ba3b1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ArrowDown",
+                    "name": "Enter",
                     "type": "Button",
-                    "id": "5be30b2c-dbae-46a7-ad76-ad17c8955e2e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArrowLeft",
-                    "type": "Button",
-                    "id": "445009bd-cd4d-4bfe-b147-733b39b71b75",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArrowRight",
-                    "type": "Button",
-                    "id": "8c7caf36-b8c0-4391-8862-73d9658fe763",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "GridOffsetDown",
-                    "type": "Button",
-                    "id": "1f279f38-6c6f-4832-8c32-f563f9f51927",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "GridOffsetUp",
-                    "type": "Button",
-                    "id": "7147a1c2-268b-4ad8-b1ff-ee94912e3e40",
+                    "id": "e536987d-5640-4eac-b0b4-273b8964619e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -198,73 +36,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "19eff2a5-7e25-4985-91dd-037f5bb29f4e",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NoteLine0",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "43a47327-7aa2-478e-9137-eddbeec1b296",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NoteLine1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aa7b591a-8c18-446a-87eb-3218eedd92bb",
-                    "path": "<Keyboard>/semicolon",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NoteLine2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fb62001a-2bef-4b67-a708-6394e9297e61",
-                    "path": "<Keyboard>/quote",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NoteLine3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d2759c70-999d-4424-93d8-9bf0e6f68ed8",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpeedDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "26255616-73ec-4e04-a286-429f71ee312e",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpeedUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1f6d380d-3c00-40e9-960b-51e271aec7bc",
+                    "id": "8bb4c073-d053-4c85-8973-67a1988ec296",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
@@ -275,106 +47,18 @@
                 },
                 {
                     "name": "",
-                    "id": "4640b684-be34-439e-85b2-077233c1a57d",
-                    "path": "<Keyboard>/escape",
+                    "id": "bf404262-f167-4109-9ada-d22eeb252d9d",
+                    "path": "<Keyboard>/numpadEnter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ESC",
+                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "628a0531-cbf2-46ca-8533-ce9504e5e79d",
-                    "path": "<Keyboard>/0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "StopGame",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "79ab80e9-7b16-47b1-89f3-31310acf771f",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "JudgeDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "50b81c0f-1b1b-414f-a846-5e4337d4e0a2",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Space",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0f1e3f62-8012-495f-ba7c-2ee558cae669",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseBtn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9831318b-0cca-4d97-9ebd-35522a991205",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseBtn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eec501e3-89e2-4332-8f80-ed15afda942e",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MouseWheel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "77360ffd-7146-4222-b1a3-a562b00bae21",
-                    "path": "<Keyboard>/ctrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ctrl",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e464b435-9ad6-4da0-b177-f7f3cab6ef75",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8b0b2d34-2a03-46a9-9b88-b80193cab338",
+                    "id": "ebb4dc96-d5cf-4341-a6ce-c11d49940766",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
@@ -385,110 +69,21 @@
                 },
                 {
                     "name": "",
-                    "id": "95784a52-f200-4fef-9728-654197c31582",
-                    "path": "<Keyboard>/4",
+                    "id": "ba6cce0f-18f8-4be5-b57f-e7f115c40ec8",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "JudgeUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c013110f-7021-47ac-8867-df42b61e0ece",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cc1a35d0-7f42-4ccf-9f65-ba954ddfc520",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2383e86a-4c54-4aef-9721-90090498283b",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GridOffsetUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f21ab0e4-f846-4815-ac26-a1d5e3c71825",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GridOffsetDown",
+                    "action": "ArrowUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Navigator",
+            "name": "WriteSheet",
             "id": "75b93e53-92a0-4a3a-a8da-65e8716599a3",
             "actions": [
-                {
-                    "name": "Enter",
-                    "type": "Button",
-                    "id": "0b7efc3f-89bb-438c-89eb-a36cd054f856",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArrowRight",
-                    "type": "Button",
-                    "id": "fa66ab2a-92f8-4128-9962-644b30057487",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArrowLeft",
-                    "type": "Button",
-                    "id": "8e2c8d0e-cd12-4a2d-9eba-73e1d3cd50ee",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArrowDown",
-                    "type": "Button",
-                    "id": "e0410ae5-a5fc-443f-9a62-20d39646f73a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArrowUp",
-                    "type": "Button",
-                    "id": "ef922010-7a98-4e43-bfe8-4cf368ca5c77",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
                 {
                     "name": "NextInputField",
                     "type": "Button",
@@ -506,93 +101,9 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "NextKeyNumTab",
-                    "type": "Button",
-                    "id": "df203493-071d-47d4-93cb-a19807daede4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "PrevKeyNumTab",
-                    "type": "Button",
-                    "id": "761e7e63-190e-43d4-a2b8-8e69488b0b92",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "c8087e69-5361-4356-9ad9-880e0640eb90",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "410451c8-d190-4232-97bd-5b93fb9255c9",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5a5b7538-d27a-474e-a402-b4e962ca44fd",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f5c193fa-cab4-49a1-9fcf-98718f629c46",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArrowRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4b0c5303-82da-4df9-acce-d8c8e62da6aa",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Enter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2673c5ed-0583-4288-a528-d8f1750bd371",
-                    "path": "<Keyboard>/numpadEnter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Enter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "50f7087f-1951-417f-872a-a238f22d9e96",
@@ -625,50 +136,6 @@
                     "action": "NextInputField",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d7d0506f-6dda-4f2e-b725-f1b2450642d3",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "NextKeyNumTab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "One Modifier",
-                    "id": "a8491c18-da21-42b1-8e65-8f4ec0b38487",
-                    "path": "OneModifier",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PrevKeyNumTab",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "modifier",
-                    "id": "b3850172-7d33-42b0-a5b1-1ae059338787",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PrevKeyNumTab",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "binding",
-                    "id": "d43fade9-a2b6-43f9-9f82-38db38568841",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PrevKeyNumTab",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "One Modifier",
@@ -706,13 +173,182 @@
             ]
         },
         {
-            "name": "NoteEditor",
-            "id": "e4ab12ee-e02c-43de-b84a-303dd117fc33",
+            "name": "SelectSheet",
+            "id": "e70c5cd1-6fde-44c7-900e-19898d620cb5",
             "actions": [
                 {
-                    "name": "Save",
+                    "name": "NextKeyNumTab",
                     "type": "Button",
-                    "id": "974a68ed-1427-459b-958c-e59afcea7aad",
+                    "id": "1846585a-7479-46c0-901a-3d1730677c3f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PrevKeyNumTab",
+                    "type": "Button",
+                    "id": "0e42af26-d4e0-4358-a7ea-f608fae74a5f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "81b7ddf0-a9bc-4712-a80a-19f0d302e7fb",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextKeyNumTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "4fbf6dee-51d4-4f4b-83e5-4b9baba1463d",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrevKeyNumTab",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "46d5ea06-7190-4413-b7e5-0ea0882c7526",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrevKeyNumTab",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "6c27017d-cce0-4d23-a6bb-4aa1fb39d11d",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrevKeyNumTab",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Description",
+            "id": "38ed75f9-7ffa-44d1-8efa-5c04b853bd23",
+            "actions": [
+                {
+                    "name": "NoteLine0",
+                    "type": "Button",
+                    "id": "d85784da-f3f1-4a5f-9c7d-1340570b5ffe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine1",
+                    "type": "Button",
+                    "id": "b2d0fafa-68e0-4a29-8512-1aa475ecdf69",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine2",
+                    "type": "Button",
+                    "id": "8171aa37-1a06-4f36-aa56-ad807012e2ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine3",
+                    "type": "Button",
+                    "id": "71e48e3b-5122-4eed-bc1d-47ad586a3893",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine4",
+                    "type": "Button",
+                    "id": "c652c70a-4126-4d69-a2b8-1be2338ced69",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine5",
+                    "type": "Button",
+                    "id": "d1d17e73-d37a-4578-8dc1-8453ca55094c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpeedDown",
+                    "type": "Button",
+                    "id": "7dcca7bf-109c-4971-a4c5-2aa5a75a381d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpeedUp",
+                    "type": "Button",
+                    "id": "39c0dc36-caab-4bd0-a549-efa02073009f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "JudgeDown",
+                    "type": "Button",
+                    "id": "33785849-f4f8-4d0b-bcb6-436d3e8f761e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "JudgeUp",
+                    "type": "Button",
+                    "id": "464f829f-0320-48f6-9019-29a674def3d2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "613e2949-6fe6-40c9-8677-fc4c7f1319c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "5e2f565f-a5d2-459e-b4e2-95beab74bd30",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -721,7 +357,241 @@
                 {
                     "name": "ChangeGameMode",
                     "type": "Button",
-                    "id": "1e663e82-4752-4d6c-9899-404edbaf621e",
+                    "id": "8389f56c-ce23-406a-b8c8-89214ebb6d42",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5f2a2ba8-1ed5-4020-808b-eb6a84d2e983",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba792769-bdde-45d1-9c74-3c64a22e458d",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9064c872-95ad-487b-846a-9e300172842a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b3caebc-4239-4296-acaa-b75ee7dd13fd",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb6831b2-a853-4fa6-8a90-280c01e71e5b",
+                    "path": "<Keyboard>/quote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dfdc7ed2-135c-4f14-b834-ae2ed294ffb5",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "755822e7-d877-4529-a682-a584f66822c4",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fe46915-2541-4322-849a-c0a49df46902",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "099afde6-9687-478d-a3f6-89effae14521",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JudgeUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6928682-827c-4010-98b1-2b815e144809",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JudgeDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "900ce02b-f928-4c0e-addd-384de144a675",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3f56e44-2a84-4f6b-b270-e20c1e123251",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeGameMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a76999d-d89e-49dc-9a19-96d43b708130",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8db09212-d3bf-43b8-9a28-4d27b10d2096",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Editor",
+            "id": "4ba04de7-1a16-4b62-8547-2a4d8f9f560b",
+            "actions": [
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "e4685972-d117-47c7-bdea-21745dab985c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Space",
+                    "type": "Button",
+                    "id": "8f7a1ae4-3e38-47eb-a6f9-eabe11a4ad0e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Ctrl",
+                    "type": "Button",
+                    "id": "8571e06e-614f-4779-b8e1-bf35f009d276",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GridOffsetDown",
+                    "type": "Button",
+                    "id": "41aa7244-20a0-4508-87c2-e8310de598e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GridOffsetUp",
+                    "type": "Button",
+                    "id": "f614e215-a0c5-4094-81d1-5a9adf9e7ddf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseWheel",
+                    "type": "Value",
+                    "id": "da86627f-cf07-429b-9e93-f974049ad9c6",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouseBtn",
+                    "type": "Button",
+                    "id": "4e8475fb-f7eb-4fdd-9976-47345e05ce80",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "efd5deb2-77a0-4fdf-b72c-68a75d26f882",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -731,7 +601,7 @@
             "bindings": [
                 {
                     "name": "One Modifier",
-                    "id": "bdcc0389-cada-467e-9199-142883182d3a",
+                    "id": "ed375af5-e588-4e46-9639-38fbd7f311ea",
                     "path": "OneModifier",
                     "interactions": "",
                     "processors": "",
@@ -742,7 +612,7 @@
                 },
                 {
                     "name": "modifier",
-                    "id": "f2d140af-6d05-46b2-a2cd-242240ba2b13",
+                    "id": "e3d956f4-2cb9-4517-ae7e-facc360315f7",
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
@@ -753,7 +623,7 @@
                 },
                 {
                     "name": "binding",
-                    "id": "7866c105-2f29-4dbc-9a5b-167f96fb282d",
+                    "id": "9c1186bb-190f-403b-9928-fd1f53cbab10",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -764,12 +634,523 @@
                 },
                 {
                     "name": "",
-                    "id": "f11a1524-fadb-46f9-a71a-0fb67524d00e",
-                    "path": "<Keyboard>/tab",
+                    "id": "d69a2043-8e43-47f8-b21c-708470f38be8",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChangeGameMode",
+                    "action": "Space",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46271c35-1b9f-4306-baef-a3367c5fd734",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ctrl",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dcf298ad-1f4a-4277-85de-cb5f61f08689",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GridOffsetDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "70a9dced-5f59-4309-ac75-19179aecf205",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GridOffsetUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4bf19ef-e95f-4370-a5a4-aa0fc04db5b3",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseWheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f3caea9-f46a-4d43-b564-ff1553aa121c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseBtn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b2e770ca-f852-4177-b8ab-9e22033a471e",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseBtn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e7eb40c-5a7c-4da6-b38e-a8e5afd9c25e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Game",
+            "id": "22a07f46-b617-4dd0-92b4-9dbcc88edd09",
+            "actions": [
+                {
+                    "name": "NoteLine0",
+                    "type": "Button",
+                    "id": "758792f0-eeca-4e8b-9c04-5f4f36af83e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine1",
+                    "type": "Button",
+                    "id": "6df46004-bb1b-4d3a-819d-3b42b522cc6a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine2",
+                    "type": "Button",
+                    "id": "eadc3a13-76b8-4d34-a091-7243669b2ae2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine3",
+                    "type": "Button",
+                    "id": "35c21ec7-0a9e-4428-a8ed-5b34f9f449a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine4",
+                    "type": "Button",
+                    "id": "4dd21364-afde-4391-b790-e030d97eddb6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NoteLine5",
+                    "type": "Button",
+                    "id": "81913574-b603-4557-8f4f-98de3332d403",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "JudgeUp",
+                    "type": "Button",
+                    "id": "b073f7a8-6b68-4a2b-bac1-498e5684c5e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "JudgeDown",
+                    "type": "Button",
+                    "id": "75e1095e-00b8-4396-971c-23967893006c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpeedUp",
+                    "type": "Button",
+                    "id": "a90a6b9d-2de3-444d-9067-0da6281ed634",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpeedDown",
+                    "type": "Button",
+                    "id": "ee8c3d03-d02e-413e-b7b8-2cc207973153",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ESC",
+                    "type": "Button",
+                    "id": "8df1575a-bcde-45ba-a348-376a98b6e7a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StopGame",
+                    "type": "Button",
+                    "id": "d1beba24-50cc-4c6b-bfcd-9e0774db7d6e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "68b869eb-b9c8-4447-80d2-2d442cec58bd",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5776e5a-f2ef-424f-8666-1c603574f4b0",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15e82957-d58f-4ccb-98ae-99b4e9a46086",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ffa5cfbd-d986-4641-8db7-b83452a68756",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7bd972fa-4a2d-4864-bbba-15f87faa7c46",
+                    "path": "<Keyboard>/semicolon",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b541bb8c-ff8f-462a-9f9b-c96497f60f46",
+                    "path": "<Keyboard>/quote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NoteLine5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fc52d7d-6d4e-49ea-a56c-a5cf70e57aeb",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b9396d9-932f-4a8f-92b7-e3b984402caa",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StopGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "24179297-46f0-4b1c-8780-2c5c1a06ba2a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a17f7d3f-92d2-428f-b74e-cf4b15f34829",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f7ddaf0-c709-416b-b485-8cf2f1da362a",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JudgeDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f92f62c2-0940-4071-b510-9982d095ec91",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JudgeUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Pause",
+            "id": "88e1c262-0a6d-45af-8334-f7568cf4cbff",
+            "actions": [
+                {
+                    "name": "ArrowDown",
+                    "type": "Button",
+                    "id": "8a8e584c-eb34-4801-8415-b90f4001db29",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ArrowUp",
+                    "type": "Button",
+                    "id": "a41f2899-7136-4405-a5d3-edf51773f543",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "8abd7070-9073-4cd4-97fa-e0522f54f9cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4057127b-c7e2-4a21-a7c2-2d75678c1cbe",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ArrowDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5af7a8f-32b9-4daa-9ae3-f355e322fa36",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ArrowUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83841501-49da-42f2-a719-8dc8f328ae9a",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2765d89-1033-49ac-81bc-80961b92913a",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "WarningPopup",
+            "id": "f5c0bbbf-e219-4e7d-8b75-6f9f49bbc683",
+            "actions": [
+                {
+                    "name": "ArrowRight",
+                    "type": "Button",
+                    "id": "4baf6c51-60fd-4256-a1ff-af87722afa7d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ArrowLeft",
+                    "type": "Button",
+                    "id": "b4b6bc77-1f79-420a-b6f6-14c433f421e3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "9611f325-03ac-4de5-bf7b-837c6f157ed9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2e3537c5-6e95-45c7-8a0b-cdb025522f3a",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ArrowRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74ddc8b1-d377-4b0d-a9ff-b76caa4e9ac2",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ArrowLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e446036f-7c37-4ce5-98f2-3eb8e783acb8",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Result",
+            "id": "4a12b23e-0598-4c19-9e5f-6189f52adce3",
+            "actions": [
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "1cbad5ac-b048-45a8-ac68-f933bea7892f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fa80c49e-7906-44dc-87a7-0ab415856bfc",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c28f99d-2c69-4bd4-b3ed-a90321a0a845",
+                    "path": "<Keyboard>/numpadEnter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -5,10 +5,12 @@ using System.Collections.Generic;
 
 public class RebindController : MonoBehaviour
 {
-    public InputActionReference note0ActionRef;
-    public InputActionReference note1ActionRef;
-    public InputActionReference note2ActionRef;
-    public InputActionReference note3ActionRef;
+    public InputActionReference[] note0ActionRefs = new InputActionReference[2];
+    public InputActionReference[] note1ActionRefs = new InputActionReference[2];
+    public InputActionReference[] note2ActionRefs = new InputActionReference[2];
+    public InputActionReference[] note3ActionRefs = new InputActionReference[2];
+    public InputActionReference[] note4ActionRefs = new InputActionReference[2];
+    public InputActionReference[] note5ActionRefs = new InputActionReference[2];
 
     private Dictionary<string, string> specialKeyMappings = new Dictionary<string, string>
 {
@@ -44,6 +46,37 @@ public class RebindController : MonoBehaviour
     { "Space", "space" }
 };
 
+#if !UNITY_WEBGL
+    public void Init()
+    {
+        string[] fourKeys = { "a", "s", ";", "'" };
+        string[] fiveKeys = { "a", "s", "d", "l", ";", "'" };
+        string[] sixKeys = { "a", "s", "d", "l", ";", "'" };
+
+        switch (GameManager.Instance.sheet.keyNum)
+        {
+            case 4:
+                for (int i = 0; i < fourKeys.Length; i++)
+                {
+                    StartCoroutine(IERebindNoteAction(i, fourKeys[i]));
+                }
+                break;
+            case 5:
+                for (int i = 0; i < fiveKeys.Length; i++)
+                {
+                    StartCoroutine(IERebindNoteAction(i, fiveKeys[i]));
+                }
+                break;
+            case 6:
+                for (int i = 0; i < sixKeys.Length; i++)
+                {
+                    StartCoroutine(IERebindNoteAction(i, sixKeys[i]));
+                }
+                break;
+        }
+    }
+#endif
+
     public void WebGLRebindNoteKey(string combinedArgs)
     {
         var args = combinedArgs.Split(',');
@@ -55,54 +88,48 @@ public class RebindController : MonoBehaviour
 
     private IEnumerator IERebindNoteAction(int noteLine, string newKey)
     {
-        InputActionReference noteActionRef = FindNoteActionRef(noteLine);
-        if (noteActionRef == null)
+        InputActionReference[] noteActionRefs = FindNoteActionRef(noteLine);
+        if (noteActionRefs == null)
         {
             Debug.LogError($"noteActionRef is null for noteLine: {noteLine}");
             yield break;
         }
 
-        InputAction noteAction = noteActionRef.action;
-        if (noteAction == null)
+        foreach (InputActionReference noteActionRef in noteActionRefs)
         {
-            Debug.LogError($"noteAction is null for noteLine: {noteLine}");
-            yield break;
+            InputAction noteAction = noteActionRef.action;
+            if (noteAction == null)
+            {
+                Debug.LogError($"noteAction is null for noteLine: {noteLine}");
+                yield break;
+            }
+
+            noteAction.Disable();
+
+            // 문자가 특수문자일 경우, 맵핑 사용
+            if (specialKeyMappings.ContainsKey(newKey))
+            {
+                newKey = specialKeyMappings[newKey];
+            }
+
+            noteAction.ApplyBindingOverride(0, $"<Keyboard>/{newKey}");
+            noteAction.Enable();
         }
 
-        noteAction.Disable();
-
-        // 문자가 특수문자일 경우, 맵핑 사용
-        if (specialKeyMappings.ContainsKey(newKey))
-        {
-            newKey = specialKeyMappings[newKey];
-        }
-
-        noteAction.ApplyBindingOverride(0, $"<Keyboard>/{newKey}");
-        Debug.Log($"Rebound {noteAction.name} to <Keyboard>/{newKey}");
-
-        noteAction.Enable();
-
-        // Save the new binding
-        SaveBindings(noteActionRef, noteLine);
-
+        Debug.Log($"Rebound Note{noteLine} to <Keyboard>/{newKey}");
         yield break;
     }
 
-    private void SaveBindings(InputActionReference inputActionRef, int noteLine)
-    {
-        var rebinds = inputActionRef.action.SaveBindingOverridesAsJson();
-        PlayerPrefs.SetString($"NoteLine{noteLine}", rebinds);
-        PlayerPrefs.Save();
-    }
-
-    private InputActionReference FindNoteActionRef(int noteLine)
+    private InputActionReference[] FindNoteActionRef(int noteLine)
     {
         return noteLine switch
         {
-            0 => note0ActionRef,
-            1 => note1ActionRef,
-            2 => note2ActionRef,
-            3 => note3ActionRef,
+            0 => note0ActionRefs,
+            1 => note1ActionRefs,
+            2 => note2ActionRefs,
+            3 => note3ActionRefs,
+            4 => note4ActionRefs,
+            5 => note5ActionRefs,
             _ => null,
         };
     }
