@@ -29,24 +29,10 @@ public class Editor : MonoBehaviour
 
     public float speed;
 
-    private InputActions inputActions;
-    private void OnEnable()
-    {
-        inputActions.Enable();
-        inputActions.NoteEditor.Save.performed += (ctx) => SheetSave(ctx);
-    }
-    private void OnDisable()
-    {
-        inputActions.Disable();
-        inputActions.NoteEditor.Save.performed -= (ctx) => SheetSave(ctx);
-    }
-
     private void Awake()
     {
         if (instance == null)
             instance = this;
-
-        inputActions = new InputActions();
     }
 
     public void Init()
@@ -197,8 +183,7 @@ public class Editor : MonoBehaviour
     }
 
 
-
-    public void SheetSave(InputAction.CallbackContext? context)
+    public void SheetSave()
     {
         SheetStorage.Instance.SaveEditedSheet();
     }

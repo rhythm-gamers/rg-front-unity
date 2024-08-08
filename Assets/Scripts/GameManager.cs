@@ -81,9 +81,10 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         if (instance == null)
+        {
             instance = this;
-
-        inputActions = new InputActions();
+            inputActions = new InputActions();
+        }
     }
     private void OnEnable()
     {
@@ -143,37 +144,6 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(IEInitPlay());
     }
-
-    public void ResumeEditor()
-    {
-#if !UNITY_WEBGL
-        canvases[(int)Canvas.WarningPopup].SetActive(false);
-
-        EditorController.Instance.InitCursor();
-#endif
-    }
-    public void ExitEditor()
-    {
-#if !UNITY_WEBGL
-        canvases[(int)Canvas.WarningPopup].SetActive(false);
-
-        // Editor 초기화
-        Editor.Instance.Stop();
-
-        // Cursor 초기화
-        EditorController.Instance.InitCursor();
-
-        // 그리드 UI 끄기
-        GridGenerator.Instance.InActivate();
-
-        // 노트 Gen 끄기
-        NoteGenerator.Instance.StopGen();
-
-        AudioManager.Instance.progressTime = 0f;
-
-        Description();
-#endif
-    }
     // Finish Button Navigator OnClick
 
     // Input Manager Method
@@ -195,27 +165,6 @@ public class GameManager : MonoBehaviour
 
         // 음악 멈추기
         AudioManager.Instance.Pause();
-    }
-
-    public void CheckIsChangedSheet()
-    {
-#if !UNITY_WEBGL
-        bool isChangeSheet = SheetStorage.Instance.CompareEditedSheet();
-        if (isChangeSheet)
-        {
-            if (AudioManager.Instance.IsPlaying())
-            {
-                Editor.Instance.PlayOrPause();
-            }
-
-            EditorController.Instance.SetActiveCursor(false);
-            canvases[(int)Canvas.WarningPopup].SetActive(true);
-        }
-        else
-        {
-            ExitEditor();
-        }
-#endif
     }
     // Finish Input Manager Method
 
