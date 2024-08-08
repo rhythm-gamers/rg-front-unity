@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.InputSystem;
 
 public class SavedFileInfo
 {
@@ -28,27 +29,108 @@ public class SavedFilesReader : MonoBehaviour
 
     public Transform contentPanel;
     public GameObject saveFilesPrefab;
+    public GameObject[] keyNumTabs;
 
     private List<SavedFileInfo> savedFiles = new();
+    private int currentKeyNumTabIdx = 0;
+    private InputActions inputActions;
 
+    private InputAction nextKeyNumTabAction;
+    private InputAction prevKeyNumTabAction;
 
 
     void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            inputActions = new InputActions();
+
+            nextKeyNumTabAction = inputActions.Navigator.NextKeyNumTab;
+            nextKeyNumTabAction.performed += ctx => NextKeyNumTab(ctx);
+            nextKeyNumTabAction.Enable();
+
+            prevKeyNumTabAction = inputActions.Navigator.PrevKeyNumTab;
+            prevKeyNumTabAction.performed += ctx => PrevKeyNumTab(ctx);
+            prevKeyNumTabAction.Enable();
+        }
+    }
+
+    void OnEnable()
+    {
+        inputActions.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputActions.Disable();
     }
 
     public void ReadFiles()
     {
+        ActivateKeyNumTab(currentKeyNumTabIdx);
+
+        int keyNum = currentKeyNumTabIdx + 4;
         foreach (SavedFileInfo savedFileInfo in savedFiles)
         {
             Destroy(savedFileInfo.SavedFile);
         }
         savedFiles.Clear();
 
-        string basePath = $"{Application.persistentDataPath}/Sheet"; // 탐색할 루트 경로 설정
+        string basePath = $"{Application.persistentDataPath}/Sheet/{keyNum}"; // 탐색할 루트 경로 설정
         DisplayDirectoryContents(basePath);
+    }
+
+    public void OnClickFourKeyTab()
+    {
+        currentKeyNumTabIdx = 0;
+        ReadFiles();
+    }
+    public void OnClickFiveKeyTab()
+    {
+        currentKeyNumTabIdx = 1;
+        ReadFiles();
+    }
+    public void OnClickSixKeyTab()
+    {
+        currentKeyNumTabIdx = 2;
+        ReadFiles();
+    }
+
+    public void NextKeyNumTab(InputAction.CallbackContext context)
+    {
+        if (!Keyboard.current.shiftKey.isPressed)
+        {
+            if (++currentKeyNumTabIdx >= keyNumTabs.Length)
+                currentKeyNumTabIdx = 0;
+
+            ReadFiles();
+        }
+    }
+    public void PrevKeyNumTab(InputAction.CallbackContext context)
+    {
+        if (Keyboard.current.shiftKey.isPressed)
+        {
+            if (--currentKeyNumTabIdx < 0)
+                currentKeyNumTabIdx = keyNumTabs.Length - 1;
+
+            ReadFiles();
+        }
+    }
+    private void ActivateKeyNumTab(int keyNumTabIdx)
+    {
+        foreach (GameObject keyNumTab in keyNumTabs)
+        {
+            Image tab = keyNumTab.GetComponent<Image>();
+            Color tabColor = tab.color;
+            tabColor.a = 100f / 255f;
+            tab.color = tabColor;
+        }
+
+        Image currentTab = keyNumTabs[keyNumTabIdx].GetComponent<Image>();
+        Color currentTabColor = currentTab.color;
+        currentTabColor.a = 1;
+        currentTab.color = currentTabColor;
     }
 
     public IEnumerator OnClickSavedFile(string path, string title)
@@ -78,7 +160,7 @@ public class SavedFilesReader : MonoBehaviour
         }
     }
 
-    void DisplayFiles(string path)
+    private void DisplayFiles(string path)
     {
         DateTime sheetLastModified = DateTime.MinValue;
 
@@ -119,12 +201,16 @@ public class SavedFilesReader : MonoBehaviour
                 S3Uploader.Instance.CheckIfFileExists(fileNameWithoutExtension,
                     () =>
                     {
+                        if (Panel == null) return;
+
                         GameObject Uploaded = Panel.GetChild(4).gameObject;
                         if (Uploaded != null)
                             Uploaded.SetActive(true);
                     },
                     () =>
                     {
+                        if (Panel == null) return;
+
                         GameObject Uploaded = Panel.GetChild(4).gameObject;
                         if (Uploaded != null)
                             Uploaded.SetActive(false);

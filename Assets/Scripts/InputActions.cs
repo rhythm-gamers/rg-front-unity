@@ -519,6 +519,33 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrevInputField"",
+                    ""type"": ""Button"",
+                    ""id"": ""872efdd5-1c4e-4967-8f1a-be7086fda378"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextKeyNumTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""df203493-071d-47d4-93cb-a19807daede4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrevKeyNumTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""761e7e63-190e-43d4-a2b8-8e69488b0b92"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -620,6 +647,83 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""NextInputField"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7d0506f-6dda-4f2e-b725-f1b2450642d3"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextKeyNumTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""a8491c18-da21-42b1-8e65-8f4ec0b38487"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevKeyNumTab"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""b3850172-7d33-42b0-a5b1-1ae059338787"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevKeyNumTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""d43fade9-a2b6-43f9-9f82-38db38568841"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevKeyNumTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""24f013cc-e7bd-4475-88e3-b0351760613e"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevInputField"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""2cb3698b-5d2a-481c-a4e9-15c6546255b0"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevInputField"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""99479d0b-2ce2-48d5-a8d0-607f5283c1e2"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevInputField"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -744,6 +848,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Navigator_ArrowDown = m_Navigator.FindAction("ArrowDown", throwIfNotFound: true);
         m_Navigator_ArrowUp = m_Navigator.FindAction("ArrowUp", throwIfNotFound: true);
         m_Navigator_NextInputField = m_Navigator.FindAction("NextInputField", throwIfNotFound: true);
+        m_Navigator_PrevInputField = m_Navigator.FindAction("PrevInputField", throwIfNotFound: true);
+        m_Navigator_NextKeyNumTab = m_Navigator.FindAction("NextKeyNumTab", throwIfNotFound: true);
+        m_Navigator_PrevKeyNumTab = m_Navigator.FindAction("PrevKeyNumTab", throwIfNotFound: true);
         // NoteEditor
         m_NoteEditor = asset.FindActionMap("NoteEditor", throwIfNotFound: true);
         m_NoteEditor_Save = m_NoteEditor.FindAction("Save", throwIfNotFound: true);
@@ -1006,6 +1113,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Navigator_ArrowDown;
     private readonly InputAction m_Navigator_ArrowUp;
     private readonly InputAction m_Navigator_NextInputField;
+    private readonly InputAction m_Navigator_PrevInputField;
+    private readonly InputAction m_Navigator_NextKeyNumTab;
+    private readonly InputAction m_Navigator_PrevKeyNumTab;
     public struct NavigatorActions
     {
         private @InputActions m_Wrapper;
@@ -1016,6 +1126,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @ArrowDown => m_Wrapper.m_Navigator_ArrowDown;
         public InputAction @ArrowUp => m_Wrapper.m_Navigator_ArrowUp;
         public InputAction @NextInputField => m_Wrapper.m_Navigator_NextInputField;
+        public InputAction @PrevInputField => m_Wrapper.m_Navigator_PrevInputField;
+        public InputAction @NextKeyNumTab => m_Wrapper.m_Navigator_NextKeyNumTab;
+        public InputAction @PrevKeyNumTab => m_Wrapper.m_Navigator_PrevKeyNumTab;
         public InputActionMap Get() { return m_Wrapper.m_Navigator; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1043,6 +1156,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @NextInputField.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextInputField;
                 @NextInputField.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextInputField;
                 @NextInputField.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextInputField;
+                @PrevInputField.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevInputField;
+                @PrevInputField.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevInputField;
+                @PrevInputField.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevInputField;
+                @NextKeyNumTab.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextKeyNumTab;
+                @NextKeyNumTab.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextKeyNumTab;
+                @NextKeyNumTab.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextKeyNumTab;
+                @PrevKeyNumTab.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevKeyNumTab;
+                @PrevKeyNumTab.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevKeyNumTab;
+                @PrevKeyNumTab.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevKeyNumTab;
             }
             m_Wrapper.m_NavigatorActionsCallbackInterface = instance;
             if (instance != null)
@@ -1065,6 +1187,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @NextInputField.started += instance.OnNextInputField;
                 @NextInputField.performed += instance.OnNextInputField;
                 @NextInputField.canceled += instance.OnNextInputField;
+                @PrevInputField.started += instance.OnPrevInputField;
+                @PrevInputField.performed += instance.OnPrevInputField;
+                @PrevInputField.canceled += instance.OnPrevInputField;
+                @NextKeyNumTab.started += instance.OnNextKeyNumTab;
+                @NextKeyNumTab.performed += instance.OnNextKeyNumTab;
+                @NextKeyNumTab.canceled += instance.OnNextKeyNumTab;
+                @PrevKeyNumTab.started += instance.OnPrevKeyNumTab;
+                @PrevKeyNumTab.performed += instance.OnPrevKeyNumTab;
+                @PrevKeyNumTab.canceled += instance.OnPrevKeyNumTab;
             }
         }
     }
@@ -1151,6 +1282,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnArrowDown(InputAction.CallbackContext context);
         void OnArrowUp(InputAction.CallbackContext context);
         void OnNextInputField(InputAction.CallbackContext context);
+        void OnPrevInputField(InputAction.CallbackContext context);
+        void OnNextKeyNumTab(InputAction.CallbackContext context);
+        void OnPrevKeyNumTab(InputAction.CallbackContext context);
     }
     public interface INoteEditorActions
     {

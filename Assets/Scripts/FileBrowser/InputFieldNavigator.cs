@@ -6,7 +6,8 @@ public class InputFieldNavigator : MonoBehaviour
 {
     public TMP_InputField[] inputFields;
 
-    private InputAction navigateAction;
+    private InputAction nextInputFieldAction;
+    private InputAction prevInputFieldAction;
     private int currentIndex = 0;
 
     private InputActions inputActions;
@@ -14,11 +15,14 @@ public class InputFieldNavigator : MonoBehaviour
     void Awake()
     {
         inputActions = new InputActions();
-        navigateAction = inputActions.Navigator.NextInputField;
 
-        navigateAction.performed += ctx => OnNavigate(ctx);
+        nextInputFieldAction = inputActions.Navigator.NextInputField;
+        nextInputFieldAction.performed += ctx => NavigateToNextInputField(ctx);
+        nextInputFieldAction.Enable();
 
-        navigateAction.Enable();
+        prevInputFieldAction = inputActions.Navigator.PrevInputField;
+        prevInputFieldAction.performed += ctx => NavigateToPrevInputField(ctx);
+        prevInputFieldAction.Enable();
 
         if (inputFields.Length > 0)
         {
@@ -36,15 +40,23 @@ public class InputFieldNavigator : MonoBehaviour
         inputActions.Disable();
     }
 
-    void OnNavigate(InputAction.CallbackContext context)
+    void NavigateToNextInputField(InputAction.CallbackContext context)
     {
-        if (context.control.device is Keyboard && (context.control.name == "enter" || context.control.name == "numpadEnter" || context.control.name == "tab"))
+        if (!Keyboard.current.shiftKey.isPressed)
         {
-            currentIndex++;
-            if (currentIndex >= inputFields.Length)
-            {
+            if (++currentIndex >= inputFields.Length)
                 currentIndex = 0;
-            }
+
+            inputFields[currentIndex].ActivateInputField();
+        }
+    }
+
+    void NavigateToPrevInputField(InputAction.CallbackContext context)
+    {
+        if (Keyboard.current.shiftKey.isPressed)
+        {
+            if (--currentIndex < 0)
+                currentIndex = inputFields.Length - 1;
 
             inputFields[currentIndex].ActivateInputField();
         }
@@ -52,8 +64,10 @@ public class InputFieldNavigator : MonoBehaviour
 
     void OnDestroy()
     {
-        // navigateAction 비활성화
-        navigateAction.Disable();
-        navigateAction.performed -= ctx => OnNavigate(ctx);
+        nextInputFieldAction.Disable();
+        nextInputFieldAction.performed -= ctx => NavigateToNextInputField(ctx);
+
+        prevInputFieldAction.Disable();
+        prevInputFieldAction.performed -= ctx => NavigateToPrevInputField(ctx);
     }
 }
