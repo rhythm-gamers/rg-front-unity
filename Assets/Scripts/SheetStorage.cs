@@ -16,6 +16,9 @@ public class SheetStorage : MonoBehaviour
 
     public string savedSheet;
 
+    public readonly string[] keyNums = { "4", "5", "6" };
+
+
     private string localSaveFilePath;
 
     void Awake()
@@ -54,14 +57,11 @@ public class SheetStorage : MonoBehaviour
             return null;
     }
 
-    public void SaveNewSheet(Sheet sheet)
+    public void SaveNewSheet(Sheet sheet, string fullFilePath)
     {
-        string title = sheet.title;
         string sheetContent = Parser.Instance.StringifyNewSheet(sheet);
 
-        string fullFilePath = Path.Combine(localSaveFilePath, title, $"{title}.sheet");
         File.WriteAllText(fullFilePath, sheetContent);
-
         Debug.Log($"New Sheet saved successfully at {fullFilePath}");
     }
     public void SaveEditedSheet()
@@ -106,14 +106,17 @@ public class SheetStorage : MonoBehaviour
     {
         string title = sheet.title;
 
-        if (!Directory.Exists($"{localSaveFilePath}/{title}"))
+        foreach (string keyNum in keyNums)
         {
-            Directory.CreateDirectory($"{localSaveFilePath}/{title}");
-        }
+            if (!Directory.Exists($"{localSaveFilePath}/{keyNum}/{title}"))
+            {
+                Directory.CreateDirectory($"{localSaveFilePath}/{keyNum}/{title}");
+            }
 
-        SaveNewSheet(sheet);
-        SaveThumbnail(sprite, $"{localSaveFilePath}/{title}/{title}.png");
-        SaveMp3(audioPath, $"{localSaveFilePath}/{title}/{title}.mp3");
+            SaveNewSheet(sheet, $"{localSaveFilePath}/{keyNum}/{title}/{title}.sheet");
+            SaveThumbnail(sprite, $"{localSaveFilePath}/{keyNum}/{title}/{title}.png");
+            SaveMp3(audioPath, $"{localSaveFilePath}/{keyNum}/{title}/{title}.mp3");
+        }
 
         Debug.Log($"Sheet files saved successfully");
     }
