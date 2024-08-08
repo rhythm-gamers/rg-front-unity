@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public string title;
     Coroutine coPlaying;
 
-    public GameObject[] keyEffects = new GameObject[4];
+    public GameObject[] keyEffects = new GameObject[6];
 
     public Sheet sheet = new();
 
@@ -46,8 +46,6 @@ public class GameManager : MonoBehaviour
             speed = Mathf.Clamp(value, 1.0f, 5.0f);
         }
     }
-
-    private InputActions inputActions;
 
     IEnumerator WebGLInitUserSpeed(float userSpeed)
     {
@@ -82,19 +80,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-            inputActions = new InputActions();
-        }
-    }
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
     }
 
     void Start()
@@ -270,6 +256,13 @@ public class GameManager : MonoBehaviour
         // 판정선 오프셋 오브젝트들 초기화
         Sync.Instance.Init();
 
+        // keyNum에 대해 Lane위의 오브젝트들 초기화
+        LaneController.Instance.Init();
+
+#if !UNITY_WEBGL
+        FindObjectOfType<RebindController>().Init(); // 4, 5, 6키 각각 기본 키세팅으로 초기화
+#endif
+
         // 화면 페이드 인
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
@@ -311,6 +304,7 @@ public class GameManager : MonoBehaviour
 
         // Description UI 켜기
         canvases[(int)Canvas.Description].SetActive(true);
+        InputManager.Instance.SwitchActionMap("Description");
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
@@ -350,6 +344,7 @@ public class GameManager : MonoBehaviour
 
         // Game UI 켜기
         canvases[(int)Canvas.Game].SetActive(true);
+        InputManager.Instance.SwitchActionMap("Game");
 
         // 판정 초기화
         Judgement.Instance.Init();
@@ -403,9 +398,12 @@ public class GameManager : MonoBehaviour
         // 화면 페이드 아웃
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, true, 3f));
+
         canvases[(int)Canvas.Game].SetActive(false);
         canvases[(int)Canvas.Pause].SetActive(false);
+
         canvases[(int)Canvas.Result].SetActive(true);
+        InputManager.Instance.SwitchActionMap("Result");
 
         // 노트 생성 중지
         NoteGenerator.Instance.StopGen();
@@ -434,12 +432,6 @@ public class GameManager : MonoBehaviour
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
         canvases[(int)Canvas.SFX].SetActive(false);
-
-        // 사용자 엔터 대기
-        yield return new WaitUntil(() => inputActions.Player.Enter.triggered);
-
-        // 선택 화면 불러오기
-        Description();
     }
 
 
@@ -496,6 +488,7 @@ public class GameManager : MonoBehaviour
 
         // Editor Menu UI 켜기
         canvases[(int)Canvas.EditorMenu].SetActive(true);
+        InputManager.Instance.SwitchActionMap("EditorMenu");
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
@@ -509,6 +502,7 @@ public class GameManager : MonoBehaviour
 
         // WriteSheet UI 켜기
         canvases[(int)Canvas.WriteSheet].SetActive(true);
+        InputManager.Instance.SwitchActionMap("WriteSheet");
         yield return null;
     }
 
@@ -527,6 +521,7 @@ public class GameManager : MonoBehaviour
 
         // SelectSheet UI 켜기
         canvases[(int)Canvas.SelectSheet].SetActive(true);
+        InputManager.Instance.SwitchActionMap("SelectSheet");
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
@@ -573,6 +568,7 @@ public class GameManager : MonoBehaviour
 
         // Editor UI 켜기
         canvases[(int)Canvas.Editor].SetActive(true);
+        InputManager.Instance.SwitchActionMap("Editor");
     }
 #endif
 }

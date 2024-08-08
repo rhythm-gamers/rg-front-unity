@@ -31,22 +31,22 @@ public class S3Uploader : MonoBehaviour
             instance = this;
     }
 
-    public void UploadSheet(string localFilePath, string title)
+    public void UploadSheet(string localFilePath, string title, int keyNum)
     {
-        StartCoroutine(IEUploadSheet($"{localFilePath}/{title}/{title}.sheet", title));
-        StartCoroutine(IEUploadImage($"{localFilePath}/{title}/{title}.png", title));
-        StartCoroutine(IEUploadMp3($"{localFilePath}/{title}/{title}.mp3", title));
+        StartCoroutine(IEUploadSheet($"{localFilePath}/{keyNum}/{title}/{title}.sheet", title, keyNum));
+        StartCoroutine(IEUploadImage($"{localFilePath}/{keyNum}/{title}/{title}.png", title, keyNum));
+        StartCoroutine(IEUploadMp3($"{localFilePath}/{keyNum}/{title}/{title}.mp3", title, keyNum));
     }
 
-    public void CheckIfFileExists(string title, Action onSuccess, Action onFail)
+    public void CheckIfFileExists(string title, int keyNum, Action onSuccess, Action onFail)
     {
-        StartCoroutine(IECheckIfFileExists(title, onSuccess, onFail));
+        StartCoroutine(IECheckIfFileExists(title, keyNum, onSuccess, onFail));
     }
 
 
-    private IEnumerator IEUploadSheet(string localFilePath, string title)
+    private IEnumerator IEUploadSheet(string localFilePath, string title, int keyNum)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".sheet", "put"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, keyNum, ".sheet", "put"));
 
         byte[] bodyRaw;
         try
@@ -80,9 +80,9 @@ public class S3Uploader : MonoBehaviour
         }
     }
 
-    private IEnumerator IEUploadImage(string filePath, string title)
+    private IEnumerator IEUploadImage(string filePath, string title, int keyNum)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".png", "put"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, keyNum, ".png", "put"));
 
         byte[] fileData;
         try
@@ -116,9 +116,9 @@ public class S3Uploader : MonoBehaviour
         }
     }
 
-    private IEnumerator IEUploadMp3(string filePath, string title)
+    private IEnumerator IEUploadMp3(string filePath, string title, int keyNum)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".mp3", "put"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, keyNum, ".mp3", "put"));
 
         byte[] fileData;
         try
@@ -150,9 +150,9 @@ public class S3Uploader : MonoBehaviour
         }
     }
 
-    private IEnumerator IECheckIfFileExists(string title, Action onSuccess, Action onFail)
+    private IEnumerator IECheckIfFileExists(string title, int keyNum, Action onSuccess, Action onFail)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".sheet", "head"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, keyNum, ".sheet", "head"));
 
         UnityWebRequest www = UnityWebRequest.Head(presignedUrl);
         yield return www.SendWebRequest();
@@ -168,9 +168,9 @@ public class S3Uploader : MonoBehaviour
     }
 
 
-    private IEnumerator IEGetPresignedUrl(string title, string extension, string method)
+    private IEnumerator IEGetPresignedUrl(string title, int keyNum, string extension, string method)
     {
-        string queryString = $"?bucketName={EnvManager.Instance.AWSBucketName}&objectKey=Sheet/{title}/{title}{extension}&expirationDuration=15&method={method}";
+        string queryString = $"?bucketName={EnvManager.Instance.AWSBucketName}&objectKey=Sheet/{keyNum}/{title}/{title}{extension}&expirationDuration=15&method={method}";
         using UnityWebRequest www = UnityWebRequest.Get(EnvManager.Instance.AWSGenPresignedUrl + queryString);
 
         yield return www.SendWebRequest();

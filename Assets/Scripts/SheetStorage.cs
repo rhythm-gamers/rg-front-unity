@@ -32,8 +32,9 @@ public class SheetStorage : MonoBehaviour
     public void Init()
     {
         string title = GameManager.Instance.sheet.title;
+        int keyNum = GameManager.Instance.sheet.keyNum;
 
-        savedSheet = LoadSavedSheet($"{localSaveFilePath}/{title}/{title}.sheet");
+        savedSheet = LoadSavedSheet($"{localSaveFilePath}/{keyNum}/{title}/{title}.sheet");
 
         if (savedSheet != null)
             GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
@@ -67,9 +68,10 @@ public class SheetStorage : MonoBehaviour
     public void SaveEditedSheet()
     {
         string title = GameManager.Instance.sheet.title;
+        int keyNum = GameManager.Instance.sheet.keyNum;
         savedSheet = Parser.Instance.StringifyEditedSheet();
 
-        string fullFilePath = Path.Combine(localSaveFilePath, title, $"{title}.sheet");
+        string fullFilePath = Path.Combine(localSaveFilePath, keyNum.ToString(), title, $"{title}.sheet");
         File.WriteAllText(fullFilePath, savedSheet);
 
         Editor.Instance.ShowProgressLog($"Sheet saved successfully at {fullFilePath}");
@@ -128,7 +130,8 @@ public class SheetStorage : MonoBehaviour
         SaveEditedSheet();
 
         string title = GameManager.Instance.sheet.title;
-        S3Uploader.Instance.UploadSheet(localSaveFilePath, title);
+        int keyNum = GameManager.Instance.sheet.keyNum;
+        S3Uploader.Instance.UploadSheet(localSaveFilePath, title, keyNum);
     }
 
     public void Download()

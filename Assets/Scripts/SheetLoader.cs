@@ -16,9 +16,9 @@ public class SheetLoader : MonoBehaviour
 
     public bool isLoadFinish = false;
 
-    public IEnumerator WebGLLoadSheet(string sheetName)
+    public IEnumerator WebGLLoadSheet(string sheetName, string keyNum)
     {
-        yield return StartCoroutine(Parser.Instance.IEParseGameSheet($"{basePath}/Sheet/{sheetName}", sheetName));
+        yield return StartCoroutine(Parser.Instance.IEParseGameSheet($"{basePath}/Sheet/{keyNum}/{sheetName}", sheetName));
         isLoadFinish = true;
     }
 
@@ -31,7 +31,7 @@ public class SheetLoader : MonoBehaviour
     public void Init()
     {
 #if UNITY_WEBGL && UNITY_EDITOR
-        StartCoroutine(WebGLLoadSheet("Consolation"));
+        StartCoroutine(WebGLLoadSheet("Grin", "4"));
 #endif
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
     }
