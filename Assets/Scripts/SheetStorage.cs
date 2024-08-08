@@ -115,8 +115,6 @@ public class SheetStorage : MonoBehaviour
         SaveThumbnail(sprite, $"{localSaveFilePath}/{title}/{title}.png");
         SaveMp3(audioPath, $"{localSaveFilePath}/{title}/{title}.mp3");
 
-        S3Uploader.Instance.UploadNewSheet(localSaveFilePath, title);
-
         Debug.Log($"Sheet files saved successfully");
     }
 
