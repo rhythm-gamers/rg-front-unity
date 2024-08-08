@@ -172,7 +172,7 @@ public class InputManager : MonoBehaviour
             else if (GameManager.Instance.state == GameManager.GameState.Edit)
             {
                 if (GameManager.Instance.isPlaying)
-                    GameManager.Instance.CheckIsChangedSheet();
+                    EditorController.Instance.CheckIsChangedSheet();
             }
         }
     }

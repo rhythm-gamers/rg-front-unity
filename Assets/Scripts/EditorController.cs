@@ -294,6 +294,60 @@ public class EditorController : MonoBehaviour
         }
     }
 
+    public void CheckIsChangedSheet()
+    {
+#if !UNITY_WEBGL
+        bool isChangeSheet = SheetStorage.Instance.CompareEditedSheet();
+        if (isChangeSheet)
+        {
+            if (AudioManager.Instance.IsPlaying())
+                Editor.Instance.PlayOrPause();
+
+            SetActiveCursor(false);
+
+            PopupController.Instance.InitByScene("Editor",
+                () => ExitEditor(),
+                () => ResumeEditor());
+            PopupController.Instance.SetActiveCanvas(true);
+        }
+        else
+        {
+            ExitEditor();
+        }
+#endif
+    }
+
+    private void ResumeEditor()
+    {
+#if !UNITY_WEBGL
+        PopupController.Instance.SetActiveCanvas(false);
+
+        InitCursor();
+#endif
+    }
+    private void ExitEditor()
+    {
+#if !UNITY_WEBGL
+        PopupController.Instance.SetActiveCanvas(false);
+
+        // Editor 초기화
+        Editor.Instance.Stop();
+
+        // Cursor 초기화
+        InitCursor();
+
+        // 그리드 UI 끄기
+        GridGenerator.Instance.InActivate();
+
+        // 노트 Gen 끄기
+        NoteGenerator.Instance.StopGen();
+
+        AudioManager.Instance.progressTime = 0f;
+
+        GameManager.Instance.Description();
+#endif
+    }
+
     //private void OnGUI()
     //{
     //    GUIStyle style = new GUIStyle();

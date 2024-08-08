@@ -1,3 +1,5 @@
+#if !UNITY_WEBGL
+
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -82,6 +84,7 @@ public class SavedFilesReader : MonoBehaviour
 
         // 세이브 파일 UI 인스턴스화
         GameObject savedFile = Instantiate(saveFilesPrefab, contentPanel);
+        Transform Panel = savedFile.transform.GetChild(0);
 
         // 해당 경로의 모든 파일 로드
         string[] files = Directory.GetFiles(path);
@@ -90,9 +93,6 @@ public class SavedFilesReader : MonoBehaviour
         {
             string fileName = Path.GetFileName(file);
             string extension = Path.GetExtension(file);
-
-
-            Transform Panel = savedFile.transform.GetChild(0);
 
             if (extension == ".png")
             {
@@ -117,6 +117,9 @@ public class SavedFilesReader : MonoBehaviour
             }
         }
 
+        Button deleteButton = Panel.GetChild(3).gameObject.GetComponent<Button>();
+        deleteButton.onClick.AddListener(() => ReconfirmDeleteSheet(path));
+
         // 파일 정보를 객체에 추가
         savedFiles.Add(new SavedFileInfo
         {
@@ -124,4 +127,26 @@ public class SavedFilesReader : MonoBehaviour
             LastModified = sheetLastModified
         });
     }
+
+    private void ReconfirmDeleteSheet(string folderPath)
+    {
+        PopupController.Instance.InitByScene("SelectSheet",
+            () => DeleteFolder(folderPath),
+            () => PopupController.Instance.SetActiveCanvas(false));
+        PopupController.Instance.SetActiveCanvas(true);
+    }
+
+    private void DeleteFolder(string folderPath)
+    {
+        if (Directory.Exists(folderPath))
+        {
+            Directory.Delete(folderPath, true);
+            Debug.Log("Folder deleted successfully: " + folderPath);
+
+            ReadFiles();
+            PopupController.Instance.SetActiveCanvas(false);
+        }
+    }
 }
+
+#endif
