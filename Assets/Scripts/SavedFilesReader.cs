@@ -46,11 +46,11 @@ public class SavedFilesReader : MonoBehaviour
             instance = this;
             inputActions = new InputActions();
 
-            nextKeyNumTabAction = inputActions.Navigator.NextKeyNumTab;
+            nextKeyNumTabAction = inputActions.SelectSheet.NextKeyNumTab;
             nextKeyNumTabAction.performed += ctx => NextKeyNumTab(ctx);
             nextKeyNumTabAction.Enable();
 
-            prevKeyNumTabAction = inputActions.Navigator.PrevKeyNumTab;
+            prevKeyNumTabAction = inputActions.SelectSheet.PrevKeyNumTab;
             prevKeyNumTabAction.performed += ctx => PrevKeyNumTab(ctx);
             prevKeyNumTabAction.Enable();
         }
@@ -198,7 +198,7 @@ public class SavedFilesReader : MonoBehaviour
                 fileButton.onClick.AddListener(() => StartCoroutine(OnClickSavedFile(path, fileNameWithoutExtension)));
 
                 // S3 업로드 여부 체크
-                S3Uploader.Instance.CheckIfFileExists(fileNameWithoutExtension,
+                S3Uploader.Instance.CheckIfFileExists(fileNameWithoutExtension, currentKeyNumTabIdx + 4,
                     () =>
                     {
                         if (Panel == null) return;

@@ -16,11 +16,11 @@ public class InputFieldNavigator : MonoBehaviour
     {
         inputActions = new InputActions();
 
-        nextInputFieldAction = inputActions.Navigator.NextInputField;
+        nextInputFieldAction = inputActions.WriteSheet.NextInputField;
         nextInputFieldAction.performed += ctx => NavigateToNextInputField(ctx);
         nextInputFieldAction.Enable();
 
-        prevInputFieldAction = inputActions.Navigator.PrevInputField;
+        prevInputFieldAction = inputActions.WriteSheet.PrevInputField;
         prevInputFieldAction.performed += ctx => NavigateToPrevInputField(ctx);
         prevInputFieldAction.Enable();
 
