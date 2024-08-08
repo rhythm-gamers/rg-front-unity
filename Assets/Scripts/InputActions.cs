@@ -24,139 +24,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     ""name"": ""Controller"",
     ""maps"": [
         {
-            ""name"": ""Player"",
-            ""id"": ""db05428a-50db-43af-b17c-8b51ce39b540"",
+            ""name"": ""EditorMenu"",
+            ""id"": ""593e385a-db61-46ea-8728-35ea1f5ddb81"",
             ""actions"": [
                 {
-                    ""name"": ""NoteLine0"",
+                    ""name"": ""ArrowDown"",
                     ""type"": ""Button"",
-                    ""id"": ""209d56a0-a636-407a-ae54-a8ee286ececf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NoteLine1"",
-                    ""type"": ""Button"",
-                    ""id"": ""e7b1732f-ef26-4377-9301-5ec8efed6a6c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NoteLine2"",
-                    ""type"": ""Button"",
-                    ""id"": ""e46c3c23-582c-404a-902b-10f3602a61db"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NoteLine3"",
-                    ""type"": ""Button"",
-                    ""id"": ""53c3226d-2a41-4a18-bb7d-7af1f6c37556"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SpeedDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""84480ec6-379b-4f01-87b9-097aa18cacc2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""SpeedUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""40fa9caf-89b3-4f6e-bcfb-b22bce928c65"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Enter"",
-                    ""type"": ""Button"",
-                    ""id"": ""6e962b13-54d0-4c7e-85b7-8ea2414942df"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ESC"",
-                    ""type"": ""Button"",
-                    ""id"": ""2866788b-adb2-4c37-99d9-d815f6fe22e3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""StopGame"",
-                    ""type"": ""Button"",
-                    ""id"": ""01b6ad48-fdfa-497e-a395-4877066557ec"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""JudgeUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""d30d5343-2d2d-447c-9517-30c376132041"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""JudgeDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""27e25732-62c6-4287-b761-0390699add6b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Space"",
-                    ""type"": ""Button"",
-                    ""id"": ""a5dd8775-b561-4df2-aba6-1d8c669a6cf8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MouseBtn"",
-                    ""type"": ""Button"",
-                    ""id"": ""d076a48a-4528-48b9-a439-69ab96325469"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MouseWheel"",
-                    ""type"": ""Value"",
-                    ""id"": ""f4051ae3-8507-4b17-a740-bbcc6e981075"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Ctrl"",
-                    ""type"": ""Button"",
-                    ""id"": ""4385e1ae-146f-4bf8-a4f1-0cfaffcf0048"",
+                    ""id"": ""2d982125-3c3d-4bdb-aa7c-acfa06395957"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -165,52 +39,16 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""ArrowUp"",
                     ""type"": ""Button"",
-                    ""id"": ""e9656a92-7a48-4ee7-b13d-075a327ad4c9"",
+                    ""id"": ""6873981b-afe3-4a0c-9f72-e8b7f25ba3b1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ArrowDown"",
+                    ""name"": ""Enter"",
                     ""type"": ""Button"",
-                    ""id"": ""5be30b2c-dbae-46a7-ad76-ad17c8955e2e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ArrowLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""445009bd-cd4d-4bfe-b147-733b39b71b75"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ArrowRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""8c7caf36-b8c0-4391-8862-73d9658fe763"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""GridOffsetDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""1f279f38-6c6f-4832-8c32-f563f9f51927"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""GridOffsetUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""7147a1c2-268b-4ad8-b1ff-ee94912e3e40"",
+                    ""id"": ""e536987d-5640-4eac-b0b4-273b8964619e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -220,73 +58,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""19eff2a5-7e25-4985-91dd-037f5bb29f4e"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NoteLine0"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""43a47327-7aa2-478e-9137-eddbeec1b296"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NoteLine1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""aa7b591a-8c18-446a-87eb-3218eedd92bb"",
-                    ""path"": ""<Keyboard>/semicolon"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NoteLine2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fb62001a-2bef-4b67-a708-6394e9297e61"",
-                    ""path"": ""<Keyboard>/quote"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NoteLine3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d2759c70-999d-4424-93d8-9bf0e6f68ed8"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpeedDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""26255616-73ec-4e04-a286-429f71ee312e"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SpeedUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1f6d380d-3c00-40e9-960b-51e271aec7bc"",
+                    ""id"": ""8bb4c073-d053-4c85-8973-67a1988ec296"",
                     ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -297,106 +69,18 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4640b684-be34-439e-85b2-077233c1a57d"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""id"": ""bf404262-f167-4109-9ada-d22eeb252d9d"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ESC"",
+                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""628a0531-cbf2-46ca-8533-ce9504e5e79d"",
-                    ""path"": ""<Keyboard>/0"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""StopGame"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""79ab80e9-7b16-47b1-89f3-31310acf771f"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""JudgeDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""50b81c0f-1b1b-414f-a846-5e4337d4e0a2"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Space"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0f1e3f62-8012-495f-ba7c-2ee558cae669"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseBtn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9831318b-0cca-4d97-9ebd-35522a991205"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseBtn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""eec501e3-89e2-4332-8f80-ed15afda942e"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseWheel"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""77360ffd-7146-4222-b1a3-a562b00bae21"",
-                    ""path"": ""<Keyboard>/ctrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Ctrl"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e464b435-9ad6-4da0-b177-f7f3cab6ef75"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8b0b2d34-2a03-46a9-9b88-b80193cab338"",
+                    ""id"": ""ebb4dc96-d5cf-4341-a6ce-c11d49940766"",
                     ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -407,110 +91,21 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""95784a52-f200-4fef-9728-654197c31582"",
-                    ""path"": ""<Keyboard>/4"",
+                    ""id"": ""ba6cce0f-18f8-4be5-b57f-e7f115c40ec8"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""JudgeUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c013110f-7021-47ac-8867-df42b61e0ece"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cc1a35d0-7f42-4ccf-9f65-ba954ddfc520"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2383e86a-4c54-4aef-9721-90090498283b"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GridOffsetUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f21ab0e4-f846-4815-ac26-a1d5e3c71825"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""GridOffsetDown"",
+                    ""action"": ""ArrowUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""Navigator"",
+            ""name"": ""WriteSheet"",
             ""id"": ""75b93e53-92a0-4a3a-a8da-65e8716599a3"",
             ""actions"": [
-                {
-                    ""name"": ""Enter"",
-                    ""type"": ""Button"",
-                    ""id"": ""0b7efc3f-89bb-438c-89eb-a36cd054f856"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ArrowRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""fa66ab2a-92f8-4128-9962-644b30057487"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ArrowLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""8e2c8d0e-cd12-4a2d-9eba-73e1d3cd50ee"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ArrowDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""e0410ae5-a5fc-443f-9a62-20d39646f73a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ArrowUp"",
-                    ""type"": ""Button"",
-                    ""id"": ""ef922010-7a98-4e43-bfe8-4cf368ca5c77"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
                 {
                     ""name"": ""NextInputField"",
                     ""type"": ""Button"",
@@ -528,93 +123,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NextKeyNumTab"",
-                    ""type"": ""Button"",
-                    ""id"": ""df203493-071d-47d4-93cb-a19807daede4"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""PrevKeyNumTab"",
-                    ""type"": ""Button"",
-                    ""id"": ""761e7e63-190e-43d4-a2b8-8e69488b0b92"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""c8087e69-5361-4356-9ad9-880e0640eb90"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowUp"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""410451c8-d190-4232-97bd-5b93fb9255c9"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowDown"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5a5b7538-d27a-474e-a402-b4e962ca44fd"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f5c193fa-cab4-49a1-9fcf-98718f629c46"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ArrowRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4b0c5303-82da-4df9-acce-d8c8e62da6aa"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Enter"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2673c5ed-0583-4288-a528-d8f1750bd371"",
-                    ""path"": ""<Keyboard>/numpadEnter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Enter"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""50f7087f-1951-417f-872a-a238f22d9e96"",
@@ -647,50 +158,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""NextInputField"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d7d0506f-6dda-4f2e-b725-f1b2450642d3"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NextKeyNumTab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""a8491c18-da21-42b1-8e65-8f4ec0b38487"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PrevKeyNumTab"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""b3850172-7d33-42b0-a5b1-1ae059338787"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PrevKeyNumTab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""d43fade9-a2b6-43f9-9f82-38db38568841"",
-                    ""path"": ""<Keyboard>/tab"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""PrevKeyNumTab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""One Modifier"",
@@ -728,13 +195,182 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""NoteEditor"",
-            ""id"": ""e4ab12ee-e02c-43de-b84a-303dd117fc33"",
+            ""name"": ""SelectSheet"",
+            ""id"": ""e70c5cd1-6fde-44c7-900e-19898d620cb5"",
             ""actions"": [
                 {
-                    ""name"": ""Save"",
+                    ""name"": ""NextKeyNumTab"",
                     ""type"": ""Button"",
-                    ""id"": ""974a68ed-1427-459b-958c-e59afcea7aad"",
+                    ""id"": ""1846585a-7479-46c0-901a-3d1730677c3f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrevKeyNumTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e42af26-d4e0-4358-a7ea-f608fae74a5f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""81b7ddf0-a9bc-4712-a80a-19f0d302e7fb"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextKeyNumTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""4fbf6dee-51d4-4f4b-83e5-4b9baba1463d"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevKeyNumTab"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""46d5ea06-7190-4413-b7e5-0ea0882c7526"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevKeyNumTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""6c27017d-cce0-4d23-a6bb-4aa1fb39d11d"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrevKeyNumTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Description"",
+            ""id"": ""38ed75f9-7ffa-44d1-8efa-5c04b853bd23"",
+            ""actions"": [
+                {
+                    ""name"": ""NoteLine0"",
+                    ""type"": ""Button"",
+                    ""id"": ""d85784da-f3f1-4a5f-9c7d-1340570b5ffe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine1"",
+                    ""type"": ""Button"",
+                    ""id"": ""b2d0fafa-68e0-4a29-8512-1aa475ecdf69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine2"",
+                    ""type"": ""Button"",
+                    ""id"": ""8171aa37-1a06-4f36-aa56-ad807012e2ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine3"",
+                    ""type"": ""Button"",
+                    ""id"": ""71e48e3b-5122-4eed-bc1d-47ad586a3893"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine4"",
+                    ""type"": ""Button"",
+                    ""id"": ""c652c70a-4126-4d69-a2b8-1be2338ced69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine5"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1d17e73-d37a-4578-8dc1-8453ca55094c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""7dcca7bf-109c-4971-a4c5-2aa5a75a381d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""39c0dc36-caab-4bd0-a549-efa02073009f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JudgeDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""33785849-f4f8-4d0b-bcb6-436d3e8f761e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JudgeUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""464f829f-0320-48f6-9019-29a674def3d2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ESC"",
+                    ""type"": ""Button"",
+                    ""id"": ""613e2949-6fe6-40c9-8677-fc4c7f1319c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""5e2f565f-a5d2-459e-b4e2-95beab74bd30"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -743,7 +379,241 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""ChangeGameMode"",
                     ""type"": ""Button"",
-                    ""id"": ""1e663e82-4752-4d6c-9899-404edbaf621e"",
+                    ""id"": ""8389f56c-ce23-406a-b8c8-89214ebb6d42"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5f2a2ba8-1ed5-4020-808b-eb6a84d2e983"",
+                    ""path"": ""<Keyboard>/semicolon"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba792769-bdde-45d1-9c74-3c64a22e458d"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9064c872-95ad-487b-846a-9e300172842a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b3caebc-4239-4296-acaa-b75ee7dd13fd"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eb6831b2-a853-4fa6-8a90-280c01e71e5b"",
+                    ""path"": ""<Keyboard>/quote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dfdc7ed2-135c-4f14-b834-ae2ed294ffb5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""755822e7-d877-4529-a682-a584f66822c4"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5fe46915-2541-4322-849a-c0a49df46902"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""099afde6-9687-478d-a3f6-89effae14521"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JudgeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6928682-827c-4010-98b1-2b815e144809"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JudgeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""900ce02b-f928-4c0e-addd-384de144a675"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3f56e44-2a84-4f6b-b270-e20c1e123251"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeGameMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a76999d-d89e-49dc-9a19-96d43b708130"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8db09212-d3bf-43b8-9a28-4d27b10d2096"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Editor"",
+            ""id"": ""4ba04de7-1a16-4b62-8547-2a4d8f9f560b"",
+            ""actions"": [
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4685972-d117-47c7-bdea-21745dab985c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Space"",
+                    ""type"": ""Button"",
+                    ""id"": ""8f7a1ae4-3e38-47eb-a6f9-eabe11a4ad0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ctrl"",
+                    ""type"": ""Button"",
+                    ""id"": ""8571e06e-614f-4779-b8e1-bf35f009d276"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GridOffsetDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""41aa7244-20a0-4508-87c2-e8310de598e3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GridOffsetUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""f614e215-a0c5-4094-81d1-5a9adf9e7ddf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseWheel"",
+                    ""type"": ""Value"",
+                    ""id"": ""da86627f-cf07-429b-9e93-f974049ad9c6"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseBtn"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e8475fb-f7eb-4fdd-9976-47345e05ce80"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ESC"",
+                    ""type"": ""Button"",
+                    ""id"": ""efd5deb2-77a0-4fdf-b72c-68a75d26f882"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -753,7 +623,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""One Modifier"",
-                    ""id"": ""bdcc0389-cada-467e-9199-142883182d3a"",
+                    ""id"": ""ed375af5-e588-4e46-9639-38fbd7f311ea"",
                     ""path"": ""OneModifier"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -764,7 +634,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""modifier"",
-                    ""id"": ""f2d140af-6d05-46b2-a2cd-242240ba2b13"",
+                    ""id"": ""e3d956f4-2cb9-4517-ae7e-facc360315f7"",
                     ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -775,7 +645,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""binding"",
-                    ""id"": ""7866c105-2f29-4dbc-9a5b-167f96fb282d"",
+                    ""id"": ""9c1186bb-190f-403b-9928-fd1f53cbab10"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -786,12 +656,523 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f11a1524-fadb-46f9-a71a-0fb67524d00e"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""id"": ""d69a2043-8e43-47f8-b21c-708470f38be8"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeGameMode"",
+                    ""action"": ""Space"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46271c35-1b9f-4306-baef-a3367c5fd734"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ctrl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dcf298ad-1f4a-4277-85de-cb5f61f08689"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GridOffsetDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70a9dced-5f59-4309-ac75-19179aecf205"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GridOffsetUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4bf19ef-e95f-4370-a5a4-aa0fc04db5b3"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseWheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f3caea9-f46a-4d43-b564-ff1553aa121c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseBtn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2e770ca-f852-4177-b8ab-9e22033a471e"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseBtn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e7eb40c-5a7c-4da6-b38e-a8e5afd9c25e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Game"",
+            ""id"": ""22a07f46-b617-4dd0-92b4-9dbcc88edd09"",
+            ""actions"": [
+                {
+                    ""name"": ""NoteLine0"",
+                    ""type"": ""Button"",
+                    ""id"": ""758792f0-eeca-4e8b-9c04-5f4f36af83e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine1"",
+                    ""type"": ""Button"",
+                    ""id"": ""6df46004-bb1b-4d3a-819d-3b42b522cc6a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine2"",
+                    ""type"": ""Button"",
+                    ""id"": ""eadc3a13-76b8-4d34-a091-7243669b2ae2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine3"",
+                    ""type"": ""Button"",
+                    ""id"": ""35c21ec7-0a9e-4428-a8ed-5b34f9f449a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine4"",
+                    ""type"": ""Button"",
+                    ""id"": ""4dd21364-afde-4391-b790-e030d97eddb6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine5"",
+                    ""type"": ""Button"",
+                    ""id"": ""81913574-b603-4557-8f4f-98de3332d403"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JudgeUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""b073f7a8-6b68-4a2b-bac1-498e5684c5e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""JudgeDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""75e1095e-00b8-4396-971c-23967893006c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""a90a6b9d-2de3-444d-9067-0da6281ed634"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee8c3d03-d02e-413e-b7b8-2cc207973153"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ESC"",
+                    ""type"": ""Button"",
+                    ""id"": ""8df1575a-bcde-45ba-a348-376a98b6e7a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StopGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1beba24-50cc-4c6b-bfcd-9e0774db7d6e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""68b869eb-b9c8-4447-80d2-2d442cec58bd"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5776e5a-f2ef-424f-8666-1c603574f4b0"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e82957-d58f-4ccb-98ae-99b4e9a46086"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ffa5cfbd-d986-4641-8db7-b83452a68756"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7bd972fa-4a2d-4864-bbba-15f87faa7c46"",
+                    ""path"": ""<Keyboard>/semicolon"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b541bb8c-ff8f-462a-9f9b-c96497f60f46"",
+                    ""path"": ""<Keyboard>/quote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fc52d7d-6d4e-49ea-a56c-a5cf70e57aeb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b9396d9-932f-4a8f-92b7-e3b984402caa"",
+                    ""path"": ""<Keyboard>/0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StopGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24179297-46f0-4b1c-8780-2c5c1a06ba2a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a17f7d3f-92d2-428f-b74e-cf4b15f34829"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f7ddaf0-c709-416b-b485-8cf2f1da362a"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JudgeDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f92f62c2-0940-4071-b510-9982d095ec91"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""JudgeUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Pause"",
+            ""id"": ""88e1c262-0a6d-45af-8334-f7568cf4cbff"",
+            ""actions"": [
+                {
+                    ""name"": ""ArrowDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a8e584c-eb34-4801-8415-b90f4001db29"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ArrowUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""a41f2899-7136-4405-a5d3-edf51773f543"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""8abd7070-9073-4cd4-97fa-e0522f54f9cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4057127b-c7e2-4a21-a7c2-2d75678c1cbe"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ArrowDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5af7a8f-32b9-4daa-9ae3-f355e322fa36"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ArrowUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83841501-49da-42f2-a719-8dc8f328ae9a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2765d89-1033-49ac-81bc-80961b92913a"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""WarningPopup"",
+            ""id"": ""f5c0bbbf-e219-4e7d-8b75-6f9f49bbc683"",
+            ""actions"": [
+                {
+                    ""name"": ""ArrowRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""4baf6c51-60fd-4256-a1ff-af87722afa7d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ArrowLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4b6bc77-1f79-420a-b6f6-14c433f421e3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""9611f325-03ac-4de5-bf7b-837c6f157ed9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2e3537c5-6e95-45c7-8a0b-cdb025522f3a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ArrowRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""74ddc8b1-d377-4b0d-a9ff-b76caa4e9ac2"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ArrowLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e446036f-7c37-4ce5-98f2-3eb8e783acb8"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Result"",
+            ""id"": ""4a12b23e-0598-4c19-9e5f-6189f52adce3"",
+            ""actions"": [
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""1cbad5ac-b048-45a8-ac68-f933bea7892f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fa80c49e-7906-44dc-87a7-0ab415856bfc"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c28f99d-2c69-4bd4-b3ed-a90321a0a845"",
+                    ""path"": ""<Keyboard>/numpadEnter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -817,44 +1198,71 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_NoteLine0 = m_Player.FindAction("NoteLine0", throwIfNotFound: true);
-        m_Player_NoteLine1 = m_Player.FindAction("NoteLine1", throwIfNotFound: true);
-        m_Player_NoteLine2 = m_Player.FindAction("NoteLine2", throwIfNotFound: true);
-        m_Player_NoteLine3 = m_Player.FindAction("NoteLine3", throwIfNotFound: true);
-        m_Player_SpeedDown = m_Player.FindAction("SpeedDown", throwIfNotFound: true);
-        m_Player_SpeedUp = m_Player.FindAction("SpeedUp", throwIfNotFound: true);
-        m_Player_Enter = m_Player.FindAction("Enter", throwIfNotFound: true);
-        m_Player_ESC = m_Player.FindAction("ESC", throwIfNotFound: true);
-        m_Player_StopGame = m_Player.FindAction("StopGame", throwIfNotFound: true);
-        m_Player_JudgeUp = m_Player.FindAction("JudgeUp", throwIfNotFound: true);
-        m_Player_JudgeDown = m_Player.FindAction("JudgeDown", throwIfNotFound: true);
-        m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
-        m_Player_MouseBtn = m_Player.FindAction("MouseBtn", throwIfNotFound: true);
-        m_Player_MouseWheel = m_Player.FindAction("MouseWheel", throwIfNotFound: true);
-        m_Player_Ctrl = m_Player.FindAction("Ctrl", throwIfNotFound: true);
-        m_Player_ArrowUp = m_Player.FindAction("ArrowUp", throwIfNotFound: true);
-        m_Player_ArrowDown = m_Player.FindAction("ArrowDown", throwIfNotFound: true);
-        m_Player_ArrowLeft = m_Player.FindAction("ArrowLeft", throwIfNotFound: true);
-        m_Player_ArrowRight = m_Player.FindAction("ArrowRight", throwIfNotFound: true);
-        m_Player_GridOffsetDown = m_Player.FindAction("GridOffsetDown", throwIfNotFound: true);
-        m_Player_GridOffsetUp = m_Player.FindAction("GridOffsetUp", throwIfNotFound: true);
-        // Navigator
-        m_Navigator = asset.FindActionMap("Navigator", throwIfNotFound: true);
-        m_Navigator_Enter = m_Navigator.FindAction("Enter", throwIfNotFound: true);
-        m_Navigator_ArrowRight = m_Navigator.FindAction("ArrowRight", throwIfNotFound: true);
-        m_Navigator_ArrowLeft = m_Navigator.FindAction("ArrowLeft", throwIfNotFound: true);
-        m_Navigator_ArrowDown = m_Navigator.FindAction("ArrowDown", throwIfNotFound: true);
-        m_Navigator_ArrowUp = m_Navigator.FindAction("ArrowUp", throwIfNotFound: true);
-        m_Navigator_NextInputField = m_Navigator.FindAction("NextInputField", throwIfNotFound: true);
-        m_Navigator_PrevInputField = m_Navigator.FindAction("PrevInputField", throwIfNotFound: true);
-        m_Navigator_NextKeyNumTab = m_Navigator.FindAction("NextKeyNumTab", throwIfNotFound: true);
-        m_Navigator_PrevKeyNumTab = m_Navigator.FindAction("PrevKeyNumTab", throwIfNotFound: true);
-        // NoteEditor
-        m_NoteEditor = asset.FindActionMap("NoteEditor", throwIfNotFound: true);
-        m_NoteEditor_Save = m_NoteEditor.FindAction("Save", throwIfNotFound: true);
-        m_NoteEditor_ChangeGameMode = m_NoteEditor.FindAction("ChangeGameMode", throwIfNotFound: true);
+        // EditorMenu
+        m_EditorMenu = asset.FindActionMap("EditorMenu", throwIfNotFound: true);
+        m_EditorMenu_ArrowDown = m_EditorMenu.FindAction("ArrowDown", throwIfNotFound: true);
+        m_EditorMenu_ArrowUp = m_EditorMenu.FindAction("ArrowUp", throwIfNotFound: true);
+        m_EditorMenu_Enter = m_EditorMenu.FindAction("Enter", throwIfNotFound: true);
+        // WriteSheet
+        m_WriteSheet = asset.FindActionMap("WriteSheet", throwIfNotFound: true);
+        m_WriteSheet_NextInputField = m_WriteSheet.FindAction("NextInputField", throwIfNotFound: true);
+        m_WriteSheet_PrevInputField = m_WriteSheet.FindAction("PrevInputField", throwIfNotFound: true);
+        // SelectSheet
+        m_SelectSheet = asset.FindActionMap("SelectSheet", throwIfNotFound: true);
+        m_SelectSheet_NextKeyNumTab = m_SelectSheet.FindAction("NextKeyNumTab", throwIfNotFound: true);
+        m_SelectSheet_PrevKeyNumTab = m_SelectSheet.FindAction("PrevKeyNumTab", throwIfNotFound: true);
+        // Description
+        m_Description = asset.FindActionMap("Description", throwIfNotFound: true);
+        m_Description_NoteLine0 = m_Description.FindAction("NoteLine0", throwIfNotFound: true);
+        m_Description_NoteLine1 = m_Description.FindAction("NoteLine1", throwIfNotFound: true);
+        m_Description_NoteLine2 = m_Description.FindAction("NoteLine2", throwIfNotFound: true);
+        m_Description_NoteLine3 = m_Description.FindAction("NoteLine3", throwIfNotFound: true);
+        m_Description_NoteLine4 = m_Description.FindAction("NoteLine4", throwIfNotFound: true);
+        m_Description_NoteLine5 = m_Description.FindAction("NoteLine5", throwIfNotFound: true);
+        m_Description_SpeedDown = m_Description.FindAction("SpeedDown", throwIfNotFound: true);
+        m_Description_SpeedUp = m_Description.FindAction("SpeedUp", throwIfNotFound: true);
+        m_Description_JudgeDown = m_Description.FindAction("JudgeDown", throwIfNotFound: true);
+        m_Description_JudgeUp = m_Description.FindAction("JudgeUp", throwIfNotFound: true);
+        m_Description_ESC = m_Description.FindAction("ESC", throwIfNotFound: true);
+        m_Description_Enter = m_Description.FindAction("Enter", throwIfNotFound: true);
+        m_Description_ChangeGameMode = m_Description.FindAction("ChangeGameMode", throwIfNotFound: true);
+        // Editor
+        m_Editor = asset.FindActionMap("Editor", throwIfNotFound: true);
+        m_Editor_Save = m_Editor.FindAction("Save", throwIfNotFound: true);
+        m_Editor_Space = m_Editor.FindAction("Space", throwIfNotFound: true);
+        m_Editor_Ctrl = m_Editor.FindAction("Ctrl", throwIfNotFound: true);
+        m_Editor_GridOffsetDown = m_Editor.FindAction("GridOffsetDown", throwIfNotFound: true);
+        m_Editor_GridOffsetUp = m_Editor.FindAction("GridOffsetUp", throwIfNotFound: true);
+        m_Editor_MouseWheel = m_Editor.FindAction("MouseWheel", throwIfNotFound: true);
+        m_Editor_MouseBtn = m_Editor.FindAction("MouseBtn", throwIfNotFound: true);
+        m_Editor_ESC = m_Editor.FindAction("ESC", throwIfNotFound: true);
+        // Game
+        m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
+        m_Game_NoteLine0 = m_Game.FindAction("NoteLine0", throwIfNotFound: true);
+        m_Game_NoteLine1 = m_Game.FindAction("NoteLine1", throwIfNotFound: true);
+        m_Game_NoteLine2 = m_Game.FindAction("NoteLine2", throwIfNotFound: true);
+        m_Game_NoteLine3 = m_Game.FindAction("NoteLine3", throwIfNotFound: true);
+        m_Game_NoteLine4 = m_Game.FindAction("NoteLine4", throwIfNotFound: true);
+        m_Game_NoteLine5 = m_Game.FindAction("NoteLine5", throwIfNotFound: true);
+        m_Game_JudgeUp = m_Game.FindAction("JudgeUp", throwIfNotFound: true);
+        m_Game_JudgeDown = m_Game.FindAction("JudgeDown", throwIfNotFound: true);
+        m_Game_SpeedUp = m_Game.FindAction("SpeedUp", throwIfNotFound: true);
+        m_Game_SpeedDown = m_Game.FindAction("SpeedDown", throwIfNotFound: true);
+        m_Game_ESC = m_Game.FindAction("ESC", throwIfNotFound: true);
+        m_Game_StopGame = m_Game.FindAction("StopGame", throwIfNotFound: true);
+        // Pause
+        m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
+        m_Pause_ArrowDown = m_Pause.FindAction("ArrowDown", throwIfNotFound: true);
+        m_Pause_ArrowUp = m_Pause.FindAction("ArrowUp", throwIfNotFound: true);
+        m_Pause_Enter = m_Pause.FindAction("Enter", throwIfNotFound: true);
+        // WarningPopup
+        m_WarningPopup = asset.FindActionMap("WarningPopup", throwIfNotFound: true);
+        m_WarningPopup_ArrowRight = m_WarningPopup.FindAction("ArrowRight", throwIfNotFound: true);
+        m_WarningPopup_ArrowLeft = m_WarningPopup.FindAction("ArrowLeft", throwIfNotFound: true);
+        m_WarningPopup_Enter = m_WarningPopup.FindAction("Enter", throwIfNotFound: true);
+        // Result
+        m_Result = asset.FindActionMap("Result", throwIfNotFound: true);
+        m_Result_Enter = m_Result.FindAction("Enter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -911,129 +1319,220 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_NoteLine0;
-    private readonly InputAction m_Player_NoteLine1;
-    private readonly InputAction m_Player_NoteLine2;
-    private readonly InputAction m_Player_NoteLine3;
-    private readonly InputAction m_Player_SpeedDown;
-    private readonly InputAction m_Player_SpeedUp;
-    private readonly InputAction m_Player_Enter;
-    private readonly InputAction m_Player_ESC;
-    private readonly InputAction m_Player_StopGame;
-    private readonly InputAction m_Player_JudgeUp;
-    private readonly InputAction m_Player_JudgeDown;
-    private readonly InputAction m_Player_Space;
-    private readonly InputAction m_Player_MouseBtn;
-    private readonly InputAction m_Player_MouseWheel;
-    private readonly InputAction m_Player_Ctrl;
-    private readonly InputAction m_Player_ArrowUp;
-    private readonly InputAction m_Player_ArrowDown;
-    private readonly InputAction m_Player_ArrowLeft;
-    private readonly InputAction m_Player_ArrowRight;
-    private readonly InputAction m_Player_GridOffsetDown;
-    private readonly InputAction m_Player_GridOffsetUp;
-    public struct PlayerActions
+    // EditorMenu
+    private readonly InputActionMap m_EditorMenu;
+    private IEditorMenuActions m_EditorMenuActionsCallbackInterface;
+    private readonly InputAction m_EditorMenu_ArrowDown;
+    private readonly InputAction m_EditorMenu_ArrowUp;
+    private readonly InputAction m_EditorMenu_Enter;
+    public struct EditorMenuActions
     {
         private @InputActions m_Wrapper;
-        public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @NoteLine0 => m_Wrapper.m_Player_NoteLine0;
-        public InputAction @NoteLine1 => m_Wrapper.m_Player_NoteLine1;
-        public InputAction @NoteLine2 => m_Wrapper.m_Player_NoteLine2;
-        public InputAction @NoteLine3 => m_Wrapper.m_Player_NoteLine3;
-        public InputAction @SpeedDown => m_Wrapper.m_Player_SpeedDown;
-        public InputAction @SpeedUp => m_Wrapper.m_Player_SpeedUp;
-        public InputAction @Enter => m_Wrapper.m_Player_Enter;
-        public InputAction @ESC => m_Wrapper.m_Player_ESC;
-        public InputAction @StopGame => m_Wrapper.m_Player_StopGame;
-        public InputAction @JudgeUp => m_Wrapper.m_Player_JudgeUp;
-        public InputAction @JudgeDown => m_Wrapper.m_Player_JudgeDown;
-        public InputAction @Space => m_Wrapper.m_Player_Space;
-        public InputAction @MouseBtn => m_Wrapper.m_Player_MouseBtn;
-        public InputAction @MouseWheel => m_Wrapper.m_Player_MouseWheel;
-        public InputAction @Ctrl => m_Wrapper.m_Player_Ctrl;
-        public InputAction @ArrowUp => m_Wrapper.m_Player_ArrowUp;
-        public InputAction @ArrowDown => m_Wrapper.m_Player_ArrowDown;
-        public InputAction @ArrowLeft => m_Wrapper.m_Player_ArrowLeft;
-        public InputAction @ArrowRight => m_Wrapper.m_Player_ArrowRight;
-        public InputAction @GridOffsetDown => m_Wrapper.m_Player_GridOffsetDown;
-        public InputAction @GridOffsetUp => m_Wrapper.m_Player_GridOffsetUp;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public EditorMenuActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ArrowDown => m_Wrapper.m_EditorMenu_ArrowDown;
+        public InputAction @ArrowUp => m_Wrapper.m_EditorMenu_ArrowUp;
+        public InputAction @Enter => m_Wrapper.m_EditorMenu_Enter;
+        public InputActionMap Get() { return m_Wrapper.m_EditorMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(EditorMenuActions set) { return set.Get(); }
+        public void SetCallbacks(IEditorMenuActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            if (m_Wrapper.m_EditorMenuActionsCallbackInterface != null)
             {
-                @NoteLine0.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine0;
-                @NoteLine0.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine0;
-                @NoteLine0.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine0;
-                @NoteLine1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine1;
-                @NoteLine1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine1;
-                @NoteLine1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine1;
-                @NoteLine2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine2;
-                @NoteLine2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine2;
-                @NoteLine2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine2;
-                @NoteLine3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine3;
-                @NoteLine3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine3;
-                @NoteLine3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNoteLine3;
-                @SpeedDown.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedDown;
-                @SpeedDown.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedDown;
-                @SpeedDown.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedDown;
-                @SpeedUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUp;
-                @SpeedUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUp;
-                @SpeedUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUp;
-                @Enter.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnter;
-                @Enter.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnter;
-                @Enter.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEnter;
-                @ESC.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
-                @ESC.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
-                @ESC.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnESC;
-                @StopGame.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStopGame;
-                @StopGame.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStopGame;
-                @StopGame.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnStopGame;
-                @JudgeUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJudgeUp;
-                @JudgeUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJudgeUp;
-                @JudgeUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJudgeUp;
-                @JudgeDown.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJudgeDown;
-                @JudgeDown.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJudgeDown;
-                @JudgeDown.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJudgeDown;
-                @Space.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                @Space.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                @Space.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                @MouseBtn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseBtn;
-                @MouseBtn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseBtn;
-                @MouseBtn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseBtn;
-                @MouseWheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseWheel;
-                @MouseWheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseWheel;
-                @MouseWheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseWheel;
-                @Ctrl.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCtrl;
-                @Ctrl.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCtrl;
-                @Ctrl.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCtrl;
-                @ArrowUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUp;
-                @ArrowUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUp;
-                @ArrowUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowUp;
-                @ArrowDown.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDown;
-                @ArrowDown.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDown;
-                @ArrowDown.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowDown;
-                @ArrowLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeft;
-                @ArrowLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeft;
-                @ArrowLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowLeft;
-                @ArrowRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRight;
-                @ArrowRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRight;
-                @ArrowRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnArrowRight;
-                @GridOffsetDown.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGridOffsetDown;
-                @GridOffsetDown.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGridOffsetDown;
-                @GridOffsetDown.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGridOffsetDown;
-                @GridOffsetUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGridOffsetUp;
-                @GridOffsetUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGridOffsetUp;
-                @GridOffsetUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGridOffsetUp;
+                @ArrowDown.started -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnArrowDown;
+                @ArrowDown.performed -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnArrowDown;
+                @ArrowDown.canceled -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnArrowDown;
+                @ArrowUp.started -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnArrowUp;
+                @ArrowUp.performed -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnArrowUp;
+                @ArrowUp.canceled -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnArrowUp;
+                @Enter.started -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnEnter;
+                @Enter.performed -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnEnter;
+                @Enter.canceled -= m_Wrapper.m_EditorMenuActionsCallbackInterface.OnEnter;
             }
-            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+            m_Wrapper.m_EditorMenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ArrowDown.started += instance.OnArrowDown;
+                @ArrowDown.performed += instance.OnArrowDown;
+                @ArrowDown.canceled += instance.OnArrowDown;
+                @ArrowUp.started += instance.OnArrowUp;
+                @ArrowUp.performed += instance.OnArrowUp;
+                @ArrowUp.canceled += instance.OnArrowUp;
+                @Enter.started += instance.OnEnter;
+                @Enter.performed += instance.OnEnter;
+                @Enter.canceled += instance.OnEnter;
+            }
+        }
+    }
+    public EditorMenuActions @EditorMenu => new EditorMenuActions(this);
+
+    // WriteSheet
+    private readonly InputActionMap m_WriteSheet;
+    private IWriteSheetActions m_WriteSheetActionsCallbackInterface;
+    private readonly InputAction m_WriteSheet_NextInputField;
+    private readonly InputAction m_WriteSheet_PrevInputField;
+    public struct WriteSheetActions
+    {
+        private @InputActions m_Wrapper;
+        public WriteSheetActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NextInputField => m_Wrapper.m_WriteSheet_NextInputField;
+        public InputAction @PrevInputField => m_Wrapper.m_WriteSheet_PrevInputField;
+        public InputActionMap Get() { return m_Wrapper.m_WriteSheet; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(WriteSheetActions set) { return set.Get(); }
+        public void SetCallbacks(IWriteSheetActions instance)
+        {
+            if (m_Wrapper.m_WriteSheetActionsCallbackInterface != null)
+            {
+                @NextInputField.started -= m_Wrapper.m_WriteSheetActionsCallbackInterface.OnNextInputField;
+                @NextInputField.performed -= m_Wrapper.m_WriteSheetActionsCallbackInterface.OnNextInputField;
+                @NextInputField.canceled -= m_Wrapper.m_WriteSheetActionsCallbackInterface.OnNextInputField;
+                @PrevInputField.started -= m_Wrapper.m_WriteSheetActionsCallbackInterface.OnPrevInputField;
+                @PrevInputField.performed -= m_Wrapper.m_WriteSheetActionsCallbackInterface.OnPrevInputField;
+                @PrevInputField.canceled -= m_Wrapper.m_WriteSheetActionsCallbackInterface.OnPrevInputField;
+            }
+            m_Wrapper.m_WriteSheetActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @NextInputField.started += instance.OnNextInputField;
+                @NextInputField.performed += instance.OnNextInputField;
+                @NextInputField.canceled += instance.OnNextInputField;
+                @PrevInputField.started += instance.OnPrevInputField;
+                @PrevInputField.performed += instance.OnPrevInputField;
+                @PrevInputField.canceled += instance.OnPrevInputField;
+            }
+        }
+    }
+    public WriteSheetActions @WriteSheet => new WriteSheetActions(this);
+
+    // SelectSheet
+    private readonly InputActionMap m_SelectSheet;
+    private ISelectSheetActions m_SelectSheetActionsCallbackInterface;
+    private readonly InputAction m_SelectSheet_NextKeyNumTab;
+    private readonly InputAction m_SelectSheet_PrevKeyNumTab;
+    public struct SelectSheetActions
+    {
+        private @InputActions m_Wrapper;
+        public SelectSheetActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NextKeyNumTab => m_Wrapper.m_SelectSheet_NextKeyNumTab;
+        public InputAction @PrevKeyNumTab => m_Wrapper.m_SelectSheet_PrevKeyNumTab;
+        public InputActionMap Get() { return m_Wrapper.m_SelectSheet; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SelectSheetActions set) { return set.Get(); }
+        public void SetCallbacks(ISelectSheetActions instance)
+        {
+            if (m_Wrapper.m_SelectSheetActionsCallbackInterface != null)
+            {
+                @NextKeyNumTab.started -= m_Wrapper.m_SelectSheetActionsCallbackInterface.OnNextKeyNumTab;
+                @NextKeyNumTab.performed -= m_Wrapper.m_SelectSheetActionsCallbackInterface.OnNextKeyNumTab;
+                @NextKeyNumTab.canceled -= m_Wrapper.m_SelectSheetActionsCallbackInterface.OnNextKeyNumTab;
+                @PrevKeyNumTab.started -= m_Wrapper.m_SelectSheetActionsCallbackInterface.OnPrevKeyNumTab;
+                @PrevKeyNumTab.performed -= m_Wrapper.m_SelectSheetActionsCallbackInterface.OnPrevKeyNumTab;
+                @PrevKeyNumTab.canceled -= m_Wrapper.m_SelectSheetActionsCallbackInterface.OnPrevKeyNumTab;
+            }
+            m_Wrapper.m_SelectSheetActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @NextKeyNumTab.started += instance.OnNextKeyNumTab;
+                @NextKeyNumTab.performed += instance.OnNextKeyNumTab;
+                @NextKeyNumTab.canceled += instance.OnNextKeyNumTab;
+                @PrevKeyNumTab.started += instance.OnPrevKeyNumTab;
+                @PrevKeyNumTab.performed += instance.OnPrevKeyNumTab;
+                @PrevKeyNumTab.canceled += instance.OnPrevKeyNumTab;
+            }
+        }
+    }
+    public SelectSheetActions @SelectSheet => new SelectSheetActions(this);
+
+    // Description
+    private readonly InputActionMap m_Description;
+    private IDescriptionActions m_DescriptionActionsCallbackInterface;
+    private readonly InputAction m_Description_NoteLine0;
+    private readonly InputAction m_Description_NoteLine1;
+    private readonly InputAction m_Description_NoteLine2;
+    private readonly InputAction m_Description_NoteLine3;
+    private readonly InputAction m_Description_NoteLine4;
+    private readonly InputAction m_Description_NoteLine5;
+    private readonly InputAction m_Description_SpeedDown;
+    private readonly InputAction m_Description_SpeedUp;
+    private readonly InputAction m_Description_JudgeDown;
+    private readonly InputAction m_Description_JudgeUp;
+    private readonly InputAction m_Description_ESC;
+    private readonly InputAction m_Description_Enter;
+    private readonly InputAction m_Description_ChangeGameMode;
+    public struct DescriptionActions
+    {
+        private @InputActions m_Wrapper;
+        public DescriptionActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NoteLine0 => m_Wrapper.m_Description_NoteLine0;
+        public InputAction @NoteLine1 => m_Wrapper.m_Description_NoteLine1;
+        public InputAction @NoteLine2 => m_Wrapper.m_Description_NoteLine2;
+        public InputAction @NoteLine3 => m_Wrapper.m_Description_NoteLine3;
+        public InputAction @NoteLine4 => m_Wrapper.m_Description_NoteLine4;
+        public InputAction @NoteLine5 => m_Wrapper.m_Description_NoteLine5;
+        public InputAction @SpeedDown => m_Wrapper.m_Description_SpeedDown;
+        public InputAction @SpeedUp => m_Wrapper.m_Description_SpeedUp;
+        public InputAction @JudgeDown => m_Wrapper.m_Description_JudgeDown;
+        public InputAction @JudgeUp => m_Wrapper.m_Description_JudgeUp;
+        public InputAction @ESC => m_Wrapper.m_Description_ESC;
+        public InputAction @Enter => m_Wrapper.m_Description_Enter;
+        public InputAction @ChangeGameMode => m_Wrapper.m_Description_ChangeGameMode;
+        public InputActionMap Get() { return m_Wrapper.m_Description; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DescriptionActions set) { return set.Get(); }
+        public void SetCallbacks(IDescriptionActions instance)
+        {
+            if (m_Wrapper.m_DescriptionActionsCallbackInterface != null)
+            {
+                @NoteLine0.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine0;
+                @NoteLine0.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine0;
+                @NoteLine0.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine0;
+                @NoteLine1.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine1;
+                @NoteLine1.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine1;
+                @NoteLine1.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine1;
+                @NoteLine2.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine2;
+                @NoteLine2.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine2;
+                @NoteLine2.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine2;
+                @NoteLine3.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine3;
+                @NoteLine3.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine3;
+                @NoteLine3.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine3;
+                @NoteLine4.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine4;
+                @NoteLine4.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine4;
+                @NoteLine4.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine4;
+                @NoteLine5.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine5;
+                @NoteLine5.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine5;
+                @NoteLine5.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnNoteLine5;
+                @SpeedDown.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnSpeedDown;
+                @SpeedDown.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnSpeedDown;
+                @SpeedDown.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnSpeedDown;
+                @SpeedUp.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnSpeedUp;
+                @SpeedUp.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnSpeedUp;
+                @SpeedUp.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnSpeedUp;
+                @JudgeDown.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnJudgeDown;
+                @JudgeDown.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnJudgeDown;
+                @JudgeDown.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnJudgeDown;
+                @JudgeUp.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnJudgeUp;
+                @JudgeUp.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnJudgeUp;
+                @JudgeUp.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnJudgeUp;
+                @ESC.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnESC;
+                @ESC.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnESC;
+                @ESC.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnESC;
+                @Enter.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnEnter;
+                @Enter.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnEnter;
+                @Enter.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnEnter;
+                @ChangeGameMode.started -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnChangeGameMode;
+                @ChangeGameMode.performed -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnChangeGameMode;
+                @ChangeGameMode.canceled -= m_Wrapper.m_DescriptionActionsCallbackInterface.OnChangeGameMode;
+            }
+            m_Wrapper.m_DescriptionActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @NoteLine0.started += instance.OnNoteLine0;
@@ -1048,199 +1547,378 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @NoteLine3.started += instance.OnNoteLine3;
                 @NoteLine3.performed += instance.OnNoteLine3;
                 @NoteLine3.canceled += instance.OnNoteLine3;
+                @NoteLine4.started += instance.OnNoteLine4;
+                @NoteLine4.performed += instance.OnNoteLine4;
+                @NoteLine4.canceled += instance.OnNoteLine4;
+                @NoteLine5.started += instance.OnNoteLine5;
+                @NoteLine5.performed += instance.OnNoteLine5;
+                @NoteLine5.canceled += instance.OnNoteLine5;
                 @SpeedDown.started += instance.OnSpeedDown;
                 @SpeedDown.performed += instance.OnSpeedDown;
                 @SpeedDown.canceled += instance.OnSpeedDown;
                 @SpeedUp.started += instance.OnSpeedUp;
                 @SpeedUp.performed += instance.OnSpeedUp;
                 @SpeedUp.canceled += instance.OnSpeedUp;
-                @Enter.started += instance.OnEnter;
-                @Enter.performed += instance.OnEnter;
-                @Enter.canceled += instance.OnEnter;
-                @ESC.started += instance.OnESC;
-                @ESC.performed += instance.OnESC;
-                @ESC.canceled += instance.OnESC;
-                @StopGame.started += instance.OnStopGame;
-                @StopGame.performed += instance.OnStopGame;
-                @StopGame.canceled += instance.OnStopGame;
-                @JudgeUp.started += instance.OnJudgeUp;
-                @JudgeUp.performed += instance.OnJudgeUp;
-                @JudgeUp.canceled += instance.OnJudgeUp;
                 @JudgeDown.started += instance.OnJudgeDown;
                 @JudgeDown.performed += instance.OnJudgeDown;
                 @JudgeDown.canceled += instance.OnJudgeDown;
-                @Space.started += instance.OnSpace;
-                @Space.performed += instance.OnSpace;
-                @Space.canceled += instance.OnSpace;
-                @MouseBtn.started += instance.OnMouseBtn;
-                @MouseBtn.performed += instance.OnMouseBtn;
-                @MouseBtn.canceled += instance.OnMouseBtn;
-                @MouseWheel.started += instance.OnMouseWheel;
-                @MouseWheel.performed += instance.OnMouseWheel;
-                @MouseWheel.canceled += instance.OnMouseWheel;
-                @Ctrl.started += instance.OnCtrl;
-                @Ctrl.performed += instance.OnCtrl;
-                @Ctrl.canceled += instance.OnCtrl;
-                @ArrowUp.started += instance.OnArrowUp;
-                @ArrowUp.performed += instance.OnArrowUp;
-                @ArrowUp.canceled += instance.OnArrowUp;
-                @ArrowDown.started += instance.OnArrowDown;
-                @ArrowDown.performed += instance.OnArrowDown;
-                @ArrowDown.canceled += instance.OnArrowDown;
-                @ArrowLeft.started += instance.OnArrowLeft;
-                @ArrowLeft.performed += instance.OnArrowLeft;
-                @ArrowLeft.canceled += instance.OnArrowLeft;
-                @ArrowRight.started += instance.OnArrowRight;
-                @ArrowRight.performed += instance.OnArrowRight;
-                @ArrowRight.canceled += instance.OnArrowRight;
-                @GridOffsetDown.started += instance.OnGridOffsetDown;
-                @GridOffsetDown.performed += instance.OnGridOffsetDown;
-                @GridOffsetDown.canceled += instance.OnGridOffsetDown;
-                @GridOffsetUp.started += instance.OnGridOffsetUp;
-                @GridOffsetUp.performed += instance.OnGridOffsetUp;
-                @GridOffsetUp.canceled += instance.OnGridOffsetUp;
-            }
-        }
-    }
-    public PlayerActions @Player => new PlayerActions(this);
-
-    // Navigator
-    private readonly InputActionMap m_Navigator;
-    private INavigatorActions m_NavigatorActionsCallbackInterface;
-    private readonly InputAction m_Navigator_Enter;
-    private readonly InputAction m_Navigator_ArrowRight;
-    private readonly InputAction m_Navigator_ArrowLeft;
-    private readonly InputAction m_Navigator_ArrowDown;
-    private readonly InputAction m_Navigator_ArrowUp;
-    private readonly InputAction m_Navigator_NextInputField;
-    private readonly InputAction m_Navigator_PrevInputField;
-    private readonly InputAction m_Navigator_NextKeyNumTab;
-    private readonly InputAction m_Navigator_PrevKeyNumTab;
-    public struct NavigatorActions
-    {
-        private @InputActions m_Wrapper;
-        public NavigatorActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Enter => m_Wrapper.m_Navigator_Enter;
-        public InputAction @ArrowRight => m_Wrapper.m_Navigator_ArrowRight;
-        public InputAction @ArrowLeft => m_Wrapper.m_Navigator_ArrowLeft;
-        public InputAction @ArrowDown => m_Wrapper.m_Navigator_ArrowDown;
-        public InputAction @ArrowUp => m_Wrapper.m_Navigator_ArrowUp;
-        public InputAction @NextInputField => m_Wrapper.m_Navigator_NextInputField;
-        public InputAction @PrevInputField => m_Wrapper.m_Navigator_PrevInputField;
-        public InputAction @NextKeyNumTab => m_Wrapper.m_Navigator_NextKeyNumTab;
-        public InputAction @PrevKeyNumTab => m_Wrapper.m_Navigator_PrevKeyNumTab;
-        public InputActionMap Get() { return m_Wrapper.m_Navigator; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NavigatorActions set) { return set.Get(); }
-        public void SetCallbacks(INavigatorActions instance)
-        {
-            if (m_Wrapper.m_NavigatorActionsCallbackInterface != null)
-            {
-                @Enter.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnEnter;
-                @Enter.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnEnter;
-                @Enter.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnEnter;
-                @ArrowRight.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowRight;
-                @ArrowRight.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowRight;
-                @ArrowRight.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowRight;
-                @ArrowLeft.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowLeft;
-                @ArrowLeft.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowLeft;
-                @ArrowLeft.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowLeft;
-                @ArrowDown.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowDown;
-                @ArrowDown.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowDown;
-                @ArrowDown.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowDown;
-                @ArrowUp.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowUp;
-                @ArrowUp.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowUp;
-                @ArrowUp.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnArrowUp;
-                @NextInputField.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextInputField;
-                @NextInputField.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextInputField;
-                @NextInputField.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextInputField;
-                @PrevInputField.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevInputField;
-                @PrevInputField.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevInputField;
-                @PrevInputField.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevInputField;
-                @NextKeyNumTab.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextKeyNumTab;
-                @NextKeyNumTab.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextKeyNumTab;
-                @NextKeyNumTab.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnNextKeyNumTab;
-                @PrevKeyNumTab.started -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevKeyNumTab;
-                @PrevKeyNumTab.performed -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevKeyNumTab;
-                @PrevKeyNumTab.canceled -= m_Wrapper.m_NavigatorActionsCallbackInterface.OnPrevKeyNumTab;
-            }
-            m_Wrapper.m_NavigatorActionsCallbackInterface = instance;
-            if (instance != null)
-            {
+                @JudgeUp.started += instance.OnJudgeUp;
+                @JudgeUp.performed += instance.OnJudgeUp;
+                @JudgeUp.canceled += instance.OnJudgeUp;
+                @ESC.started += instance.OnESC;
+                @ESC.performed += instance.OnESC;
+                @ESC.canceled += instance.OnESC;
                 @Enter.started += instance.OnEnter;
                 @Enter.performed += instance.OnEnter;
                 @Enter.canceled += instance.OnEnter;
-                @ArrowRight.started += instance.OnArrowRight;
-                @ArrowRight.performed += instance.OnArrowRight;
-                @ArrowRight.canceled += instance.OnArrowRight;
-                @ArrowLeft.started += instance.OnArrowLeft;
-                @ArrowLeft.performed += instance.OnArrowLeft;
-                @ArrowLeft.canceled += instance.OnArrowLeft;
-                @ArrowDown.started += instance.OnArrowDown;
-                @ArrowDown.performed += instance.OnArrowDown;
-                @ArrowDown.canceled += instance.OnArrowDown;
-                @ArrowUp.started += instance.OnArrowUp;
-                @ArrowUp.performed += instance.OnArrowUp;
-                @ArrowUp.canceled += instance.OnArrowUp;
-                @NextInputField.started += instance.OnNextInputField;
-                @NextInputField.performed += instance.OnNextInputField;
-                @NextInputField.canceled += instance.OnNextInputField;
-                @PrevInputField.started += instance.OnPrevInputField;
-                @PrevInputField.performed += instance.OnPrevInputField;
-                @PrevInputField.canceled += instance.OnPrevInputField;
-                @NextKeyNumTab.started += instance.OnNextKeyNumTab;
-                @NextKeyNumTab.performed += instance.OnNextKeyNumTab;
-                @NextKeyNumTab.canceled += instance.OnNextKeyNumTab;
-                @PrevKeyNumTab.started += instance.OnPrevKeyNumTab;
-                @PrevKeyNumTab.performed += instance.OnPrevKeyNumTab;
-                @PrevKeyNumTab.canceled += instance.OnPrevKeyNumTab;
-            }
-        }
-    }
-    public NavigatorActions @Navigator => new NavigatorActions(this);
-
-    // NoteEditor
-    private readonly InputActionMap m_NoteEditor;
-    private INoteEditorActions m_NoteEditorActionsCallbackInterface;
-    private readonly InputAction m_NoteEditor_Save;
-    private readonly InputAction m_NoteEditor_ChangeGameMode;
-    public struct NoteEditorActions
-    {
-        private @InputActions m_Wrapper;
-        public NoteEditorActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Save => m_Wrapper.m_NoteEditor_Save;
-        public InputAction @ChangeGameMode => m_Wrapper.m_NoteEditor_ChangeGameMode;
-        public InputActionMap Get() { return m_Wrapper.m_NoteEditor; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NoteEditorActions set) { return set.Get(); }
-        public void SetCallbacks(INoteEditorActions instance)
-        {
-            if (m_Wrapper.m_NoteEditorActionsCallbackInterface != null)
-            {
-                @Save.started -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
-                @Save.performed -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
-                @Save.canceled -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnSave;
-                @ChangeGameMode.started -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnChangeGameMode;
-                @ChangeGameMode.performed -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnChangeGameMode;
-                @ChangeGameMode.canceled -= m_Wrapper.m_NoteEditorActionsCallbackInterface.OnChangeGameMode;
-            }
-            m_Wrapper.m_NoteEditorActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Save.started += instance.OnSave;
-                @Save.performed += instance.OnSave;
-                @Save.canceled += instance.OnSave;
                 @ChangeGameMode.started += instance.OnChangeGameMode;
                 @ChangeGameMode.performed += instance.OnChangeGameMode;
                 @ChangeGameMode.canceled += instance.OnChangeGameMode;
             }
         }
     }
-    public NoteEditorActions @NoteEditor => new NoteEditorActions(this);
+    public DescriptionActions @Description => new DescriptionActions(this);
+
+    // Editor
+    private readonly InputActionMap m_Editor;
+    private IEditorActions m_EditorActionsCallbackInterface;
+    private readonly InputAction m_Editor_Save;
+    private readonly InputAction m_Editor_Space;
+    private readonly InputAction m_Editor_Ctrl;
+    private readonly InputAction m_Editor_GridOffsetDown;
+    private readonly InputAction m_Editor_GridOffsetUp;
+    private readonly InputAction m_Editor_MouseWheel;
+    private readonly InputAction m_Editor_MouseBtn;
+    private readonly InputAction m_Editor_ESC;
+    public struct EditorActions
+    {
+        private @InputActions m_Wrapper;
+        public EditorActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Save => m_Wrapper.m_Editor_Save;
+        public InputAction @Space => m_Wrapper.m_Editor_Space;
+        public InputAction @Ctrl => m_Wrapper.m_Editor_Ctrl;
+        public InputAction @GridOffsetDown => m_Wrapper.m_Editor_GridOffsetDown;
+        public InputAction @GridOffsetUp => m_Wrapper.m_Editor_GridOffsetUp;
+        public InputAction @MouseWheel => m_Wrapper.m_Editor_MouseWheel;
+        public InputAction @MouseBtn => m_Wrapper.m_Editor_MouseBtn;
+        public InputAction @ESC => m_Wrapper.m_Editor_ESC;
+        public InputActionMap Get() { return m_Wrapper.m_Editor; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(EditorActions set) { return set.Get(); }
+        public void SetCallbacks(IEditorActions instance)
+        {
+            if (m_Wrapper.m_EditorActionsCallbackInterface != null)
+            {
+                @Save.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Save.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Save.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
+                @Space.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnSpace;
+                @Space.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnSpace;
+                @Space.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnSpace;
+                @Ctrl.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnCtrl;
+                @Ctrl.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnCtrl;
+                @Ctrl.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnCtrl;
+                @GridOffsetDown.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnGridOffsetDown;
+                @GridOffsetDown.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnGridOffsetDown;
+                @GridOffsetDown.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnGridOffsetDown;
+                @GridOffsetUp.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnGridOffsetUp;
+                @GridOffsetUp.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnGridOffsetUp;
+                @GridOffsetUp.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnGridOffsetUp;
+                @MouseWheel.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnMouseWheel;
+                @MouseWheel.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnMouseWheel;
+                @MouseWheel.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnMouseWheel;
+                @MouseBtn.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnMouseBtn;
+                @MouseBtn.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnMouseBtn;
+                @MouseBtn.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnMouseBtn;
+                @ESC.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnESC;
+                @ESC.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnESC;
+                @ESC.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnESC;
+            }
+            m_Wrapper.m_EditorActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
+                @Space.started += instance.OnSpace;
+                @Space.performed += instance.OnSpace;
+                @Space.canceled += instance.OnSpace;
+                @Ctrl.started += instance.OnCtrl;
+                @Ctrl.performed += instance.OnCtrl;
+                @Ctrl.canceled += instance.OnCtrl;
+                @GridOffsetDown.started += instance.OnGridOffsetDown;
+                @GridOffsetDown.performed += instance.OnGridOffsetDown;
+                @GridOffsetDown.canceled += instance.OnGridOffsetDown;
+                @GridOffsetUp.started += instance.OnGridOffsetUp;
+                @GridOffsetUp.performed += instance.OnGridOffsetUp;
+                @GridOffsetUp.canceled += instance.OnGridOffsetUp;
+                @MouseWheel.started += instance.OnMouseWheel;
+                @MouseWheel.performed += instance.OnMouseWheel;
+                @MouseWheel.canceled += instance.OnMouseWheel;
+                @MouseBtn.started += instance.OnMouseBtn;
+                @MouseBtn.performed += instance.OnMouseBtn;
+                @MouseBtn.canceled += instance.OnMouseBtn;
+                @ESC.started += instance.OnESC;
+                @ESC.performed += instance.OnESC;
+                @ESC.canceled += instance.OnESC;
+            }
+        }
+    }
+    public EditorActions @Editor => new EditorActions(this);
+
+    // Game
+    private readonly InputActionMap m_Game;
+    private IGameActions m_GameActionsCallbackInterface;
+    private readonly InputAction m_Game_NoteLine0;
+    private readonly InputAction m_Game_NoteLine1;
+    private readonly InputAction m_Game_NoteLine2;
+    private readonly InputAction m_Game_NoteLine3;
+    private readonly InputAction m_Game_NoteLine4;
+    private readonly InputAction m_Game_NoteLine5;
+    private readonly InputAction m_Game_JudgeUp;
+    private readonly InputAction m_Game_JudgeDown;
+    private readonly InputAction m_Game_SpeedUp;
+    private readonly InputAction m_Game_SpeedDown;
+    private readonly InputAction m_Game_ESC;
+    private readonly InputAction m_Game_StopGame;
+    public struct GameActions
+    {
+        private @InputActions m_Wrapper;
+        public GameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NoteLine0 => m_Wrapper.m_Game_NoteLine0;
+        public InputAction @NoteLine1 => m_Wrapper.m_Game_NoteLine1;
+        public InputAction @NoteLine2 => m_Wrapper.m_Game_NoteLine2;
+        public InputAction @NoteLine3 => m_Wrapper.m_Game_NoteLine3;
+        public InputAction @NoteLine4 => m_Wrapper.m_Game_NoteLine4;
+        public InputAction @NoteLine5 => m_Wrapper.m_Game_NoteLine5;
+        public InputAction @JudgeUp => m_Wrapper.m_Game_JudgeUp;
+        public InputAction @JudgeDown => m_Wrapper.m_Game_JudgeDown;
+        public InputAction @SpeedUp => m_Wrapper.m_Game_SpeedUp;
+        public InputAction @SpeedDown => m_Wrapper.m_Game_SpeedDown;
+        public InputAction @ESC => m_Wrapper.m_Game_ESC;
+        public InputAction @StopGame => m_Wrapper.m_Game_StopGame;
+        public InputActionMap Get() { return m_Wrapper.m_Game; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameActions set) { return set.Get(); }
+        public void SetCallbacks(IGameActions instance)
+        {
+            if (m_Wrapper.m_GameActionsCallbackInterface != null)
+            {
+                @NoteLine0.started -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine0;
+                @NoteLine0.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine0;
+                @NoteLine0.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine0;
+                @NoteLine1.started -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine1;
+                @NoteLine1.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine1;
+                @NoteLine1.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine1;
+                @NoteLine2.started -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine2;
+                @NoteLine2.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine2;
+                @NoteLine2.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine2;
+                @NoteLine3.started -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine3;
+                @NoteLine3.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine3;
+                @NoteLine3.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine3;
+                @NoteLine4.started -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine4;
+                @NoteLine4.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine4;
+                @NoteLine4.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine4;
+                @NoteLine5.started -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine5;
+                @NoteLine5.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine5;
+                @NoteLine5.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnNoteLine5;
+                @JudgeUp.started -= m_Wrapper.m_GameActionsCallbackInterface.OnJudgeUp;
+                @JudgeUp.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnJudgeUp;
+                @JudgeUp.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnJudgeUp;
+                @JudgeDown.started -= m_Wrapper.m_GameActionsCallbackInterface.OnJudgeDown;
+                @JudgeDown.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnJudgeDown;
+                @JudgeDown.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnJudgeDown;
+                @SpeedUp.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSpeedUp;
+                @SpeedUp.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSpeedUp;
+                @SpeedUp.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSpeedUp;
+                @SpeedDown.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSpeedDown;
+                @SpeedDown.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSpeedDown;
+                @SpeedDown.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSpeedDown;
+                @ESC.started -= m_Wrapper.m_GameActionsCallbackInterface.OnESC;
+                @ESC.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnESC;
+                @ESC.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnESC;
+                @StopGame.started -= m_Wrapper.m_GameActionsCallbackInterface.OnStopGame;
+                @StopGame.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnStopGame;
+                @StopGame.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnStopGame;
+            }
+            m_Wrapper.m_GameActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @NoteLine0.started += instance.OnNoteLine0;
+                @NoteLine0.performed += instance.OnNoteLine0;
+                @NoteLine0.canceled += instance.OnNoteLine0;
+                @NoteLine1.started += instance.OnNoteLine1;
+                @NoteLine1.performed += instance.OnNoteLine1;
+                @NoteLine1.canceled += instance.OnNoteLine1;
+                @NoteLine2.started += instance.OnNoteLine2;
+                @NoteLine2.performed += instance.OnNoteLine2;
+                @NoteLine2.canceled += instance.OnNoteLine2;
+                @NoteLine3.started += instance.OnNoteLine3;
+                @NoteLine3.performed += instance.OnNoteLine3;
+                @NoteLine3.canceled += instance.OnNoteLine3;
+                @NoteLine4.started += instance.OnNoteLine4;
+                @NoteLine4.performed += instance.OnNoteLine4;
+                @NoteLine4.canceled += instance.OnNoteLine4;
+                @NoteLine5.started += instance.OnNoteLine5;
+                @NoteLine5.performed += instance.OnNoteLine5;
+                @NoteLine5.canceled += instance.OnNoteLine5;
+                @JudgeUp.started += instance.OnJudgeUp;
+                @JudgeUp.performed += instance.OnJudgeUp;
+                @JudgeUp.canceled += instance.OnJudgeUp;
+                @JudgeDown.started += instance.OnJudgeDown;
+                @JudgeDown.performed += instance.OnJudgeDown;
+                @JudgeDown.canceled += instance.OnJudgeDown;
+                @SpeedUp.started += instance.OnSpeedUp;
+                @SpeedUp.performed += instance.OnSpeedUp;
+                @SpeedUp.canceled += instance.OnSpeedUp;
+                @SpeedDown.started += instance.OnSpeedDown;
+                @SpeedDown.performed += instance.OnSpeedDown;
+                @SpeedDown.canceled += instance.OnSpeedDown;
+                @ESC.started += instance.OnESC;
+                @ESC.performed += instance.OnESC;
+                @ESC.canceled += instance.OnESC;
+                @StopGame.started += instance.OnStopGame;
+                @StopGame.performed += instance.OnStopGame;
+                @StopGame.canceled += instance.OnStopGame;
+            }
+        }
+    }
+    public GameActions @Game => new GameActions(this);
+
+    // Pause
+    private readonly InputActionMap m_Pause;
+    private IPauseActions m_PauseActionsCallbackInterface;
+    private readonly InputAction m_Pause_ArrowDown;
+    private readonly InputAction m_Pause_ArrowUp;
+    private readonly InputAction m_Pause_Enter;
+    public struct PauseActions
+    {
+        private @InputActions m_Wrapper;
+        public PauseActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ArrowDown => m_Wrapper.m_Pause_ArrowDown;
+        public InputAction @ArrowUp => m_Wrapper.m_Pause_ArrowUp;
+        public InputAction @Enter => m_Wrapper.m_Pause_Enter;
+        public InputActionMap Get() { return m_Wrapper.m_Pause; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PauseActions set) { return set.Get(); }
+        public void SetCallbacks(IPauseActions instance)
+        {
+            if (m_Wrapper.m_PauseActionsCallbackInterface != null)
+            {
+                @ArrowDown.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnArrowDown;
+                @ArrowDown.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnArrowDown;
+                @ArrowDown.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnArrowDown;
+                @ArrowUp.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnArrowUp;
+                @ArrowUp.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnArrowUp;
+                @ArrowUp.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnArrowUp;
+                @Enter.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnEnter;
+                @Enter.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnEnter;
+                @Enter.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnEnter;
+            }
+            m_Wrapper.m_PauseActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ArrowDown.started += instance.OnArrowDown;
+                @ArrowDown.performed += instance.OnArrowDown;
+                @ArrowDown.canceled += instance.OnArrowDown;
+                @ArrowUp.started += instance.OnArrowUp;
+                @ArrowUp.performed += instance.OnArrowUp;
+                @ArrowUp.canceled += instance.OnArrowUp;
+                @Enter.started += instance.OnEnter;
+                @Enter.performed += instance.OnEnter;
+                @Enter.canceled += instance.OnEnter;
+            }
+        }
+    }
+    public PauseActions @Pause => new PauseActions(this);
+
+    // WarningPopup
+    private readonly InputActionMap m_WarningPopup;
+    private IWarningPopupActions m_WarningPopupActionsCallbackInterface;
+    private readonly InputAction m_WarningPopup_ArrowRight;
+    private readonly InputAction m_WarningPopup_ArrowLeft;
+    private readonly InputAction m_WarningPopup_Enter;
+    public struct WarningPopupActions
+    {
+        private @InputActions m_Wrapper;
+        public WarningPopupActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ArrowRight => m_Wrapper.m_WarningPopup_ArrowRight;
+        public InputAction @ArrowLeft => m_Wrapper.m_WarningPopup_ArrowLeft;
+        public InputAction @Enter => m_Wrapper.m_WarningPopup_Enter;
+        public InputActionMap Get() { return m_Wrapper.m_WarningPopup; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(WarningPopupActions set) { return set.Get(); }
+        public void SetCallbacks(IWarningPopupActions instance)
+        {
+            if (m_Wrapper.m_WarningPopupActionsCallbackInterface != null)
+            {
+                @ArrowRight.started -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnArrowRight;
+                @ArrowRight.performed -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnArrowRight;
+                @ArrowRight.canceled -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnArrowRight;
+                @ArrowLeft.started -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnArrowLeft;
+                @ArrowLeft.performed -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnArrowLeft;
+                @ArrowLeft.canceled -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnArrowLeft;
+                @Enter.started -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnEnter;
+                @Enter.performed -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnEnter;
+                @Enter.canceled -= m_Wrapper.m_WarningPopupActionsCallbackInterface.OnEnter;
+            }
+            m_Wrapper.m_WarningPopupActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ArrowRight.started += instance.OnArrowRight;
+                @ArrowRight.performed += instance.OnArrowRight;
+                @ArrowRight.canceled += instance.OnArrowRight;
+                @ArrowLeft.started += instance.OnArrowLeft;
+                @ArrowLeft.performed += instance.OnArrowLeft;
+                @ArrowLeft.canceled += instance.OnArrowLeft;
+                @Enter.started += instance.OnEnter;
+                @Enter.performed += instance.OnEnter;
+                @Enter.canceled += instance.OnEnter;
+            }
+        }
+    }
+    public WarningPopupActions @WarningPopup => new WarningPopupActions(this);
+
+    // Result
+    private readonly InputActionMap m_Result;
+    private IResultActions m_ResultActionsCallbackInterface;
+    private readonly InputAction m_Result_Enter;
+    public struct ResultActions
+    {
+        private @InputActions m_Wrapper;
+        public ResultActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Enter => m_Wrapper.m_Result_Enter;
+        public InputActionMap Get() { return m_Wrapper.m_Result; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ResultActions set) { return set.Get(); }
+        public void SetCallbacks(IResultActions instance)
+        {
+            if (m_Wrapper.m_ResultActionsCallbackInterface != null)
+            {
+                @Enter.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnEnter;
+                @Enter.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnEnter;
+                @Enter.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnEnter;
+            }
+            m_Wrapper.m_ResultActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Enter.started += instance.OnEnter;
+                @Enter.performed += instance.OnEnter;
+                @Enter.canceled += instance.OnEnter;
+            }
+        }
+    }
+    public ResultActions @Result => new ResultActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -1250,45 +1928,78 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_PCSchemeIndex];
         }
     }
-    public interface IPlayerActions
+    public interface IEditorMenuActions
+    {
+        void OnArrowDown(InputAction.CallbackContext context);
+        void OnArrowUp(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
+    }
+    public interface IWriteSheetActions
+    {
+        void OnNextInputField(InputAction.CallbackContext context);
+        void OnPrevInputField(InputAction.CallbackContext context);
+    }
+    public interface ISelectSheetActions
+    {
+        void OnNextKeyNumTab(InputAction.CallbackContext context);
+        void OnPrevKeyNumTab(InputAction.CallbackContext context);
+    }
+    public interface IDescriptionActions
     {
         void OnNoteLine0(InputAction.CallbackContext context);
         void OnNoteLine1(InputAction.CallbackContext context);
         void OnNoteLine2(InputAction.CallbackContext context);
         void OnNoteLine3(InputAction.CallbackContext context);
+        void OnNoteLine4(InputAction.CallbackContext context);
+        void OnNoteLine5(InputAction.CallbackContext context);
         void OnSpeedDown(InputAction.CallbackContext context);
         void OnSpeedUp(InputAction.CallbackContext context);
-        void OnEnter(InputAction.CallbackContext context);
-        void OnESC(InputAction.CallbackContext context);
-        void OnStopGame(InputAction.CallbackContext context);
-        void OnJudgeUp(InputAction.CallbackContext context);
         void OnJudgeDown(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
-        void OnMouseBtn(InputAction.CallbackContext context);
-        void OnMouseWheel(InputAction.CallbackContext context);
-        void OnCtrl(InputAction.CallbackContext context);
-        void OnArrowUp(InputAction.CallbackContext context);
-        void OnArrowDown(InputAction.CallbackContext context);
-        void OnArrowLeft(InputAction.CallbackContext context);
-        void OnArrowRight(InputAction.CallbackContext context);
-        void OnGridOffsetDown(InputAction.CallbackContext context);
-        void OnGridOffsetUp(InputAction.CallbackContext context);
-    }
-    public interface INavigatorActions
-    {
+        void OnJudgeUp(InputAction.CallbackContext context);
+        void OnESC(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
-        void OnArrowRight(InputAction.CallbackContext context);
-        void OnArrowLeft(InputAction.CallbackContext context);
-        void OnArrowDown(InputAction.CallbackContext context);
-        void OnArrowUp(InputAction.CallbackContext context);
-        void OnNextInputField(InputAction.CallbackContext context);
-        void OnPrevInputField(InputAction.CallbackContext context);
-        void OnNextKeyNumTab(InputAction.CallbackContext context);
-        void OnPrevKeyNumTab(InputAction.CallbackContext context);
+        void OnChangeGameMode(InputAction.CallbackContext context);
     }
-    public interface INoteEditorActions
+    public interface IEditorActions
     {
         void OnSave(InputAction.CallbackContext context);
-        void OnChangeGameMode(InputAction.CallbackContext context);
+        void OnSpace(InputAction.CallbackContext context);
+        void OnCtrl(InputAction.CallbackContext context);
+        void OnGridOffsetDown(InputAction.CallbackContext context);
+        void OnGridOffsetUp(InputAction.CallbackContext context);
+        void OnMouseWheel(InputAction.CallbackContext context);
+        void OnMouseBtn(InputAction.CallbackContext context);
+        void OnESC(InputAction.CallbackContext context);
+    }
+    public interface IGameActions
+    {
+        void OnNoteLine0(InputAction.CallbackContext context);
+        void OnNoteLine1(InputAction.CallbackContext context);
+        void OnNoteLine2(InputAction.CallbackContext context);
+        void OnNoteLine3(InputAction.CallbackContext context);
+        void OnNoteLine4(InputAction.CallbackContext context);
+        void OnNoteLine5(InputAction.CallbackContext context);
+        void OnJudgeUp(InputAction.CallbackContext context);
+        void OnJudgeDown(InputAction.CallbackContext context);
+        void OnSpeedUp(InputAction.CallbackContext context);
+        void OnSpeedDown(InputAction.CallbackContext context);
+        void OnESC(InputAction.CallbackContext context);
+        void OnStopGame(InputAction.CallbackContext context);
+    }
+    public interface IPauseActions
+    {
+        void OnArrowDown(InputAction.CallbackContext context);
+        void OnArrowUp(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
+    }
+    public interface IWarningPopupActions
+    {
+        void OnArrowRight(InputAction.CallbackContext context);
+        void OnArrowLeft(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
+    }
+    public interface IResultActions
+    {
+        void OnEnter(InputAction.CallbackContext context);
     }
 }

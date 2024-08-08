@@ -5,9 +5,30 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-    public GameObject[] keyEffects = new GameObject[4];
+    static InputManager instance;
+    public static InputManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    public GameObject[] keyEffects = new GameObject[6];
+    public PlayerInput playerInput;
 
     private Coroutine intervalCoroutine;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
+
+    public void SwitchActionMap(string canvasName)
+    {
+        playerInput.SwitchCurrentActionMap(canvasName);
+    }
 
     private void RunAtIntervalsPressed(Action method)
     {
@@ -37,72 +58,107 @@ public class InputManager : MonoBehaviour
 
     public void OnNoteLine0(InputAction.CallbackContext context)
     {
-
         if (!GameManager.Instance.isPlayable)
         {
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(0));
-                keyEffects[0].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(0));
-                keyEffects[0].SetActive(false);
-            }
+            if (GameManager.Instance.sheet.keyNum >= 4)
+                if (context.started)
+                {
+                    StartCoroutine(Judgement.Instance.JudgeNote(0));
+                    keyEffects[0].SetActive(true);
+                }
+                else if (context.canceled)
+                {
+                    StartCoroutine(Judgement.Instance.CheckLongNote(0));
+                    keyEffects[0].SetActive(false);
+                }
         }
     }
     public void OnNoteLine1(InputAction.CallbackContext context)
     {
-
         if (!GameManager.Instance.isPlayable)
         {
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(1));
-                keyEffects[1].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(1));
-                keyEffects[1].SetActive(false);
-            }
+            if (GameManager.Instance.sheet.keyNum >= 4)
+                if (context.started)
+                {
+                    StartCoroutine(Judgement.Instance.JudgeNote(1));
+                    keyEffects[1].SetActive(true);
+                }
+                else if (context.canceled)
+                {
+                    StartCoroutine(Judgement.Instance.CheckLongNote(1));
+                    keyEffects[1].SetActive(false);
+                }
         }
     }
     public void OnNoteLine2(InputAction.CallbackContext context)
     {
-
         if (!GameManager.Instance.isPlayable)
         {
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(2));
-                keyEffects[2].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(2));
-                keyEffects[2].SetActive(false);
-            }
+            if (GameManager.Instance.sheet.keyNum >= 4)
+                if (context.started)
+                {
+                    StartCoroutine(Judgement.Instance.JudgeNote(2));
+                    keyEffects[2].SetActive(true);
+                }
+                else if (context.canceled)
+                {
+                    StartCoroutine(Judgement.Instance.CheckLongNote(2));
+                    keyEffects[2].SetActive(false);
+                }
         }
     }
     public void OnNoteLine3(InputAction.CallbackContext context)
     {
-
         if (!GameManager.Instance.isPlayable)
         {
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(3));
-                keyEffects[3].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(3));
-                keyEffects[3].SetActive(false);
-            }
+            if (GameManager.Instance.sheet.keyNum >= 4)
+                if (context.started)
+                {
+                    StartCoroutine(Judgement.Instance.JudgeNote(3));
+                    keyEffects[3].SetActive(true);
+                }
+                else if (context.canceled)
+                {
+                    StartCoroutine(Judgement.Instance.CheckLongNote(3));
+                    keyEffects[3].SetActive(false);
+                }
         }
     }
+    public void OnNoteLine4(InputAction.CallbackContext context)
+    {
+        if (!GameManager.Instance.isPlayable)
+        {
+            if (GameManager.Instance.sheet.keyNum >= 5)
+                if (context.started)
+                {
+                    StartCoroutine(Judgement.Instance.JudgeNote(4));
+                    keyEffects[4].SetActive(true);
+                }
+                else if (context.canceled)
+                {
+                    StartCoroutine(Judgement.Instance.CheckLongNote(4));
+                    keyEffects[4].SetActive(false);
+                }
+        }
+    }
+    public void OnNoteLine5(InputAction.CallbackContext context)
+    {
+        if (!GameManager.Instance.isPlayable)
+        {
+            if (GameManager.Instance.sheet.keyNum >= 5)
+                if (context.started)
+                {
+                    StartCoroutine(Judgement.Instance.JudgeNote(5));
+                    keyEffects[5].SetActive(true);
+                }
+                else if (context.canceled)
+                {
+                    StartCoroutine(Judgement.Instance.CheckLongNote(5));
+                    keyEffects[5].SetActive(false);
+                }
+        }
+    }
+
     public void OnSpeedDown(InputAction.CallbackContext context)
     {
         if (context.started)
