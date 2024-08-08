@@ -489,9 +489,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator IEEditorMenu()
     {
-        // Title UI, WriteSheet UI 끄기
+        // Title UI, WriteSheet UI, SelectSheet UI 끄기
         canvases[(int)Canvas.Title].SetActive(false);
         canvases[(int)Canvas.WriteSheet].SetActive(false);
+        canvases[(int)Canvas.SelectSheet].SetActive(false);
 
         // Editor Menu UI 켜기
         canvases[(int)Canvas.EditorMenu].SetActive(true);
