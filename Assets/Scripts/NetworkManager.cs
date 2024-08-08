@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class NetworkManager : MonoBehaviour
             instance = this;
     }
 
-    public IEnumerator GetRequest(string url, System.Action<string> onSuccess, System.Action<string> onError)
+    public IEnumerator GetRequest(string url, Action<string> onSuccess, Action<string> onError)
     {
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
@@ -35,7 +36,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-    public IEnumerator GetAudioRequest(string url, System.Action<AudioClip> onSuccess, System.Action<string> onError)
+    public IEnumerator GetAudioRequest(string url, Action<AudioClip> onSuccess, Action<string> onError)
     {
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
         {
@@ -50,7 +51,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-    public IEnumerator GetImgRequest(string url, System.Action<Texture2D> onSuccess, System.Action<string> onError)
+    public IEnumerator GetImgRequest(string url, Action<Texture2D> onSuccess, Action<string> onError)
     {
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))
         {

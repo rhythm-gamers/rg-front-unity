@@ -114,6 +114,21 @@ public class SavedFilesReader : MonoBehaviour
 
                 Button fileButton = Panel.GetComponent<Button>();
                 fileButton.onClick.AddListener(() => StartCoroutine(OnClickSavedFile(path, fileNameWithoutExtension)));
+
+                // S3 업로드 여부 체크
+                S3Uploader.Instance.CheckIfFileExists(fileNameWithoutExtension,
+                    () =>
+                    {
+                        GameObject Uploaded = Panel.GetChild(4).gameObject;
+                        if (Uploaded != null)
+                            Uploaded.SetActive(true);
+                    },
+                    () =>
+                    {
+                        GameObject Uploaded = Panel.GetChild(4).gameObject;
+                        if (Uploaded != null)
+                            Uploaded.SetActive(false);
+                    });
             }
         }
 

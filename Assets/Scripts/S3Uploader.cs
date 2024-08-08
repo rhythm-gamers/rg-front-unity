@@ -34,18 +34,19 @@ public class S3Uploader : MonoBehaviour
     public void UploadSheet(string localFilePath, string title)
     {
         StartCoroutine(IEUploadSheet($"{localFilePath}/{title}/{title}.sheet", title));
-    }
-
-    public void UploadNewSheet(string localFilePath, string title)
-    {
-        StartCoroutine(IEUploadSheet($"{localFilePath}/{title}/{title}.sheet", title));
         StartCoroutine(IEUploadImage($"{localFilePath}/{title}/{title}.png", title));
         StartCoroutine(IEUploadMp3($"{localFilePath}/{title}/{title}.mp3", title));
     }
 
+    public void CheckIfFileExists(string title, Action onSuccess, Action onFail)
+    {
+        StartCoroutine(IECheckIfFileExists(title, onSuccess, onFail));
+    }
+
+
     private IEnumerator IEUploadSheet(string localFilePath, string title)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".sheet"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, ".sheet", "put"));
 
         byte[] bodyRaw;
         try
@@ -81,7 +82,7 @@ public class S3Uploader : MonoBehaviour
 
     private IEnumerator IEUploadImage(string filePath, string title)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".png"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, ".png", "put"));
 
         byte[] fileData;
         try
@@ -117,7 +118,7 @@ public class S3Uploader : MonoBehaviour
 
     private IEnumerator IEUploadMp3(string filePath, string title)
     {
-        yield return StartCoroutine(IEGetPresignedUrl(title, ".mp3"));
+        yield return StartCoroutine(IEGetPresignedUrl(title, ".mp3", "put"));
 
         byte[] fileData;
         try
@@ -149,10 +150,27 @@ public class S3Uploader : MonoBehaviour
         }
     }
 
-
-    private IEnumerator IEGetPresignedUrl(string title, string extension)
+    private IEnumerator IECheckIfFileExists(string title, Action onSuccess, Action onFail)
     {
-        string queryString = $"?bucketName={EnvManager.Instance.AWSBucketName}&objectKey=Sheet/{title}/{title}{extension}&expirationDuration=15";
+        yield return StartCoroutine(IEGetPresignedUrl(title, ".sheet", "head"));
+
+        UnityWebRequest www = UnityWebRequest.Head(presignedUrl);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            onSuccess?.Invoke();
+        }
+        else
+        {
+            onFail?.Invoke();
+        }
+    }
+
+
+    private IEnumerator IEGetPresignedUrl(string title, string extension, string method)
+    {
+        string queryString = $"?bucketName={EnvManager.Instance.AWSBucketName}&objectKey=Sheet/{title}/{title}{extension}&expirationDuration=15&method={method}";
         using UnityWebRequest www = UnityWebRequest.Get(EnvManager.Instance.AWSGenPresignedUrl + queryString);
 
         yield return www.SendWebRequest();

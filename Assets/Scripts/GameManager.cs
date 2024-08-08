@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -454,9 +455,15 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IEWriteSheet());
     }
 
-    public void SelectSheet()
+    public void OnClickSelectSheetMenu()
     {
         StartCoroutine(IESelectSheet());
+    }
+
+    public void SelectSheet(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            StartCoroutine(IESelectSheet());
     }
 
     public void Edit()
