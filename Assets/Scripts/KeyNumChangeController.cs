@@ -15,7 +15,13 @@ public class KeyNumChangeController : MonoBehaviour
     public GameObject judgeLine;
     public GameObject judgeEffects;
     public GameObject keyEffects;
-    public GameObject Bottom;
+    public GameObject bottom;
+    public GameObject speed;
+    public GameObject judgeOffset;
+
+    private Vector3 speedLocalPos;
+    private Vector3 judgeOffsetLocalPos;
+
 
     // 에디터에서 사용
     public GameObject grids;
@@ -35,6 +41,9 @@ public class KeyNumChangeController : MonoBehaviour
 
     void Start()
     {
+        speedLocalPos = speed.transform.localPosition;
+        judgeOffsetLocalPos = judgeOffset.transform.localPosition;
+
         noteButtonsLocalPos = noteButtons.transform.localPosition;
         progressBarLocalPos = progressBar.transform.localPosition;
         timerLocalPos = timer.transform.localPosition;
@@ -50,7 +59,7 @@ public class KeyNumChangeController : MonoBehaviour
 
                 lane.transform.localScale = new Vector3(4, 12, 1);
                 judgeLine.transform.localScale = new Vector3(4, 0.05f, 1);
-                Bottom.transform.localScale = new Vector3(4, 16, 1);
+                bottom.transform.localScale = new Vector3(4, 16, 1);
 #if !UNITY_WEBGL
                 grids.transform.localScale = Vector3.one;
                 noteButtons.transform.localPosition = noteButtonsLocalPos;
@@ -66,7 +75,10 @@ public class KeyNumChangeController : MonoBehaviour
 
                 lane.transform.localScale = new Vector3(5, 12, 1);
                 judgeLine.transform.localScale = new Vector3(5, 0.05f, 1);
-                Bottom.transform.localScale = new Vector3(5, 16, 1);
+                bottom.transform.localScale = new Vector3(5, 16, 1);
+
+                speed.transform.localPosition = speedLocalPos + Vector3.left * 50;
+                judgeOffset.transform.localPosition = judgeOffsetLocalPos + Vector3.left * 50;
 #if !UNITY_WEBGL
                 grids.transform.localScale = new Vector3(1.25f, 1, 1);
                 noteButtons.transform.localPosition = noteButtonsLocalPos + Vector3.left * 50;
@@ -82,7 +94,10 @@ public class KeyNumChangeController : MonoBehaviour
 
                 lane.transform.localScale = new Vector3(6, 12, 1);
                 judgeLine.transform.localScale = new Vector3(6, 0.05f, 1);
-                Bottom.transform.localScale = new Vector3(6, 16, 1);
+                bottom.transform.localScale = new Vector3(6, 16, 1);
+
+                speed.transform.localPosition = speedLocalPos + Vector3.left * 100;
+                judgeOffset.transform.localPosition = judgeOffsetLocalPos + Vector3.left * 100;
 #if !UNITY_WEBGL
                 grids.transform.localScale = new Vector3(1.5f, 1, 1);
                 noteButtons.transform.localPosition = noteButtonsLocalPos + Vector3.left * 100;
