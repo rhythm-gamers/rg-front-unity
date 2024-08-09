@@ -98,13 +98,10 @@ public class NoteGenerator : MonoBehaviour
     // 풀링 기반 생성 (처음 게임 플레이 및 재시작 시에 사용)
     public void StartGen()
     {
-        // 노트 생성 중지
-        StopGen();
-
         Interval = defaultInterval * GameManager.Instance.Speed;
         coGenTimer = StartCoroutine(IEGenTimer(GameManager.Instance.sheet.BarPerMilliSec * 0.001f)); // 음악의 1마디 시간마다 생성할 노트 오브젝트 탐색
         coReleaseTimer = StartCoroutine(IEReleaseTimer(GameManager.Instance.sheet.BarPerMilliSec * 0.001f * 0.5f)); // 1마디 시간의 절반 주기로 해제할 노트 오브젝트 탐색
-        coInterpolate = StartCoroutine(IEInterpolate(GameManager.Instance.sheet.BeatPerSec, 4f));
+        coInterpolate = StartCoroutine(IEInterpolate(0.01f, 4f));
     }
 
     // 노트 생성 중지 및 노트 Release

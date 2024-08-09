@@ -235,10 +235,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator IETitle()
     {
-        canvases[(int)Canvas.SFX].SetActive(false);
         canvases[(int)Canvas.SelectSheet].SetActive(false);
-
-        canvases[(int)Canvas.Title].SetActive(true);
 
         Score.Instance.Init();
 
@@ -263,9 +260,11 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<RebindController>().Init(); // 4, 5, 6키 각각 기본 키세팅으로 초기화
 #endif
 
+        canvases[(int)Canvas.Title].SetActive(true);
+
         // 화면 페이드 인
-        canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
+        canvases[(int)Canvas.SFX].SetActive(false);
 
         // 타이틀 인트로 재생
         canvases[(int)Canvas.Title].GetComponent<Animation>().Play();
@@ -320,9 +319,9 @@ public class GameManager : MonoBehaviour
         isPlayable = false;
 
         // 게임 재시작 시 초기화 옵션
-        if (Time.timeScale == 0) Time.timeScale = 1;
+        if (Time.timeScale == 0f) Time.timeScale = 1f;
         isPlaying = false;
-        AudioManager.Instance.Pause();
+        AudioManager.Instance.Stop();
         AudioManager.Instance.progressTime = 0f;
 
         // 화면 페이드 아웃
@@ -355,15 +354,18 @@ public class GameManager : MonoBehaviour
         // 판정 이펙트 초기화
         JudgeEffect.Instance.Init();
 
+        // 노트 생성 중지
+        NoteGenerator.Instance.StopGen();
+
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 2f));
         canvases[(int)Canvas.SFX].SetActive(false);
 
-        // Note 생성
-        NoteGenerator.Instance.StartGen();
-
         // Late Miss 판정 체크
         Judgement.Instance.StartMissCheck();
+
+        // Note 생성
+        NoteGenerator.Instance.StartGen();
 
         // 2초 대기
         yield return new WaitForSeconds(2f);
@@ -373,8 +375,6 @@ public class GameManager : MonoBehaviour
 
         // Audio 재생
         AudioManager.Instance.Play();
-
-        // 대기 시간동안 바뀐 배속을 노트에 반영
         NoteGenerator.Instance.Interpolate();
 
         // End 알리미
