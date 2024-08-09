@@ -76,6 +76,8 @@ public class Parser : MonoBehaviour
                     newSheet.title = row.Split(':')[1].Trim();
                 else if (row.StartsWith("Artist"))
                     newSheet.artist = row.Split(':')[1].Trim();
+                else if (row.StartsWith("Key"))
+                    newSheet.keyNum = int.Parse(row.Split(':')[1].Trim());
             }
             else if (currentStep == Step.Audio)
             {
@@ -126,23 +128,20 @@ public class Parser : MonoBehaviour
             if (!note.gameObject.activeSelf) // 비활성화되어있다면 삭제된 노트이므로 무시
                 continue;
 
-            float line = note.transform.position.x;
+            float notePosX = note.transform.position.x;
             int findLine = 0;
-            if (line < -1f && line > -2f)
+
+            switch (sheet.keyNum)
             {
-                findLine = 0;
-            }
-            else if (line < 0f && line > -1f)
-            {
-                findLine = 1;
-            }
-            else if (line < 1f && line > 0f)
-            {
-                findLine = 2;
-            }
-            else if (line < 2f && line > 1f)
-            {
-                findLine = 3;
+                case 4:
+                    findLine = Find4KeyLine(notePosX);
+                    break;
+                case 5:
+                    findLine = Find5KeyLine(notePosX);
+                    break;
+                case 6:
+                    findLine = Find6KeyLine(notePosX);
+                    break;
             }
 
             if (note is NoteShort)
@@ -181,7 +180,8 @@ public class Parser : MonoBehaviour
 
         string writer = $"[Description]\n" +
             $"Title: {sheet.title}\n" +
-            $"Artist: {sheet.artist}\n\n" +
+            $"Artist: {sheet.artist}\n" +
+            $"Key: {sheet.keyNum}\n\n" +
             $"[Audio]\n" +
             $"BPM: {sheet.bpm}\n" +
             $"Offset: {sheet.offset}\n" +
@@ -196,7 +196,8 @@ public class Parser : MonoBehaviour
     {
         string writer = $"[Description]\n" +
             $"Title: {sheet.title}\n" +
-            $"Artist: {sheet.artist}\n\n" +
+            $"Artist: {sheet.artist}\n" +
+            $"Key: {sheet.keyNum}\n\n" +
             $"[Audio]\n" +
             $"BPM: {sheet.bpm}\n" +
             $"Offset: {sheet.offset}\n" +
@@ -269,5 +270,52 @@ public class Parser : MonoBehaviour
         return sprite;
     }
 
+    private int Find4KeyLine(float notePosX)
+    {
+        if (notePosX < -1f && notePosX > -2f)
+            return 0;
+        else if (notePosX < 0f && notePosX > -1f)
+            return 1;
+        else if (notePosX < 1f && notePosX > 0f)
+            return 2;
+        else if (notePosX < 2f && notePosX > 1f)
+            return 3;
 
+        Debug.LogError("Unregistered Note Position");
+        return 0;
+    }
+    private int Find5KeyLine(float notePosX)
+    {
+        if (notePosX < -1.5f && notePosX > -2.5f)
+            return 0;
+        else if (notePosX < -0.5f && notePosX > -1.5f)
+            return 1;
+        else if (notePosX < 0.5f && notePosX > -0.5f)
+            return 2;
+        else if (notePosX < 1.5f && notePosX > 0.5f)
+            return 3;
+        else if (notePosX < 2.5f && notePosX > 1.5f)
+            return 4;
+
+        Debug.LogError("Unregistered Note Position");
+        return 0;
+    }
+    private int Find6KeyLine(float notePosX)
+    {
+        if (notePosX < -2f && notePosX > -3f)
+            return 0;
+        else if (notePosX < -1f && notePosX > -2f)
+            return 1;
+        else if (notePosX < 0f && notePosX > -1f)
+            return 2;
+        else if (notePosX < 1f && notePosX > 0f)
+            return 3;
+        else if (notePosX < 2f && notePosX > 1f)
+            return 4;
+        else if (notePosX < 3f && notePosX > 2f)
+            return 5;
+
+        Debug.LogError("Unregistered Note Position");
+        return 0;
+    }
 }

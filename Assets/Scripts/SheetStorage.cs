@@ -16,6 +16,9 @@ public class SheetStorage : MonoBehaviour
 
     public string savedSheet;
 
+    public readonly int[] keyNums = { 4, 5, 6 };
+
+
     private string localSaveFilePath;
 
     void Awake()
@@ -29,8 +32,9 @@ public class SheetStorage : MonoBehaviour
     public void Init()
     {
         string title = GameManager.Instance.sheet.title;
+        int keyNum = GameManager.Instance.sheet.keyNum;
 
-        savedSheet = LoadSavedSheet($"{localSaveFilePath}/{title}/{title}.sheet");
+        savedSheet = LoadSavedSheet($"{localSaveFilePath}/{keyNum}/{title}/{title}.sheet");
 
         if (savedSheet != null)
             GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
@@ -54,22 +58,20 @@ public class SheetStorage : MonoBehaviour
             return null;
     }
 
-    public void SaveNewSheet(Sheet sheet)
+    public void SaveNewSheet(Sheet sheet, string fullFilePath)
     {
-        string title = sheet.title;
         string sheetContent = Parser.Instance.StringifyNewSheet(sheet);
 
-        string fullFilePath = Path.Combine(localSaveFilePath, title, $"{title}.sheet");
         File.WriteAllText(fullFilePath, sheetContent);
-
         Debug.Log($"New Sheet saved successfully at {fullFilePath}");
     }
     public void SaveEditedSheet()
     {
         string title = GameManager.Instance.sheet.title;
+        int keyNum = GameManager.Instance.sheet.keyNum;
         savedSheet = Parser.Instance.StringifyEditedSheet();
 
-        string fullFilePath = Path.Combine(localSaveFilePath, title, $"{title}.sheet");
+        string fullFilePath = Path.Combine(localSaveFilePath, keyNum.ToString(), title, $"{title}.sheet");
         File.WriteAllText(fullFilePath, savedSheet);
 
         Editor.Instance.ShowProgressLog($"Sheet saved successfully at {fullFilePath}");
@@ -106,14 +108,19 @@ public class SheetStorage : MonoBehaviour
     {
         string title = sheet.title;
 
-        if (!Directory.Exists($"{localSaveFilePath}/{title}"))
+        foreach (int keyNum in keyNums)
         {
-            Directory.CreateDirectory($"{localSaveFilePath}/{title}");
-        }
+            if (!Directory.Exists($"{localSaveFilePath}/{keyNum}/{title}"))
+            {
+                Directory.CreateDirectory($"{localSaveFilePath}/{keyNum}/{title}");
+            }
 
-        SaveNewSheet(sheet);
-        SaveThumbnail(sprite, $"{localSaveFilePath}/{title}/{title}.png");
-        SaveMp3(audioPath, $"{localSaveFilePath}/{title}/{title}.mp3");
+            sheet.keyNum = keyNum;
+
+            SaveNewSheet(sheet, $"{localSaveFilePath}/{keyNum}/{title}/{title}.sheet");
+            SaveThumbnail(sprite, $"{localSaveFilePath}/{keyNum}/{title}/{title}.png");
+            SaveMp3(audioPath, $"{localSaveFilePath}/{keyNum}/{title}/{title}.mp3");
+        }
 
         Debug.Log($"Sheet files saved successfully");
     }
@@ -123,7 +130,8 @@ public class SheetStorage : MonoBehaviour
         SaveEditedSheet();
 
         string title = GameManager.Instance.sheet.title;
-        S3Uploader.Instance.UploadSheet(localSaveFilePath, title);
+        int keyNum = GameManager.Instance.sheet.keyNum;
+        S3Uploader.Instance.UploadSheet(localSaveFilePath, title, keyNum);
     }
 
     public void Download()

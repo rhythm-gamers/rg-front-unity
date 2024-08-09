@@ -134,11 +134,12 @@ public class AudioManager : MonoBehaviour
     public void Insert(AudioClip clip)
     {
         audioSource.clip = clip;
+        Stop();
     }
 
     public float GetMilliSec()
     {
-        return audioSource.time * 1000;
+        return audioSource.time * 1000f;
     }
 
     public bool IsPlaying()

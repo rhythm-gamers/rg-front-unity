@@ -69,8 +69,9 @@ public class Sync : MonoBehaviour
 
         GameObject judgeLine = judgeObjects.transform.Find("JudgeLine").gameObject;
         judgeObjects.transform.localPosition = offsetInterval * judgeOffsetFromUser * Vector3.up;
-        judgeLine.transform.localPosition += Vector3.up * DiffFromNoteBtm; // 노트 높이의 절반만큼 판정선을 올림 (에디터가 노트 바닥을 기준으로 스냅을 잡기 때문)
+        judgeLine.transform.localPosition = Vector3.up * DiffFromNoteBtm; // 노트 높이의 절반만큼 판정선을 올림 (에디터가 노트 바닥을 기준으로 스냅을 잡기 때문)
 
+        offsetUI.SetText($"Offset\n{judgeOffsetFromUser}");
         syncTimeUI.GetComponent<RectTransform>().anchoredPosition3D += Vector3.up * DiffFromNoteBtm;
 
         Destroy(note);

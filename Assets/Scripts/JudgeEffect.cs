@@ -17,7 +17,7 @@ public class JudgeEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 6; i++)
         {
             particles.Add(transform.GetChild(i).GetComponent<ParticleSystem>());
         }
