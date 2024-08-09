@@ -29,11 +29,6 @@ public class UIController : MonoBehaviour
         uiObjectDic["UI_G_Judgement"].action = Score.Instance.Ani;
         uiObjectDic["UI_G_Combo"].action = Score.Instance.Ani;
 
-#if !UNITY_WEBGL
-        uiObjectDic["UI_E_Play"].action = Editor.Instance.Play;
-        uiObjectDic["UI_E_Stop"].action = Editor.Instance.Stop;
-#endif
-
         isInit = true;
     }
 

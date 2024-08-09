@@ -26,7 +26,7 @@ public abstract class NoteObject : MonoBehaviour
 
     public abstract void SetPosition(Vector3[] pos);
 
-    public abstract void Interpolate(float curruntTime, float interval);
+    public abstract void Interpolate(float curruntTime, float interval, float judgeOffsetFromUser);
 
     /// <summary>
     /// Editor - Collider optimization
@@ -59,9 +59,9 @@ public class NoteShort : NoteObject
         transform.position = new Vector3(pos[0].x, pos[0].y, pos[0].z);
     }
 
-    public override void Interpolate(float curruntTime, float interval)
+    public override void Interpolate(float curruntTime, float interval, float judgeOffsetFromUser)
     {
-        transform.position = new Vector3(transform.position.x, (note.time - curruntTime) * interval, transform.position.z);
+        transform.position = new Vector3(transform.position.x, (note.time - curruntTime + judgeOffsetFromUser) * interval, transform.position.z);
     }
 
     public override void SetCollider()
@@ -152,11 +152,11 @@ public class NoteLong : NoteObject
         lineRenderer.SetPosition(1, linePos);
     }
 
-    public override void Interpolate(float curruntTime, float interval)
+    public override void Interpolate(float curruntTime, float interval, float judgeOffsetFromUser)
     {
-        transform.position = new Vector3(head.transform.position.x, (note.time - curruntTime) * interval, head.transform.position.z);
-        head.transform.position = new Vector3(head.transform.position.x, (note.time - curruntTime) * interval, head.transform.position.z);
-        tail.transform.position = new Vector3(tail.transform.position.x, (note.tail - curruntTime) * interval, tail.transform.position.z);
+        transform.position = new Vector3(head.transform.position.x, (note.time - curruntTime + judgeOffsetFromUser) * interval, head.transform.position.z);
+        head.transform.position = new Vector3(head.transform.position.x, (note.time - curruntTime + judgeOffsetFromUser) * interval, head.transform.position.z);
+        tail.transform.position = new Vector3(tail.transform.position.x, (note.tail - curruntTime + judgeOffsetFromUser) * interval, tail.transform.position.z);
         line.transform.position = head.transform.position;
 
         Vector3 linePos = tail.transform.position - head.transform.position;
