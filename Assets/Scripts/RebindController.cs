@@ -84,9 +84,16 @@ public class RebindController : MonoBehaviour
 
     public void WebGLRebindNoteKey(string combinedArgs)
     {
-        var args = combinedArgs.Split(',');
+        string[] args = combinedArgs.Split(',');
         int.TryParse(args[0], out int noteLine);
         string newKey = args[1];
+
+        StartCoroutine(IEWebGLRebindNoteKey(noteLine, newKey));
+    }
+
+    private IEnumerator IEWebGLRebindNoteKey(int noteLine, string newKey)
+    {
+        yield return new WaitUntil(() => SheetLoader.Instance.isLoadFinish);
 
         switch (GameManager.Instance.sheet.keyNum)
         {
