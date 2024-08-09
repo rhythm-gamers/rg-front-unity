@@ -144,6 +144,7 @@ public class NoteGenerator : MonoBehaviour
         prev = next;
 
         float currentTime = AudioManager.Instance.GetMilliSec();
+        float judgeOffset = Sync.Instance.judgeOffsetFromUser;
         float noteSpeed = Interval * 1000;
         foreach (Note note in reconNotes)
         {
@@ -153,14 +154,14 @@ public class NoteGenerator : MonoBehaviour
             {
                 case (int)NoteType.Short:
                     noteObject = PoolShort.Get();
-                    noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], (note.time - currentTime) * Interval, 0f) });
+                    noteObject.SetPosition(new Vector3[] { new Vector3(linePos[note.line - 1], (note.time - currentTime + judgeOffset) * Interval, 0f) });
                     break;
                 case (int)NoteType.Long:
                     noteObject = PoolLong.Get();
                     noteObject.SetPosition(new Vector3[] // 포지션은 노트 시간 - 현재 음악 시간
                     {
-                        new Vector3(linePos[note.line - 1], (note.time - currentTime) * Interval, 0f),
-                        new Vector3(linePos[note.line - 1], (note.tail - currentTime) * Interval, 0f)
+                        new Vector3(linePos[note.line - 1], (note.time - currentTime + judgeOffset) * Interval, 0f),
+                        new Vector3(linePos[note.line - 1], (note.tail - currentTime + judgeOffset) * Interval, 0f)
                     });
                     break;
                 default:
@@ -283,6 +284,7 @@ public class NoteGenerator : MonoBehaviour
 
         float time = 0;
         Interval = defaultInterval * GameManager.Instance.Speed;
+        float judgeOffset = Sync.Instance.judgeOffsetFromUser;
 
         float noteSpeed = Interval * 1000;
         while (time < duration)
@@ -292,7 +294,7 @@ public class NoteGenerator : MonoBehaviour
             foreach (NoteObject note in toReleaseList)
             {
                 note.speed = noteSpeed;
-                note.Interpolate(milli, Interval);
+                note.Interpolate(milli, Interval, judgeOffset);
             }
 
             time += rate;

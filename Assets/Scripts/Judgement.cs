@@ -104,11 +104,12 @@ public class Judgement : MonoBehaviour
         if (!GameManager.Instance.isPlaying || notes[line].Count == 0) yield break;
 
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
+        float judgeOffset = Sync.Instance.judgeOffsetFromUser;
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.time;
+            float judgeTime = savedCurrentTime - note.time + judgeOffset;
 
             if (IsMiss(judgeTime))
             {
@@ -133,13 +134,15 @@ public class Judgement : MonoBehaviour
         if (longNoteCheck[line] == 0) yield break;
         if (notes[line].Count == 0) yield break;
 
+        float judgeOffset = Sync.Instance.judgeOffsetFromUser;
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
+
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.tail;
+            float judgeTime = savedCurrentTime - note.tail + judgeOffset;
 
-            bool IsOnLongNote = (savedCurrentTime >= note.time - miss) && (savedCurrentTime <= note.tail + miss);
+            bool IsOnLongNote = (savedCurrentTime >= note.time - miss + judgeOffset) && (savedCurrentTime <= note.tail + miss + judgeOffset);
             if (IsOnLongNote)
             {
                 if (IsOverGood(judgeTime))
