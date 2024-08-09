@@ -160,23 +160,21 @@ public class GameManager : MonoBehaviour
 #if !UNITY_WEBGL
         UIButton GameModeBtn = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
         UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
-        UIText OffsetUI = UIController.Instance.GetUI("UI_D_Offset").uiObject as UIText;
+        UIText OffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
 
         if (state == GameState.Game)
         {
             state = GameState.Edit;
-            Sync.Instance.ResetJudgeOffset();
-
             GameModeBtn.SetText("Edit Mode");
-            SpeedUI.gameObject.SetActive(false);
-            OffsetUI.gameObject.SetActive(false);
+            SpeedUI.transform.parent.gameObject.SetActive(false);
+            OffsetUI.transform.parent.gameObject.SetActive(false);
         }
         else
         {
             state = GameState.Game;
             GameModeBtn.SetText("Game Mode");
-            SpeedUI.gameObject.SetActive(true);
-            OffsetUI.gameObject.SetActive(true);
+            SpeedUI.transform.parent.gameObject.SetActive(true);
+            OffsetUI.transform.parent.gameObject.SetActive(true);
         }
 #endif
     }
@@ -469,14 +467,14 @@ public class GameManager : MonoBehaviour
         UIButton GameModeBtn = UIController.Instance.GetUI("UI_D_GameMode").uiObject as UIButton;
         UIText EditorHotkeyUI = UIController.Instance.GetUI("UI_G_EditorHotkey").uiObject as UIText;
         UIText SpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
-        UIText OffsetUI = UIController.Instance.GetUI("UI_D_Offset").uiObject as UIText;
+        UIText OffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
 
         GameModeBtn.SetText("Edit Mode");
 
         GameModeBtn.gameObject.SetActive(true);
         EditorHotkeyUI.gameObject.SetActive(true);
-        SpeedUI.gameObject.SetActive(false);
-        OffsetUI.gameObject.SetActive(false);
+        SpeedUI.transform.parent.gameObject.SetActive(false);
+        OffsetUI.transform.parent.gameObject.SetActive(false);
     }
 
     IEnumerator IEEditorMenu()
