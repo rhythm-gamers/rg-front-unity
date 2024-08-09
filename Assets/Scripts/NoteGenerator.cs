@@ -18,7 +18,7 @@ public class NoteGenerator : MonoBehaviour
     public GameObject notePrefab;
     public Material lineRendererMaterial;
 
-    public readonly float[] linePos = { -1.5f, -0.5f, 0.5f, 1.5f };
+    public float[] linePos = { -1.5f, -0.5f, 0.5f, 1.5f }; // 4키 기준
     readonly float defaultInterval = 0.005f; // 1배속 기준점 (1마디 전체가 화면에 그려지는 정도를 정의)
     public float Interval { get; private set; }
 

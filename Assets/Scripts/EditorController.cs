@@ -93,6 +93,19 @@ public class EditorController : MonoBehaviour
 
         cursorObj.transform.position = worldPos; // 커서 좌표
 
+        switch (GameManager.Instance.sheet.keyNum)
+        {
+            case 4:
+                Select4KeyLine(worldPos);
+                break;
+            case 5:
+                Select5KeyLine(worldPos);
+                break;
+            case 6:
+                Select6KeyLine(worldPos);
+                break;
+        }
+
         Debug.DrawRay(worldPos, cam.transform.forward * 2, Color.red, 0.2f);
         RaycastHit2D hit = Physics2D.Raycast(worldPos, cam.transform.forward, 2f);
 
@@ -117,26 +130,7 @@ public class EditorController : MonoBehaviour
             int beat = int.Parse(hit.transform.name.Split('_')[1]);
             float y = hit.transform.position.y;
 
-            if (worldPos.x < -1f && worldPos.x > -2f)
-            {
-                //Debug.Log($"0번 레인 : {index}번 그리드 : {beat} 비트");
-                selectedLine = 0;
-            }
-            else if (worldPos.x < 0f && worldPos.x > -1f)
-            {
-                //Debug.Log($"1번 레인 : {index}번 그리드 : {beat} 비트");
-                selectedLine = 1;
-            }
-            else if (worldPos.x < 1f && worldPos.x > 0f)
-            {
-                //Debug.Log($"2번 레인 : {index}번 그리드 : {beat} 비트");
-                selectedLine = 2;
-            }
-            else if (worldPos.x < 2f && worldPos.x > 1f)
-            {
-                //Debug.Log($"3번 레인 : {index}번 그리드 : {beat} 비트");
-                selectedLine = 3;
-            }
+
 
 
             /**
@@ -315,6 +309,91 @@ public class EditorController : MonoBehaviour
             ExitEditor();
         }
 #endif
+    }
+
+    private void Select4KeyLine(Vector3 worldPos)
+    {
+        if (worldPos.x < -1f && worldPos.x > -2f)
+        {
+            //Debug.Log($"0번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 0;
+        }
+        else if (worldPos.x < 0f && worldPos.x > -1f)
+        {
+            //Debug.Log($"1번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 1;
+        }
+        else if (worldPos.x < 1f && worldPos.x > 0f)
+        {
+            //Debug.Log($"2번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 2;
+        }
+        else if (worldPos.x < 2f && worldPos.x > 1f)
+        {
+            //Debug.Log($"3번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 3;
+        }
+    }
+    private void Select5KeyLine(Vector3 worldPos)
+    {
+        if (worldPos.x < -1.5f && worldPos.x > -2.5f)
+        {
+            //Debug.Log($"0번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 0;
+        }
+        else if (worldPos.x < -0.5f && worldPos.x > -1.5f)
+        {
+            //Debug.Log($"1번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 1;
+        }
+        else if (worldPos.x < 0.5f && worldPos.x > -0.5f)
+        {
+            //Debug.Log($"2번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 2;
+        }
+        else if (worldPos.x < 1.5f && worldPos.x > 0.5f)
+        {
+            //Debug.Log($"3번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 3;
+        }
+        else if (worldPos.x < 2.5f && worldPos.x > 1.5f)
+        {
+            //Debug.Log($"4번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 4;
+        }
+    }
+    private void Select6KeyLine(Vector3 worldPos)
+    {
+        if (worldPos.x < -2f && worldPos.x > -3f)
+        {
+            //Debug.Log($"0번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 0;
+        }
+        else if (worldPos.x < -1f && worldPos.x > -2f)
+        {
+            //Debug.Log($"1번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 1;
+        }
+        else if (worldPos.x < 0f && worldPos.x > -1f)
+        {
+            //Debug.Log($"2번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 2;
+        }
+        else if (worldPos.x < 1f && worldPos.x > 0f)
+        {
+            //Debug.Log($"3번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 3;
+        }
+        else if (worldPos.x < 2f && worldPos.x > 1f)
+        {
+            //Debug.Log($"4번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 4;
+        }
+        else if (worldPos.x < 3f && worldPos.x > 2f)
+        {
+            //Debug.Log($"5번 레인 : {index}번 그리드 : {beat} 비트");
+            selectedLine = 5;
+        }
     }
 
     private void ResumeEditor()

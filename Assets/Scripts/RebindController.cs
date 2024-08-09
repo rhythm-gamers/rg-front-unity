@@ -46,7 +46,7 @@ public class RebindController : MonoBehaviour
     { "Space", "space" }
 };
 
-#if !UNITY_WEBGL
+#if !UNITY_WEBGL || UNITY_EDITOR
     public void Init()
     {
         string[] fourKeys = { "a", "s", ";", "'" };
@@ -64,7 +64,12 @@ public class RebindController : MonoBehaviour
             case 5:
                 for (int i = 0; i < fiveKeys.Length; i++)
                 {
-                    StartCoroutine(IERebindNoteAction(i, fiveKeys[i]));
+                    if (i < 3)
+                        StartCoroutine(IERebindNoteAction(i, fiveKeys[i]));
+                    else if (i == 3)
+                        StartCoroutine(IEAddNoteAction(2, fiveKeys[i]));
+                    else
+                        StartCoroutine(IERebindNoteAction(i - 1, fiveKeys[i]));
                 }
                 break;
             case 6:
@@ -83,10 +88,61 @@ public class RebindController : MonoBehaviour
         int.TryParse(args[0], out int noteLine);
         string newKey = args[1];
 
-        StartCoroutine(IERebindNoteAction(noteLine, newKey));
+        switch (GameManager.Instance.sheet.keyNum)
+        {
+            case 4:
+                StartCoroutine(IERebindNoteAction(noteLine, newKey));
+                break;
+            case 5:
+                if (noteLine < 3)
+                    StartCoroutine(IERebindNoteAction(noteLine, newKey));
+                else if (noteLine == 3)
+                    StartCoroutine(IEAddNoteAction(2, newKey));
+                else
+                    StartCoroutine(IERebindNoteAction(noteLine - 1, newKey));
+                break;
+            case 6:
+                StartCoroutine(IERebindNoteAction(noteLine, newKey));
+                break;
+        }
     }
 
     private IEnumerator IERebindNoteAction(int noteLine, string newKey)
+    {
+        InputActionReference[] noteActionRefs = FindNoteActionRef(noteLine);
+        if (noteActionRefs == null)
+        {
+            Debug.LogError($"noteActionRef is null for noteLine: {noteLine}");
+            yield break;
+        }
+
+        foreach (InputActionReference noteActionRef in noteActionRefs)
+        {
+            InputAction noteAction = noteActionRef.action;
+            if (noteAction == null)
+            {
+                Debug.LogError($"noteAction is null for noteLine: {noteLine}");
+                yield break;
+            }
+
+            noteAction.Disable();
+            noteAction.RemoveAllBindingOverrides();
+
+            // 문자가 특수문자일 경우, 맵핑 사용
+            if (specialKeyMappings.ContainsKey(newKey))
+            {
+                newKey = specialKeyMappings[newKey];
+            }
+
+            noteAction.ApplyBindingOverride(0, $"<Keyboard>/{newKey}");
+            noteAction.Enable();
+        }
+
+        Debug.Log($"Rebound Note{noteLine} to <Keyboard>/{newKey}");
+        yield break;
+    }
+
+    private IEnumerator IEAddNoteAction(int noteLine, string newKey)
     {
         InputActionReference[] noteActionRefs = FindNoteActionRef(noteLine);
         if (noteActionRefs == null)
@@ -112,11 +168,11 @@ public class RebindController : MonoBehaviour
                 newKey = specialKeyMappings[newKey];
             }
 
-            noteAction.ApplyBindingOverride(0, $"<Keyboard>/{newKey}");
+            noteAction.AddBinding($"<Keyboard>/{newKey}");
             noteAction.Enable();
         }
 
-        Debug.Log($"Rebound Note{noteLine} to <Keyboard>/{newKey}");
+        Debug.Log($"Add Note{noteLine} to <Keyboard>/{newKey}");
         yield break;
     }
 

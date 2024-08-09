@@ -31,8 +31,10 @@ public class Judgement : MonoBehaviour
     Queue<Note> note2 = new Queue<Note>();
     Queue<Note> note3 = new Queue<Note>();
     Queue<Note> note4 = new Queue<Note>();
+    Queue<Note> note5 = new Queue<Note>();
+    Queue<Note> note6 = new Queue<Note>();
 
-    int[] longNoteCheck = new int[4] { 0, 0, 0, 0 };
+    int[] longNoteCheck = new int[6] { 0, 0, 0, 0, 0, 0 };
 
     /// <summary>
     /// User에 의해 조정된 판정 타이밍
@@ -41,7 +43,7 @@ public class Judgement : MonoBehaviour
     private int currentTime = 0;
     private Coroutine coCheckMiss;
 
-    private readonly object[] dequeuingLock = new object[] { new(), new(), new(), new() };
+    private readonly object[] dequeuingLock = new object[] { new(), new(), new(), new(), new(), new() };
 
     bool IsMiss(float time) => time <= miss && time >= -miss;
     bool IsOverGood(float time) => time <= good && time >= -good;
@@ -68,13 +70,19 @@ public class Judgement : MonoBehaviour
                 note2.Enqueue(note);
             else if (note.line == 3)
                 note3.Enqueue(note);
-            else
+            else if (note.line == 4)
                 note4.Enqueue(note);
+            else if (note.line == 5)
+                note5.Enqueue(note);
+            else
+                note6.Enqueue(note);
         }
         notes.Add(note1);
         notes.Add(note2);
         notes.Add(note3);
         notes.Add(note4);
+        notes.Add(note5);
+        notes.Add(note6);
     }
 
     public void StartMissCheck()
@@ -93,7 +101,7 @@ public class Judgement : MonoBehaviour
     public IEnumerator JudgeNote(int line)
     {
         if (GameManager.Instance.state == GameManager.GameState.Edit) yield break;
-        if (notes[line].Count <= 0 || !AudioManager.Instance.IsPlaying()) yield break;
+        if (!GameManager.Instance.isPlaying || notes[line].Count == 0) yield break;
 
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
 
@@ -122,8 +130,8 @@ public class Judgement : MonoBehaviour
     public IEnumerator CheckLongNote(int line)
     {
         if (GameManager.Instance.state == GameManager.GameState.Edit) yield break;
-        if (notes[line].Count <= 0) yield break;
         if (longNoteCheck[line] == 0) yield break;
+        if (notes[line].Count == 0) yield break;
 
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
         lock (dequeuingLock[line])

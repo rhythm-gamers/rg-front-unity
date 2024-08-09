@@ -253,13 +253,13 @@ public class GameManager : MonoBehaviour
         // 선택화면 채보 정보 초기화
         ItemController.Instance.Init();
 
+        // 바뀐 keyNum에 대해 오브젝트들 초기화
+        KeyNumChangeController.Instance.Init();
+
         // 판정선 오프셋 오브젝트들 초기화
         Sync.Instance.Init();
 
-        // keyNum에 대해 Lane위의 오브젝트들 초기화
-        LaneController.Instance.Init();
-
-#if !UNITY_WEBGL
+#if !UNITY_WEBGL || UNITY_EDITOR
         FindObjectOfType<RebindController>().Init(); // 4, 5, 6키 각각 기본 키세팅으로 초기화
 #endif
 
