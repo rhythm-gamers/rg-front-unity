@@ -22,6 +22,9 @@ public class Sync : MonoBehaviour
     UIText inGameOffsetUI;
     UIText outGameOffsetUI;
 
+    /// <summary>
+    /// User에 의해 조정된 판정 타이밍
+    /// </summary>
     public int judgeOffsetFromUser = 0;
     private bool isJudgeOffsetInit = false;
     void WebGLInitUserJudgeOffset(int judgeOffset)

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -49,7 +48,7 @@ public class AudioManager : MonoBehaviour
     }
     public State state = State.Stop;
 
-    private float savedAudioTimeForWebGL { get; set; }
+    private float SavedAudioTimeForWebGL { get; set; }
 
     void Awake()
     {
@@ -105,7 +104,7 @@ public class AudioManager : MonoBehaviour
     {
         if (audioSource.clip == null) return;
 #if UNITY_WEBGL
-        savedAudioTimeForWebGL = progressTime;
+        SavedAudioTimeForWebGL = progressTime;
 #endif
 
         state = State.Paused;
@@ -116,7 +115,7 @@ public class AudioManager : MonoBehaviour
     {
         if (audioSource.clip == null) return;
 #if UNITY_WEBGL
-        progressTime = savedAudioTimeForWebGL;
+        progressTime = SavedAudioTimeForWebGL;
 #endif
 
         state = State.Unpaused;
@@ -139,7 +138,7 @@ public class AudioManager : MonoBehaviour
 
     public float GetMilliSec()
     {
-        return audioSource.time * 1000f;
+        return (audioSource.time + Judgement.Instance.WebGLAudioLatency) * 1000f;
     }
 
     public bool IsPlaying()
