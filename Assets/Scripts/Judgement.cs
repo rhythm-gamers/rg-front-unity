@@ -36,14 +36,17 @@ public class Judgement : MonoBehaviour
 
     int[] longNoteCheck = new int[6] { 0, 0, 0, 0, 0, 0 };
 
-    /// <summary>
-    /// User에 의해 조정된 판정 타이밍
-    /// </summary>
-
     private int currentTime = 0;
     private Coroutine coCheckMiss;
 
     private readonly object[] dequeuingLock = new object[] { new(), new(), new(), new(), new(), new() };
+
+    /// <summary>
+    /// WebGL에서 오디오가 재생될 때 발생하는 레이턴시를 임의로 보완
+    /// 현재, WebGL에서 생성한 AudioContext에 접근할 수 있는 인터페이스가 없기 때문에 이게 최선으로 보임
+    /// 이후에 더 나은 접근 방법이 있다면 수정
+    /// </summary>
+    public float WebGLAudioLatency = 0f;
 
     bool IsMiss(float time) => time <= miss && time >= -miss;
     bool IsOverGood(float time) => time <= good && time >= -good;
@@ -52,6 +55,10 @@ public class Judgement : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WebGLAudioLatency = 0.1f;
+#endif
     }
 
     public void Init()
@@ -104,12 +111,12 @@ public class Judgement : MonoBehaviour
         if (!GameManager.Instance.isPlaying || notes[line].Count == 0) yield break;
 
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
-        float judgeOffset = Sync.Instance.judgeOffsetFromUser;
+        float judgeOffsetFromUser = Sync.Instance.judgeOffsetFromUser;
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.time + judgeOffset;
+            float judgeTime = savedCurrentTime - note.time + WebGLAudioLatency + judgeOffsetFromUser;
 
             if (IsMiss(judgeTime))
             {
@@ -134,15 +141,15 @@ public class Judgement : MonoBehaviour
         if (longNoteCheck[line] == 0) yield break;
         if (notes[line].Count == 0) yield break;
 
-        float judgeOffset = Sync.Instance.judgeOffsetFromUser;
+        float judgeOffsetFromUser = Sync.Instance.judgeOffsetFromUser;
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.tail + judgeOffset;
+            float judgeTime = savedCurrentTime - note.tail + WebGLAudioLatency + judgeOffsetFromUser;
 
-            bool IsOnLongNote = (savedCurrentTime >= note.time - miss + judgeOffset) && (savedCurrentTime <= note.tail + miss + judgeOffset);
+            bool IsOnLongNote = (savedCurrentTime >= note.time - miss + WebGLAudioLatency + judgeOffsetFromUser) && (savedCurrentTime <= note.tail + miss + WebGLAudioLatency + judgeOffsetFromUser);
             if (IsOnLongNote)
             {
                 if (IsOverGood(judgeTime))

@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => UIController.Instance.isInit == true);
         UIText inGameSpeedUI = UIController.Instance.FindUI("UI_G_Speed").uiObject as UIText;
         UIText outGameSpeedUI = UIController.Instance.FindUI("UI_D_Speed").uiObject as UIText;
-        inGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
-        outGameSpeedUI.SetText("Speed " + Speed.ToString("0.0"));
+        inGameSpeedUI.SetText(Speed.ToString("0.0"));
+        outGameSpeedUI.SetText(Speed.ToString("0.0"));
     }
 
     public List<GameObject> canvases = new();
