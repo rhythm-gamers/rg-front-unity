@@ -78,7 +78,7 @@ public class FileManager : MonoBehaviour
         SheetStorage.Instance.AddNewSheet(newSheet, thumbnail, audioPath);
 
         Init();
-        GameManager.Instance.EditorMenu();
+        GameManager.Instance.SelectSheet();
     }
 }
 

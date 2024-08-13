@@ -450,6 +450,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(IESelectSheet());
     }
 
+    public void SelectSheet()
+    {
+        StartCoroutine(IESelectSheet());
+    }
+
     public void SelectSheet(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -513,6 +518,7 @@ public class GameManager : MonoBehaviour
         // EditorMenu UI 끄기
         canvases[(int)Canvas.EditorMenu].SetActive(false);
         canvases[(int)Canvas.Description].SetActive(false);
+        canvases[(int)Canvas.WriteSheet].SetActive(false);
 
         // 저장된 파일 Read
         SavedFilesReader.Instance.ReadFiles();
