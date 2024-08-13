@@ -30,6 +30,7 @@ public class SavedFilesReader : MonoBehaviour
     public Transform contentPanel;
     public GameObject saveFilesPrefab;
     public GameObject[] keyNumTabs;
+    public TextMeshProUGUI notFoundText;
 
     private List<SavedFileInfo> savedFiles = new();
     private int currentKeyNumTabIdx = 0;
@@ -143,21 +144,36 @@ public class SavedFilesReader : MonoBehaviour
 
     void DisplayDirectoryContents(string rootPath)
     {
+        if (!Directory.Exists(rootPath))
+        {
+            Directory.CreateDirectory(rootPath);
+        }
+
         string[] directories = Directory.GetDirectories(rootPath);
 
-        foreach (string directory in directories)
+        if (directories.Length == 0)
         {
-            DisplayFiles(directory);
+            notFoundText.gameObject.SetActive(true);
+        }
+        else
+        {
+            notFoundText.gameObject.SetActive(false);
+
+            foreach (string directory in directories)
+            {
+                DisplayFiles(directory);
+            }
+
+            // 수정일 기준으로 내림차순 정렬
+            savedFiles = savedFiles.OrderByDescending(info => info.LastModified).ToList();
+
+            // 정렬된 리스트에 따라 UI를 업데이트
+            foreach (SavedFileInfo fileInfo in savedFiles)
+            {
+                fileInfo.SavedFile.transform.SetSiblingIndex(savedFiles.IndexOf(fileInfo));
+            }
         }
 
-        // 수정일 기준으로 내림차순 정렬
-        savedFiles = savedFiles.OrderByDescending(info => info.LastModified).ToList();
-
-        // 정렬된 리스트에 따라 UI를 업데이트
-        foreach (SavedFileInfo fileInfo in savedFiles)
-        {
-            fileInfo.SavedFile.transform.SetSiblingIndex(savedFiles.IndexOf(fileInfo));
-        }
     }
 
     private void DisplayFiles(string path)
