@@ -9,10 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine.InputSystem;
+using System.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 public class SavedFileInfo
 {
-    public GameObject SavedFile { get; set; }
+    public GameObject GameObject { get; set; }
     public DateTime LastModified { get; set; }
 }
 
@@ -32,13 +34,14 @@ public class SavedFilesReader : MonoBehaviour
     public GameObject[] keyNumTabs;
     public TextMeshProUGUI notFoundText;
 
-    private List<SavedFileInfo> savedFiles = new();
-    private int currentKeyNumTabIdx = 0;
+    public bool isSavedFilesLoaded = false;
+
+    private List<SavedFileInfo>[] savedFiles = { new(), new(), new() };
+    private int currentTabIdx = 0;
     private InputActions inputActions;
 
     private InputAction nextKeyNumTabAction;
     private InputAction prevKeyNumTabAction;
-
 
     void Awake()
     {
@@ -67,34 +70,19 @@ public class SavedFilesReader : MonoBehaviour
         inputActions.Disable();
     }
 
-    public void ReadFiles()
-    {
-        ActivateKeyNumTab(currentKeyNumTabIdx);
-
-        int keyNum = currentKeyNumTabIdx + 4;
-        foreach (SavedFileInfo savedFileInfo in savedFiles)
-        {
-            Destroy(savedFileInfo.SavedFile);
-        }
-        savedFiles.Clear();
-
-        string basePath = $"{Application.persistentDataPath}/Sheet/{keyNum}"; // 탐색할 루트 경로 설정
-        DisplayDirectoryContents(basePath);
-    }
-
     public void OnClickFourKeyTab()
     {
-        currentKeyNumTabIdx = 0;
+        currentTabIdx = 0;
         ReadFiles();
     }
     public void OnClickFiveKeyTab()
     {
-        currentKeyNumTabIdx = 1;
+        currentTabIdx = 1;
         ReadFiles();
     }
     public void OnClickSixKeyTab()
     {
-        currentKeyNumTabIdx = 2;
+        currentTabIdx = 2;
         ReadFiles();
     }
 
@@ -102,8 +90,8 @@ public class SavedFilesReader : MonoBehaviour
     {
         if (!Keyboard.current.shiftKey.isPressed)
         {
-            if (++currentKeyNumTabIdx >= keyNumTabs.Length)
-                currentKeyNumTabIdx = 0;
+            if (++currentTabIdx >= keyNumTabs.Length)
+                currentTabIdx = 0;
 
             ReadFiles();
         }
@@ -112,12 +100,68 @@ public class SavedFilesReader : MonoBehaviour
     {
         if (Keyboard.current.shiftKey.isPressed)
         {
-            if (--currentKeyNumTabIdx < 0)
-                currentKeyNumTabIdx = keyNumTabs.Length - 1;
-
+            if (--currentTabIdx < 0)
+                currentTabIdx = keyNumTabs.Length - 1;
             ReadFiles();
         }
     }
+
+    public void ReadFiles()
+    {
+        ActivateKeyNumTab(currentTabIdx);
+        foreach (List<SavedFileInfo> SavedFiles in savedFiles)
+        {
+            foreach (SavedFileInfo SavedFile in SavedFiles)
+            {
+                SavedFile.GameObject.SetActive(false);
+            }
+        }
+
+        int keyNum = currentTabIdx + 4;
+        List<SavedFileInfo> currentTabFiles = savedFiles[currentTabIdx];
+
+        if (currentTabFiles.Count == 0)
+        {
+            notFoundText.gameObject.SetActive(true);
+        }
+        else
+        {
+            notFoundText.gameObject.SetActive(false);
+
+            // 수정일 기준으로 내림차순 정렬
+            currentTabFiles = currentTabFiles.OrderByDescending(info => info.LastModified).ToList();
+
+            // 정렬된 리스트에 따라 UI를 업데이트
+            foreach (SavedFileInfo savedFile in currentTabFiles)
+            {
+                savedFile.GameObject.transform.SetSiblingIndex(currentTabFiles.IndexOf(savedFile));
+                savedFile.GameObject.SetActive(true);
+            }
+        }
+    }
+
+    public async void PreloadSavedFilesAsync()
+    {
+        isSavedFilesLoaded = false;
+
+        foreach (List<SavedFileInfo> SavedFiles in savedFiles)
+        {
+            foreach (SavedFileInfo SavedFile in SavedFiles)
+            {
+                Destroy(SavedFile.GameObject);
+            }
+        }
+        savedFiles = new List<SavedFileInfo>[] { new(), new(), new() };
+
+        foreach (int keyNum in new int[] { 4, 5, 6 })
+        {
+            string basePath = $"{Application.persistentDataPath}/Sheet/{keyNum}"; // 탐색할 루트 경로 설정
+            await PreloadDirectoryContentsAsync(basePath, keyNum);
+        }
+
+        isSavedFilesLoaded = true;
+    }
+
     private void ActivateKeyNumTab(int keyNumTabIdx)
     {
         foreach (GameObject keyNumTab in keyNumTabs)
@@ -134,15 +178,7 @@ public class SavedFilesReader : MonoBehaviour
         currentTab.color = currentTabColor;
     }
 
-    public IEnumerator OnClickSavedFile(string path, string title)
-    {
-        yield return StartCoroutine(Parser.Instance.IEParseGameSheet(path, title));
-
-        SheetLoader.Instance.isLoadFinish = true;
-        GameManager.Instance.Title();
-    }
-
-    void DisplayDirectoryContents(string rootPath)
+    private async Task PreloadDirectoryContentsAsync(string rootPath, int keyNum)
     {
         if (!Directory.Exists(rootPath))
         {
@@ -150,115 +186,144 @@ public class SavedFilesReader : MonoBehaviour
         }
 
         string[] directories = Directory.GetDirectories(rootPath);
-
-        if (directories.Length == 0)
+        foreach (string directory in directories)
         {
-            notFoundText.gameObject.SetActive(true);
+            await PreloadFiles(directory, keyNum);
         }
-        else
-        {
-            notFoundText.gameObject.SetActive(false);
-
-            foreach (string directory in directories)
-            {
-                DisplayFiles(directory);
-            }
-
-            // 수정일 기준으로 내림차순 정렬
-            savedFiles = savedFiles.OrderByDescending(info => info.LastModified).ToList();
-
-            // 정렬된 리스트에 따라 UI를 업데이트
-            foreach (SavedFileInfo fileInfo in savedFiles)
-            {
-                fileInfo.SavedFile.transform.SetSiblingIndex(savedFiles.IndexOf(fileInfo));
-            }
-        }
-
     }
 
-    private void DisplayFiles(string path)
+    private async Task PreloadFiles(string path, int keyNum)
     {
+        string currentFolderName = Path.GetFileName(path);
         DateTime sheetLastModified = DateTime.MinValue;
 
         // 세이브 파일 UI 인스턴스화
         GameObject savedFile = Instantiate(saveFilesPrefab, contentPanel);
         Transform Panel = savedFile.transform.GetChild(0);
 
-        // 해당 경로의 모든 파일 로드
-        string[] files = Directory.GetFiles(path);
+        Image SavedThumbnail = Panel.GetChild(0).gameObject.GetComponent<Image>();
+        TextMeshProUGUI Title = Panel.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI LastModifiedText = Panel.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
 
-        foreach (string file in files)
+        Button loadFileBtn = Panel.GetComponent<Button>();
+        loadFileBtn.onClick.AddListener(() => StartCoroutine(OnClickSavedFile(path, currentFolderName)));
+
+        // S3 업로드 여부 체크
+        S3Uploader.Instance.CheckIfFileExists(currentFolderName, keyNum,
+            () =>
+            {
+                GameObject Uploaded = Panel.GetChild(4).gameObject;
+                Uploaded.SetActive(true);
+            },
+            () =>
+            {
+                GameObject Uploaded = Panel.GetChild(4).gameObject;
+                Uploaded.SetActive(false);
+            });
+
+        byte[] savedThumbnailBytes = { };
+        string title = currentFolderName;
+        string lastModifiedText = "";
+
+        await Task.Run(async () =>
         {
-            string fileName = Path.GetFileName(file);
-            string extension = Path.GetExtension(file);
+            // 해당 경로의 모든 파일 로드
+            string[] files = Directory.GetFiles(path);
 
-            if (extension == ".png")
+            foreach (string file in files)
             {
-                string savedFilePath = Path.Combine(path, fileName);
-                Image SavedThumbnail = Panel.GetChild(0).gameObject.GetComponent<Image>();
-
-                SavedThumbnail.sprite = Parser.Instance.LoadImageFromLocal(savedFilePath);
-            }
-            else if (extension == ".sheet")
-            {
-                sheetLastModified = File.GetLastWriteTime(file);
+                string fileName = Path.GetFileName(file);
                 string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                string extension = Path.GetExtension(file);
 
-                TextMeshProUGUI Title = Panel.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI LastModifiedText = Panel.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
-
-                Title.SetText(fileNameWithoutExtension);
-                LastModifiedText.SetText($"마지막 수정일:\n{sheetLastModified:g}");
-
-                Button fileButton = Panel.GetComponent<Button>();
-                fileButton.onClick.AddListener(() => StartCoroutine(OnClickSavedFile(path, fileNameWithoutExtension)));
-
-                // S3 업로드 여부 체크
-                S3Uploader.Instance.CheckIfFileExists(fileNameWithoutExtension, currentKeyNumTabIdx + 4,
-                    () =>
-                    {
-                        if (Panel == null) return;
-
-                        GameObject Uploaded = Panel.GetChild(4).gameObject;
-                        if (Uploaded != null)
-                            Uploaded.SetActive(true);
-                    },
-                    () =>
-                    {
-                        if (Panel == null) return;
-
-                        GameObject Uploaded = Panel.GetChild(4).gameObject;
-                        if (Uploaded != null)
-                            Uploaded.SetActive(false);
-                    });
+                if (extension == ".png")
+                {
+                    string savedFilePath = Path.Combine(path, fileName);
+                    savedThumbnailBytes = await Parser.Instance.LoadImageFromLocalAsync(savedFilePath).ConfigureAwait(false);
+                }
+                else if (extension == ".sheet")
+                {
+                    sheetLastModified = File.GetLastWriteTime(file);
+                    lastModifiedText = $"마지막 수정일:\n{sheetLastModified:g}";
+                }
             }
-        }
+        });
+
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(savedThumbnailBytes);
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        SavedThumbnail.sprite = sprite;
+
+        Title.SetText(title);
+        LastModifiedText.SetText(lastModifiedText);
+
+        SavedFileInfo savedFileInfo = new SavedFileInfo
+        {
+            GameObject = savedFile,
+            LastModified = sheetLastModified
+        };
 
         Button deleteButton = Panel.GetChild(3).gameObject.GetComponent<Button>();
         deleteButton.onClick.AddListener(() => ReconfirmDeleteSheet(path));
 
-        // 파일 정보를 객체에 추가
-        savedFiles.Add(new SavedFileInfo
-        {
-            SavedFile = savedFile,
-            LastModified = sheetLastModified
-        });
+        savedFiles[keyNum - 4].Add(savedFileInfo);
+    }
+
+    private IEnumerator OnClickSavedFile(string path, string title)
+    {
+        yield return StartCoroutine(Parser.Instance.IEParseGameSheet(path, title));
+
+        SheetLoader.Instance.isLoadFinish = true;
+        GameManager.Instance.Title();
     }
 
     private void ReconfirmDeleteSheet(string folderPath)
     {
-        PopupController.Instance.InitByScene("SelectSheet",
-            () => DeleteFolder(folderPath),
-            () => PopupController.Instance.SetActiveCanvas(false));
-        PopupController.Instance.SetActiveCanvas(true);
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Mouse.current.position.ReadValue()
+        };
+
+        var raycastResults = new List<RaycastResult>();
+
+        GraphicRaycaster raycaster = transform.GetComponent<GraphicRaycaster>();
+
+        raycaster.Raycast(pointerData, raycastResults);
+
+        if (raycastResults.Count > 0)
+        {
+            RaycastResult result = raycastResults[0];
+            GameObject clickedObject = result.gameObject;
+
+            Debug.Log("Clicked on UI element: " + clickedObject.name);
+
+            int fileIdx = clickedObject.transform.parent.parent.parent.GetSiblingIndex();
+            Debug.Log(fileIdx);
+
+            PopupController.Instance.InitByScene("SelectSheet",
+               () => DeleteFolder(folderPath, fileIdx),
+               () => PopupController.Instance.SetActiveCanvas(false));
+            PopupController.Instance.SetActiveCanvas(true);
+        }
     }
 
-    private void DeleteFolder(string folderPath)
+    private void DeleteFolder(string folderPath, int fileIdx)
     {
         if (Directory.Exists(folderPath))
         {
             Directory.Delete(folderPath, true);
             Debug.Log("Folder deleted successfully: " + folderPath);
+
+
+            List<SavedFileInfo> currentTabFiles = savedFiles[currentTabIdx];
+
+            foreach (SavedFileInfo file in currentTabFiles)
+            {
+                Debug.Log(file);
+            }
+
+            Destroy(currentTabFiles[fileIdx].GameObject);
+            currentTabFiles.RemoveAt(fileIdx);
 
             ReadFiles();
             PopupController.Instance.SetActiveCanvas(false);
