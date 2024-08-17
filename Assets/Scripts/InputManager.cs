@@ -25,8 +25,16 @@ public class InputManager : MonoBehaviour
             instance = this;
     }
 
+    public void Disable()
+    {
+        playerInput.enabled = false;
+    }
+
     public void SwitchActionMap(string canvasName)
     {
+        if (!playerInput.enabled)
+            playerInput.enabled = true;
+
         playerInput.SwitchCurrentActionMap(canvasName);
     }
 

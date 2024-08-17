@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using TMPro;
+using System.Collections;
 
 public class FileManager : MonoBehaviour
 {
@@ -36,7 +37,12 @@ public class FileManager : MonoBehaviour
         addSheetBtn.onClick.AddListener(OnAddSheetBtnClicked);
     }
 
-    void Init()
+    void OnEnable()
+    {
+        Init();
+    }
+
+    private void Init()
     {
         audioPath = null;
         titleInput.text = "";
@@ -47,7 +53,7 @@ public class FileManager : MonoBehaviour
         FindObjectOfType<ImageLoader>().Init();
     }
 
-    public void OnAddSheetBtnClicked()
+    private void OnAddSheetBtnClicked()
     {
         Regex myRegExp = new(@"^[1-9]\d?/[1-9]\d?$");
         if (!myRegExp.IsMatch(signatureInput.text)) return;
@@ -75,9 +81,7 @@ public class FileManager : MonoBehaviour
             signature = signature,
         };
 
-        SheetStorage.Instance.AddNewSheet(newSheet, thumbnail, audioPath);
-
-        Init();
+        StartCoroutine(SheetStorage.Instance.AddNewSheet(newSheet, thumbnail, audioPath));
         GameManager.Instance.SelectSheet();
     }
 }

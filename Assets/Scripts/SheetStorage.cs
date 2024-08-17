@@ -1,6 +1,8 @@
 #if !UNITY_WEBGL
 
+using System.Collections;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SheetStorage : MonoBehaviour
@@ -15,9 +17,8 @@ public class SheetStorage : MonoBehaviour
     }
 
     public string savedSheet;
-
+    public bool isNewSheetAdded = true;
     public readonly int[] keyNums = { 4, 5, 6 };
-
 
     private string localSaveFilePath;
 
@@ -39,16 +40,6 @@ public class SheetStorage : MonoBehaviour
         if (savedSheet != null)
             GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
     }
-
-    /*
-     * 저장
-        1) 노트 오브젝트 읽어서 y좌표 기반으로 시간 계산
-        BarPerSec / 16 * 노트y좌표 = 저장될 시간
-
-        롱노트의 경우
-        Head y좌표 = NoteLong의 y좌표
-        Tail y좌표 = NoteLong.y + tail.y가 최종좌표
-     */
 
     public string LoadSavedSheet(string filePath)
     {
@@ -104,10 +95,12 @@ public class SheetStorage : MonoBehaviour
         return isChangedEditedSheet;
     }
 
-    public void AddNewSheet(Sheet sheet, Sprite sprite, string audioPath)
+    public IEnumerator AddNewSheet(Sheet sheet, Sprite sprite, string audioPath)
     {
-        string title = sheet.title;
+        isNewSheetAdded = false;
+        yield return new WaitForSeconds(1f);
 
+        string title = sheet.title;
         foreach (int keyNum in keyNums)
         {
             if (!Directory.Exists($"{localSaveFilePath}/{keyNum}/{title}"))
@@ -122,6 +115,7 @@ public class SheetStorage : MonoBehaviour
             SaveMp3(audioPath, $"{localSaveFilePath}/{keyNum}/{title}/{title}.mp3");
         }
 
+        isNewSheetAdded = true;
         Debug.Log($"Sheet files saved successfully");
     }
 
