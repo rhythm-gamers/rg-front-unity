@@ -24,7 +24,7 @@ public class EditMouseController : MonoBehaviour
     {
         if (GameManager.Instance.state == GameManager.GameState.Edit)
         {
-            if (!GameManager.Instance.isPaused)
+            if (!GameManager.Instance.isPaused && GameManager.Instance.isPlaying)
             {
                 mousePos = Mouse.current.position.ReadValue();
             }
