@@ -47,10 +47,11 @@ public class AniPreset : MonoBehaviour
         signalDic[uiName] = true;
     }
 
-    public IEnumerator IEAniFade(CanvasGroup cg, bool on, float speed)
+    public IEnumerator IEAniFade(CanvasGroup cg, bool on, float speed, bool isLoaded)
     {
-        float time = 0f;
+        yield return new WaitUntil(() => isLoaded);
 
+        float time = 0f;
         if (on)
         {
             while (time < 1f)
