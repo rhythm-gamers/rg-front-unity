@@ -115,6 +115,7 @@ public class SheetStorage : MonoBehaviour
             SaveMp3(audioPath, $"{localSaveFilePath}/{keyNum}/{title}/{title}.mp3");
         }
 
+        SavedFilesReader.Instance.isFileChanged = true;
         isNewSheetAdded = true;
         Debug.Log($"Sheet files saved successfully");
     }

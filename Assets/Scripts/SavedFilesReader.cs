@@ -34,7 +34,8 @@ public class SavedFilesReader : MonoBehaviour
     public GameObject[] keyNumTabs;
     public TextMeshProUGUI notFoundText;
 
-    public bool isSavedFilesLoaded = false;
+    public bool isSavedFilesLoaded = true;
+    public bool isFileChanged = true;
 
     private List<SavedFileInfo>[] savedFiles = { new(), new(), new() };
     private int currentTabIdx = 0;
@@ -142,6 +143,8 @@ public class SavedFilesReader : MonoBehaviour
 
     public async void PreloadSavedFilesAsync()
     {
+        if (!isFileChanged) return;
+
         isSavedFilesLoaded = false;
 
         foreach (List<SavedFileInfo> SavedFiles in savedFiles)
@@ -159,6 +162,7 @@ public class SavedFilesReader : MonoBehaviour
             await PreloadDirectoryContentsAsync(basePath, keyNum);
         }
 
+        isFileChanged = false;
         isSavedFilesLoaded = true;
     }
 
