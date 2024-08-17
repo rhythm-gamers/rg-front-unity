@@ -95,11 +95,13 @@ public class GameManager : MonoBehaviour
 
     public void Description()
     {
+        InputManager.Instance.Disable();
         StartCoroutine(IEDescription());
     }
 
     public void Play()
     {
+        InputManager.Instance.Disable();
         StartCoroutine(IEInitPlay());
     }
 
@@ -284,24 +286,18 @@ public class GameManager : MonoBehaviour
         // 노트 생성 중지
         NoteGenerator.Instance.StopGen();
 
-        // Editor UI 끄기
+        // UI들 끄기
         canvases[(int)Canvas.Editor].SetActive(false);
-
-        // Title UI 끄기
         canvases[(int)Canvas.Title].SetActive(false);
-
-        // Result UI 끄기
         canvases[(int)Canvas.Result].SetActive(false);
-
-        // SelectSheet UI 끄기
         canvases[(int)Canvas.SelectSheet].SetActive(false);
+        canvases[(int)Canvas.WarningPopup].SetActive(false);
 
         // BGA 켜기
         canvases[(int)Canvas.GameBGA].SetActive(true);
 
         // Description UI 켜기
         canvases[(int)Canvas.Description].SetActive(true);
-        InputManager.Instance.SwitchActionMap("Description");
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
@@ -309,6 +305,8 @@ public class GameManager : MonoBehaviour
 
         // 새 게임을 시작할 수 있게 해줌
         isPlayable = true;
+
+        InputManager.Instance.SwitchActionMap("Description");
     }
 
     IEnumerator IEInitPlay()
@@ -437,32 +435,34 @@ public class GameManager : MonoBehaviour
 #if !UNITY_WEBGL
     public void EditorMenu()
     {
+        InputManager.Instance.Disable();
         StartCoroutine(IEEditorMenu());
     }
 
     public void WriteSheet()
     {
+        InputManager.Instance.Disable();
         StartCoroutine(IEWriteSheet());
-    }
-
-    public void OnClickSelectSheetMenu()
-    {
-        StartCoroutine(IESelectSheet());
     }
 
     public void SelectSheet()
     {
+        InputManager.Instance.Disable();
         StartCoroutine(IESelectSheet());
     }
 
     public void SelectSheet(InputAction.CallbackContext context)
     {
         if (context.started)
+        {
+            InputManager.Instance.Disable();
             StartCoroutine(IESelectSheet());
+        }
     }
 
     public void Edit()
     {
+        InputManager.Instance.Disable();
         StartCoroutine(IEEdit());
     }
 
@@ -491,11 +491,12 @@ public class GameManager : MonoBehaviour
 
         // Editor Menu UI 켜기
         canvases[(int)Canvas.EditorMenu].SetActive(true);
-        InputManager.Instance.SwitchActionMap("EditorMenu");
 
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
         canvases[(int)Canvas.SFX].SetActive(false);
+
+        InputManager.Instance.SwitchActionMap("EditorMenu");
     }
 
     IEnumerator IEWriteSheet()
@@ -505,6 +506,7 @@ public class GameManager : MonoBehaviour
 
         // WriteSheet UI 켜기
         canvases[(int)Canvas.WriteSheet].SetActive(true);
+
         InputManager.Instance.SwitchActionMap("WriteSheet");
         yield return null;
     }
@@ -515,21 +517,28 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.SFX].SetActive(true);
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, true, 3f));
 
+        yield return new WaitUntil(() => SheetStorage.Instance.isNewSheetAdded);
+
         // EditorMenu UI 끄기
         canvases[(int)Canvas.EditorMenu].SetActive(false);
         canvases[(int)Canvas.Description].SetActive(false);
         canvases[(int)Canvas.WriteSheet].SetActive(false);
 
-        // 저장된 파일 Read
-        SavedFilesReader.Instance.ReadFiles();
-
         // SelectSheet UI 켜기
         canvases[(int)Canvas.SelectSheet].SetActive(true);
-        InputManager.Instance.SwitchActionMap("SelectSheet");
+
+        // 저장된 파일 Preload
+        SavedFilesReader.Instance.PreloadSavedFilesAsync();
+
+        yield return new WaitUntil(() => SavedFilesReader.Instance.isSavedFilesLoaded);
+
+        SavedFilesReader.Instance.ReadFiles();
 
         // 화면 페이드 인
-        yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
+        yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f, SavedFilesReader.Instance.isSavedFilesLoaded));
         canvases[(int)Canvas.SFX].SetActive(false);
+
+        InputManager.Instance.SwitchActionMap("SelectSheet");
     }
 
     IEnumerator IEEdit()
@@ -566,12 +575,13 @@ public class GameManager : MonoBehaviour
         // Note 생성
         NoteGenerator.Instance.GenAll();
 
+        // Editor UI 켜기
+        canvases[(int)Canvas.Editor].SetActive(true);
+
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
         canvases[(int)Canvas.SFX].SetActive(false);
 
-        // Editor UI 켜기
-        canvases[(int)Canvas.Editor].SetActive(true);
         InputManager.Instance.SwitchActionMap("Editor");
     }
 #endif
