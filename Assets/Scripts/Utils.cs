@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Utils : MonoBehaviour
@@ -22,5 +24,14 @@ public class Utils : MonoBehaviour
         float barInterval = 16.0f; // == GridGenerator.Instance.barInterval
 
         return milliSec * (barInterval / barPerMilliSec);
+    }
+
+    public float CalculateStandardDeviationFromZero(List<int> values)
+    {
+        if (values.Count == 0) return 0f;
+
+        float sumOfSquaresOfDifferences = values.Select(val => val * val).Sum();
+        float variance = sumOfSquaresOfDifferences / values.Count;
+        return Mathf.Sqrt(variance);
     }
 }

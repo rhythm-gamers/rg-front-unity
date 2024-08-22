@@ -15,7 +15,7 @@ public struct ScoreData
     public Color[] judgeColor;
     public JudgeType judge;
     public int combo;
-    public int score
+    public int Score
     {
         get
         {
@@ -23,7 +23,7 @@ public struct ScoreData
         }
         set
         {
-            score = value;
+            Score = value;
         }
     }
 }
@@ -81,7 +81,7 @@ public class Score : MonoBehaviour
         uiJudgement.SetText(data.judgeText[(int)data.judge]);
         uiJudgement.SetColor(data.judgeColor[(int)data.judge]);
         uiCombo.SetText($"{data.combo}");
-        uiScore.SetText($"{data.score}");
+        uiScore.SetText($"{data.Score}");
 
         AniPreset.Instance.PlayPop(uiJudgement.Name, uiJudgement.rect);
         AniPreset.Instance.PlayPop(uiCombo.Name, uiCombo.rect);

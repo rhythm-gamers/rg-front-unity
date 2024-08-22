@@ -77,6 +77,9 @@ public class GameManager : MonoBehaviour
     }
     CanvasGroup sfxFade;
 
+    public Transform DeviationPanel;
+    public GameObject DeviationPointPrefab;
+
     void Awake()
     {
         if (instance == null)
@@ -399,35 +402,52 @@ public class GameManager : MonoBehaviour
         canvases[(int)Canvas.Pause].SetActive(false);
 
         canvases[(int)Canvas.Result].SetActive(true);
-        InputManager.Instance.SwitchActionMap("Result");
 
         // 노트 생성 중지
         NoteGenerator.Instance.StopGen();
 
-        UIText rscore = UIController.Instance.FindUI("UI_R_Score").uiObject as UIText;
-        UIText rrhythm = UIController.Instance.FindUI("UI_R_Rhythm").uiObject as UIText;
-        UIText rgreat = UIController.Instance.FindUI("UI_R_Great").uiObject as UIText;
-        UIText rgood = UIController.Instance.FindUI("UI_R_Good").uiObject as UIText;
-        UIText rfastmiss = UIController.Instance.FindUI("UI_R_FastMiss").uiObject as UIText;
-        UIText rtotalmiss = UIController.Instance.FindUI("UI_R_TotalMiss").uiObject as UIText;
-        UIText rslowmiss = UIController.Instance.FindUI("UI_R_SlowMiss").uiObject as UIText;
+        UIText ScoreUI = UIController.Instance.FindUI("UI_R_Score").uiObject as UIText;
+        UIText RhythmUI = UIController.Instance.FindUI("UI_R_Rhythm").uiObject as UIText;
+        UIText GreatUI = UIController.Instance.FindUI("UI_R_Great").uiObject as UIText;
+        UIText GoodUI = UIController.Instance.FindUI("UI_R_Good").uiObject as UIText;
+        UIText FastMissUI = UIController.Instance.FindUI("UI_R_FastMiss").uiObject as UIText;
+        UIText TotalMissUI = UIController.Instance.FindUI("UI_R_TotalMiss").uiObject as UIText;
+        UIText SlowMissUI = UIController.Instance.FindUI("UI_R_SlowMiss").uiObject as UIText;
+        UIText AccuracyUI = UIController.Instance.FindUI("UI_R_Accuracy").uiObject as UIText;
+        int judgedNoteLength = Judgement.Instance.GetJudgedNoteLength();
 
-        rscore.SetText(Score.Instance.data.score.ToString());
-        rrhythm.SetText(Score.Instance.data.rhythm.ToString());
-        rgreat.SetText(Score.Instance.data.great.ToString());
-        rgood.SetText(Score.Instance.data.good.ToString());
-        rfastmiss.SetText(Score.Instance.data.fastMiss.ToString());
-        rtotalmiss.SetText(Score.Instance.data.miss.ToString());
-        rslowmiss.SetText(Score.Instance.data.slowMiss.ToString());
+        ScoreUI.SetText(Score.Instance.data.Score.ToString());
+        RhythmUI.SetText(Score.Instance.data.rhythm.ToString());
+        GreatUI.SetText(Score.Instance.data.great.ToString());
+        GoodUI.SetText(Score.Instance.data.good.ToString());
+        FastMissUI.SetText(Score.Instance.data.fastMiss.ToString());
+        TotalMissUI.SetText(Score.Instance.data.miss.ToString());
+        SlowMissUI.SetText(Score.Instance.data.slowMiss.ToString());
+        AccuracyUI.SetText($"평균 오차 범위: ±{Judgement.Instance.StandardDeviation:F1}ms");
 
-        Debug.Log($"총 인식된 노트수: {Score.Instance.data.rhythm + Score.Instance.data.great + Score.Instance.data.good + Score.Instance.data.miss}");
+        Debug.Log($"총 인식된 노트수: {judgedNoteLength}");
 
         UIImage rBG = UIController.Instance.FindUI("UI_R_BG").uiObject as UIImage;
         rBG.SetSprite(sheet.img);
 
+        foreach (Transform child in DeviationPanel)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < judgedNoteLength; i++)
+        {
+            GameObject point = Instantiate(DeviationPointPrefab, DeviationPanel);
+            int inputTime = Judgement.Instance.GetInputTimeAt(i);
+            int judgeTime = Judgement.Instance.GetJudgeTimeAt(i);
+            point.transform.localPosition = new Vector3(inputTime * 1000 / (AudioManager.Instance.Length * 1000), judgeTime * 100 / 300);
+        }
+
         // 화면 페이드 인
         yield return StartCoroutine(AniPreset.Instance.IEAniFade(sfxFade, false, 3f));
         canvases[(int)Canvas.SFX].SetActive(false);
+
+        InputManager.Instance.SwitchActionMap("Result");
     }
 
 
