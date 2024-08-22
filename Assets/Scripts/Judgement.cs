@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum JudgeType
@@ -20,6 +21,30 @@ public class Judgement : MonoBehaviour
             return instance;
         }
     }
+
+    public float StandardDeviation
+    {
+        get
+        {
+            return Utils.Instance.CalculateStandardDeviationFromZero(judgeTimes);
+        }
+    }
+
+    private List<int> judgeTimes = new();
+    private List<int> inputTimes = new();
+    public int GetJudgedNoteLength()
+    {
+        return judgeTimes.Count;
+    }
+    public int GetJudgeTimeAt(int idx)
+    {
+        return judgeTimes[idx];
+    }
+    public int GetInputTimeAt(int idx)
+    {
+        return inputTimes[idx];
+    }
+
 
     readonly int miss = 300;
     readonly int good = 200;
@@ -90,6 +115,9 @@ public class Judgement : MonoBehaviour
         notes.Add(note4);
         notes.Add(note5);
         notes.Add(note6);
+
+        judgeTimes = new();
+        inputTimes = new();
     }
 
     public void StartMissCheck()
@@ -111,12 +139,12 @@ public class Judgement : MonoBehaviour
         if (!GameManager.Instance.isPlaying || notes[line].Count == 0) yield break;
 
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
-        float judgeOffsetFromUser = Sync.Instance.judgeOffsetFromUser;
+        int judgeOffsetFromUser = Sync.Instance.judgeOffsetFromUser;
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.time + WebGLAudioLatency + judgeOffsetFromUser;
+            int judgeTime = savedCurrentTime - note.time + judgeOffsetFromUser;
 
             if (IsMiss(judgeTime))
             {
@@ -128,6 +156,8 @@ public class Judgement : MonoBehaviour
                 {
                     HandleFastOrSlowMiss(judgeTime);
                 }
+                judgeTimes.Add(judgeTime);
+                inputTimes.Add(note.time);
                 Score.Instance.UpdateScore();
                 JudgeEffect.Instance.OnEffect(line);
                 HandleByNoteType(note.type, line);
@@ -141,15 +171,15 @@ public class Judgement : MonoBehaviour
         if (longNoteCheck[line] == 0) yield break;
         if (notes[line].Count == 0) yield break;
 
-        float judgeOffsetFromUser = Sync.Instance.judgeOffsetFromUser;
+        int judgeOffsetFromUser = Sync.Instance.judgeOffsetFromUser;
         int savedCurrentTime = (int)AudioManager.Instance.GetMilliSec();
 
         lock (dequeuingLock[line])
         {
             Note note = notes[line].Peek();
-            float judgeTime = savedCurrentTime - note.tail + WebGLAudioLatency + judgeOffsetFromUser;
+            int judgeTime = savedCurrentTime - note.tail + judgeOffsetFromUser;
 
-            bool IsOnLongNote = (savedCurrentTime >= note.time - miss + WebGLAudioLatency + judgeOffsetFromUser) && (savedCurrentTime <= note.tail + miss + WebGLAudioLatency + judgeOffsetFromUser);
+            bool IsOnLongNote = (savedCurrentTime >= note.time - miss + judgeOffsetFromUser) && (savedCurrentTime <= note.tail + miss + judgeOffsetFromUser);
             if (IsOnLongNote)
             {
                 if (IsOverGood(judgeTime))
@@ -160,6 +190,8 @@ public class Judgement : MonoBehaviour
                 {
                     HandleFastOrSlowMiss(judgeTime);
                 }
+                judgeTimes.Add(judgeTime);
+                inputTimes.Add(note.time);
                 Score.Instance.UpdateScore();
                 longNoteCheck[line] = 0;
                 notes[line].Dequeue();
@@ -258,6 +290,10 @@ public class Judgement : MonoBehaviour
                                 Score.Instance.data.miss += 2;
                                 Score.Instance.data.judge = JudgeType.Miss;
                                 Score.Instance.data.combo = 0;
+                                judgeTimes.Add(-miss);
+                                judgeTimes.Add(-miss);
+                                inputTimes.Add(note.time);
+                                inputTimes.Add(note.time);
 
                                 Score.Instance.UpdateScore();
                                 notes[i].Dequeue();
@@ -268,6 +304,8 @@ public class Judgement : MonoBehaviour
                             if (lastJudgeTime < -miss)
                             {
                                 Score.Instance.data.slowMiss++;
+                                judgeTimes.Add(-miss);
+                                inputTimes.Add(note.time);
                                 HandleMiss();
 
                                 Score.Instance.UpdateScore();
@@ -281,6 +319,8 @@ public class Judgement : MonoBehaviour
                         if (judgeTime < -miss)
                         {
                             Score.Instance.data.slowMiss++;
+                            judgeTimes.Add(-miss);
+                            inputTimes.Add(note.time);
                             HandleMiss();
 
                             Score.Instance.UpdateScore();

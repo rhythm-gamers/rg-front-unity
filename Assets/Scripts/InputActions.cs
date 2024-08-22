@@ -1151,6 +1151,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SlideToRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""3077398e-1c5f-4da6-b927-717f938c8bb9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SlideToLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6582679-9d7a-4352-bd33-e02341113991"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -1173,6 +1191,28 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85dada4b-940d-4a60-8360-38f7aba95f0e"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SlideToRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7d62080e-45d9-452e-abbc-011a93d10d57"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SlideToLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1263,6 +1303,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         // Result
         m_Result = asset.FindActionMap("Result", throwIfNotFound: true);
         m_Result_Enter = m_Result.FindAction("Enter", throwIfNotFound: true);
+        m_Result_SlideToRight = m_Result.FindAction("SlideToRight", throwIfNotFound: true);
+        m_Result_SlideToLeft = m_Result.FindAction("SlideToLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1891,11 +1933,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Result;
     private IResultActions m_ResultActionsCallbackInterface;
     private readonly InputAction m_Result_Enter;
+    private readonly InputAction m_Result_SlideToRight;
+    private readonly InputAction m_Result_SlideToLeft;
     public struct ResultActions
     {
         private @InputActions m_Wrapper;
         public ResultActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Enter => m_Wrapper.m_Result_Enter;
+        public InputAction @SlideToRight => m_Wrapper.m_Result_SlideToRight;
+        public InputAction @SlideToLeft => m_Wrapper.m_Result_SlideToLeft;
         public InputActionMap Get() { return m_Wrapper.m_Result; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1908,6 +1954,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Enter.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnEnter;
                 @Enter.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnEnter;
                 @Enter.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnEnter;
+                @SlideToRight.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSlideToRight;
+                @SlideToRight.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSlideToRight;
+                @SlideToRight.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSlideToRight;
+                @SlideToLeft.started -= m_Wrapper.m_ResultActionsCallbackInterface.OnSlideToLeft;
+                @SlideToLeft.performed -= m_Wrapper.m_ResultActionsCallbackInterface.OnSlideToLeft;
+                @SlideToLeft.canceled -= m_Wrapper.m_ResultActionsCallbackInterface.OnSlideToLeft;
             }
             m_Wrapper.m_ResultActionsCallbackInterface = instance;
             if (instance != null)
@@ -1915,6 +1967,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Enter.started += instance.OnEnter;
                 @Enter.performed += instance.OnEnter;
                 @Enter.canceled += instance.OnEnter;
+                @SlideToRight.started += instance.OnSlideToRight;
+                @SlideToRight.performed += instance.OnSlideToRight;
+                @SlideToRight.canceled += instance.OnSlideToRight;
+                @SlideToLeft.started += instance.OnSlideToLeft;
+                @SlideToLeft.performed += instance.OnSlideToLeft;
+                @SlideToLeft.canceled += instance.OnSlideToLeft;
             }
         }
     }
@@ -2001,5 +2059,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     public interface IResultActions
     {
         void OnEnter(InputAction.CallbackContext context);
+        void OnSlideToRight(InputAction.CallbackContext context);
+        void OnSlideToLeft(InputAction.CallbackContext context);
     }
 }
