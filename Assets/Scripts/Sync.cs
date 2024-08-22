@@ -80,11 +80,13 @@ public class Sync : MonoBehaviour
     public void SpeedDown()
     {
         GameManager.Instance.Speed -= 0.1f;
-        NoteGenerator.Instance.Interpolate();
 
         string speedToString = GameManager.Instance.Speed.ToString("0.0");
         inGameSpeedUI.SetText(speedToString);
         outGameSpeedUI.SetText(speedToString);
+
+        if (GameManager.Instance.isPlaying)
+            NoteGenerator.Instance.Interpolate();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             SetSpeed(speedToString);
@@ -94,11 +96,13 @@ public class Sync : MonoBehaviour
     public void SpeedUp()
     {
         GameManager.Instance.Speed += 0.1f;
-        NoteGenerator.Instance.Interpolate();
 
         string speedToString = GameManager.Instance.Speed.ToString("0.0");
         inGameSpeedUI.SetText(speedToString);
         outGameSpeedUI.SetText(speedToString);
+
+        if (GameManager.Instance.isPlaying)
+            NoteGenerator.Instance.Interpolate();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
             SetSpeed(speedToString);
