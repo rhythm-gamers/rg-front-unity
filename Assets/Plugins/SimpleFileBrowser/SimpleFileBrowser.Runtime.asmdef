@@ -1,18 +1,6 @@
-{
+﻿{
     "name": "SimpleFileBrowser.Runtime",
-    "rootNamespace": "",
     "references": [
         "Unity.InputSystem"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [
-        "WebGL"
-    ],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+    ]
 }
