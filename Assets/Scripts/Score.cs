@@ -1,15 +1,23 @@
 using System;
 using UnityEngine;
 
+public struct JudgeCategory
+{
+    public int Long;
+    public int Short;
+
+    // Fast 및 Slow는 Rhythm에는 적용되지 않음
+    public int Fast;
+    public int Slow;
+    public int Total { get { return Long + Short; } }
+}
 
 public struct ScoreData
 {
-    public int rhythm; // perfect
-    public int great;
-    public int good;
-    public int miss;
-    public int fastMiss; // 빨리 입력해서 미스
-    public int slowMiss; // 늦게 입력해서 미스
+    public JudgeCategory rhythm; // perfect
+    public JudgeCategory great;
+    public JudgeCategory good;
+    public JudgeCategory miss;
 
     public string[] judgeText;
     public Color[] judgeColor;
@@ -19,7 +27,7 @@ public struct ScoreData
     {
         get
         {
-            return (rhythm * 1000) + (great * 500) + (good * 200);
+            return (rhythm.Total * 1000) + (great.Total * 500) + (good.Total * 200);
         }
         set
         {
