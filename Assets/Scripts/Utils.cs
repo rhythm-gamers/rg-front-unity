@@ -26,12 +26,18 @@ public class Utils : MonoBehaviour
         return milliSec * (barInterval / barPerMilliSec);
     }
 
-    public float CalculateStandardDeviationFromZero(List<int> values)
+    public float CalculatePredictionInterval(List<int> values)
     {
-        if (values.Count == 0) return 0f;
+        float confidenceLevel = 1.96f; // 신뢰구간 95%
+        float average = (float)values.Average();
 
-        float sumOfSquaresOfDifferences = values.Select(val => val * val).Sum();
-        float variance = sumOfSquaresOfDifferences / values.Count;
-        return Mathf.Sqrt(variance);
+        float sumOfSquaresOfDifferences = values.Select(val => Mathf.Pow(val - average, 2)).Sum();
+        float standardDeviation = Mathf.Sqrt(sumOfSquaresOfDifferences / (values.Count - 1));
+        float variance = Mathf.Pow(standardDeviation, 2);
+
+        float standardError = standardDeviation / Mathf.Sqrt(values.Count);
+        float predictionInterval = confidenceLevel * Mathf.Sqrt(variance + standardError * standardError);
+
+        return predictionInterval;
     }
 }

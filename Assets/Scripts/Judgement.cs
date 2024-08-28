@@ -22,11 +22,19 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    public float StandardDeviation
+    public float Average
     {
         get
         {
-            return Utils.Instance.CalculateStandardDeviationFromZero(judgeTimes);
+            return judgeTimes.Any() ? (float)judgeTimes.Average() : 0f;
+        }
+    }
+
+    public float PredictionInterval
+    {
+        get
+        {
+            return judgeTimes.Any() ? Utils.Instance.CalculatePredictionInterval(judgeTimes) : 0f;
         }
     }
 
@@ -150,11 +158,11 @@ public class Judgement : MonoBehaviour
             {
                 if (IsOverGood(judgeTime))
                 {
-                    HandleOverGoodOnShort(judgeTime);
+                    HandleOverGoodOnShort(judgeTime, note.type);
                 }
                 else
                 {
-                    HandleFastOrSlowMiss(judgeTime);
+                    HandleFastOrSlowMiss(judgeTime, note.type);
                 }
                 judgeTimes.Add(judgeTime);
                 inputTimes.Add(note.time);
@@ -188,7 +196,7 @@ public class Judgement : MonoBehaviour
                 }
                 else
                 {
-                    HandleFastOrSlowMiss(judgeTime);
+                    HandleFastOrSlowMiss(judgeTime, note.type);
                 }
                 judgeTimes.Add(judgeTime);
                 inputTimes.Add(note.time);
@@ -199,21 +207,43 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    private void HandleOverGoodOnShort(float time)
+    private void HandleOverGoodOnShort(float time, int noteType)
     {
         if (time <= rhythm && time >= -rhythm)
         {
-            Score.Instance.data.rhythm++;
+            if (noteType == (int)NoteType.Short)
+                Score.Instance.data.rhythm.Short++;
+            else
+                Score.Instance.data.rhythm.Long++;
+
             Score.Instance.data.judge = JudgeType.Rhythm;
         }
         else if (time <= great && time >= -great)
         {
-            Score.Instance.data.great++;
+            if (noteType == (int)NoteType.Short)
+                Score.Instance.data.great.Short++;
+            else
+                Score.Instance.data.great.Long++;
+
+            if (time < 0)
+                Score.Instance.data.great.Fast++;
+            else
+                Score.Instance.data.great.Slow++;
+
             Score.Instance.data.judge = JudgeType.Great;
         }
         else if (time <= good && time >= -good)
         {
-            Score.Instance.data.good++;
+            if (noteType == (int)NoteType.Short)
+                Score.Instance.data.good.Short++;
+            else
+                Score.Instance.data.good.Long++;
+
+            if (time < 0)
+                Score.Instance.data.good.Fast++;
+            else
+                Score.Instance.data.good.Slow++;
+
             Score.Instance.data.judge = JudgeType.Good;
         }
         Score.Instance.data.combo++;
@@ -223,30 +253,34 @@ public class Judgement : MonoBehaviour
     {
         if (time <= great && time >= -great)
         {
-            Score.Instance.data.rhythm++;
+            Score.Instance.data.rhythm.Long++;
             Score.Instance.data.judge = JudgeType.Rhythm;
         }
         else if (time <= good && time >= -good)
         {
-            Score.Instance.data.great++;
+            if (time < 0)
+                Score.Instance.data.great.Fast++;
+            else
+                Score.Instance.data.great.Slow++;
+
+            Score.Instance.data.great.Long++;
             Score.Instance.data.judge = JudgeType.Great;
         }
         Score.Instance.data.combo++;
     }
 
-    private void HandleFastOrSlowMiss(float time)
+    private void HandleFastOrSlowMiss(float time, int noteType)
     {
-        if (time > 0)
-            Score.Instance.data.slowMiss++;
+        if (time < 0)
+            Score.Instance.data.miss.Fast++;
         else
-            Score.Instance.data.fastMiss++;
+            Score.Instance.data.miss.Slow++;
 
-        HandleMiss();
-    }
+        if (noteType == (int)NoteType.Short)
+            Score.Instance.data.miss.Short++;
+        else
+            Score.Instance.data.miss.Long++;
 
-    private void HandleMiss()
-    {
-        Score.Instance.data.miss++;
         Score.Instance.data.judge = JudgeType.Miss;
         Score.Instance.data.combo = 0;
     }
@@ -286,8 +320,8 @@ public class Judgement : MonoBehaviour
                         {
                             if (judgeTime < -miss)
                             {
-                                Score.Instance.data.slowMiss += 2;
-                                Score.Instance.data.miss += 2;
+                                Score.Instance.data.miss.Slow += 2;
+                                Score.Instance.data.miss.Long += 2;
                                 Score.Instance.data.judge = JudgeType.Miss;
                                 Score.Instance.data.combo = 0;
                                 judgeTimes.Add(-miss);
@@ -303,10 +337,9 @@ public class Judgement : MonoBehaviour
                         {
                             if (lastJudgeTime < -miss)
                             {
-                                Score.Instance.data.slowMiss++;
                                 judgeTimes.Add(-miss);
                                 inputTimes.Add(note.time);
-                                HandleMiss();
+                                HandleFastOrSlowMiss(-miss, note.type);
 
                                 Score.Instance.UpdateScore();
                                 notes[i].Dequeue();
@@ -318,10 +351,9 @@ public class Judgement : MonoBehaviour
                     {
                         if (judgeTime < -miss)
                         {
-                            Score.Instance.data.slowMiss++;
                             judgeTimes.Add(-miss);
                             inputTimes.Add(note.time);
-                            HandleMiss();
+                            HandleFastOrSlowMiss(-miss, note.type);
 
                             Score.Instance.UpdateScore();
                             notes[i].Dequeue();
