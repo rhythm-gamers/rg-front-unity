@@ -80,11 +80,17 @@ public class MusicLoader : MonoBehaviour
     public IEnumerator LoadMusic(string filePath)
     {
         AudioClip localClip = null;
+        FileManager.Instance.audioPath = filePath;
+
+#if UNITY_STANDALONE_OSX
+        filePath = "file://" + filePath;
+#endif
 
         yield return StartCoroutine(NetworkManager.Instance.GetAudioRequest(filePath,
                 data =>
                 {
                     localClip = data;
+                    audioSource.clip = localClip;
                 },
                 error =>
                 {
@@ -92,9 +98,6 @@ public class MusicLoader : MonoBehaviour
                 }
             ));
 
-        audioSource.clip = localClip;
-
-        FileManager.Instance.audioPath = filePath;
         yield return null;
     }
 }

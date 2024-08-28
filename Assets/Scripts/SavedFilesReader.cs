@@ -11,6 +11,7 @@ using System;
 using UnityEngine.InputSystem;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
+using System.Globalization;
 
 public class SavedFileInfo
 {
@@ -248,7 +249,7 @@ public class SavedFilesReader : MonoBehaviour
                 else if (extension == ".sheet")
                 {
                     sheetLastModified = File.GetLastWriteTime(file);
-                    lastModifiedText = $"마지막 수정일:\n{sheetLastModified:g}";
+                    lastModifiedText = $"마지막 수정일:\n{sheetLastModified.ToString("g", new CultureInfo("ko-KR"))}";
                 }
             }
         });
@@ -298,11 +299,7 @@ public class SavedFilesReader : MonoBehaviour
         {
             RaycastResult result = raycastResults[0];
             GameObject clickedObject = result.gameObject;
-
-            Debug.Log("Clicked on UI element: " + clickedObject.name);
-
             int fileIdx = clickedObject.transform.parent.parent.parent.GetSiblingIndex();
-            Debug.Log(fileIdx);
 
             PopupController.Instance.InitByScene("SelectSheet",
                () => DeleteFolder(folderPath, fileIdx),

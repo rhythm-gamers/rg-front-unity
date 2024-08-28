@@ -655,6 +655,39 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""05da9cdf-9b4b-466e-a031-c67f70992ed4"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e44d53b8-62d4-4d6f-af71-05631a9d1022"",
+                    ""path"": ""<Keyboard>/leftMeta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""077cf080-5730-4e35-8544-806bb1d03a78"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""d69a2043-8e43-47f8-b21c-708470f38be8"",
                     ""path"": ""<Keyboard>/space"",
@@ -669,6 +702,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""46271c35-1b9f-4306-baef-a3367c5fd734"",
                     ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ctrl"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd02833a-7353-4010-84be-98c1fb6552b2"",
+                    ""path"": ""<Keyboard>/leftMeta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

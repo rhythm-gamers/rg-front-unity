@@ -210,12 +210,14 @@ public class Parser : MonoBehaviour
 
     public IEnumerator IEGetSheet(string path, string title)
     {
+#if UNITY_STANDALONE_OSX
+        path = "file://" + path;
+#endif
         yield return StartCoroutine(NetworkManager.Instance.GetRequest($"{path}/{title}.sheet",
                 data =>
                 {
 #if !UNITY_WEBGL
-                    if (GameManager.Instance.state == GameManager.GameState.Edit)
-                        SheetStorage.Instance.savedSheet = data;
+                    SheetStorage.Instance.savedSheet = data;
 #endif
                     sheet = ParseSheet(data);
                 },
@@ -229,6 +231,9 @@ public class Parser : MonoBehaviour
 
     public IEnumerator IEGetClip(string path, string title)
     {
+#if UNITY_STANDALONE_OSX
+        path = "file://" + path;
+#endif
         yield return StartCoroutine(NetworkManager.Instance.GetAudioRequest($"{path}/{title}.mp3",
                 data =>
                 {
@@ -245,6 +250,9 @@ public class Parser : MonoBehaviour
 
     public IEnumerator IEGetImg(string path, string title)
     {
+#if UNITY_STANDALONE_OSX
+        path = "file://" + path;
+#endif
         yield return StartCoroutine(NetworkManager.Instance.GetImgRequest($"{path}/{title}.png",
                data =>
                {

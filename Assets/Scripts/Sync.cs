@@ -17,11 +17,6 @@ public class Sync : MonoBehaviour
 
     public GameObject judgeObjects;
 
-    UIText inGameSpeedUI;
-    UIText outGameSpeedUI;
-    UIText inGameOffsetUI;
-    UIText outGameOffsetUI;
-
     /// <summary>
     /// User에 의해 조정된 판정 타이밍
     /// </summary>
@@ -38,8 +33,6 @@ public class Sync : MonoBehaviour
 
     [DllImport("__Internal")]
     private static extern void SetSpeed(string speed);
-
-    private readonly float offsetInterval = 0.01f;
 
     void Awake()
     {
@@ -60,10 +53,8 @@ public class Sync : MonoBehaviour
     {
         yield return new WaitUntil(() => isJudgeOffsetInit && UIController.Instance.isInit);
 
-        inGameSpeedUI = UIController.Instance.GetUI("UI_G_Speed").uiObject as UIText;
-        outGameSpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
-        inGameOffsetUI = UIController.Instance.GetUI("UI_G_JudgeOffset").uiObject as UIText;
-        outGameOffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
+        UIText inGameOffsetUI = UIController.Instance.GetUI("UI_G_JudgeOffset").uiObject as UIText;
+        UIText outGameOffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
 
         GameObject note = Instantiate(notePrefab);
         float DiffFromNoteBtm = note.GetComponent<SpriteRenderer>().bounds.center.y;
@@ -79,6 +70,9 @@ public class Sync : MonoBehaviour
 
     public void SpeedDown()
     {
+        UIText inGameSpeedUI = UIController.Instance.GetUI("UI_G_Speed").uiObject as UIText;
+        UIText outGameSpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
+
         GameManager.Instance.Speed -= 0.1f;
 
         string speedToString = GameManager.Instance.Speed.ToString("0.0");
@@ -95,6 +89,9 @@ public class Sync : MonoBehaviour
 
     public void SpeedUp()
     {
+        UIText inGameSpeedUI = UIController.Instance.GetUI("UI_G_Speed").uiObject as UIText;
+        UIText outGameSpeedUI = UIController.Instance.GetUI("UI_D_Speed").uiObject as UIText;
+
         GameManager.Instance.Speed += 0.1f;
 
         string speedToString = GameManager.Instance.Speed.ToString("0.0");
@@ -111,8 +108,10 @@ public class Sync : MonoBehaviour
 
     public void JudgeOffsetDown()
     {
+        UIText inGameOffsetUI = UIController.Instance.GetUI("UI_G_JudgeOffset").uiObject as UIText;
+        UIText outGameOffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
+        
         if (judgeOffsetFromUser - 5 < -200) return;
-
         judgeOffsetFromUser -= 5;
         NoteGenerator.Instance.Interpolate();
 
@@ -126,8 +125,10 @@ public class Sync : MonoBehaviour
 
     public void JudgeOffsetUp()
     {
+        UIText inGameOffsetUI = UIController.Instance.GetUI("UI_G_JudgeOffset").uiObject as UIText;
+        UIText outGameOffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
+        
         if (judgeOffsetFromUser + 5 > 200) return;
-
         judgeOffsetFromUser += 5;
         NoteGenerator.Instance.Interpolate();
 
