@@ -126,7 +126,7 @@ public class GameResultController : MonoBehaviour
 
     private void InitJudgeTimelineGraph()
     {
-        UIText AccuracyUI = UIController.Instance.FindUI("UI_R_Accuracy").uiObject as UIText;
+        UIText PredictionIntervalUI = UIController.Instance.FindUI("UI_RA_PredictionInterval").uiObject as UIText;
         int judgedNoteLength = Judgement.Instance.GetJudgedNoteLength();
 
         foreach (Transform child in DeviationPanel)
@@ -142,7 +142,7 @@ public class GameResultController : MonoBehaviour
             point.transform.localPosition = new Vector3(inputTime * 1000 / (AudioManager.Instance.Length * 1000), judgeTime * 100 / 300);
         }
 
-        AccuracyUI.SetText($"평균 오차 범위: ±{Judgement.Instance.StandardDeviation:F1}ms");
+        PredictionIntervalUI.SetText($"예측 판정 범위: {Judgement.Instance.Average:F0}ms ±{Judgement.Instance.PredictionInterval:F0}ms");
 
     }
 

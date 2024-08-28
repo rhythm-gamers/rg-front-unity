@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum JudgeType
@@ -21,11 +22,19 @@ public class Judgement : MonoBehaviour
         }
     }
 
-    public float StandardDeviation
+    public float Average
     {
         get
         {
-            return Utils.Instance.CalculateStandardDeviationFromZero(judgeTimes);
+            return judgeTimes.Any() ? (float)judgeTimes.Average() : 0f;
+        }
+    }
+
+    public float PredictionInterval
+    {
+        get
+        {
+            return judgeTimes.Any() ? Utils.Instance.CalculatePredictionInterval(judgeTimes) : 0f;
         }
     }
 
