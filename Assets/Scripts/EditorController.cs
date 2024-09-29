@@ -15,6 +15,8 @@ public class EditorController : MonoBehaviour
         }
     }
 
+    public GameObject JudgeLine;
+
     public GameObject cursorPrefab;
     public GameObject cursorObj;
     public void SetActiveCursor(bool nextState)
@@ -264,6 +266,70 @@ public class EditorController : MonoBehaviour
             StopCoroutine(coCtrl);
         }
         coCtrl = StartCoroutine(IEWaitMouseWheel());
+    }
+
+    public RaycastHit2D? FindStartNoteByPress()
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(JudgeLine.transform.position, cam.transform.forward, 2f);
+        if (hits.Length == 0) return null;
+
+        RaycastHit2D closestHit = hits[0];
+        float minDiffY = Math.Abs(JudgeLine.transform.position.y - closestHit.collider.transform.position.y);  // The Y coordinate of the first hit
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            float diffY = Math.Abs(JudgeLine.transform.position.y - hit.collider.transform.position.y);
+            if (diffY < minDiffY)
+            {
+                closestHit = hit;
+                minDiffY = diffY;
+            }
+        }
+
+        return closestHit;
+    }
+    public void MakeShortNoteByPress(RaycastHit2D? startNote, int noteIdx)
+    {
+        if (startNote == null) return;
+
+        Vector3 startNotePos = new(NoteGenerator.Instance.linePos[noteIdx], startNote.Value.transform.position.y, -1f);
+        RaycastHit2D noteHit = Physics2D.Raycast(startNotePos, cam.transform.forward, 2f);
+        if (noteHit.transform.CompareTag("Note")) return;
+
+        NoteGenerator.Instance.DisposeNoteShort(startNotePos);
+    }
+    public void MakeLongNoteByPress(RaycastHit2D? startNote, int noteIdx)
+    {
+        if (startNote == null) return;
+
+        Vector3 startNotePos = new(NoteGenerator.Instance.linePos[noteIdx], startNote.Value.transform.position.y, -1f);
+        RaycastHit2D startNoteHit = Physics2D.Raycast(startNotePos, cam.transform.forward, 2f);
+        if (startNoteHit.transform.CompareTag("Note")) return;
+
+        longNoteMakingCount = 0;
+        NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount++, new Vector3[] { startNotePos, startNotePos });
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(JudgeLine.transform.position, cam.transform.forward, 2f);
+        if (hits.Length == 0) return;
+
+        RaycastHit2D closestHit = hits[0];
+        float minDiffY = Math.Abs(JudgeLine.transform.position.y - closestHit.collider.transform.position.y);  // The Y coordinate of the first hit
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            float diffY = Math.Abs(JudgeLine.transform.position.y - hit.collider.transform.position.y);
+            if (diffY < minDiffY)
+            {
+                closestHit = hit;
+                minDiffY = diffY;
+            }
+        }
+        Vector3 lastNotePos = new(NoteGenerator.Instance.linePos[noteIdx], closestHit.transform.position.y, -1f);
+        RaycastHit2D lastNoteHit = Physics2D.Raycast(lastNotePos, cam.transform.forward, 2f);
+        Debug.Log(startNote + " " + lastNotePos);
+
+        if (lastNoteHit.transform.CompareTag("Note")) return;
+        NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount--, new Vector3[] { startNotePos, lastNotePos });
     }
 
     IEnumerator IEWaitMouseWheel()

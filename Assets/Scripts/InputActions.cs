@@ -548,6 +548,60 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             ""id"": ""4ba04de7-1a16-4b62-8547-2a4d8f9f560b"",
             ""actions"": [
                 {
+                    ""name"": ""NoteLine0"",
+                    ""type"": ""Button"",
+                    ""id"": ""267f84eb-b586-4d61-b26e-4e4228d180c9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine1"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b87e96d-3c4d-4b17-811a-993a87a05c9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine2"",
+                    ""type"": ""Button"",
+                    ""id"": ""e86114ca-9647-4604-b64e-ffb53475179d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine3"",
+                    ""type"": ""Button"",
+                    ""id"": ""07e19434-11a0-4454-a42a-c018e60fd5b0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine4"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ac0431f-1057-427a-8704-a186aac22200"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NoteLine5"",
+                    ""type"": ""Button"",
+                    ""id"": ""31c43df1-e53a-4108-9a35-ffcf27e34a52"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Save"",
                     ""type"": ""Button"",
                     ""id"": ""e4685972-d117-47c7-bdea-21745dab985c"",
@@ -621,72 +675,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""ed375af5-e588-4e46-9639-38fbd7f311ea"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Save"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""e3d956f4-2cb9-4517-ae7e-facc360315f7"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Save"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""9c1186bb-190f-403b-9928-fd1f53cbab10"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Save"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""One Modifier"",
-                    ""id"": ""05da9cdf-9b4b-466e-a031-c67f70992ed4"",
-                    ""path"": ""OneModifier"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Save"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""e44d53b8-62d4-4d6f-af71-05631a9d1022"",
-                    ""path"": ""<Keyboard>/leftMeta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Save"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""binding"",
-                    ""id"": ""077cf080-5730-4e35-8544-806bb1d03a78"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Save"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
                 {
                     ""name"": """",
                     ""id"": ""d69a2043-8e43-47f8-b21c-708470f38be8"",
@@ -783,6 +771,138 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ESC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""334c0f84-9f96-46f7-bfca-cd4a3f4e6f3b"",
+                    ""path"": ""<Keyboard>/quote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71761d36-7c5f-4a81-a40d-86788e011bc4"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""ed375af5-e588-4e46-9639-38fbd7f311ea"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e3d956f4-2cb9-4517-ae7e-facc360315f7"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""9c1186bb-190f-403b-9928-fd1f53cbab10"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""05da9cdf-9b4b-466e-a031-c67f70992ed4"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""e44d53b8-62d4-4d6f-af71-05631a9d1022"",
+                    ""path"": ""<Keyboard>/leftMeta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""077cf080-5730-4e35-8544-806bb1d03a78"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd3937f7-aab2-45b8-a39d-b3939ebbc751"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cda609bf-dfd6-413a-9763-e0d9f95f2020"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84e24a01-4c3c-468d-aa31-e394c19acfb4"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1ab6aba-1269-4dd4-8be2-600591ff986d"",
+                    ""path"": ""<Keyboard>/semicolon"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NoteLine4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1312,6 +1432,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Description_ChangeGameMode = m_Description.FindAction("ChangeGameMode", throwIfNotFound: true);
         // Editor
         m_Editor = asset.FindActionMap("Editor", throwIfNotFound: true);
+        m_Editor_NoteLine0 = m_Editor.FindAction("NoteLine0", throwIfNotFound: true);
+        m_Editor_NoteLine1 = m_Editor.FindAction("NoteLine1", throwIfNotFound: true);
+        m_Editor_NoteLine2 = m_Editor.FindAction("NoteLine2", throwIfNotFound: true);
+        m_Editor_NoteLine3 = m_Editor.FindAction("NoteLine3", throwIfNotFound: true);
+        m_Editor_NoteLine4 = m_Editor.FindAction("NoteLine4", throwIfNotFound: true);
+        m_Editor_NoteLine5 = m_Editor.FindAction("NoteLine5", throwIfNotFound: true);
         m_Editor_Save = m_Editor.FindAction("Save", throwIfNotFound: true);
         m_Editor_Space = m_Editor.FindAction("Space", throwIfNotFound: true);
         m_Editor_Ctrl = m_Editor.FindAction("Ctrl", throwIfNotFound: true);
@@ -1668,6 +1794,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     // Editor
     private readonly InputActionMap m_Editor;
     private IEditorActions m_EditorActionsCallbackInterface;
+    private readonly InputAction m_Editor_NoteLine0;
+    private readonly InputAction m_Editor_NoteLine1;
+    private readonly InputAction m_Editor_NoteLine2;
+    private readonly InputAction m_Editor_NoteLine3;
+    private readonly InputAction m_Editor_NoteLine4;
+    private readonly InputAction m_Editor_NoteLine5;
     private readonly InputAction m_Editor_Save;
     private readonly InputAction m_Editor_Space;
     private readonly InputAction m_Editor_Ctrl;
@@ -1680,6 +1812,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         private @InputActions m_Wrapper;
         public EditorActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NoteLine0 => m_Wrapper.m_Editor_NoteLine0;
+        public InputAction @NoteLine1 => m_Wrapper.m_Editor_NoteLine1;
+        public InputAction @NoteLine2 => m_Wrapper.m_Editor_NoteLine2;
+        public InputAction @NoteLine3 => m_Wrapper.m_Editor_NoteLine3;
+        public InputAction @NoteLine4 => m_Wrapper.m_Editor_NoteLine4;
+        public InputAction @NoteLine5 => m_Wrapper.m_Editor_NoteLine5;
         public InputAction @Save => m_Wrapper.m_Editor_Save;
         public InputAction @Space => m_Wrapper.m_Editor_Space;
         public InputAction @Ctrl => m_Wrapper.m_Editor_Ctrl;
@@ -1697,6 +1835,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_EditorActionsCallbackInterface != null)
             {
+                @NoteLine0.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine0;
+                @NoteLine0.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine0;
+                @NoteLine0.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine0;
+                @NoteLine1.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine1;
+                @NoteLine1.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine1;
+                @NoteLine1.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine1;
+                @NoteLine2.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine2;
+                @NoteLine2.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine2;
+                @NoteLine2.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine2;
+                @NoteLine3.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine3;
+                @NoteLine3.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine3;
+                @NoteLine3.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine3;
+                @NoteLine4.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine4;
+                @NoteLine4.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine4;
+                @NoteLine4.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine4;
+                @NoteLine5.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine5;
+                @NoteLine5.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine5;
+                @NoteLine5.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnNoteLine5;
                 @Save.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
                 @Save.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
                 @Save.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnSave;
@@ -1725,6 +1881,24 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
             m_Wrapper.m_EditorActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @NoteLine0.started += instance.OnNoteLine0;
+                @NoteLine0.performed += instance.OnNoteLine0;
+                @NoteLine0.canceled += instance.OnNoteLine0;
+                @NoteLine1.started += instance.OnNoteLine1;
+                @NoteLine1.performed += instance.OnNoteLine1;
+                @NoteLine1.canceled += instance.OnNoteLine1;
+                @NoteLine2.started += instance.OnNoteLine2;
+                @NoteLine2.performed += instance.OnNoteLine2;
+                @NoteLine2.canceled += instance.OnNoteLine2;
+                @NoteLine3.started += instance.OnNoteLine3;
+                @NoteLine3.performed += instance.OnNoteLine3;
+                @NoteLine3.canceled += instance.OnNoteLine3;
+                @NoteLine4.started += instance.OnNoteLine4;
+                @NoteLine4.performed += instance.OnNoteLine4;
+                @NoteLine4.canceled += instance.OnNoteLine4;
+                @NoteLine5.started += instance.OnNoteLine5;
+                @NoteLine5.performed += instance.OnNoteLine5;
+                @NoteLine5.canceled += instance.OnNoteLine5;
                 @Save.started += instance.OnSave;
                 @Save.performed += instance.OnSave;
                 @Save.canceled += instance.OnSave;
@@ -2064,6 +2238,12 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     }
     public interface IEditorActions
     {
+        void OnNoteLine0(InputAction.CallbackContext context);
+        void OnNoteLine1(InputAction.CallbackContext context);
+        void OnNoteLine2(InputAction.CallbackContext context);
+        void OnNoteLine3(InputAction.CallbackContext context);
+        void OnNoteLine4(InputAction.CallbackContext context);
+        void OnNoteLine5(InputAction.CallbackContext context);
         void OnSave(InputAction.CallbackContext context);
         void OnSpace(InputAction.CallbackContext context);
         void OnCtrl(InputAction.CallbackContext context);
