@@ -15,6 +15,9 @@ public class InputManager : MonoBehaviour
     }
 
     public GameObject[] keyEffects = new GameObject[6];
+    private float[] startTimes = new float[6];
+    private RaycastHit2D?[] startNote = new RaycastHit2D?[6];
+
     public PlayerInput playerInput;
 
     private Coroutine intervalCoroutine;
@@ -62,91 +65,87 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    private void JudgeNote(InputAction.CallbackContext context, int noteIdx)
+    {
+        if (context.started)
+        {
+            StartCoroutine(Judgement.Instance.JudgeNote(noteIdx));
+            keyEffects[noteIdx].SetActive(true);
+        }
+        else if (context.canceled)
+        {
+            StartCoroutine(Judgement.Instance.CheckLongNote(noteIdx));
+            keyEffects[noteIdx].SetActive(false);
+        }
+    }
+    private void MakeNote(InputAction.CallbackContext context, int noteIdx)
+    {
+        if (context.started)
+        {
+            startNote[noteIdx] = EditorController.Instance.FindStartNoteByPress();
+            startTimes[noteIdx] = Time.time;
+            keyEffects[noteIdx].SetActive(true);
+        }
+        else if (context.canceled)
+        {
+            float duration = Time.time - startTimes[noteIdx];
+            if (duration < 0.2f)
+                EditorController.Instance.MakeShortNoteByPress(startNote[noteIdx], noteIdx);
+            else
+                EditorController.Instance.MakeLongNoteByPress(startNote[noteIdx], noteIdx);
+
+            keyEffects[noteIdx].SetActive(false);
+        }
+    }
 
 
     public void OnNoteLine0(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.sheet.keyNum >= 4)
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(0));
-                keyEffects[0].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(0));
-                keyEffects[0].SetActive(false);
-            }
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                JudgeNote(context, 0);
+            else
+                MakeNote(context, 0);
     }
     public void OnNoteLine1(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.sheet.keyNum >= 4)
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(1));
-                keyEffects[1].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(1));
-                keyEffects[1].SetActive(false);
-            }
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                JudgeNote(context, 1);
+            else
+                MakeNote(context, 1);
     }
     public void OnNoteLine2(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.sheet.keyNum >= 4)
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(2));
-                keyEffects[2].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(2));
-                keyEffects[2].SetActive(false);
-            }
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                JudgeNote(context, 2);
+            else
+                MakeNote(context, 2);
     }
     public void OnNoteLine3(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.sheet.keyNum >= 4)
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(3));
-                keyEffects[3].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(3));
-                keyEffects[3].SetActive(false);
-            }
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                JudgeNote(context, 3);
+            else
+                MakeNote(context, 3);
     }
     public void OnNoteLine4(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.sheet.keyNum >= 5)
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(4));
-                keyEffects[4].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(4));
-                keyEffects[4].SetActive(false);
-            }
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                JudgeNote(context, 4);
+            else
+                MakeNote(context, 4);
     }
     public void OnNoteLine5(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.sheet.keyNum >= 6)
-            if (context.started)
-            {
-                StartCoroutine(Judgement.Instance.JudgeNote(5));
-                keyEffects[5].SetActive(true);
-            }
-            else if (context.canceled)
-            {
-                StartCoroutine(Judgement.Instance.CheckLongNote(5));
-                keyEffects[5].SetActive(false);
-            }
+            if (GameManager.Instance.state == GameManager.GameState.Game)
+                JudgeNote(context, 5);
+            else
+                MakeNote(context, 5);
     }
 
     public void OnSpeedDown(InputAction.CallbackContext context)
