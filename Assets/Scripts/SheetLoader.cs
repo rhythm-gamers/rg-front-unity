@@ -28,6 +28,7 @@ public class SheetLoader : MonoBehaviour
     private IEnumerator IEWebGLLoadSheet(string sheetName, string keyNum)
     {
         yield return StartCoroutine(Parser.Instance.IEParseGameSheet($"{basePath}/Sheet/{keyNum}/{sheetName}", sheetName));
+        GameManager.Instance.sheet.keyNum = int.Parse(keyNum);
         isLoadFinish = true;
     }
 
@@ -39,9 +40,6 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
-#if UNITY_WEBGL && UNITY_EDITOR
-        WebGLLoadSheet("Grin,4");
-#endif
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
     }
 
