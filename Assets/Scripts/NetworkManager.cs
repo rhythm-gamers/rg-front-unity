@@ -36,6 +36,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
+
     public IEnumerator GetAudioRequest(string url, Action<AudioClip> onSuccess, Action<string> onError)
     {
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
@@ -51,6 +52,23 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator GetFileRequest(string url, Action<byte[]> onSuccess, Action<string> onError)
+    {
+        using (UnityWebRequest www = UnityWebRequest.Get(url))
+        {
+            yield return www.SendWebRequest();
+            if (www.result == UnityWebRequest.Result.Success)
+            {
+                onSuccess?.Invoke(www.downloadHandler.data);
+            }
+            else
+            {
+                onError?.Invoke(www.error);
+            }
+        }
+    }
+
     public IEnumerator GetImgRequest(string url, Action<Texture2D> onSuccess, Action<string> onError)
     {
         using (UnityWebRequest www = UnityWebRequestTexture.GetTexture(url))

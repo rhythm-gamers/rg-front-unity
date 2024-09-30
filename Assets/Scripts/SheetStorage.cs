@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class SheetStorage : MonoBehaviour
     }
 
     public string savedSheet;
+    public Sheet uploadedSheet;
+
     public bool isNewSheetAdded = true;
     public readonly int[] keyNums = { 4, 5, 6 };
 
@@ -41,21 +44,6 @@ public class SheetStorage : MonoBehaviour
             GameManager.Instance.sheet = Parser.Instance.ParseSheet(savedSheet);
     }
 
-    public string LoadSavedSheet(string filePath)
-    {
-        if (File.Exists(filePath))
-            return File.ReadAllText(filePath);
-        else
-            return null;
-    }
-
-    public void SaveNewSheet(Sheet sheet, string fullFilePath)
-    {
-        string sheetContent = Parser.Instance.StringifyNewSheet(sheet);
-
-        File.WriteAllText(fullFilePath, sheetContent);
-        Debug.Log($"New Sheet saved successfully at {fullFilePath}");
-    }
     public void SaveEditedSheet()
     {
         string title = GameManager.Instance.sheet.title;
@@ -67,25 +55,6 @@ public class SheetStorage : MonoBehaviour
 
         Editor.Instance.ShowProgressLog($"Sheet saved successfully at {fullFilePath}");
         Debug.Log($"Sheet saved successfully at {fullFilePath}");
-    }
-    private void SaveThumbnail(Sprite sprite, string fullFilePath)
-    {
-        Texture2D texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
-        texture.SetPixels(sprite.texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height));
-        texture.Apply();
-
-        byte[] pngData = texture.EncodeToPNG();
-        if (pngData != null)
-        {
-            File.WriteAllBytes(fullFilePath, pngData);
-            Debug.Log($"Thumbnail saved successfully at {fullFilePath}");
-        }
-    }
-    private void SaveMp3(string audioPath, string fullFilePath)
-    {
-        File.Copy(audioPath, fullFilePath, true);
-
-        Debug.Log($"Mp3 saved successfully at {fullFilePath}");
     }
 
     public bool CompareEditedSheet()
@@ -118,6 +87,19 @@ public class SheetStorage : MonoBehaviour
         SavedFilesReader.Instance.isFileChanged = true;
         isNewSheetAdded = true;
         Debug.Log($"Sheet files saved successfully");
+    }
+
+    public IEnumerator AddUploadedSheet(string path, string title, int keyNum)
+    {
+        string folderPath = $"{localSaveFilePath}/{keyNum}/{title}";
+        if (!Directory.Exists(folderPath))
+            Directory.CreateDirectory(folderPath);
+
+        yield return StartCoroutine(IESaveUploadedSheet(title, path, $"{folderPath}/{title}.sheet"));
+        yield return StartCoroutine(IESaveUploadedThumbnail(title, path, $"{folderPath}/{title}.png"));
+        yield return StartCoroutine(IESaveUploadedMp3(title, path, $"{folderPath}/{title}.mp3"));
+
+        SavedFilesReader.Instance.AddSavedFileAtTab(folderPath, keyNum);
     }
 
     public void Upload()
@@ -153,6 +135,87 @@ public class SheetStorage : MonoBehaviour
             Editor.Instance.ShowProgressLog("Error while downloading the sheet: " + e.Message);
             Debug.LogError("Error while downloading the sheet: " + e.Message);
         }
+    }
+
+    private string LoadSavedSheet(string filePath)
+    {
+        if (File.Exists(filePath))
+            return File.ReadAllText(filePath);
+        else
+            return null;
+    }
+    private void SaveNewSheet(Sheet sheet, string fullFilePath)
+    {
+        string sheetContent = Parser.Instance.StringifyNewSheet(sheet);
+
+        File.WriteAllText(fullFilePath, sheetContent);
+        Debug.Log($"New Sheet saved successfully at {fullFilePath}");
+    }
+    private void SaveThumbnail(Sprite sprite, string fullFilePath)
+    {
+        Texture2D texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
+        texture.SetPixels(sprite.texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height));
+        texture.Apply();
+
+        byte[] pngData = texture.EncodeToPNG();
+        if (pngData != null)
+        {
+            File.WriteAllBytes(fullFilePath, pngData);
+            Debug.Log($"Thumbnail saved successfully at {fullFilePath}");
+        }
+    }
+    private void SaveMp3(string audioPath, string fullFilePath)
+    {
+        File.Copy(audioPath, fullFilePath, true);
+
+        Debug.Log($"Mp3 saved successfully at {fullFilePath}");
+    }
+
+    private IEnumerator IESaveUploadedSheet(string title, string path, string localFilePath)
+    {
+        yield return StartCoroutine(NetworkManager.Instance.GetFileRequest($"{path}/{title}.sheet",
+                data =>
+                {
+                    string textFromBytes = Encoding.UTF8.GetString(data);
+                    File.WriteAllText(localFilePath, textFromBytes);
+                    Debug.Log($"New Sheet saved successfully at {localFilePath}");
+                },
+                error =>
+                {
+                    Debug.LogError($"Failed to download sheet: {error}");
+                }
+            )
+        );
+    }
+    private IEnumerator IESaveUploadedThumbnail(string title, string path, string localFilePath)
+    {
+        yield return StartCoroutine(NetworkManager.Instance.GetFileRequest($"{path}/{title}.png",
+               data =>
+               {
+                   File.WriteAllBytes(localFilePath, data);
+                   Debug.Log($"Thumbnail saved successfully at {localFilePath}");
+               },
+               error =>
+               {
+                   Debug.LogError($"Failed to download img: {error}");
+               }
+           )
+       );
+    }
+    private IEnumerator IESaveUploadedMp3(string title, string path, string localFilePath)
+    {
+        yield return StartCoroutine(NetworkManager.Instance.GetFileRequest($"{path}/{title}.mp3",
+                data =>
+                {
+                    File.WriteAllBytes(localFilePath, data);
+                    Debug.Log($"Mp3 saved successfully at {localFilePath}");
+                },
+                error =>
+                {
+                    Debug.LogError($"Failed to download clip: {error}");
+                }
+            )
+        );
     }
 }
 

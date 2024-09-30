@@ -208,7 +208,7 @@ public class Parser : MonoBehaviour
         return writer.TrimEnd('\r', '\n');
     }
 
-    public IEnumerator IEGetSheet(string path, string title)
+    private IEnumerator IEGetSheet(string path, string title)
     {
 #if UNITY_STANDALONE_OSX
         path = "file://" + path;
@@ -229,7 +229,7 @@ public class Parser : MonoBehaviour
         );
     }
 
-    public IEnumerator IEGetClip(string path, string title)
+    private IEnumerator IEGetClip(string path, string title)
     {
 #if UNITY_STANDALONE_OSX
         path = "file://" + path;
@@ -248,7 +248,7 @@ public class Parser : MonoBehaviour
         );
     }
 
-    public IEnumerator IEGetImg(string path, string title)
+    private IEnumerator IEGetImg(string path, string title)
     {
 #if UNITY_STANDALONE_OSX
         path = "file://" + path;
