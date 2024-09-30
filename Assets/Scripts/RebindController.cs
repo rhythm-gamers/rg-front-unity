@@ -111,6 +111,9 @@ public class RebindController : MonoBehaviour
             case 6:
                 StartCoroutine(IERebindNoteAction(noteLine, newKey));
                 break;
+            default:
+                Debug.LogError($"Error: keyNum is {GameManager.Instance.sheet.keyNum}");
+                break;
         }
     }
 

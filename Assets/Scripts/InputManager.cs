@@ -78,8 +78,10 @@ public class InputManager : MonoBehaviour
             keyEffects[noteIdx].SetActive(false);
         }
     }
+
     private void MakeNote(InputAction.CallbackContext context, int noteIdx)
     {
+#if !UNITY_WEBGL
         if (context.started)
         {
             startNote[noteIdx] = EditorController.Instance.FindStartNoteByPress();
@@ -96,8 +98,8 @@ public class InputManager : MonoBehaviour
 
             keyEffects[noteIdx].SetActive(false);
         }
+#endif
     }
-
 
     public void OnNoteLine0(InputAction.CallbackContext context)
     {
