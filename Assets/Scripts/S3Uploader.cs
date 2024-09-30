@@ -158,13 +158,9 @@ public class S3Uploader : MonoBehaviour
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
-        {
             onSuccess?.Invoke();
-        }
         else
-        {
             onFail?.Invoke();
-        }
     }
 
 

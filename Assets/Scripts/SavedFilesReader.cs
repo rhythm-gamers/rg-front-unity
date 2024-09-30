@@ -132,14 +132,50 @@ public class SavedFilesReader : MonoBehaviour
 
             // 수정일 기준으로 내림차순 정렬
             currentTabFiles = currentTabFiles.OrderByDescending(info => info.LastModified).ToList();
+            savedFiles[currentTabIdx] = currentTabFiles;
 
             // 정렬된 리스트에 따라 UI를 업데이트
-            foreach (SavedFileInfo savedFile in currentTabFiles)
+            for (int i = 0; i < currentTabFiles.Count; i++)
             {
-                savedFile.GameObject.transform.SetSiblingIndex(currentTabFiles.IndexOf(savedFile));
+                SavedFileInfo savedFile = currentTabFiles[i];
+                savedFile.GameObject.transform.SetSiblingIndex(i);
                 savedFile.GameObject.SetActive(true);
             }
         }
+    }
+
+    public async void AddSavedFileAtTab(string path, int keyNum)
+    {
+        string title = Path.GetFileName(path);
+        List<SavedFileInfo> currentTab = savedFiles[keyNum - 4];
+
+        SavedFileInfo TargetSavedFile = null;
+        foreach (SavedFileInfo SavedFile in currentTab)
+        {
+            Transform panel = SavedFile.GameObject.transform.GetChild(0);
+            string savedFileTitle = panel.GetChild(1).GetComponent<TextMeshProUGUI>().text;
+            if (savedFileTitle == title)
+            {
+                TargetSavedFile = SavedFile;
+                break;
+            }
+        }
+
+        if (TargetSavedFile == null)
+            await PreloadFiles(path, keyNum);
+        else
+        {
+            Transform panel = TargetSavedFile.GameObject.transform.GetChild(0);
+            TextMeshProUGUI SavedFileLastModified = panel.GetChild(2).GetComponent<TextMeshProUGUI>();
+
+            DateTime sheetLastModified = File.GetLastWriteTime($"{path}/{title}.sheet");
+            string lastModifiedText = $"마지막 수정일:\n{sheetLastModified.ToString("g", new CultureInfo("ko-KR"))}";
+
+            SavedFileLastModified.text = lastModifiedText;
+            TargetSavedFile.LastModified = sheetLastModified;
+        }
+
+        ReadFiles();
     }
 
     public async void PreloadSavedFilesAsync()
@@ -163,6 +199,7 @@ public class SavedFilesReader : MonoBehaviour
             await PreloadDirectoryContentsAsync(basePath, keyNum);
         }
 
+        ReadFiles();
         isFileChanged = false;
         isSavedFilesLoaded = true;
     }
@@ -315,16 +352,12 @@ public class SavedFilesReader : MonoBehaviour
             Directory.Delete(folderPath, true);
             Debug.Log("Folder deleted successfully: " + folderPath);
 
-
             List<SavedFileInfo> currentTabFiles = savedFiles[currentTabIdx];
-
-            foreach (SavedFileInfo file in currentTabFiles)
-            {
-                Debug.Log(file);
-            }
+            currentTabFiles = currentTabFiles.OrderByDescending(info => info.LastModified).ToList();
 
             Destroy(currentTabFiles[fileIdx].GameObject);
             currentTabFiles.RemoveAt(fileIdx);
+            savedFiles[currentTabIdx] = currentTabFiles;
 
             ReadFiles();
             PopupController.Instance.SetActiveCanvas(false);
