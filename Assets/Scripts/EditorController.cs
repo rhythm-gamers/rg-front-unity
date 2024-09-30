@@ -326,7 +326,6 @@ public class EditorController : MonoBehaviour
         }
         Vector3 lastNotePos = new(NoteGenerator.Instance.linePos[noteIdx], closestHit.transform.position.y, -1f);
         RaycastHit2D lastNoteHit = Physics2D.Raycast(lastNotePos, cam.transform.forward, 2f);
-        Debug.Log(startNote + " " + lastNotePos);
 
         if (lastNoteHit.transform.CompareTag("Note")) return;
         NoteGenerator.Instance.DisposeNoteLong(longNoteMakingCount--, new Vector3[] { startNotePos, lastNotePos });
