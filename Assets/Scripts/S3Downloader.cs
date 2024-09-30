@@ -5,70 +5,142 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Networking;
+using System.Xml.Linq;
 
 public class S3Downloader : MonoBehaviour
 {
+    public GameObject savedFileFromCloudPrefab;
+    public Transform contentPanel;
     public GameObject popupPanel;
+    public GameObject[] keyNumTabs;
+    public TextMeshProUGUI notFoundText;
 
-    public TMP_InputField titleInput;
-    public TextMeshProUGUI errorLog;
-    public Toggle[] checkboxes;
+    private List<string> filePathsAtKeyNum = new();
+    private List<GameObject> savedFilesFromCloud = new();
+    private List<string> selectedFilePaths = new();
 
     public void TogglePopup()
     {
-        popupPanel.SetActive(!popupPanel.activeSelf);
+        bool toggledState = !popupPanel.activeSelf;
+        popupPanel.SetActive(toggledState);
+
+        if (toggledState)
+            ActivateKeyNumTab(4);
+    }
+
+    public IEnumerator IESearchSheetWithKeyNum(int keyNum)
+    {
+        filePathsAtKeyNum = new();
+
+        string requestURL = $"{EnvManager.Instance.AWSGetAllUrl}?&prefix=Sheet/{keyNum}/&list-type=2&delimiter=/";
+        using UnityWebRequest www = UnityWebRequest.Get(requestURL);
+
+        yield return www.SendWebRequest();
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            XNamespace s3Namespace = "http://s3.amazonaws.com/doc/2006-03-01/";
+            string xmlContent = www.downloadHandler.text;
+            XDocument xmlDoc = XDocument.Parse(xmlContent);
+
+            foreach (XElement commonPrefix in xmlDoc.Descendants(s3Namespace + "CommonPrefixes"))
+            {
+                string prefixValue = commonPrefix.Element(s3Namespace + "Prefix").Value;
+                filePathsAtKeyNum.Add(prefixValue);
+            }
+        }
     }
 
     public void Download()
     {
-        StartCoroutine(IEDownload());
+        foreach (string path in selectedFilePaths)
+        {
+            int keyNum = int.Parse(path.Split("/")[1]);
+            string title = path.Split("/")[2];
+            string requestURL = $"{EnvManager.Instance.CloudfrontUrl}/Sheet/{keyNum}/{title}";
+
+            S3Uploader.Instance.CheckIfFileExists(title, keyNum,
+                () =>
+                {
+                    StartCoroutine(SheetStorage.Instance.AddUploadedSheet(requestURL, title, keyNum));
+                },
+                () => { }
+            );
+        }
+
+        if (selectedFilePaths.Count > 0)
+        {
+            selectedFilePaths = new();
+            TogglePopup();
+        }
     }
 
-    private IEnumerator IEDownload()
+    public void ActivateKeyNumTab(int keyNum)
     {
-        string trimmedTitle = titleInput.text.Trim();
-        if (trimmedTitle.Length == 0) yield break;
+        StartCoroutine(IEActivateKeyNumTab(keyNum));
+    }
 
-        bool isAllSuccess = true;
-        bool isAllFailed = true;
-        List<int> downloadFailedKeyNums = new();
 
-        int waitingRequests = 0;
-        for (int i = 0; i < checkboxes.Length; i++)
+
+    public void OnCheckboxValueChanged(bool isOn, string filePath)
+    {
+        if (isOn)
+            selectedFilePaths.Add(filePath);
+        else
         {
-            if (checkboxes[i].isOn)
-            {
-                int keyNum = 4 + i;
-                string path = $"{EnvManager.Instance.CloudfrontUrl}/Sheet/{keyNum}/{trimmedTitle}";
-                waitingRequests++;
+            int targetIdx = selectedFilePaths.IndexOf(filePath);
+            selectedFilePaths.RemoveAt(targetIdx);
+        }
+    }
 
-                S3Uploader.Instance.CheckIfFileExists(trimmedTitle, keyNum,
-                    () =>
-                    {
-                        StartCoroutine(SheetStorage.Instance.AddUploadedSheet(path, trimmedTitle, keyNum));
-                        isAllFailed = false;
-                        waitingRequests--;
-                    },
-                    () =>
-                    {
-                        downloadFailedKeyNums.Add(keyNum);
-                        isAllSuccess = false;
-                        waitingRequests--;
-                    }
-                );
+    private IEnumerator IEActivateKeyNumTab(int keyNum)
+    {
+        foreach (GameObject keyNumTab in keyNumTabs)
+        {
+            Image tab = keyNumTab.GetComponent<Image>();
+            Color tabColor = tab.color;
+            tabColor.a = 100f / 255f;
+            tab.color = tabColor;
+        }
+
+        Image currentTab = keyNumTabs[keyNum - 4].GetComponent<Image>();
+        Color currentTabColor = currentTab.color;
+        currentTabColor.a = 1;
+        currentTab.color = currentTabColor;
+
+        yield return StartCoroutine(IESearchSheetWithKeyNum(keyNum));
+
+        ReadFileNames();
+    }
+
+    private void ReadFileNames()
+    {
+        foreach (GameObject go in savedFilesFromCloud)
+        {
+            Destroy(go);
+        }
+
+        if (filePathsAtKeyNum.Count == 0)
+            notFoundText.gameObject.SetActive(true);
+        else
+        {
+            notFoundText.gameObject.SetActive(false);
+
+            foreach (string path in filePathsAtKeyNum)
+            {
+                string fileName = path.Split("/")[2];
+                GameObject savedFileFromCloud = Instantiate(savedFileFromCloudPrefab, contentPanel);
+
+                Toggle checkbox = savedFileFromCloud.transform.GetChild(0).GetChild(0).GetComponent<Toggle>();
+                TextMeshProUGUI fileNameUI = checkbox.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+                checkbox.isOn = selectedFilePaths.Contains(path);
+                fileNameUI.text = fileName;
+
+                checkbox.onValueChanged.AddListener((bool isOn) => OnCheckboxValueChanged(isOn, path));
+                savedFilesFromCloud.Add(savedFileFromCloud);
             }
         }
-        yield return new WaitUntil(() => waitingRequests == 0);
 
-        if (isAllSuccess)
-            errorLog.color = new Color(0f, 0f, 0f, 0f);
-        else if (isAllFailed)
-            errorLog.color = new Color(255 / 255f, 83 / 255f, 83 / 255f);
-        else
-            errorLog.color = new Color(249 / 255f, 217 / 217f, 35 / 255f);
-
-        downloadFailedKeyNums.Sort();
-        errorLog.text = $"{trimmedTitle}의 {string.Join(", ", downloadFailedKeyNums)}키 채보가 존재하지 않습니다.";
     }
 }
 
