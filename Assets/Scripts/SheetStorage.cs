@@ -153,8 +153,12 @@ public class SheetStorage : MonoBehaviour
     }
     private void SaveThumbnail(Sprite sprite, string fullFilePath)
     {
-        Texture2D texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
-        texture.SetPixels(sprite.texture.GetPixels((int)sprite.textureRect.x, (int)sprite.textureRect.y, (int)sprite.textureRect.width, (int)sprite.textureRect.height));
+        Texture2D texture = new Texture2D((int)sprite.textureRect.width, (int)sprite.textureRect.height);
+        texture.SetPixels(sprite.texture.GetPixels(
+            (int)sprite.textureRect.x,
+            (int)sprite.textureRect.y,
+            (int)sprite.textureRect.width,
+            (int)sprite.textureRect.height));
         texture.Apply();
 
         byte[] pngData = texture.EncodeToPNG();

@@ -139,7 +139,8 @@ public class GameResultController : MonoBehaviour
             GameObject point = Instantiate(DeviationPointPrefab, DeviationPanel);
             int inputTime = Judgement.Instance.GetInputTimeAt(i);
             int judgeTime = Judgement.Instance.GetJudgeTimeAt(i);
-            point.transform.localPosition = new Vector3(inputTime * 1000 / (AudioManager.Instance.Length * 1000), judgeTime * 100 / 300);
+            point.transform.localPosition = new Vector3(inputTime * 1200f / (AudioManager.Instance.Length * 1000f), judgeTime * 200f
+             / 600f);
         }
 
         PredictionIntervalUI.SetText($"예측 판정 범위: {Judgement.Instance.Average:F0}ms ±{Judgement.Instance.PredictionInterval:F0}ms");
