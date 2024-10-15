@@ -76,21 +76,21 @@ public class AniPreset : MonoBehaviour
 
     public IEnumerator IEAniMoveToTarget(RectTransform start, RectTransform dest, float speed)
     {
-        Vector3 v0 = start.anchoredPosition3D;
-        Vector3 v1 = dest.anchoredPosition3D;
-        Vector3 v2 = dest.anchoredPosition3D - v0;
+        Vector3 v0 = start.localPosition;
+        Vector3 v1 = dest.localPosition;
+        Vector3 v2 = v1 - v0;
 
         float time = 0f;
         while (time < 1f)
         {
-            start.anchoredPosition3D = v0 + v2 * time;
-            dest.anchoredPosition3D = v1 + v2 * time;
+            start.localPosition = v0 + v2 * time;
+            dest.localPosition = v1 + v2 * time;
 
             time += Time.deltaTime * speed;
             yield return null;
         }
-        start.anchoredPosition3D = v0 + v2;
-        dest.anchoredPosition3D = v1 + v2;
+        start.localPosition = v0 + v2;
+        dest.localPosition = v1 + v2;
     }
 
     public IEnumerator IETextPopup(UIText text, float duration)

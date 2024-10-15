@@ -290,6 +290,7 @@ public class EditorController : MonoBehaviour
     }
     public void MakeShortNoteByPress(RaycastHit2D? startNote, int noteIdx)
     {
+        if (isCtrl) return;
         if (startNote == null) return;
 
         Vector3 startNotePos = new(NoteGenerator.Instance.linePos[noteIdx], startNote.Value.transform.position.y, -1f);
@@ -300,6 +301,7 @@ public class EditorController : MonoBehaviour
     }
     public void MakeLongNoteByPress(RaycastHit2D? startNote, int noteIdx)
     {
+        if (isCtrl) return;
         if (startNote == null) return;
 
         Vector3 startNotePos = new(NoteGenerator.Instance.linePos[noteIdx], startNote.Value.transform.position.y, -1f);
@@ -333,6 +335,7 @@ public class EditorController : MonoBehaviour
 
     IEnumerator IEWaitMouseWheel()
     {
+        scrollValue = 0;
         while (isCtrl)
         {
             if (scrollValue > 0)

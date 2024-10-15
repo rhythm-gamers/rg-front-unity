@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlideAnimation : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class SlideAnimation : MonoBehaviour
     {
         currentIdx = 0;
         leftPanel.anchoredPosition = Vector2.zero;
-        rightPanel.anchoredPosition = new Vector2(canvas.rect.width, 0);
+        rightPanel.anchoredPosition = new Vector2(canvas.rect.x, 0);
     }
 
     public void SlideToRight()

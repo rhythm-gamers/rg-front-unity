@@ -83,7 +83,7 @@ public class Sync : MonoBehaviour
             NoteGenerator.Instance.Interpolate();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-            SetSpeed(speedToString);
+        SetSpeed(speedToString);
 #endif
     }
 
@@ -102,7 +102,7 @@ public class Sync : MonoBehaviour
             NoteGenerator.Instance.Interpolate();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
-            SetSpeed(speedToString);
+        SetSpeed(speedToString);
 #endif
     }
 
@@ -110,7 +110,7 @@ public class Sync : MonoBehaviour
     {
         UIText inGameOffsetUI = UIController.Instance.GetUI("UI_G_JudgeOffset").uiObject as UIText;
         UIText outGameOffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
-        
+
         if (judgeOffsetFromUser - 5 < -200) return;
         judgeOffsetFromUser -= 5;
         NoteGenerator.Instance.Interpolate();
@@ -127,7 +127,7 @@ public class Sync : MonoBehaviour
     {
         UIText inGameOffsetUI = UIController.Instance.GetUI("UI_G_JudgeOffset").uiObject as UIText;
         UIText outGameOffsetUI = UIController.Instance.GetUI("UI_D_JudgeOffset").uiObject as UIText;
-        
+
         if (judgeOffsetFromUser + 5 > 200) return;
         judgeOffsetFromUser += 5;
         NoteGenerator.Instance.Interpolate();

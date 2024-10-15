@@ -40,6 +40,9 @@ public class SheetLoader : MonoBehaviour
 
     public void Init()
     {
+#if UNITY_WEBGL && UNITY_EDITOR
+        WebGLLoadSheet("Grin,4");
+#endif
         InvokeRepeating(nameof(CheckElapsedTime), 0, 0.5f);
     }
 
