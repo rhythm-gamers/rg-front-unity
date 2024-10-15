@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class AudioManager : MonoBehaviour
     }
 
     public AudioSource audioSource;
+    [SerializeField] private AudioMixer audioMixer;
 
     public float Length
     {
@@ -50,6 +53,12 @@ public class AudioManager : MonoBehaviour
     public State state = State.Stop;
 
     private float SavedAudioTimeForWebGL { get; set; }
+
+    public void WebGLSetVolume(float volume)
+    {
+        float ClampedVolume = Mathf.Clamp(volume, 0.0001f, 1f);
+        audioMixer.SetFloat("Master", Mathf.Log10(ClampedVolume) * 20);
+    }
 
     void Awake()
     {

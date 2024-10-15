@@ -16,9 +16,7 @@ public class MusicLoader : MonoBehaviour
 
     void Start()
     {
-        // Set up the button click event
         loadButton.onClick.AddListener(OnLoadButtonClicked);
-        audioSource = GetComponent<AudioSource>();
     }
 
     public void Init()
