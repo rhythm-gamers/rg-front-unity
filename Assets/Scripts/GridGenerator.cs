@@ -20,7 +20,9 @@ public class GridGenerator : MonoBehaviour
     public int lineCount = 192; // 3배수 비트를 지원하기위해 64개가 아닌 192개의 라인 설정
     public int barCount;
 
+    private int originOffset = 0;
     private int gridOffsetUnit = 1; // 16비트 단위로 그리드를 움직임 (1 bar distance = 16)
+    private int gridOffset = 0;
 
     List<GameObject> gridList = new List<GameObject>();
 
@@ -36,6 +38,7 @@ public class GridGenerator : MonoBehaviour
         float gridOffset = Utils.Instance.MilliSecToBar(GameManager.Instance.sheet.offset);
 
         barCount = (int)(AudioManager.Instance.Length * 1000 / barPerMilliSec);
+        originOffset = GameManager.Instance.sheet.offset;
 
         if (gridList.Count < barCount)
         {
@@ -69,11 +72,12 @@ public class GridGenerator : MonoBehaviour
     {
         int offset = GameManager.Instance.sheet.offset;
         int barPerMilliSec = GameManager.Instance.sheet.BarPerMilliSec;
+        gridOffset += gridOffsetUnit;
 
-        if (offset >= AudioManager.Instance.Length * 1000)
-            GameManager.Instance.sheet.offset = (int)(AudioManager.Instance.Length * 1000);
+        if (offset >= AudioManager.Instance.Length * 1000f)
+            GameManager.Instance.sheet.offset = (int)(AudioManager.Instance.Length * 1000f);
         else
-            GameManager.Instance.sheet.offset += barPerMilliSec / barInterval;
+            GameManager.Instance.sheet.offset = originOffset + Mathf.RoundToInt(gridOffset * barPerMilliSec / barInterval);
 
         MoveGridOffset(gridOffsetUnit);
     }
@@ -82,11 +86,12 @@ public class GridGenerator : MonoBehaviour
     {
         int offset = GameManager.Instance.sheet.offset;
         int barPerMilliSec = GameManager.Instance.sheet.BarPerMilliSec;
+        gridOffset -= gridOffsetUnit;
 
-        if (offset <= 0)
+        if (offset < 0)
             GameManager.Instance.sheet.offset = 0;
         else
-            GameManager.Instance.sheet.offset -= barPerMilliSec / barInterval;
+            GameManager.Instance.sheet.offset = originOffset - Mathf.RoundToInt(gridOffset * barPerMilliSec / barInterval);
 
         MoveGridOffset(-gridOffsetUnit);
     }
