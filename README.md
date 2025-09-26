@@ -54,19 +54,19 @@ a, s, d, l, ;, ' - 5, 6키 조작키 (a, s, d, l, ;, ' - 5, 6key control key)<br
 마우스좌클릭 - 노트 배치 ( Mouse leftBtn - Dispose note )<br/>
 마우스우클릭 - 노트 삭제 ( Mouse rightBtn - Cancel note )<br/>
 마우스휠 - 음악 및 그리드 위치 이동 ( Mouse wheel - Move music and grids pos )<br/>
-컨트롤 + 마우스휠 - 4비트 ~ 64비트 그리드 스냅 변경 ( Ctrl + Mouse wheel - Change snap of grids )<br/>)
-컨트롤 + S - 로컬에 임시 저장 (Ctrl + S - Save File at local)
-0 - 게임모드로 플레이 중일 때, 플레이 강제 종료 (Stop game in game mode)
-1, 2 - 그리드 오프셋 변경 (1, 2 - Change grid offset)
+컨트롤 + 마우스휠 - 4비트 ~ 64비트 그리드 스냅 변경 ( Ctrl + Mouse wheel - Change snap of grids )<br/>
+컨트롤 + S - 로컬에 임시 저장 (Ctrl + S - Save File at local)<br/>
+0 - 게임모드로 플레이 중일 때, 플레이 강제 종료 (Stop game in game mode)<br/>
+1, 2 - 그리드 오프셋 변경 (1, 2 - Change grid offset)<br/>
 </br>
 
 ## 노트 생성 방식에 대해
-게임</br>
+### 게임</br>
 유니티 자체 ObjectPool을 활용하여 노트를 해당 시점에 필요한만큼 생성/해제.</br>
 생성은 마디단위로 이루어지고, 해제는 노트가 화면 밖으로 이탈(노트의 y좌표가 0보다 작으면)하면 해제.</br>
 생성되어있는 노트는 자신의 위치를 현재 노래 시간과 비교하여 지속적으로 재조정.
 </br>
-에디터</br>
+### 에디터</br>
 게임에서 사용하던 ObjectPool 시스템을 그대로 활용하나, 실행 시 노트를 한번에 전부 생성.</br>
 노트를 배치하면, ObjectPool이 현재 사용하지 않는 오브젝트를 재활용(ObjectPool.Get())하거나 새로 생성.</br>
 노트를 삭제하면, 해당 오브젝트를 바로 회수하지는 않고 비활성화(gameObject.SetActive(false)).</br>
